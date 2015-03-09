@@ -10,7 +10,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
 public class ShowInfo {
-	static void print_info(String Uri, Configuration conf) throws IOException {
+	static void print_info(String Uri, Configuration conf, String hostName) throws IOException {
 
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
@@ -21,7 +21,7 @@ public class ShowInfo {
 			System.out
 					.println("====================================================================================");
 			System.out
-					.println("==============================GlobalNamespace-Cluster===============================");
+					.println("===========================GlobalNamespace-Cluster:" + hostName + "============================");
 			System.out
 					.println("====================================================================================");
 
@@ -53,7 +53,7 @@ public class ShowInfo {
 			System.out
 					.println("====================================================================================");
 			System.out
-					.println("==============================GlobalNamespace-Cluster===============================");
+					.println("===========================GlobalNamespace-Cluster:" + hostName + "============================");
 			System.out
 					.println("====================================================================================");
 			System.out
@@ -85,4 +85,7 @@ public class ShowInfo {
 
 		}
 	}
+	
+	
+	
 }
