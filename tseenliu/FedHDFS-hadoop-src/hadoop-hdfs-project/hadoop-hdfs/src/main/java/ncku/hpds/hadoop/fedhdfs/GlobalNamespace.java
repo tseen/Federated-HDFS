@@ -55,6 +55,7 @@ public class GlobalNamespace {
 			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
 		}
 		
+		
 		/*DatanodeRegistration createBPRegistration(NamespaceInfo nsInfo) {
 		StorageInfo storageInfo = storage.getBPStorage(nsInfo.getBlockPoolID());
 		if (storageInfo == null) {
