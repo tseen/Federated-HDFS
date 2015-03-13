@@ -48,6 +48,13 @@ public class GlobalNamespace {
 					theElements.elementAt(i)));
 		}
 		
+		FetchFsimage.initialize();
+		for (int i = 0; i < args.length; i++) {
+			//FetchFsimage.initialize();
+			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
+			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
+		}
+		
 		/*DatanodeRegistration createBPRegistration(NamespaceInfo nsInfo) {
 		StorageInfo storageInfo = storage.getBPStorage(nsInfo.getBlockPoolID());
 		if (storageInfo == null) {
