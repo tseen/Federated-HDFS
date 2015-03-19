@@ -15,8 +15,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
-
-
 //import org.apache.hadoop.mapred.JobConf;
 
 public class FedHdfsConParser {
