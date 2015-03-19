@@ -1,133 +1,73 @@
-/*package ncku.hpds.hadoop.fedhdfs;
-
-import java.net.URI;
-import java.io.*;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.*;
-import org.apache.hadoop.io.*;
-
-
-public class SuperNamenode {
-
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		String uri1 = args[0];
-		String uri2 = args[1];
-		
-		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(URI.create(uri1), conf);
-		
-		FSDataInputStream in = null;
-		System.out.println("\n");
-		System.out.println("====================================================================================");
-		System.out.println("==============================GlobalNamespace-Cluter1===============================");
-		System.out.println("====================================================================================");
-		try {
-			in = fs.open(new Path(uri1));
-			IOUtils.copyBytes(in, System.out, 4096, false);
-
-		} catch (Exception e) {
-			IOUtils.closeStream(in);
-		}
-		
-		
-		System.out.println("\n");
-		System.out.println("====================================================================================");
-		System.out.println("==============================GlobalNamespace-Cluter2===============================");
-		System.out.println("====================================================================================");
-		try{
-			
-			Path dirPath = new Path(uri2);
-			FileStatus[] files = fs.listStatus(dirPath);			
-			
-			//FileSystem fs2 = FileSystem.get(URI.create(uri2), conf);
-			
-			System.out.println(files.length);
-			
-			for (int i=0;i<=files.length;i++){
-				FileStatus stat = files[i];
-			     
-				System.out.println(stat.getPath().getName());	
-			}
-			
-			
-		
-        }catch(Exception e){
-            System.out.println("File not found");
-        }
-		
-	}
-}*/
-
-
-
 package ncku.hpds.hadoop.fedhdfs;
 
-import java.net.URI;
-import java.io.*;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.*;
-import org.apache.hadoop.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.Vector;
+import java.util.concurrent.Callable;
 
+import org.apache.hadoop.conf.Configuration;
+import org.w3c.dom.Element;
 
 public class SuperNamenode {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		String uri = args[0];
-		String uri1 = args[1];
-	
 		
+		String[] uri = args;
+		Configuration[] conf = new Configuration[args.length];
+		
+		java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
+		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
+		Vector<Element> theElements = hdfsIpList.getElements();
 
-		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(URI.create(uri), conf);
-		FSDataInputStream in = null;
-		System.out.println("\n");
-		System.out.println("====================================================================================");
-		System.out.println("==============================GlobalNamespace-Cluter1===============================");
-		System.out.println("====================================================================================");
-		try {
-			in = fs.open(new Path(uri));
-			IOUtils.copyBytes(in, System.out, 4096, false);
-
-		} catch (Exception e) {
-			IOUtils.closeStream(in);
-		}
-		
-		
-		System.out.println("\n");
-		System.out.println("====================================================================================");
-		System.out.println("==============================GlobalNamespace-Cluter2===============================");
-		System.out.println("====================================================================================");
-		try{
-			Path dirPath = new Path(uri1);
-			FileStatus[] files = fs.listStatus(dirPath);
-			
-			/*for (int i=0;i<=files.length;i++){
-			 System.out.println(files[i].getPath().getName());
-			}*/
-			
-			for (FileStatus filelist : files)
-			{
-		     System.out.println(filelist.getPath().getName());
-			}
-			
-		} catch(Exception e){
-			IOUtils.closeStream(in);
-		}
-		
+		new Thread(new FetchFsimageRunnable()).start();
+		new Thread(new PrintRunnable()).start();
 	}
 }
 
+class PrintRunnable implements Runnable {
 
+	@Override
+	public void run() {
+		final Scanner in = new Scanner(System.in);
+		while (in.hasNext()) {
+			final String line = in.nextLine();
+			System.out.println("Input line: " + line);
+			if ("end".equalsIgnoreCase(line)) {
+				System.out.println("Ending one thread");
+				break;
+			}
+		}
+	}
 
+}
 
+class FetchFsimageRunnable implements Runnable {
 
- 
+	@Override
+	public void run() {
+		int i = 5;
+		while (i > 0) {
+			
+			System.out.println("download loading: " + i--);
 
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+				throw new IllegalStateException(ex);
+			}
+		}
+		System.out.println("!!!! FedHdfsFsImage download sucessful !!!!");
+		
+		/*FetchFsimage.initialize();
+		for (int i = 0; i < args.length; i++) {
+			//FetchFsimage.initialize();
+			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
+			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i))); */
+		
+		
+	}
 
-
-
- 
-
-
+}
