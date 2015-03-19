@@ -1,7 +1,9 @@
 package ncku.hpds.hadoop.fedhdfs;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Scanner;
 import java.util.Vector;
 
 import org.apache.hadoop.conf.Configuration;
@@ -16,25 +18,21 @@ import org.apache.hadoop.hdfs.server.common.HdfsServerConstants.StartupOption;
 import org.apache.hadoop.hdfs.server.namenode.*;
 import org.apache.hadoop.hdfs.server.protocol.*;
 import org.apache.hadoop.hdfs.DFSUtil;
-
 import org.w3c.dom.Element;
 
 public class GlobalNamespace {
 
 	public static void main(String[] args) throws Exception {
 
-		// NamespaceInfo nsInfo = new NamespaceInfo();
-		// nsInfo.getNamespaceID();
-
 		String[] uri = args;
-
-		Configuration[] conf = new Configuration[args.length];
+		
 
 		java.io.File path = new java.io.File("file.xml");
 		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
 		Vector<Element> theElements = hdfsIpList.getElements();
+		Configuration[] conf = new Configuration[theElements.size()];
 
-		for (int i = 0; i < args.length; i++) {
+		/*for (int i = 0; i < args.length; i++) {
 			conf[i] = new Configuration();
 			conf[i].set(
 					"fs.default.name",
@@ -43,33 +41,88 @@ public class GlobalNamespace {
 									theElements.elementAt(i)));
 		}
 
+		PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
 		for (int i = 0; i < args.length; i++) {
-			ShowInfo.print_info(uri[i], conf[i], FedHdfsConParser.getValue("HostName",
-					theElements.elementAt(i)));
-		}
-		
-		FetchFsimage.initialize();
-		for (int i = 0; i < args.length; i++) {
-			//FetchFsimage.initialize();
-			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
-			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
-		}
+			physicalDrive.addfsElementToArrayLists(uri[i], conf[i]);
+		}*/
 		
 		
-		/*DatanodeRegistration createBPRegistration(NamespaceInfo nsInfo) {
-		StorageInfo storageInfo = storage.getBPStorage(nsInfo.getBlockPoolID());
-		if (storageInfo == null) {
-			// it's null in the case of SimulatedDataSet
-			storageInfo = new StorageInfo(
-					DataNodeLayoutVersion.CURRENT_LAYOUT_VERSION,
-					nsInfo.getNamespaceID(), nsInfo.clusterID,
-					nsInfo.getCTime(), NodeType.DATA_NODE);
+		for (int i = 0; i < theElements.size(); i++) {
+			conf[i] = new Configuration();
+			conf[i].set(
+					"fs.default.name",
+					"hdfs://"
+							+ FedHdfsConParser.getValue("fs.default.name",
+									theElements.elementAt(i)));
 		}
 
-		String nsId = DFSUtil.getNamenodeNameServiceId(conf[0]);
-		String test = HAUtil.getNameNodeId(conf[0], nsId);
-		String clusterId = StartupOption.CLUSTERID.getClusterId();
-		clusterId = NNStorage.newClusterID();*/	
-
+		PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+		for (int i = 0; i < theElements.size(); i++) {
+			physicalDrive.addfsElementToArrayLists("/user/hpds", conf[i]);
+		}
+		//test.ShowAllfsElements();
+		
+		physicalDrive.updataPTable(theElements); //Important
+		
+		//physicalDrive.ShowHashTable();
+		
+		physicalDrive.ShowVectorSize();
+		
+		physicalDrive.ShowHashTableSize();
+		
+		physicalDrive.HashTableDownload();
+		
+		
+		
+		
+		
+		
+		
+		/*  DEMO TEST */
+		
+		/*final Scanner in = new Scanner(System.in);
+		System.out.println("Usage: [generic options]" );
+		System.out.println("[-ShowClustersNum]" );
+		System.out.println("[-ShowHashTableSize]" );
+		System.out.println("[-ShowHashTable]" );
+		System.out.println("[-CheckDirectory | Files]" );
+		System.out.println("[-CheckHostName]" );
+		System.out.print("Please Input arguments : " );
+		while (in.hasNext()) {
+			final String line = in.nextLine();
+			System.out.println("Please Input arguments : " );
+			
+			
+			if ("-ShowClustersNum".equalsIgnoreCase(line)){
+				System.out.println(" The ShowClustersNum is : " + physicalDrive.DShowVectorSize());
+			}
+			
+			if ("-ShowHashTableSize".equalsIgnoreCase(line)){
+				System.out.println(" The ShowHashTableSize is : " + physicalDrive.DShowHashTableSize());
+			}
+			
+			if ("-ShowHashTable".equalsIgnoreCase(line)){
+				System.out.println(physicalDrive.DShowHashTable().toString());
+			}
+			
+			if ("-CheckHostName".equalsIgnoreCase(line)){
+				System.out.println(" The Cluster is exist (Y/N) : " + physicalDrive.DgetAhostName(line.substring(15)));
+			}
+			
+			if ("-CheckDirectory | Files".equalsIgnoreCase(line)){
+				System.out.println(" The ShowHashTableSize is : " + physicalDrive.DcheckAclusterPaths(line.substring(24)));
+			}
+			
+			if ("end".equalsIgnoreCase(line)) {
+				System.out.println("Ending one thread");
+				break;
+			}
+			
+			else{
+				System.out.print("Please Input arguments : " );			
+			}
+			
+		}*/
+		
 	}
 }
