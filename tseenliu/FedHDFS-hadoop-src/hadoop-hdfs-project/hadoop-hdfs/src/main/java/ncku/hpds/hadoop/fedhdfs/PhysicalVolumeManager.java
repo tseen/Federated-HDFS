@@ -67,11 +67,11 @@ public class PhysicalVolumeManager {
 		//PhysicalMappingTable.put(fsElements.get(size), "1");
 	}
 	
-	public void ShowAllfsElements(){
+	public void showAllfsElements(){
 		System.out.println(fsElements);	
 	}
 	
-	public void ShowVectorSize(){
+	public void showVectorSize(){
 		int VectorSize = fsElements.size();
 		System.out.println("\n[INFO] Number of Federated Clusters : " + VectorSize);
 	}
@@ -82,7 +82,7 @@ public class PhysicalVolumeManager {
 		return VectorSize;
 	}
 	
-	public void ShowHashTableSize(){
+	public void showHashTableSize(){
 		int VectorSize = fsElements.size();
 		int HTelements = 0;
 		for (int i = 0; i < VectorSize; i++){
@@ -100,7 +100,7 @@ public class PhysicalVolumeManager {
 		return HTelements;
 	}
 	
-	public void ShowHashTable(){
+	public void showHashTable(){
 		System.out.println(PhysicalMappingTable.entrySet());
 	}
 	
@@ -132,7 +132,7 @@ public class PhysicalVolumeManager {
 		return PhysicalMappingTable.get(pathName);
 	}
 	
-	public void HashTableDownload(){
+	public void hashTableDownload(){
 		try{
 			//----------------------------declare for writing--------------------------
 			//We don't need "DataOutputStream"
@@ -192,6 +192,5 @@ public class PhysicalVolumeManager {
 	 }*/
 
 }
-
 
 
