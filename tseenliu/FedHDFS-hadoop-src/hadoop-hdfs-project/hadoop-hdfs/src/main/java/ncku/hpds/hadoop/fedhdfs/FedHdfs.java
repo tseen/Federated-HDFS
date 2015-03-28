@@ -74,10 +74,10 @@ class FetchFsimage {
 }
 
 class lsr {
-	public void printFilesRecursively(String Url) throws IOException {
+	static void printFilesRecursively(String Url, Configuration conf) throws IOException {
 		try {
 
-			Configuration conf = new Configuration();
+			conf = new Configuration();
 			FileSystem fs = FileSystem.get(conf);
 
 			// fs.initialize(new URI(Url), new Configuration());
@@ -86,7 +86,7 @@ class lsr {
 				if (status[i].isDirectory()) {
 					System.out
 							.println("Dir: " + status[i].getPath().toString());
-					printFilesRecursively(status[i].getPath().toString());
+					printFilesRecursively(status[i].getPath().toString(), conf);
 				} else {
 					try {
 						System.out.println("  file: "
@@ -197,7 +197,7 @@ public class FedHdfs {
 		// rc.printFilesRecursively(Path);conf
 		
 		String[] uri = args;
-		//Configuration[] conf = new Configuration[args.length];
+		String command = uri[0];
 		
 		java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
 		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
@@ -205,16 +205,6 @@ public class FedHdfs {
 		
 		Configuration[] conf = new Configuration[theElements.size()];
 		
-		//Setting fedHDFS conf.
-		/*for (int i = 0; i < args.length; i++) {
-			conf[i] = new Configuration();
-			conf[i].set(
-					"fs.default.name",
-					"hdfs://"
-							+ FedHdfsConParser.getValue("fs.default.name",
-									theElements.elementAt(i)));
-		}*/
-		
 		for (int i = 0; i < theElements.size(); i++) {
 			conf[i] = new Configuration();
 			conf[i].set(
@@ -224,26 +214,67 @@ public class FedHdfs {
 									theElements.elementAt(i)));
 		}
 		
-		
-		
-		for (int i = 0; i < theElements.size(); i++) {
-			if (uri[0].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-				fedls.print_info(uri[1], conf[i], FedHdfsConParser.getValue("HostName",
-						theElements.elementAt(i)));
-			}
+		if (command.equalsIgnoreCase("-ls")){
+			for (int i = 0; i < theElements.size(); i++) {
+    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
+    				fedls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
+    						theElements.elementAt(i)));
+    			}
+    		}
 		}
-
-		/*for (int i = 0; i < args.length; i++) {
-			fedls.print_info(uri[i], conf[i], FedHdfsConParser.getValue("HostName",
-					theElements.elementAt(i)));
-		}*/
-		
-		
-		FetchFsimage.initialize();
-		for (int i = 0; i < theElements.size(); i++) {
-			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
-			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
+		else if (command.equalsIgnoreCase("-lsr")) {
+			for (int i = 0; i < theElements.size(); i++) {
+    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
+    				lsr.printFilesRecursively(uri[2], conf[i]);	
+    			}
+    		}
 		}
+		else if (command.equalsIgnoreCase("-fetchFedImage")){
+			FetchFsimage.initialize();
+    		for (int i = 0; i < theElements.size(); i++) {
+    			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
+    			//FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
+    		}
+		}
+		else {
+			System.out.println("The general command line syntax is");
+			System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]");
+		}
+		
+	    /*switch (uri[0]) {
+	    	case "-ls":
+	    		for (int i = 0; i < theElements.size(); i++) {
+	    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
+	    				fedls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
+	    						theElements.elementAt(i)));
+	    			}
+	    		}
+	    		
+	    		//show all cluster hdfs list
+	    		for (int i = 0; i < args.length; i++) {
+	    			fedls.print_info(uri[i], conf[i], FedHdfsConParser.getValue("HostName",
+	    					theElements.elementAt(i)));
+	    		}
+	    		break;
+	    		
+	    	case "-lsr":
+	    		for (int i = 0; i < theElements.size(); i++) {
+	    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
+	    				lsr.printFilesRecursively(uri[2], conf[i]);	
+	    			}
+	    		}
+	    		break;
+	    		
+	    	case "-gn":
+	    		
+	    	case "-fetchFedImage":
+	    		FetchFsimage.initialize();
+	    		for (int i = 0; i < theElements.size(); i++) {
+	    			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
+	    			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
+	    		}
+	    		break;
+	    }*/	
 		
 	}
 
