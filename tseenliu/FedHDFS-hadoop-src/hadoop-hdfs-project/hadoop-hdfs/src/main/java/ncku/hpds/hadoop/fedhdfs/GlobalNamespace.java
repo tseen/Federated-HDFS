@@ -1,5 +1,6 @@
 package ncku.hpds.hadoop.fedhdfs;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,18 +22,18 @@ import org.apache.hadoop.hdfs.DFSUtil;
 import org.w3c.dom.Element;
 
 public class GlobalNamespace {
-
-	public static void main(String[] args) throws Exception {
-
-		String[] uri = args;
-		
-
-		java.io.File path = new java.io.File("file.xml");
-		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
-		Vector<Element> theElements = hdfsIpList.getElements();
-		Configuration[] conf = new Configuration[theElements.size()];
-
-		/*for (int i = 0; i < args.length; i++) {
+	
+	 private static java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
+	 private static FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
+	 private static Vector<Element> theElements = hdfsIpList.getElements();
+	 private static Configuration[] conf = new Configuration[theElements.size()];
+	 
+	 private static PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+	 private static LogicalVolumeManager test = new LogicalVolumeManager();
+	 
+	
+	public void setFedConf(){
+		for (int i = 0; i < theElements.size(); i++) {
 			conf[i] = new Configuration();
 			conf[i].set(
 					"fs.default.name",
@@ -40,13 +41,77 @@ public class GlobalNamespace {
 							+ FedHdfsConParser.getValue("fs.default.name",
 									theElements.elementAt(i)));
 		}
+	}
+	
+	public void DynamicConstructPD() throws IOException{
+		
+		//PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+		for (int i = 0; i < theElements.size(); i++) {
+			physicalDrive.addfsElementToArrayLists("/user/hpds", conf[i]);
+		}
+		physicalDrive.updataPTable(theElements); //Important
+		physicalDrive.hashTableDownload();
+	}
+	
+	public void UserDefinedVD(String logicalName, String hostName, String path) throws IOException{
+		
+		//LogicalVolumeManager test = new LogicalVolumeManager();
+		
+		//user defined 
+		/*String vp = "Bigdata";
+		String ppn = "c34";
+		String ppv = "/user/hpds/Folder";
+		
+		String vp1 = "BotnetData";
+		String ppn1 = "c05";
+		String ppv1 = "/user/hpds/Folder/data1";
+		
+		String vp2 = "BotnetData";
+		String ppn2 = "c34";
+		String ppv2 = "/user/hpds/Directory";
+		
+		String vp3 = "Bigdata";
+		String ppn3 = "c02";
+		String ppv3 = "/user/hpds/Folder1";
+		
+		String vp4 = "Bigdata";
+		String ppn4 = "c19";
+		String ppv4 = "/user/hpds/Folder/data";
+		
+		String vp5 = "Bigdata";
+		String ppn5 = "c34";
+		String ppv5 = "/user/hpds/Folder1";
+		
+		String vp6 = "BotnetData";
+		String ppn6 = "c07";
+		String ppv6 = "/user/hpds/Directory/afile/b.txt";
+		
+		test.addElementsToLTable(vp1, ppn1, ppv1);
+		test.addElementsToLTable(vp2, ppn2, ppv2);
+		test.addElementsToLTable(vp3, ppn3, ppv3);
+		test.addElementsToLTable(vp4, ppn4, ppv4);
+		test.addElementsToLTable(vp5, ppn5, ppv5);
+		test.addElementsToLTable(vp6, ppn6, ppv6);*/
+		
+		test.addElementsToLTable(logicalName, hostName, path);
+		
+		test.showHashTable();
+		test.hashTableDownload();
+	
+	}
+	
 
-		PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
-		for (int i = 0; i < args.length; i++) {
-			physicalDrive.addfsElementToArrayLists(uri[i], conf[i]);
-		}*/
+	
+	/*public static void main(String[] args) throws Exception {
+
+		String[] uri = args;
 		
-		
+
+		java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
+		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
+		Vector<Element> theElements = hdfsIpList.getElements();
+		Configuration[] conf = new Configuration[theElements.size()];
+
 		for (int i = 0; i < theElements.size(); i++) {
 			conf[i] = new Configuration();
 			conf[i].set(
@@ -122,7 +187,7 @@ public class GlobalNamespace {
 				System.out.print("Please Input arguments : " );			
 			}
 			
-		}*/
+		}
 		
-	}
+	}*/
 }
