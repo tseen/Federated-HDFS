@@ -1,11 +1,15 @@
 package ncku.hpds.hadoop.fedhdfs;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.URI;
 import java.sql.Timestamp;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -187,14 +191,40 @@ class fedls {
 	
 }
 
+class gn {	
+	private String SNaddress = "127.0.0.1";
+    private int SNport = 8765;
+    
+	public void logicalMapping(String logicalName, String Path) {
+		Socket client = new Socket();
+        InetSocketAddress isa = new InetSocketAddress(this.SNaddress, this.SNport);
+        try {
+            client.connect(isa, 10000);
+            BufferedOutputStream out = new BufferedOutputStream(client
+                    .getOutputStream());
+            // 送出字串
+	    //String test = "I LOVE U ! Katherine ~";
+	    String test = logicalName + " " + Path;
+            out.write(test.getBytes());
+            out.flush();
+            out.close();
+            out = null;
+            client.close();
+            client = null;
+ 
+        } catch (java.io.IOException e) {
+            System.out.println("Socket連線有問題 !");
+            System.out.println("IOException :" + e.toString());
+        }
+	    
+		 System.out.println("\nlogicalName : " + logicalName);
+	     System.out.println("host and path : " + Path + "\n");
+	}
+}
+
 public class FedHdfs {
 
 	public static void main(String[] args) throws Exception {
-		
-		/* lsr doing */
-		// String Path = args[0];
-		// Recursively rc = new Recursively();
-		// rc.printFilesRecursively(Path);conf
 		
 		String[] uri = args;
 		String command = uri[0];
@@ -215,6 +245,14 @@ public class FedHdfs {
 		}
 		
 		if (command.equalsIgnoreCase("-ls")){
+			
+			if (uri.length < 3) {
+				System.out.println("Usage: hadoop fedfs [generic options]");
+				System.out.println("        [-ls [hostName] [<path> ...]]\n");
+				
+				System.out.println("\nThe general command line syntax is");
+				System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
+			}
 			for (int i = 0; i < theElements.size(); i++) {
     			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
     				fedls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
@@ -223,6 +261,14 @@ public class FedHdfs {
     		}
 		}
 		else if (command.equalsIgnoreCase("-lsr")) {
+			
+			if (uri.length < 3) {
+				System.out.println("Usage: hadoop fedfs [generic options]");
+				System.out.println("        [-ls [hostName] [<path> ...]]\n");
+				
+				System.out.println("\nThe general command line syntax is");
+				System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
+			}
 			for (int i = 0; i < theElements.size(); i++) {
     			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
     				lsr.printFilesRecursively(uri[2], conf[i]);	
@@ -236,10 +282,37 @@ public class FedHdfs {
     			//FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
     		}
 		}
-		else {
-			System.out.println("The general command line syntax is");
-			System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]");
+		else if (command.equalsIgnoreCase("-gn")){
+			
+			if (uri.length < 3) {
+				System.out.println("Usage: hadoop fedfs [generic options]");
+				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+				
+				System.out.println("\nThe general command line syntax is");
+				System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
+			}
+			
+			gn test = new gn();
+			test.logicalMapping(uri[1], uri[2]);
+			
 		}
+		else {
+		
+			System.out.println("The general command line syntax is");
+			System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	    /*switch (uri[0]) {
 	    	case "-ls":
