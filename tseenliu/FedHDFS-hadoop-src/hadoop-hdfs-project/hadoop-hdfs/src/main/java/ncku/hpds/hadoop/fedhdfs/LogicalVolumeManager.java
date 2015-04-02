@@ -7,12 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.Map.Entry;
 
 public class LogicalVolumeManager {
 
 	private static HashMap<String, HashMap<String, String>> LogicalMappingTable = new HashMap<String, HashMap<String, String>>();
-
-	// private static HashMap<String, String> innerMap;
 
 	public void addElementsToLTable(String logicalName, String hostName,
 			String path) {
@@ -36,21 +36,35 @@ public class LogicalVolumeManager {
 			LogicalMappingTable.get(logicalName).put(hostName, path);
 		}
 
-		/*
-		 * if (innerMap == null){ innerMap = new HashMap<String, String>();
-		 * LogicalMappingTable.put(logicalName, innerMap); }
-		 * 
-		 * LogicalMappingTable.get(logicalName).put("c02",
-		 * "/user/hpds/Directory1");
-		 * 
-		 * innerMap.put(hostName, path); innerMap.put("c34",
-		 * "/user/hpds/Folder2/file.txt"); innerMap.put("c33",
-		 * "/user/hpds/Folder1"); innerMap.put("c02", "/user/hpds/Directory1");
-		 * innerMap.put("c09", "/user/hpds/Folder/Directory1");
-		 * innerMap.put("c13", "/user/hpds/Folder2/Directory2");
-		 * innerMap.put("c19", "/user/hpds/Folder3/Directory4");
-		 */
+	}
 
+	public void checkAlogicalFile(String logicalFile) {
+		System.out.println(LogicalMappingTable.containsKey(logicalFile));
+	}
+
+	public boolean DcheckAlogicalFile(String logicalFile) {
+		return LogicalMappingTable.containsKey(logicalFile);
+	}
+
+	public void checkAfedcluster(String logicalFile, String hostname) {
+		System.out.println(LogicalMappingTable.get(logicalFile).containsKey(
+				hostname));
+	}
+
+	public boolean DcheckAfedcluster(String logicalFile, String hostname) {
+		return LogicalMappingTable.get(logicalFile).containsKey(hostname);
+	}
+
+	public boolean checkAfedPhysicalPath(String logicalFile, String physicalPath) {
+		return LogicalMappingTable.get(logicalFile).containsValue(physicalPath);
+	}
+
+	public void showAfedPhysicalPath(String logicalFile, String hostname) {
+		System.out.println(LogicalMappingTable.get(logicalFile).get(hostname));
+	}
+
+	public Set<Entry<String, HashMap<String, String>>> DShowHashTable() {
+		return LogicalMappingTable.entrySet();
 	}
 
 	public void showHashTable() {
