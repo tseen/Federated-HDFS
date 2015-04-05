@@ -22,38 +22,38 @@ import java.util.*;
 
 public class PhysicalVolumeManager {
 	
-	private Vector<ArrayList<String>> fsElements = new Vector<ArrayList<String>>();
-	private ArrayList<String> tmpFsElement;
+	private Vector<ArrayList<String>> fsPathElements = new Vector<ArrayList<String>>();
+	private ArrayList<String> tmpFsPathElement;
 	private final HashMap<String, String> PhysicalMappingTable = new HashMap<String, String>();
 	
-	public void addfsElementToArrayLists(String Uri, Configuration conf) throws IOException {
-		tmpFsElement = new ArrayList<String>();
-		makefsElement(Uri, conf);
-		fsElements.addElement(tmpFsElement);
+	public void addfsPathElementToArrayLists(String Uri, Configuration conf) throws IOException {
+		tmpFsPathElement = new ArrayList<String>();
+		makefsPathElement(Uri, conf);
+		fsPathElements.addElement(tmpFsPathElement);
 	}
 	
-	private void makefsElement(String Uri, Configuration conf) throws IOException {
+	private void makefsPathElement(String Uri, Configuration conf) throws IOException {
 		FileSystem fs = FileSystem.get(conf);
 		FileStatus[] status = fs.listStatus(new Path(Uri));
 		
 		for (int i = 0; i < status.length; i++) {
 			if (status[i].isDirectory()) {
-				tmpFsElement.add(status[i].getPath().toString());
-				makefsElement(status[i].getPath().toString(), conf);
+				tmpFsPathElement.add(status[i].getPath().toString());
+				makefsPathElement(status[i].getPath().toString(), conf);
 			} else{
-				tmpFsElement.add(status[i].getPath().toString());
+				tmpFsPathElement.add(status[i].getPath().toString());
 			}
 		}
 	}
 	
-	public void updataPTable(Vector<Element> theElements){
-		int VectorSize = fsElements.size();
+	public void updataPhysicalTable(Vector<Element> theFedhdfsElements){
+		int VectorSize = fsPathElements.size();
 		//System.out.println("\nThe size of the VectorSize : " + VectorSize);
 		
 		for (int i = 0; i < VectorSize; i++){
-			for (int j = 0; j < fsElements.get(i).size(); j++){
-				PhysicalMappingTable.put(fsElements.get(i).get(j), FedHdfsConParser.getValue("HostName",
-						theElements.elementAt(i)));
+			for (int j = 0; j < fsPathElements.get(i).size(); j++){
+				PhysicalMappingTable.put(fsPathElements.get(i).get(j), FedHdfsConParser.getValue("HostName",
+						theFedhdfsElements.elementAt(i)));
 			}
 		}
 		
@@ -67,72 +67,76 @@ public class PhysicalVolumeManager {
 		//PhysicalMappingTable.put(fsElements.get(size), "1");
 	}
 	
-	public void showAllfsElements(){
-		System.out.println(fsElements);	
+	public Vector<ArrayList<String>> getFsPathElements() {
+		return fsPathElements;
 	}
 	
-	public void showVectorSize(){
-		int VectorSize = fsElements.size();
+	public void showAllPhysicalMapping(){
+		System.out.println(fsPathElements);	
+	}
+	
+	public void showFederatedClustersSize(){
+		int VectorSize = fsPathElements.size();
 		System.out.println("\n[INFO] Number of Federated Clusters : " + VectorSize);
 	}
 	
-	public int DShowVectorSize(){
-		int VectorSize = fsElements.size();
+	public int getFederatedClustersSize(){
+		int VectorSize = fsPathElements.size();
 		System.out.println("\nThe size of the VectorSize : " + VectorSize);
 		return VectorSize;
 	}
 	
-	public void showHashTableSize(){
-		int VectorSize = fsElements.size();
+	public void showTotalFedPathNum(){
+		int VectorSize = fsPathElements.size();
 		int HTelements = 0;
 		for (int i = 0; i < VectorSize; i++){
-			HTelements += fsElements.get(i).size();	
+			HTelements += fsPathElements.get(i).size();	
 			}
-		System.out.println("\n[INFO] Number of the HashTableElements : " + HTelements);
+		System.out.println("\n[INFO] Number of the Federated hdfs path : " + HTelements);
 	}
 	
-	public int DShowHashTableSize(){
-		int VectorSize = fsElements.size();
+	public int getTotalFedPathNum(){
+		int VectorSize = fsPathElements.size();
 		int HTelements = 0;
 		for (int i = 0; i < VectorSize; i++){
-			HTelements += fsElements.get(i).size();	
+			HTelements += fsPathElements.get(i).size();	
 			}
 		return HTelements;
 	}
 	
-	public void showHashTable(){
+	public void showPhysicalHashTable(){
 		System.out.println(PhysicalMappingTable.entrySet());
 	}
 	
-	public Set<Entry<String, String>> DShowHashTable(){
+	public Set<Entry<String, String>> getPhysicalHashTable(){
 		return PhysicalMappingTable.entrySet();
 	}
 	
-	public void checkAclusterPaths(String hostName){
+	public void ShowCheckAhostName(String hostName){
 		System.out.println(PhysicalMappingTable.containsValue(hostName));
 	}
 	
-	public boolean DcheckAclusterPaths(String hostName){
+	public boolean checkAPaths(String hostName){
 		return PhysicalMappingTable.containsValue(hostName);
 	}
 	
-	public void checkAhostName(String pathName){
+	public void checkAPath(String pathName){
 		System.out.println(PhysicalMappingTable.containsKey(pathName));
 	}
 	
-	public boolean DcheckAhostName(String pathName){
+	public boolean ShowCheckAPath(String pathName){
 		return PhysicalMappingTable.containsKey(pathName);
 	}
 	
-	public void getAhostName(String pathName){
+	public void showAhostName(String pathName){
 		System.out.println(PhysicalMappingTable.get(pathName));
 	}
 	
-	public String DgetAhostName(String pathName){
+	public String getAhostName(String pathName){
 		return PhysicalMappingTable.get(pathName);
 	}
 	
-	public void hashTableDownload(){
+	public void physicalMappingDownload(){
 		try{
 			//----------------------------declare for writing--------------------------
 			//We don't need "DataOutputStream"
@@ -153,7 +157,7 @@ public class PhysicalVolumeManager {
 			System.err.println("Error: " + e.getMessage());
 		}
 		
-		System.out.println("\n[INFO] Physical Table download successful .");
+		System.out.println("\n[INFO] Physical Table download successful.");
 	} 
 	
 	
