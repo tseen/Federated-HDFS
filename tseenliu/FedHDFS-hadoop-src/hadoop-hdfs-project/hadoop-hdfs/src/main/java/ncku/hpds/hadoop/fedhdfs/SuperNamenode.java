@@ -84,7 +84,7 @@ class ReadUserDefinedLT implements Runnable {
                 System.out.println("HostName is : " + subSplit[0]);
                 System.out.println("Physical Path is : " + subSplit[1]);
                 
-                GN.UserDefinedVD(split[0], subSplit[0], subSplit[1]);
+                GN.UserConstructLD(split[0], subSplit[0], subSplit[1]);
  
             } catch (java.io.IOException e) {
                 System.out.println("Socket connection error!");
@@ -135,9 +135,6 @@ class GlobalNamespaceRunnable implements Runnable {
 				GN.setFedConf();
 				GN.DynamicConstructPD();
 				System.out.println("!!!! PHashTable download sucessful !!!!");
-				
-				//GN1.createVDrive();
-				//System.out.println("!!!! LHashTable download sucessful !!!!");
 			}
 			
 		}catch(InterruptedException e){	
