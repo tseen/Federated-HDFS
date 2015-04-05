@@ -23,46 +23,45 @@ import org.w3c.dom.Element;
 
 public class GlobalNamespace {
 	
-	 private static java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
-	 private static FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
-	 private static Vector<Element> theElements = hdfsIpList.getElements();
-	 private static Configuration[] conf = new Configuration[theElements.size()];
+	 private static java.io.File FedConfpath = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
+	 private static FedHdfsConParser FedhdfsConfList = new FedHdfsConParser(FedConfpath);
+	 private static Vector<Element> theFedhdfsElements = FedhdfsConfList.getElements();
+	 private static Configuration[] conf = new Configuration[theFedhdfsElements.size()];
 	 
-	 //private static PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
-	 private static LogicalVolumeManager test = new LogicalVolumeManager();
+	 private static PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+	 private static LogicalVolumeManager logicalDrive = new LogicalVolumeManager();
 	 
 	
 	public void setFedConf(){
-		for (int i = 0; i < theElements.size(); i++) {
+		for (int i = 0; i < theFedhdfsElements.size(); i++) {
 			conf[i] = new Configuration();
 			conf[i].set(
 					"fs.default.name",
 					"hdfs://"
 							+ FedHdfsConParser.getValue("fs.default.name",
-									theElements.elementAt(i)));
+									theFedhdfsElements.elementAt(i)));
 		}
 	}
 	
 	public void DynamicConstructPD() throws IOException{
 		
-		PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
-		for (int i = 0; i < theElements.size(); i++) {
-			physicalDrive.addfsElementToArrayLists("/user/hpds", conf[i]);
+		//PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+		for (int i = 0; i < theFedhdfsElements.size(); i++) {
+			physicalDrive.addfsPathElementToArrayLists("/user/hpds", conf[i]);
 		}
-		physicalDrive.updataPTable(theElements); //Important
-		physicalDrive.hashTableDownload();
+		physicalDrive.updataPhysicalTable(theFedhdfsElements); //construct a physical mapping
+		physicalDrive.physicalMappingDownload();
+		physicalDrive.getFsPathElements().clear();
 	}
 	
-	public void UserDefinedVD(String logicalName, String hostName, String path) throws IOException{
+	public void UserConstructLD(String globalFileName, String hostName, String path) throws IOException{
 		
 		//LogicalVolumeManager test = new LogicalVolumeManager();
-		test.addElementsToLTable(logicalName, hostName, path);
-		test.showHashTable();
-		test.hashTableDownload();
+		logicalDrive.putLogicalTable(globalFileName, hostName, path);
+		logicalDrive.showLogicalHashTable();
+		logicalDrive.logicalMappingDownload();
 	
 	}
-	
-
 	
 	/*public static void main(String[] args) throws Exception {
 
