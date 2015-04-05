@@ -14,64 +14,64 @@ public class LogicalVolumeManager {
 
 	private static HashMap<String, HashMap<String, String>> LogicalMappingTable = new HashMap<String, HashMap<String, String>>();
 
-	public void addElementsToLTable(String logicalName, String hostName,
+	public void putLogicalTable(String globalFileName, String hostName,
 			String path) {
 
-		if (LogicalMappingTable.containsKey(logicalName)) {
+		if (LogicalMappingTable.containsKey(globalFileName)) {
 
-			while (LogicalMappingTable.get(logicalName).containsKey(hostName)) {
-				LogicalMappingTable.get(logicalName).remove(hostName);
+			while (LogicalMappingTable.get(globalFileName).containsKey(hostName)) {
+				LogicalMappingTable.get(globalFileName).remove(hostName);
 				break;
 			}
-			LogicalMappingTable.get(logicalName).put(hostName, path);
+			LogicalMappingTable.get(globalFileName).put(hostName, path);
 
 		} else {
 
-			LogicalMappingTable.put(logicalName, new HashMap<String, String>());
+			LogicalMappingTable.put(globalFileName, new HashMap<String, String>());
 
-			while (LogicalMappingTable.get(logicalName).containsKey(hostName)) {
-				LogicalMappingTable.get(logicalName).remove(hostName);
+			while (LogicalMappingTable.get(globalFileName).containsKey(hostName)) {
+				LogicalMappingTable.get(globalFileName).remove(hostName);
 				break;
 			}
-			LogicalMappingTable.get(logicalName).put(hostName, path);
+			LogicalMappingTable.get(globalFileName).put(hostName, path);
 		}
 
 	}
 
-	public void checkAlogicalFile(String logicalFile) {
-		System.out.println(LogicalMappingTable.containsKey(logicalFile));
+	public void checkGlobalFileName(String globalFileName) {
+		System.out.println(LogicalMappingTable.containsKey(globalFileName));
 	}
 
-	public boolean DcheckAlogicalFile(String logicalFile) {
-		return LogicalMappingTable.containsKey(logicalFile);
+	public boolean showCheckGlobalFileName(String globalFileName) {
+		return LogicalMappingTable.containsKey(globalFileName);
 	}
 
-	public void checkAfedcluster(String logicalFile, String hostname) {
-		System.out.println(LogicalMappingTable.get(logicalFile).containsKey(
+	public void checkAfedcluster(String globalFileName, String hostname) {
+		System.out.println(LogicalMappingTable.get(globalFileName).containsKey(
 				hostname));
 	}
 
-	public boolean DcheckAfedcluster(String logicalFile, String hostname) {
-		return LogicalMappingTable.get(logicalFile).containsKey(hostname);
+	public boolean showCheckAfedcluster(String globalFileName, String hostname) {
+		return LogicalMappingTable.get(globalFileName).containsKey(hostname);
 	}
 
-	public boolean checkAfedPhysicalPath(String logicalFile, String physicalPath) {
-		return LogicalMappingTable.get(logicalFile).containsValue(physicalPath);
+	public boolean checkAphysicalPath(String globalFileName, String physicalPath) {
+		return LogicalMappingTable.get(globalFileName).containsValue(physicalPath);
 	}
 
-	public void showAfedPhysicalPath(String logicalFile, String hostname) {
-		System.out.println(LogicalMappingTable.get(logicalFile).get(hostname));
+	public void showAfedPhysicalPath(String globalFileName, String hostname) {
+		System.out.println(LogicalMappingTable.get(globalFileName).get(hostname));
 	}
 
-	public Set<Entry<String, HashMap<String, String>>> DShowHashTable() {
+	public Set<Entry<String, HashMap<String, String>>> getLogicalHashTable() {
 		return LogicalMappingTable.entrySet();
 	}
 
-	public void showHashTable() {
+	public void showLogicalHashTable() {
 		System.out.println(LogicalMappingTable.entrySet());
 	}
 
-	public void hashTableDownload() {
+	public void logicalMappingDownload() {
 		try {
 			// ----------------------------declare for
 			// writing--------------------------
