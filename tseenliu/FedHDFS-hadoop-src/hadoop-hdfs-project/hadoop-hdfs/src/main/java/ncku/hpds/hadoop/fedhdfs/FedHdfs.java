@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URI;
@@ -77,15 +78,50 @@ class FetchFsimage {
 	}
 }
 
+class getSuperNamenodeGN {
+	private String address = "127.0.0.1";
+	private int port = 8764;
+	
+	public void GlobalNamespaceClient() {
+		Socket client = new Socket();
+		ObjectInputStream ObjectIn;
+		InetSocketAddress isa = new InetSocketAddress(this.address, this.port);
+		try {
+			client.connect(isa, 10000);
+			ObjectIn = new ObjectInputStream(client.getInputStream());
+			
+			//received object
+			GlobalNamespaceObject GN = new GlobalNamespaceObject();
+			try {
+				GN = (GlobalNamespaceObject) ObjectIn.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("fedUserGet1 : " + GN.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().entrySet());
+			System.out.println("fedUserGet2 : " + GN.getGlobalNamespace().getPhysicalDrive().getPhysicalMappingTable().size());
+			System.out.println("fedUserGet3 : " + GN.showLogicalMapping());
+			
+			ObjectIn.close();
+			ObjectIn = null;
+			client.close();
+			
+		} catch (java.io.IOException e) {
+			System.out.println("Socket連線有問題 !");
+			System.out.println("IOException :" + e.toString());
+		}
+	}
+}
+
 class lsr {
-	static void printFilesRecursively(String Url, Configuration conf) throws IOException {
+	static void printFilesRecursively(String Uri, Configuration conf) throws IOException {
 		try {
 
 			conf = new Configuration();
 			FileSystem fs = FileSystem.get(conf);
 
 			// fs.initialize(new URI(Url), new Configuration());
-			FileStatus[] status = fs.listStatus(new Path(Url));
+			FileStatus[] status = fs.listStatus(new Path(Uri));
 			for (int i = 0; i < status.length; i++) {
 				if (status[i].isDirectory()) {
 					System.out
@@ -202,8 +238,7 @@ class gn {
             client.connect(isa, 10000);
             BufferedOutputStream out = new BufferedOutputStream(client
                     .getOutputStream());
-            // 送出字串
-	    //String test = "I LOVE U ! Katherine ~";
+        // 送出字串
 	    String test = logicalName + " " + Path;
             out.write(test.getBytes());
             out.flush();
@@ -293,8 +328,20 @@ public class FedHdfs {
 			}
 			
 			gn test = new gn();
-			test.logicalMapping(uri[1], uri[2]);
+			test.logicalMapping(uri[1], uri[2]);	
+		}
+		else if (command.equalsIgnoreCase("-lstable")){
 			
+			if (uri.length < 3) {
+				System.out.println("Usage: hadoop fedfs [generic options]");
+				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+				
+				System.out.println("\nThe general command line syntax is");
+				System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
+			}
+			
+			getSuperNamenodeGN test = new getSuperNamenodeGN();
+			test.GlobalNamespaceClient();
 		}
 		else {
 		
