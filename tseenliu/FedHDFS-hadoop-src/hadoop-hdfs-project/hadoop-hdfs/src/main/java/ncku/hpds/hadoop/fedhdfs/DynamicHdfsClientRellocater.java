@@ -17,7 +17,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.DistributedFileSystem;
 
-public class DynamicHdfsClientRellocate {
+public class DynamicHdfsClientRellocater {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
