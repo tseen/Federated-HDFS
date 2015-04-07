@@ -3,6 +3,7 @@ package ncku.hpds.hadoop.fedhdfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -19,21 +20,24 @@ public class SuperNamenode {
 
 	public static void main(String[] args) throws Exception {
 		
-		Thread newThread1 = new Thread(new ReadUserDefinedLT(GN1));
+		Thread newThread1 = new Thread(new GlobalNamespaceLD(GN1));
 		newThread1.start();
 		
-		Thread newThread2 = new Thread(new GlobalNamespaceRunnable(GN1));
+		Thread newThread2 = new Thread(new GlobalNamespacePD(GN1));
 		//newThread2.setDaemon(true);
 		newThread2.start();
+		
+		Thread newThread3 = new Thread(new GlobalNamespaceServer(GN1));
+		newThread3.start();
 
 	}
 }
 
-class ReadUserDefinedLT implements Runnable {
+class GlobalNamespaceLD implements Runnable {
 	
 	static GlobalNamespace GN;
 	
-	public ReadUserDefinedLT(GlobalNamespace GN) {
+	public GlobalNamespaceLD(GlobalNamespace GN) {
 		this.GN = GN;
 	}
 	
@@ -53,7 +57,7 @@ class ReadUserDefinedLT implements Runnable {
 			e1.printStackTrace();
 		}
  
-        System.out.println("SuperNamenode starting!");
+        System.out.println("SuperNamenode starting");
         while (!OutServer) {
             socket = null;
             try {
@@ -118,11 +122,11 @@ class ReadUserDefinedLT implements Runnable {
     }
 }
 
-class GlobalNamespaceRunnable implements Runnable {
+class GlobalNamespacePD implements Runnable {
 	
 	static GlobalNamespace GN;
 	
-	public GlobalNamespaceRunnable(GlobalNamespace GN) {
+	public GlobalNamespacePD(GlobalNamespace GN) {
 		this.GN = GN;
 	}
 	
@@ -142,5 +146,65 @@ class GlobalNamespaceRunnable implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+}
+
+class GlobalNamespaceServer extends Thread {
+	
+	static GlobalNamespace GN;
+	
+	public GlobalNamespaceServer(GlobalNamespace GN) {
+		this.GN = GN;
+	}
+	
+	private boolean OutServer = false;
+	private ServerSocket server;
+	private final int ServerPort = 8764;
+	
+	public void run() {
+		Socket socket;
+		ObjectOutputStream ObjectOut;
+		
+		GlobalNamespaceObject test = new GlobalNamespaceObject();
+		test.setGlobalNamespace(GN);
+		
+		try {
+			server = new ServerSocket(ServerPort);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("GlobalNamespace Sever is running");
+		while (!OutServer) {
+			socket = null;
+			try {
+				synchronized (server) {
+					socket = server.accept();
+				}
+				System.out.println("Client/server Connetion : InetAddress = "
+						+ socket.getInetAddress());
+				socket.setSoTimeout(15000);
+	
+				System.out.println("test : " + test.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().entrySet());
+				System.out.println("test : " + test.getGlobalNamespace().getPhysicalDrive().getPhysicalMappingTable().size());
+				System.out.println("test : " + test.showLogicalMapping());
+				
+				
+				ObjectOut = new ObjectOutputStream(socket.getOutputStream());
+				ObjectOut.writeObject(test);
+				ObjectOut.flush();
+				ObjectOut.close();
+				ObjectOut = null;
+				//test = null;
+				socket.close();
+				socket = null;
+				
+			} catch (java.io.IOException e) {
+				System.out.println("Socket連線有問題 !");
+				System.out.println("IOException :" + e.toString());
+			}
+		}
+		
 	}
 }
