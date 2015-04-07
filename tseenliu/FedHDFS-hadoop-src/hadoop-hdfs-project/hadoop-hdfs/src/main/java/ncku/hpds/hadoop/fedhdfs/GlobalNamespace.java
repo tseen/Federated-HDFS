@@ -1,6 +1,7 @@
 package ncku.hpds.hadoop.fedhdfs;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,15 +22,15 @@ import org.apache.hadoop.hdfs.server.protocol.*;
 import org.apache.hadoop.hdfs.DFSUtil;
 import org.w3c.dom.Element;
 
-public class GlobalNamespace {
+public class GlobalNamespace implements Serializable {
 	
 	 private static java.io.File FedConfpath = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
 	 private static FedHdfsConParser FedhdfsConfList = new FedHdfsConParser(FedConfpath);
 	 private static Vector<Element> theFedhdfsElements = FedhdfsConfList.getElements();
 	 private static Configuration[] conf = new Configuration[theFedhdfsElements.size()];
 	 
-	 private static PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
-	 private static LogicalVolumeManager logicalDrive = new LogicalVolumeManager();
+	 private PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+	 private LogicalVolumeManager logicalDrive = new LogicalVolumeManager();
 	 
 	
 	public void setFedConf(){
@@ -60,7 +61,14 @@ public class GlobalNamespace {
 		logicalDrive.putLogicalTable(globalFileName, hostName, path);
 		logicalDrive.showLogicalHashTable();
 		logicalDrive.logicalMappingDownload();
+	}
 	
+	public PhysicalVolumeManager getPhysicalDrive() {
+		return physicalDrive;
+	}
+	
+	public LogicalVolumeManager getLogicalDrive() {
+		return logicalDrive;
 	}
 	
 	/*public static void main(String[] args) throws Exception {

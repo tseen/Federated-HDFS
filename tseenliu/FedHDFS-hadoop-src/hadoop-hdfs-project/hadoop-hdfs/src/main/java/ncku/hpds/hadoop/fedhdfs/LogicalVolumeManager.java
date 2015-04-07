@@ -6,13 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Map.Entry;
 
-public class LogicalVolumeManager {
+public class LogicalVolumeManager implements Serializable {
 
-	private static HashMap<String, HashMap<String, String>> LogicalMappingTable = new HashMap<String, HashMap<String, String>>();
+	private HashMap<String, HashMap<String, String>> LogicalMappingTable = new HashMap<String, HashMap<String, String>>();
 
 	public void putLogicalTable(String globalFileName, String hostName,
 			String path) {
@@ -69,6 +70,10 @@ public class LogicalVolumeManager {
 
 	public void showLogicalHashTable() {
 		System.out.println(LogicalMappingTable.entrySet());
+	}
+	
+	public HashMap<String, HashMap<String, String>> getLogicalMappingTable() {
+		return LogicalMappingTable;
 	}
 
 	public void logicalMappingDownload() {

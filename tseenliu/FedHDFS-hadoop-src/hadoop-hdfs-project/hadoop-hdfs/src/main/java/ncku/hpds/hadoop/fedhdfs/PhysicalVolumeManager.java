@@ -3,6 +3,7 @@ package ncku.hpds.hadoop.fedhdfs;
 import java.awt.List;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
@@ -20,7 +21,7 @@ import org.w3c.dom.Element;
 import java.io.*;
 import java.util.*;
 
-public class PhysicalVolumeManager {
+public class PhysicalVolumeManager implements Serializable {
 	
 	private Vector<ArrayList<String>> fsPathElements = new Vector<ArrayList<String>>();
 	private ArrayList<String> tmpFsPathElement;
@@ -134,6 +135,10 @@ public class PhysicalVolumeManager {
 	
 	public String getAhostName(String pathName){
 		return PhysicalMappingTable.get(pathName);
+	}
+	
+	public HashMap<String, String> getPhysicalMappingTable() {
+		return PhysicalMappingTable;
 	}
 	
 	public void physicalMappingDownload(){
