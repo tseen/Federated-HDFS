@@ -95,30 +95,6 @@ class GlobalNamespaceLD implements Runnable {
                 System.out.println("IOException :" + e.toString());
             }
         }
-
-    	/*GlobalNamespace GN1 = new GlobalNamespace();
-        System.out.println("Please input logical mapping : ");
-        System.out.println("(ex : logicalName --> hostName:Path)");
-       
-            final String line = in.nextLine();
-            if ("end".equalsIgnoreCase(line)) {
-                System.out.println("Ending one thread");
-                break;
-            }
-            String[] split = line.split(" --> ");
-            System.out.println("Logical File is : " + split[0]);
-            String[] subSplit = split[1].split(":");
-            System.out.println("HostName is : " + subSplit[0]);
-            System.out.println("Physical Path is : " + subSplit[1]);
-            
-            try {
-    			GN1.UserDefinedVD(split[0], subSplit[0], subSplit[1]);
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-            System.out.println("Please input logical mapping : ");
-            System.out.println("(ex : logicalName --> hostName:Path)");*/
     }
 }
 
@@ -205,6 +181,5 @@ class GlobalNamespaceServer extends Thread {
 				System.out.println("IOException :" + e.toString());
 			}
 		}
-		
 	}
 }
