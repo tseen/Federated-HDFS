@@ -1,5 +1,6 @@
 package ncku.hpds.hadoop.fedhdfs;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -24,7 +25,7 @@ import org.w3c.dom.Element;
 
 public class GlobalNamespace implements Serializable {
 	
-	 private static java.io.File FedConfpath = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
+	 private static File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
 	 private static FedHdfsConParser FedhdfsConfList = new FedHdfsConParser(FedConfpath);
 	 private static Vector<Element> theFedhdfsElements = FedhdfsConfList.getElements();
 	 private static Configuration[] conf = new Configuration[theFedhdfsElements.size()];
@@ -58,9 +59,13 @@ public class GlobalNamespace implements Serializable {
 	public void UserConstructLD(String globalFileName, String hostName, String path) throws IOException{
 		
 		//LogicalVolumeManager test = new LogicalVolumeManager();
-		logicalDrive.putLogicalTable(globalFileName, hostName, path);
-		logicalDrive.showLogicalHashTable();
-		logicalDrive.logicalMappingDownload();
+		//logicalDrive.putLogicalTable(globalFileName, hostName, path);
+		//logicalDrive.showLogicalHashTable();
+		//logicalDrive.logicalMappingDownload();
+		
+		logicalDrive.TestPutLogicalTable(globalFileName, hostName, path);
+		logicalDrive.TestShowLogicalHashTable();
+		logicalDrive.TestlogicalMappingDownload();
 	}
 	
 	public PhysicalVolumeManager getPhysicalDrive() {
