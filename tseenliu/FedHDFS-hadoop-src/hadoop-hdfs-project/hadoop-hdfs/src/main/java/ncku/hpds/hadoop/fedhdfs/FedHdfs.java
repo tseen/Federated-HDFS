@@ -1,261 +1,15 @@
 package ncku.hpds.hadoop.fedhdfs;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.URI;
-import java.sql.Timestamp;
-import java.util.Scanner;
 import java.util.Vector;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import ncku.hpds.hadoop.fedhdfs.shell.ConstructGN;
+import ncku.hpds.hadoop.fedhdfs.shell.FetchFsimage;
+import ncku.hpds.hadoop.fedhdfs.shell.Ls;
+import ncku.hpds.hadoop.fedhdfs.shell.LsTableInfo;
+import ncku.hpds.hadoop.fedhdfs.shell.Lsr;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-class FetchFsimage {
-	
-	/*static void DownloadFedHdfsFsImage(String hostName) throws Exception{
-    Process pl = Runtime.getRuntime().exec("wget http://" + hostName + ":50070/imagetransfer?getimage=1/&txid=latest -O Fsimage" + hostName);
-    String line = "";
-    BufferedReader p_in = new BufferedReader(new InputStreamReader(pl.getInputStream()));
-    while((line = p_in.readLine()) != null){
-            System.out.println(line);
-         }
-         p_in.close();
-    }*/
-	
-	static void initialize() {
-		File FsIFolder = new File("FedFSImage");
-		if (!FsIFolder.exists()) {
-			if (FsIFolder.mkdir())
-				System.out.println("\n[INFO] FedFSImage folder is created!");
-		} else {
-			System.out.println("\n[INFO] FedFSImage is already update ");
-		}
-	}
-
-	static void downloadFedHdfsFsImage(String hostName,
-			String dfsNamenodeHttpAddress) throws Exception {
-		Process pl = Runtime
-				.getRuntime()
-				.exec("wget http://"
-						+ dfsNamenodeHttpAddress
-						+ "/imagetransfer?getimage=1/&txid=latest -O FedFSImage/Fsimage"
-						+ hostName);
-		String line = "";
-		BufferedReader p_in = new BufferedReader(new InputStreamReader(
-				pl.getInputStream()));
-		while ((line = p_in.readLine()) != null) {
-			System.out.println(line);
-		}
-		p_in.close();
-	}
-
-	static void offlineImageViewer(String hostName) throws Exception {
-		Process pl = Runtime.getRuntime().exec(
-				"bin/hdfs oiv -i FedFSImage/Fsimage" + hostName
-						+ " -o FedFSImage/OIVFsimage" + hostName);
-		String line = "";
-		BufferedReader p_in = new BufferedReader(new InputStreamReader(
-				pl.getInputStream()));
-		while ((line = p_in.readLine()) != null) {
-			System.out.println(line);
-		}
-		p_in.close();
-	}
-}
-
-class getSuperNamenodeGN {
-	private String address = "127.0.0.1";
-	private int port = 8764;
-	
-	public void GlobalNamespaceClient() {
-		Socket client = new Socket();
-		ObjectInputStream ObjectIn;
-		InetSocketAddress isa = new InetSocketAddress(this.address, this.port);
-		try {
-			client.connect(isa, 10000);
-			ObjectIn = new ObjectInputStream(client.getInputStream());
-			
-			//received object
-			GlobalNamespaceObject GN = new GlobalNamespaceObject();
-			try {
-				GN = (GlobalNamespaceObject) ObjectIn.readObject();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("fedUserGet1 : " + GN.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().entrySet());
-			System.out.println("fedUserGet2 : " + GN.getGlobalNamespace().getPhysicalDrive().getPhysicalMappingTable().size());
-			System.out.println("fedUserGet3 : " + GN.showLogicalMapping());
-			
-			ObjectIn.close();
-			ObjectIn = null;
-			client.close();
-			
-		} catch (java.io.IOException e) {
-			System.out.println("Socket連線有問題 !");
-			System.out.println("IOException :" + e.toString());
-		}
-	}
-}
-
-class lsr {
-	static void printFilesRecursively(String Uri, Configuration conf) throws IOException {
-		try {
-
-			conf = new Configuration();
-			FileSystem fs = FileSystem.get(conf);
-
-			// fs.initialize(new URI(Url), new Configuration());
-			FileStatus[] status = fs.listStatus(new Path(Uri));
-			for (int i = 0; i < status.length; i++) {
-				if (status[i].isDirectory()) {
-					System.out
-							.println("Dir: " + status[i].getPath().toString());
-					printFilesRecursively(status[i].getPath().toString(), conf);
-				} else {
-					try {
-						System.out.println("  file: "
-								+ status[i].getPath().toString());
-						// System.out.println("  file: " +
-						// status[i].getPath().getName());
-						System.out.println("  file: " + status[i].toString());
-					} catch (Exception e) {
-						System.err.println(e.toString());
-					}
-
-				}
-
-			}
-		} catch (IOException e) {
-			// Logger.getLogger(RecursivelyPrintFilesOnHDFS.class.getName()).log(Level.SEVERE,
-			// null, ex);
-		}
-	}
-}
-
-class fedls {
-	static void print_info(String Uri, Configuration conf, String hostName) throws IOException {
-
-		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
-		Path Path = new Path(Uri);
-		FileStatus fileStatus = FS.getFileStatus(Path);
-
-		if (fileStatus.isDirectory() == false) {
-			System.out.println("\n");
-			System.out
-					.println("====================================================================================");
-			System.out
-					.println("=============================GlobalNamespace-Cluster:" + hostName + "============================");
-			System.out
-					.println("====================================================================================");
-
-			System.out.println("\nThe metadatargs.lengtha of the file from HDFS.");
-			System.out.println("This is a file.");
-			System.out.println("file Name: " + fileStatus.getPath().getName());
-			System.out.println("file Path: " + fileStatus.getPath());
-			System.out.println("file Lehgth: " + fileStatus.getLen());
-			System.out.println("file Modification time: "
-					+ new Timestamp(fileStatus.getModificationTime())
-							.toString());
-
-			System.out.println("file last Modification time: "
-					+ new Timestamp(fileStatus.getAccessTime()).toString());
-
-			System.out.println("file replication: "
-					+ fileStatus.getReplication());
-			System.out.println("file's Block size: "
-					+ fileStatus.getBlockSize());
-			System.out.println("file owner: " + fileStatus.getOwner());
-			System.out.println("file group: " + fileStatus.getGroup());
-			System.out.println("file permission: "
-					+ fileStatus.getPermission().toString());
-			System.out.println();
-		}
-
-		else if (fileStatus.isDirectory() == true) {
-			System.out.println("\n");
-			System.out
-					.println("====================================================================================");
-			System.out
-					.println("=============================GlobalNamespace-Cluster:" + hostName + "============================");
-			System.out
-					.println("====================================================================================");
-			System.out
-					.println("\nThe metadata of the directory from HDFS.");
-			System.out.println("This is a directory.");
-
-			System.out.println("dir Path: " + fileStatus.getPath());
-			System.out.println("dir Length: " + fileStatus.getLen());
-			System.out.println("dir Modification time: "
-					+ new Timestamp(fileStatus.getModificationTime())
-							.toString());
-
-			System.out.println("dir last Modification time:"
-					+ new Timestamp(fileStatus.getAccessTime()).toString());
-
-			System.out.println("dir replication: "
-					+ fileStatus.getReplication());
-			System.out.println("dir's Blocak size: "
-					+ fileStatus.getBlockSize());
-			System.out.println("dir owner: " + fileStatus.getOwner());
-			System.out.println("dir group: " + fileStatus.getGroup());
-			System.out.println("dir permission: "
-					+ fileStatus.getPermission().toString());
-
-			System.out.println("The file or dir of this direcroty: ");
-			for (FileStatus fs : FS.listStatus(new Path(Uri))) {
-				System.out.println(fs.getPath());
-			}
-
-		}
-	}
-	
-}
-
-class gn {	
-	private String SNaddress = "127.0.0.1";
-    private int SNport = 8765;
-    
-	public void logicalMapping(String logicalName, String Path) {
-		Socket client = new Socket();
-        InetSocketAddress isa = new InetSocketAddress(this.SNaddress, this.SNport);
-        try {
-            client.connect(isa, 10000);
-            BufferedOutputStream out = new BufferedOutputStream(client
-                    .getOutputStream());
-        // 送出字串
-	    String test = logicalName + " " + Path;
-            out.write(test.getBytes());
-            out.flush();
-            out.close();
-            out = null;
-            client.close();
-            client = null;
- 
-        } catch (java.io.IOException e) {
-            System.out.println("Socket連線有問題 !");
-            System.out.println("IOException :" + e.toString());
-        }
-	    
-		 System.out.println("\nlogicalName : " + logicalName);
-	     System.out.println("host and path : " + Path + "\n");
-	}
-}
 
 public class FedHdfs {
 
@@ -290,7 +44,7 @@ public class FedHdfs {
 			}
 			for (int i = 0; i < theElements.size(); i++) {
     			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-    				fedls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
+    				Ls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
     						theElements.elementAt(i)));
     			}
     		}
@@ -306,7 +60,7 @@ public class FedHdfs {
 			}
 			for (int i = 0; i < theElements.size(); i++) {
     			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-    				lsr.printFilesRecursively(uri[2], conf[i]);	
+    				Lsr.printFilesRecursively(uri[2], conf[i]);	
     			}
     		}
 		}
@@ -327,7 +81,7 @@ public class FedHdfs {
 				System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
 			}
 			
-			gn test = new gn();
+			ConstructGN test = new ConstructGN();
 			test.logicalMapping(uri[1], uri[2]);	
 		}
 		else if (command.equalsIgnoreCase("-lstable")){
@@ -340,7 +94,7 @@ public class FedHdfs {
 				System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
 			}
 			
-			getSuperNamenodeGN test = new getSuperNamenodeGN();
+			LsTableInfo test = new LsTableInfo();
 			test.GlobalNamespaceClient();
 		}
 		else {
@@ -348,54 +102,5 @@ public class FedHdfs {
 			System.out.println("The general command line syntax is");
 			System.out.println("bin/fedhdfs command [genericOptions] [commandOptions]\n");
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	    /*switch (uri[0]) {
-	    	case "-ls":
-	    		for (int i = 0; i < theElements.size(); i++) {
-	    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-	    				fedls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
-	    						theElements.elementAt(i)));
-	    			}
-	    		}
-	    		
-	    		//show all cluster hdfs list
-	    		for (int i = 0; i < args.length; i++) {
-	    			fedls.print_info(uri[i], conf[i], FedHdfsConParser.getValue("HostName",
-	    					theElements.elementAt(i)));
-	    		}
-	    		break;
-	    		
-	    	case "-lsr":
-	    		for (int i = 0; i < theElements.size(); i++) {
-	    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-	    				lsr.printFilesRecursively(uri[2], conf[i]);	
-	    			}
-	    		}
-	    		break;
-	    		
-	    	case "-gn":
-	    		
-	    	case "-fetchFedImage":
-	    		FetchFsimage.initialize();
-	    		for (int i = 0; i < theElements.size(); i++) {
-	    			FetchFsimage.downloadFedHdfsFsImage(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)), FedHdfsConParser.getValue("dfs.namenode.http-address", theElements.elementAt(i)));
-	    			FetchFsimage.offlineImageViewer(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
-	    		}
-	    		break;
-	    }*/	
-		
 	}
-
 }
