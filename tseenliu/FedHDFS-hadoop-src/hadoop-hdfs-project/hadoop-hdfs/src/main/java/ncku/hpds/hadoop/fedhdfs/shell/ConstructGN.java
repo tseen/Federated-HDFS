@@ -26,7 +26,7 @@ public class ConstructGN {
             client = null;
  
         } catch (java.io.IOException e) {
-            System.out.println("Socket連線有問題 !");
+            System.out.println("Socket connect error");
             System.out.println("IOException :" + e.toString());
         }
 	    
