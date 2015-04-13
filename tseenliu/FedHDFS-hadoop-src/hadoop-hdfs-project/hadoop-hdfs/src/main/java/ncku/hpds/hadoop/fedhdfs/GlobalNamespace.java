@@ -38,7 +38,7 @@ public class GlobalNamespace implements Serializable {
 		for (int i = 0; i < theFedhdfsElements.size(); i++) {
 			conf[i] = new Configuration();
 			conf[i].set(
-					"fs.default.name",
+					"fs.defaultFS",
 					"hdfs://"
 							+ FedHdfsConParser.getValue("fs.default.name",
 									theFedhdfsElements.elementAt(i)));
@@ -56,16 +56,29 @@ public class GlobalNamespace implements Serializable {
 		physicalDrive.getFsPathElements().clear();
 	}
 	
-	public void UserConstructLD(String globalFileName, String hostName, String path) throws IOException{
-		
-		//LogicalVolumeManager test = new LogicalVolumeManager();
-		//logicalDrive.putLogicalTable(globalFileName, hostName, path);
-		//logicalDrive.showLogicalHashTable();
-		//logicalDrive.logicalMappingDownload();
-		
-		logicalDrive.TestPutLogicalTable(globalFileName, hostName, path);
-		logicalDrive.TestShowLogicalHashTable();
-		logicalDrive.TestlogicalMappingDownload();
+	public void sput(String globalFileName, String hostName, String clusterPath) {
+		logicalDrive.TestPutLogicalTable(globalFileName, hostName, clusterPath);
+		logicalDrive.showLogicalHashTable();
+	}
+	
+	public void put(String globalFileName, String hostName, String clusterPath) {
+		logicalDrive.putToLogicalTable(globalFileName, hostName, clusterPath);
+		logicalDrive.showLogicalHashTable();
+	}
+	
+	public void mkdir(String globalFileName) {
+		logicalDrive.mkdirGlobalFileName(globalFileName);
+		logicalDrive.showLogicalHashTable();
+	}
+	
+	public void rmdir(String globalFileName) {
+		logicalDrive.rmdirGlobalFileNam(globalFileName);
+		logicalDrive.showLogicalHashTable();
+	}
+	
+	public void rm(String globalFileName, String hostName) {
+		logicalDrive.rmLogicalTable(globalFileName, hostName);
+		logicalDrive.showLogicalHashTable();
 	}
 	
 	public PhysicalVolumeManager getPhysicalDrive() {
@@ -75,93 +88,4 @@ public class GlobalNamespace implements Serializable {
 	public LogicalVolumeManager getLogicalDrive() {
 		return logicalDrive;
 	}
-	
-	/*public static void main(String[] args) throws Exception {
-
-		String[] uri = args;
-		
-
-		java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
-		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
-		Vector<Element> theElements = hdfsIpList.getElements();
-		Configuration[] conf = new Configuration[theElements.size()];
-
-		for (int i = 0; i < theElements.size(); i++) {
-			conf[i] = new Configuration();
-			conf[i].set(
-					"fs.default.name",
-					"hdfs://"
-							+ FedHdfsConParser.getValue("fs.default.name",
-									theElements.elementAt(i)));
-		}
-
-		PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
-		for (int i = 0; i < theElements.size(); i++) {
-			physicalDrive.addfsElementToArrayLists("/user/hpds", conf[i]);
-		}
-		//test.ShowAllfsElements();
-		
-		physicalDrive.updataPTable(theElements); //Important
-		
-		//physicalDrive.ShowHashTable();
-		
-		physicalDrive.ShowVectorSize();
-		
-		physicalDrive.ShowHashTableSize();
-		
-		physicalDrive.HashTableDownload();
-		
-		
-		
-		
-		
-		
-		
-		/*  DEMO TEST */
-		
-		/*final Scanner in = new Scanner(System.in);
-		System.out.println("Usage: [generic options]" );
-		System.out.println("[-ShowClustersNum]" );
-		System.out.println("[-ShowHashTableSize]" );
-		System.out.println("[-ShowHashTable]" );
-		System.out.println("[-CheckDirectory | Files]" );
-		System.out.println("[-CheckHostName]" );
-		System.out.print("Please Input arguments : " );
-		while (in.hasNext()) {
-			final String line = in.nextLine();
-			System.out.println("Please Input arguments : " );
-			
-			
-			if ("-ShowClustersNum".equalsIgnoreCase(line)){
-				System.out.println(" The ShowClustersNum is : " + physicalDrive.DShowVectorSize());
-			}
-			
-			if ("-ShowHashTableSize".equalsIgnoreCase(line)){
-				System.out.println(" The ShowHashTableSize is : " + physicalDrive.DShowHashTableSize());
-			}
-			
-			if ("-ShowHashTable".equalsIgnoreCase(line)){
-				System.out.println(physicalDrive.DShowHashTable().toString());
-			}
-			
-			if ("-CheckHostName".equalsIgnoreCase(line)){
-				System.out.println(" The Cluster is exist (Y/N) : " + physicalDrive.DgetAhostName(line.substring(15)));
-			}
-			
-			if ("-CheckDirectory | Files".equalsIgnoreCase(line)){
-				System.out.println(" The ShowHashTableSize is : " + physicalDrive.DcheckAclusterPaths(line.substring(24)));
-			}
-			
-			if ("end".equalsIgnoreCase(line)) {
-				System.out.println("Ending one thread");
-				break;
-			}
-			
-			else{
-				System.out.print("Please Input arguments : " );			
-			}
-			
-		}
-		
-	}*/
 }

@@ -21,7 +21,7 @@ public class GlobalNamespaceObject implements Serializable {
 		return GN;
 	}
 	
-	public Set<Entry<String, HashMap<String, String>>> showLogicalMapping() {
+	public Set<Entry<String, HashMap<String, PathInfo>>> showLogicalMapping() {
 		return GN.getLogicalDrive().getLogicalMappingTable().entrySet();
 	}
 	
@@ -29,7 +29,7 @@ public class GlobalNamespaceObject implements Serializable {
 		return GN.getPhysicalDrive().getPhysicalMappingTable().entrySet();
 	}
 	
-	public HashMap<String, HashMap<String, String>> getLogicalMappingTable() {
+	public HashMap<String, HashMap<String, PathInfo>> getLogicalMappingTable() {
 		return GN.getLogicalDrive().getLogicalMappingTable();
 	}
 	
