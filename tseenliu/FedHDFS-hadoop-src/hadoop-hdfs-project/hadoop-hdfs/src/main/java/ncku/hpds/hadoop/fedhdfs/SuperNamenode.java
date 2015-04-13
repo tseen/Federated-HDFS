@@ -64,8 +64,6 @@ class GlobalNamespaceLD implements Runnable {
                 synchronized (server) {
                     socket = server.accept();
                 }
-                System.out.println("InetAddress = " + socket.getInetAddress());
-                // TimeOut時間
                 socket.setSoTimeout(15000);
  
                 sin = new java.io.BufferedInputStream(socket.getInputStream());
@@ -77,21 +75,46 @@ class GlobalNamespaceLD implements Runnable {
                     data += new String(b, 0, length);
                 }
  
-                System.out.println("UserDefined : " + data + "\n");
+                System.out.println("FedUser input : " + data + "\n");
                 sin.close();
                 sin = null;
                 socket.close();
                 
                 String[] split = data.split(" ");
-                System.out.println("Logical File is : " + split[0]);
-                String[] subSplit = split[1].split(":");
-                System.out.println("HostName is : " + subSplit[0]);
-                System.out.println("Physical Path is : " + subSplit[1]);
+                String command = split[0];
                 
-                GN.UserConstructLD(split[0], subSplit[0], subSplit[1]);
- 
+                if (command.equalsIgnoreCase("-mkdir")){
+                    String globalFileName = split[1];
+                    GN.mkdir(globalFileName);
+                }
+                
+                else if (command.equalsIgnoreCase("-sput")) {
+                	String globalFileName = split[1];
+                    String hostName = split[2];
+                    String clusterPath = split[3];
+                    GN.sput(globalFileName, hostName, clusterPath);
+                }
+                
+                else if (command.equalsIgnoreCase("-put")) {
+                	String globalFileName = split[1];
+                    String hostName = split[2];
+                    String clusterPath = split[3];
+                    GN.put(globalFileName, hostName, clusterPath);
+                }
+                
+                else if (command.equalsIgnoreCase("-rmdir")) {
+                	String globalFileName = split[1];
+                    GN.rmdir(globalFileName);
+                }
+                
+                else if (command.equalsIgnoreCase("-rm")) {
+                	String globalFileName = split[1];
+                    String hostName = split[2];
+                    GN.rm(globalFileName, hostName);
+                }
+  
             } catch (java.io.IOException e) {
-                System.out.println("Socket connection error!");
+                System.out.println("Socket connect error");
                 System.out.println("IOException :" + e.toString());
             }
         }
@@ -158,15 +181,8 @@ class GlobalNamespaceServer extends Thread {
 				synchronized (server) {
 					socket = server.accept();
 				}
-				System.out.println("Client/server Connetion : InetAddress = "
-						+ socket.getInetAddress());
 				socket.setSoTimeout(15000);
-	
-				System.out.println("test : " + test.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().entrySet());
-				System.out.println("test : " + test.getGlobalNamespace().getPhysicalDrive().getPhysicalMappingTable().size());
-				System.out.println("test : " + test.showLogicalMapping());
-				
-				
+
 				ObjectOut = new ObjectOutputStream(socket.getOutputStream());
 				ObjectOut.writeObject(test);
 				ObjectOut.flush();
@@ -177,7 +193,7 @@ class GlobalNamespaceServer extends Thread {
 				socket = null;
 				
 			} catch (java.io.IOException e) {
-				System.out.println("Socket連線有問題 !");
+				System.out.println("Socket connect error");
 				System.out.println("IOException :" + e.toString());
 			}
 		}
