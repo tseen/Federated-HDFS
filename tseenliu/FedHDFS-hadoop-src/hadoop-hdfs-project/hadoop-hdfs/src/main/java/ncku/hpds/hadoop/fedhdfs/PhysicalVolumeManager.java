@@ -57,15 +57,6 @@ public class PhysicalVolumeManager implements Serializable {
 						theFedhdfsElements.elementAt(i)));
 			}
 		}
-		
-		/*String item0 = fsElements.get(0);
-		String item1 = fsElements.get(1);
-		String item25 = fsElements.get(25);
-		System.out.println("The item is the index 0 is: " + item0);
-		System.out.println("The item is the index 1 is: " + item1);
-		System.out.println("The item is the index 25 is: " + item25);*/
-		
-		//PhysicalMappingTable.put(fsElements.get(size), "1");
 	}
 	
 	public Vector<ArrayList<String>> getFsPathElements() {
@@ -162,44 +153,8 @@ public class PhysicalVolumeManager implements Serializable {
 			System.err.println("Error: " + e.getMessage());
 		}
 		
-		System.out.println("\n[INFO] Physical Table download successful.");
+		System.out.println("\n[INFO] Physical Table download successful");
 	} 
-	
-	
-	
-	/*public static void updateTable(String Uri, Configuration conf, String hostName) throws IOException {
-		 
-		 FileSystem fs = FileSystem.get(conf);
-		 FileStatus[] status = fs.listStatus(new Path(Uri));
-		 
-		for (int i = 0; i < status.length; i++) {
-			
-			if (status[i].isDirectory()) {
-				
-				//System.out.println(status[i].getPath().toString());
-				
-				PhysicalMappingTable.put(status[i].getPath().toString(), hostName);
-				
-				updateTable(status[i].getPath().toString(), conf, hostName);
-				
-            } else {
-                    //System.out.println(status[i].getPath().toString());
-                    
-                    PhysicalMappingTable.put(status[i].getPath().toString(), hostName);
-                    
-                } 
-			
-			//System.out.println(status[i].getPath().toString());
-			//PhysicalMappingTable.put(status[i].getPath().toString(), hostName);
-			
-			
-		 }
-		
-		System.out.println(PhysicalMappingTable.keySet());
-
-		 
-	 }*/
-
 }
 
 
