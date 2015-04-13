@@ -8,6 +8,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.permission.FsPermission;
 
 public class Ls {
 	
@@ -87,45 +88,40 @@ public class Ls {
 		}
 	}
 	
-	public static String getPath(String Uri, Configuration conf) throws IOException {
+	public static Path getPath(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return fileStatus.getPath().toString();
+		return fileStatus.getPath().getPathWithoutSchemeAndAuthority(Path);
 	}
 	
-	public static String getLen(String Uri, Configuration conf) throws IOException {
+	public static long getLen(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return String.valueOf(fileStatus.getLen());
+		return fileStatus.getLen();
 	}
 	
-	public static String getModificationTime(String Uri, Configuration conf) throws IOException {
+	public static long getModificationTime(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return new Timestamp(fileStatus.getModificationTime()).toString();
+		return fileStatus.getModificationTime();
 	}
 	
-	public static String getReplication(String Uri, Configuration conf) throws IOException {
+	public static short getReplication(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return String.valueOf(fileStatus.getReplication());
+		return fileStatus.getReplication();
 	}
 	
 	public static String getOwner(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
@@ -134,19 +130,17 @@ public class Ls {
 	
 	public static String getGroup(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
 		return fileStatus.getGroup();
 	}
 	
-	public static String getPermission(String Uri, Configuration conf) throws IOException {
+	public static FsPermission getPermission(String Uri, Configuration conf) throws IOException {
 		
-		conf = new Configuration();
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return fileStatus.getPermission().toString();
+		return fileStatus.getPermission();
 	}
 }
