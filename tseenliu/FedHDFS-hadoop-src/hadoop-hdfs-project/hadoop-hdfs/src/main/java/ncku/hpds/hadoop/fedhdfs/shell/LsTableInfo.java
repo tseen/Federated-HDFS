@@ -21,6 +21,8 @@ public class LsTableInfo {
 	private int port = 8764;
 	
 	public void GlobalNamespaceClient() {
+		
+		String Uri = "/";
 		Socket client = new Socket();
 		ObjectInputStream ObjectIn;
 		InetSocketAddress isa = new InetSocketAddress(this.address, this.port);
@@ -36,7 +38,24 @@ public class LsTableInfo {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("fedUserGet1 : " + GN.getGlobalNamespace().getLogicalDrive().TestgetLogicalHashTable());
+			System.out.println("physicalDrive : " + GN.getGlobalNamespace().getLogicalDrive().getLogicalHashTable());
+			
+			
+			/*for (int i = 0; i < GN.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().get(Uri).size(); i++) {
+				if ("VirtualDrive".equalsIgnoreCase(GN.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().get(Uri).)) {
+					show.DirFileInfo(status[i].getPath().toString(), conf);
+					printFilesRecursively(status[i].getPath().toString(), conf);
+
+				} else {
+					try {
+						show.DirFileInfo(status[i].getPath().toString(), conf);
+					} catch (Exception e) {
+						System.err.println(e.toString());
+					}
+				}
+			}*/
+			
+			
 			System.out.println("fedUserGet2 : " + GN.getGlobalNamespace().getPhysicalDrive().getPhysicalMappingTable().size());
 			System.out.println("fedUserGet3 : " + GN.showLogicalMapping());
 			
@@ -67,7 +86,7 @@ public class LsTableInfo {
 			client.close();
 			
 		} catch (java.io.IOException e) {
-			System.out.println("Socket connection error!");
+			System.out.println("Socket connection error");
 			System.out.println("IOException :" + e.toString());
 		}
 	}
