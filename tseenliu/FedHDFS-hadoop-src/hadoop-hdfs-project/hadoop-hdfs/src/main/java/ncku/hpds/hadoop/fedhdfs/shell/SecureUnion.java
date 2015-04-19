@@ -5,12 +5,12 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 
-public class SecurePut {
+public class SecureUnion {
 	
 	private String SNaddress = "127.0.0.1";
     private int SNport = 8765;
     
-	public void logicalMapping(String command, String globalFileName, String Path) {
+	public void union(String command, String globalFileName, String Path) {
 		
 		String[] split = Path.split(":");
 		String hostName = split[0];

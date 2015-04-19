@@ -13,7 +13,7 @@ public class Delete {
 	private int SNport = 8765;
 	private int port = 8764;
 
-	public void logicalMapping(String command, String globalFileName, String hostName) {
+	public void rmPathFromGN(String command, String globalFileName, String hostName) {
 
 		Socket client = new Socket();
 		ObjectInputStream ObjectIn;

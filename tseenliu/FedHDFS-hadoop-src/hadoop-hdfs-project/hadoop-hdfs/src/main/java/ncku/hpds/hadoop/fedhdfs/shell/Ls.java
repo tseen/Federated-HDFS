@@ -88,12 +88,12 @@ public class Ls {
 		}
 	}
 	
-	public static Path getPath(String Uri, Configuration conf) throws IOException {
+	public static String getPath(String Uri, Configuration conf) throws IOException {
 		
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return fileStatus.getPath().getPathWithoutSchemeAndAuthority(Path);
+		return fileStatus.getPath().getPathWithoutSchemeAndAuthority(Path).toString();
 	}
 	
 	public static long getLen(String Uri, Configuration conf) throws IOException {
@@ -136,11 +136,11 @@ public class Ls {
 		return fileStatus.getGroup();
 	}
 	
-	public static FsPermission getPermission(String Uri, Configuration conf) throws IOException {
+	public static String getPermission(String Uri, Configuration conf) throws IOException {
 		
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
-		return fileStatus.getPermission();
+		return fileStatus.getPermission().toString();
 	}
 }

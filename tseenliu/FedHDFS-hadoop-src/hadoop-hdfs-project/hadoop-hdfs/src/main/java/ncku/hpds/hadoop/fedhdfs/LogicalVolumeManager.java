@@ -80,8 +80,8 @@ public class LogicalVolumeManager implements Serializable {
 		PathInfo tmpPathInfo = new PathInfo();
 		try {
 			tmpPathInfo.setPath(Ls.getPath(path, conf));
-			tmpPathInfo.SetModificationTime(Ls.getModificationTime(path, conf));
-			tmpPathInfo.SetPermission(Ls.getPermission(path, conf));
+			tmpPathInfo.setModificationTime(Ls.getModificationTime(path, conf));
+			tmpPathInfo.setPermission(Ls.getPermission(path, conf));
 			tmpPathInfo.setReplication(Ls.getReplication(path, conf));
 			tmpPathInfo.setOwner(Ls.getOwner(path, conf));
 			tmpPathInfo.setGroup(Ls.getGroup(path, conf));

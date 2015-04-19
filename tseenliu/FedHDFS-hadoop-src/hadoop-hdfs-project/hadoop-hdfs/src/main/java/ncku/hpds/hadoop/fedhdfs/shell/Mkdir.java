@@ -13,7 +13,7 @@ public class Mkdir {
     private int SNport = 8765;
     private int port = 8764;
     
-	public void logicalMapping(String command, String globalFileName) {
+	public void constructGlobalFile(String command, String globalFileName) {
 		
 		Socket client = new Socket();
 		ObjectInputStream ObjectIn;

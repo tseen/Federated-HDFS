@@ -7,11 +7,11 @@ import ncku.hpds.hadoop.fedhdfs.shell.Delete;
 import ncku.hpds.hadoop.fedhdfs.shell.DeleteDir;
 import ncku.hpds.hadoop.fedhdfs.shell.FetchFsimage;
 import ncku.hpds.hadoop.fedhdfs.shell.Ls;
-import ncku.hpds.hadoop.fedhdfs.shell.LsTableInfo;
+import ncku.hpds.hadoop.fedhdfs.shell.LsGlobalNamespace;
 import ncku.hpds.hadoop.fedhdfs.shell.Lsr;
 import ncku.hpds.hadoop.fedhdfs.shell.Mkdir;
-import ncku.hpds.hadoop.fedhdfs.shell.Put;
-import ncku.hpds.hadoop.fedhdfs.shell.SecurePut;
+import ncku.hpds.hadoop.fedhdfs.shell.SecureUnion;
+import ncku.hpds.hadoop.fedhdfs.shell.Union;
 
 import org.apache.hadoop.conf.Configuration;
 import org.w3c.dom.Element;
@@ -72,8 +72,8 @@ public class FedHdfs {
 				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
 			}
 			
-			Mkdir test = new Mkdir();
-			test.logicalMapping(command, uri[1]);	
+			Mkdir mkdirGN = new Mkdir();
+			mkdirGN.constructGlobalFile(command, uri[1]);	
 			
 		} else if (command.equalsIgnoreCase("-rm")){
 
@@ -82,8 +82,8 @@ public class FedHdfs {
 				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
 			}
 
-			Delete test = new Delete();
-			test.logicalMapping(command, uri[1], uri[2]);
+			Delete rm = new Delete();
+			rm.rmPathFromGN(command, uri[1], uri[2]);
 			
 		} else if (command.equalsIgnoreCase("-rmdir")) {
 
@@ -92,13 +92,33 @@ public class FedHdfs {
 				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
 			}
 
-			DeleteDir test = new DeleteDir();
-			test.logicalMapping(command, uri[1]);
+			DeleteDir rmdir = new DeleteDir();
+			rmdir.rmGlobalFileFromGN(command, uri[1]);
+			
+		} else if (command.equalsIgnoreCase("-union") | command.equalsIgnoreCase("-un")) {
+
+			if (uri.length < 2) {
+				System.out.println("Usage: hadoop fedfs [generic options]");
+				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+			}
+
+			Union unionGlobalFile = new Union();
+			unionGlobalFile.union(command, uri[1], uri[2]);
+			
+		} else if (command.equalsIgnoreCase("-sunion") | command.equalsIgnoreCase("-sun")) {
+
+			if (uri.length < 2) {
+				System.out.println("Usage: hadoop fedfs [generic options]");
+				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+			}
+
+			SecureUnion sunionGlobalFile = new SecureUnion();
+			sunionGlobalFile.union(command, uri[1], uri[2]);
 			
 		} else if (command.equalsIgnoreCase("-lsP")) {
 			
-			LsTableInfo test = new LsTableInfo();
-			//test.GlobalNamespaceClient(uri[1]);
+			LsGlobalNamespace test = new LsGlobalNamespace();
+			test.GlobalNamespaceClient(uri[1]);
 			
 		} else if (command.equalsIgnoreCase("-fetchFedImage")){
 			

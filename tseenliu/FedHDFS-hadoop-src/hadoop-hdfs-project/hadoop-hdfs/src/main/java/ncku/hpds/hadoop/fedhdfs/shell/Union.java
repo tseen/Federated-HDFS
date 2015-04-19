@@ -7,13 +7,13 @@ import java.net.Socket;
 
 import ncku.hpds.hadoop.fedhdfs.GlobalNamespaceObject;
 
-public class Put {
+public class Union {
 	
 	private String SNaddress = "127.0.0.1";
     private int SNport = 8765;
     private int port = 8764;
     
-	public void logicalMapping(String command, String globalFileName, String Path) {
+	public void union(String command, String globalFileName, String Path) {
 
 		String[] split = Path.split(":");
 		String hostName = split[0];

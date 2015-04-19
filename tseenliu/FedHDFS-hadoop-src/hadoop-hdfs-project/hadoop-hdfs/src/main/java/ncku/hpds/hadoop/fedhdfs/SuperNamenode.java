@@ -88,14 +88,14 @@ class GlobalNamespaceLD implements Runnable {
                     GN.mkdir(globalFileName);
                 }
                 
-                else if (command.equalsIgnoreCase("-sput")) {
+                else if (command.equalsIgnoreCase("-sunion") | command.equalsIgnoreCase("-sun")) {
                 	String globalFileName = split[1];
                     String hostName = split[2];
                     String clusterPath = split[3];
                     GN.sput(globalFileName, hostName, clusterPath);
                 }
                 
-                else if (command.equalsIgnoreCase("-put")) {
+                else if (command.equalsIgnoreCase("-union") | command.equalsIgnoreCase("-un")) {
                 	String globalFileName = split[1];
                     String hostName = split[2];
                     String clusterPath = split[3];

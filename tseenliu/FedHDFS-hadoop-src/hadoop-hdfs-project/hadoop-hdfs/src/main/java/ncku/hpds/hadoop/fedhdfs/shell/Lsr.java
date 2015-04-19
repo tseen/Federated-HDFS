@@ -55,6 +55,6 @@ class show {
 				+ String.format("%11d", fileStatus.getLen())
 				+ " "
 				+ f.format(new Timestamp(fileStatus.getModificationTime()))
-						.toString() + " " + fileStatus.getPath().getName());
+				+ " " + fileStatus.getPath().getName());
 	}
 }

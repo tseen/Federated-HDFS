@@ -11,7 +11,7 @@ public class PathInfo implements Serializable {
 	
 	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-	private transient Path path;
+	private String path;
 	
 	private long length;
 	
@@ -23,10 +23,46 @@ public class PathInfo implements Serializable {
 	
 	private String group;
 	
-	private transient FsPermission permission;
+	private String permission;
 	
+	public String getPath()
+    {
+    	return path;
+    }
 
-    public void setPath(Path path)
+    public long getLength()
+    {
+        return length;
+    }
+
+    public long getModificationTime()
+    {
+        return modificationTime;
+    }
+
+    public short getReplication()
+    {
+        return replication;
+    }
+
+    public String getOwner()
+    {
+        return owner;
+    }
+
+    public String getGroup()
+    {
+        return group;
+    }
+    
+    public String getPermission()
+    {
+        return permission;
+    }
+	
+	/**/
+	
+    public void setPath(String path)
     {
     	this.path = path;
     }
@@ -36,7 +72,7 @@ public class PathInfo implements Serializable {
         this.length = length;
     }
 
-    public void SetModificationTime(long modificationTime)
+    public void setModificationTime(long modificationTime)
     {
         this.modificationTime = modificationTime;
     }
@@ -56,7 +92,7 @@ public class PathInfo implements Serializable {
         this.group = group;
     }
     
-    public void SetPermission(FsPermission permission)
+    public void setPermission(String permission)
     {
         this.permission = permission;
     }
