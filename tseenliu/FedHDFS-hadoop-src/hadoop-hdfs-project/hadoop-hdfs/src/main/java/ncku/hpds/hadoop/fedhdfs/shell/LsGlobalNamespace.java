@@ -113,10 +113,10 @@ public class LsGlobalNamespace {
 					tmpPathInfo.setModificationTime(pathInfoItegrate.getModificationTime(PathsInfo).getModificationTime());
 					tmpPathInfo.setLength(pathInfoItegrate.getLenSummarize(PathsInfo).getLength());
 					tmpPathInfo.setReplication(pathInfoItegrate.getReplication(PathsInfo).getReplication());
-					
+					tmpPathInfo.setPermission(null);
 					SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-					System.out.print("null"+/*tmpPathInfo.getPermission().toString()
-							+ */String.format("%4d", tmpPathInfo.getReplication())
+					System.out.print(tmpPathInfo.getPermission().toString()
+							+ String.format("%4d", tmpPathInfo.getReplication())
 							+ " "
 							+ setOfOwner
 							+ " "

@@ -1,12 +1,17 @@
 package ncku.hpds.hadoop.fedhdfs;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.concurrent.Callable;
@@ -16,23 +21,27 @@ import org.w3c.dom.Element;
 
 public class SuperNamenode {
 	
-	static GlobalNamespace GN1 = new GlobalNamespace();
+	static GlobalNamespace GN = new GlobalNamespace();
 
 	public static void main(String[] args) throws Exception {
 		
-		Thread newThread1 = new Thread(new GlobalNamespaceLD(GN1));
-		newThread1.start();
+		Thread GNLD = new Thread(new GlobalNamespaceLD(GN));
+		GNLD.start();
 		
-		Thread newThread2 = new Thread(new GlobalNamespacePD(GN1));
+		Thread GNPD = new Thread(new GlobalNamespacePD(GN));
 		//newThread2.setDaemon(true);
-		newThread2.start();
+		GNPD.start();
 		
-		Thread newThread3 = new Thread(new GlobalNamespaceServer(GN1));
-		newThread3.start();
+		Thread GNSerialize = new Thread(new GlobalNamespaceServer(GN));
+		GNSerialize.start();
+		
+		Thread test = new Thread(new GNQueryServer(GN));
+		test.start();
 
 	}
 }
 
+/* GET FedHDFS client message to construct GlobalNamespace */
 class GlobalNamespaceLD implements Runnable {
 	
 	static GlobalNamespace GN;
@@ -49,7 +58,7 @@ class GlobalNamespaceLD implements Runnable {
     public void run() {
     	
     	Socket socket;
-        java.io.BufferedInputStream sin;
+        BufferedInputStream stringIn;
         try {
 			server = new ServerSocket(ServerPort);
 		} catch (IOException e1) {
@@ -66,21 +75,21 @@ class GlobalNamespaceLD implements Runnable {
                 }
                 socket.setSoTimeout(15000);
  
-                sin = new java.io.BufferedInputStream(socket.getInputStream());
-                byte[] b = new byte[1024];
-                String data = "";
+                stringIn = new BufferedInputStream(socket.getInputStream());
+                byte[] buffstr = new byte[1024];
+                String message = "";
                 int length;
-                while ((length = sin.read(b)) > 0) // <=0的話就是結束了
+                while ((length = stringIn.read(buffstr)) > 0) // <=0的話就是結束了
                 {
-                    data += new String(b, 0, length);
+                	message += new String(buffstr, 0, length);
                 }
  
-                System.out.println("FedUser input : " + data + "\n");
-                sin.close();
-                sin = null;
+                System.out.println("FedUser input : " + message + "\n");
+                stringIn.close();
+                stringIn = null;
                 socket.close();
                 
-                String[] split = data.split(" ");
+                String[] split = message.split(" ");
                 String command = split[0];
                 
                 if (command.equalsIgnoreCase("-mkdir")){
@@ -121,6 +130,7 @@ class GlobalNamespaceLD implements Runnable {
     }
 }
 
+/* GET information of each Namenodes' namespace */
 class GlobalNamespacePD implements Runnable {
 	
 	static GlobalNamespace GN;
@@ -148,6 +158,7 @@ class GlobalNamespacePD implements Runnable {
 	}
 }
 
+/* GlobalNamespace Server running for FedHDFS client */
 class GlobalNamespaceServer extends Thread {
 	
 	static GlobalNamespace GN;
@@ -164,8 +175,8 @@ class GlobalNamespaceServer extends Thread {
 		Socket socket;
 		ObjectOutputStream ObjectOut;
 		
-		GlobalNamespaceObject test = new GlobalNamespaceObject();
-		test.setGlobalNamespace(GN);
+		GlobalNamespaceObject GNSerialize = new GlobalNamespaceObject();
+		GNSerialize.setGlobalNamespace(GN);
 		
 		try {
 			server = new ServerSocket(ServerPort);
@@ -184,18 +195,76 @@ class GlobalNamespaceServer extends Thread {
 				socket.setSoTimeout(15000);
 
 				ObjectOut = new ObjectOutputStream(socket.getOutputStream());
-				ObjectOut.writeObject(test);
+				ObjectOut.writeObject(GNSerialize);
 				ObjectOut.flush();
 				ObjectOut.close();
 				ObjectOut = null;
-				//test = null;
 				socket.close();
 				socket = null;
 				
-			} catch (java.io.IOException e) {
+			} catch (IOException e) {
 				System.out.println("Socket connect error");
 				System.out.println("IOException :" + e.toString());
 			}
 		}
 	}
+}
+
+class GNQueryServer extends Thread {
+	
+	static GlobalNamespace GN;
+	
+	public GNQueryServer(GlobalNamespace GN) {
+		this.GN = GN;
+	}
+	
+	private boolean OutServer = false;
+	private ServerSocket server;
+	private final int ServerPort = 8763;
+	
+	@Override
+    public void run() {
+    	
+    	Socket socket;
+    	InputStream stringIn;
+        try {
+			server = new ServerSocket(ServerPort);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+ 
+        System.out.println("GlobalNamespace query Server starting");
+        while (!OutServer) {
+            socket = null;
+            try {
+                synchronized (server) {
+                    socket = server.accept();
+                }
+                socket.setSoTimeout(15000);
+ 
+                byte buffstr[] = new byte[1024];
+                stringIn = socket.getInputStream();
+    			int str = stringIn.read(buffstr);
+    			String globalFile = new String(buffstr, 0, str);
+    			//System.out.println(globalFile);
+    			System.out.println("FedHDDS client query GlobalFile : " + globalFile + "\n");
+    			
+    			ObjectOutputStream objectOut = new ObjectOutputStream(socket.getOutputStream());
+                //BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
+    			//out.write(requestGlobalFile.toString().getBytes());
+    			ArrayList<String> requestGlobalFile = GN.queryGlobalFile(globalFile);
+    			objectOut.writeObject(requestGlobalFile);
+    			stringIn.close();
+    			stringIn = null;
+                objectOut.close();
+                objectOut.flush();
+                socket.close();
+                
+            } catch (java.io.IOException e) {
+                System.out.println("Socket connect error");
+                System.out.println("IOException :" + e.toString());
+            }
+        }
+    }
 }

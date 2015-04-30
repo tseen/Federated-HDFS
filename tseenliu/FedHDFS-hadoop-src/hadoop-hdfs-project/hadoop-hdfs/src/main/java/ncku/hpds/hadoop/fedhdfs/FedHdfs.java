@@ -41,8 +41,8 @@ public class FedHdfs {
 		if (command.equalsIgnoreCase("-ls")){
 			
 			if (uri.length < 3) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-ls [hostName] [<path> ...]]\n");
+				System.err.println("Usage: -ls [hostName] [<path> ...]");
+				System.exit(2);
 			}
 			
 			for (int i = 0; i < theElements.size(); i++) {
@@ -55,8 +55,8 @@ public class FedHdfs {
 		} else if (command.equalsIgnoreCase("-lsr")) {
 			
 			if (uri.length < 3) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-ls [hostName] [<path> ...]]\n");
+				System.err.println("Usage: -ls [hostName] [<path> ...]");
+				System.exit(2);
 			}
 			
 			for (int i = 0; i < theElements.size(); i++) {
@@ -68,8 +68,8 @@ public class FedHdfs {
 		} else if (command.equalsIgnoreCase("-mkdir")){
 			
 			if (uri.length < 2) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+				System.err.println("Usage: -mkdir [globalfile]");
+				System.exit(2);
 			}
 			
 			Mkdir mkdirGN = new Mkdir();
@@ -78,8 +78,8 @@ public class FedHdfs {
 		} else if (command.equalsIgnoreCase("-rm")){
 
 			if (uri.length < 3) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+				System.err.println("Usage: -rm [globalfile] [hostName:<path> ...]");
+				System.exit(2);
 			}
 
 			Delete rm = new Delete();
@@ -88,8 +88,8 @@ public class FedHdfs {
 		} else if (command.equalsIgnoreCase("-rmdir")) {
 
 			if (uri.length < 2) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+				System.err.println("Usage: -rmdir [globalfile]");
+				System.exit(2);
 			}
 
 			DeleteDir rmdir = new DeleteDir();
@@ -97,9 +97,9 @@ public class FedHdfs {
 			
 		} else if (command.equalsIgnoreCase("-union") | command.equalsIgnoreCase("-un")) {
 
-			if (uri.length < 2) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+			if (uri.length < 3) {
+				System.err.println("Usage: -union [globalfile] [hostName:<path> ...]");
+				System.exit(2);
 			}
 
 			Union unionGlobalFile = new Union();
@@ -107,9 +107,9 @@ public class FedHdfs {
 			
 		} else if (command.equalsIgnoreCase("-sunion") | command.equalsIgnoreCase("-sun")) {
 
-			if (uri.length < 2) {
-				System.out.println("Usage: hadoop fedfs [generic options]");
-				System.out.println("        [-gn <logicalName>  <hostName>:<path>]\n");
+			if (uri.length < 3) {
+				System.err.println("Usage: -sunion [globalfile] [hostName:<path> ...]");
+				System.exit(2);
 			}
 
 			SecureUnion sunionGlobalFile = new SecureUnion();

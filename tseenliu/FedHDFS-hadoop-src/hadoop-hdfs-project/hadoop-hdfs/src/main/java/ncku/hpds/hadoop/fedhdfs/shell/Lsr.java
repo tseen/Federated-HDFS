@@ -44,6 +44,9 @@ class show {
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
 		Path Path = new Path(Uri);
 		FileStatus fileStatus = FS.getFileStatus(Path);
+		
+		int tmpUserIndex = fileStatus.getPath().toString().indexOf("/user");
+		String userPath = fileStatus.getPath().toString().substring(tmpUserIndex, fileStatus.getPath().toString().length());
 
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		System.out.println(fileStatus.getPermission().toString()
@@ -55,6 +58,7 @@ class show {
 				+ String.format("%11d", fileStatus.getLen())
 				+ " "
 				+ f.format(new Timestamp(fileStatus.getModificationTime()))
-				+ " " + fileStatus.getPath().getName());
+				+ " " + userPath); 
+				/*fileStatus.getPath().getName());*/
 	}
 }

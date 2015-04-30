@@ -6,8 +6,14 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.Map.Entry;
+
+import ncku.hpds.hadoop.fedhdfs.shell.LsGlobalNamespace;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -25,13 +31,13 @@ import org.w3c.dom.Element;
 
 public class GlobalNamespace implements Serializable {
 	
-	 private static File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
-	 private static FedHdfsConParser FedhdfsConfList = new FedHdfsConParser(FedConfpath);
-	 private static Vector<Element> theFedhdfsElements = FedhdfsConfList.getElements();
-	 private static Configuration[] conf = new Configuration[theFedhdfsElements.size()];
-	 
-	 private PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
-	 private LogicalVolumeManager logicalDrive = new LogicalVolumeManager();
+	private static File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	private static FedHdfsConParser FedhdfsConfList = new FedHdfsConParser(FedConfpath);
+	private static Vector<Element> theFedhdfsElements = FedhdfsConfList.getElements();
+	private static Configuration[] conf = new Configuration[theFedhdfsElements.size()];
+
+	private PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
+	private LogicalVolumeManager logicalDrive = new LogicalVolumeManager();
 	 
 	
 	public void setFedConf(){
@@ -87,5 +93,51 @@ public class GlobalNamespace implements Serializable {
 	
 	public LogicalVolumeManager getLogicalDrive() {
 		return logicalDrive;
+	}
+	
+	public ArrayList<String> queryGlobalFile(String globalFile) throws IOException{
+		
+		ArrayList<String> requestGlobalFile = new ArrayList<String>();
+		
+		HashMap<String, PathInfo> GlobalFileValues = logicalDrive.getLogicalMappingTable().get(globalFile);
+		
+		if (logicalDrive.getLogicalMappingTable().containsKey(globalFile)) {
+			
+			for (Map.Entry<String, PathInfo> entry : GlobalFileValues.entrySet()) {
+
+				String hostName = entry.getKey();
+				String PhysicalPath = GlobalFileValues.get(hostName).getPath().toString();
+				
+				requestGlobalFile.add(hostName + ":" + PhysicalPath);
+			}
+		}
+		else {
+			System.out.println("Error: " + globalFile + " not found ");
+		}
+		
+		return requestGlobalFile;
+	}
+	
+	public void ShowqueryGlobalFile(String globalFile) throws IOException{
+		
+		ArrayList<String> requestGlobalFile = new ArrayList<String>();
+		
+		HashMap<String, PathInfo> GlobalFileValues = logicalDrive.getLogicalMappingTable().get(globalFile);
+		
+		if (logicalDrive.getLogicalMappingTable().containsKey(globalFile)) {
+			
+			for (Map.Entry<String, PathInfo> entry : GlobalFileValues.entrySet()) {
+
+				String hostName = entry.getKey();
+				String PhysicalPath = GlobalFileValues.get(hostName).getPath().toString();
+				
+				requestGlobalFile.add(hostName + ":" + PhysicalPath);
+			}
+		}
+		else {
+			System.out.println("Error: " + globalFile + " not found ");
+		}
+		
+		System.out.println(requestGlobalFile);
 	}
 }

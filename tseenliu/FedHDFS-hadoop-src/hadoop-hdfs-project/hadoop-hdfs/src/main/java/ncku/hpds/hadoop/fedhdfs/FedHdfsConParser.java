@@ -81,7 +81,166 @@ public class FedHdfsConParser {
 		}
 		return data;
 	}
+	
+	public static String getHadoopHOME(File XMLfile, String hostName) {
+		
+		String data = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
 
+			NodeList clusterlist = doc.getElementsByTagName("Cluster");
+
+			for (int i = 0; i < clusterlist.getLength(); i++) {
+
+				Node clustersNode = clusterlist.item(i);
+				Element element = (Element) clustersNode;
+				/*if (hostName.equals(element.getAttributeNode("HostName").getChildNodes().toString())) {
+					data = getValue("fs.default.name", element);
+					break;
+				}*/
+				if (hostName.equals(getValue("HostName", element))) {
+					data = getValue("hadoop-home.dir", element);
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	
+	/* TODO for FedMR */
+	public static String getFedJarPath(File XMLfile) {
+		
+		String data = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			NodeList clusterlist = doc.getElementsByTagName("Fed");
+
+			for (int i = 0; i < clusterlist.getLength(); i++) {
+
+				Node clustersNode = clusterlist.item(i);
+				Element element = (Element) clustersNode;
+				data = getValue("JarPath", element);	
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public static String getFedInputFile(File XMLfile) {
+		
+		String data = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			NodeList clusterlist = doc.getElementsByTagName("Fed");
+
+			for (int i = 0; i < clusterlist.getLength(); i++) {
+
+				Node clustersNode = clusterlist.item(i);
+				Element element = (Element) clustersNode;
+				data = getValue("Input", element);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public static String getFedMainClass(File XMLfile) {
+		
+		String data = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			NodeList clusterlist = doc.getElementsByTagName("Fed");
+
+			for (int i = 0; i < clusterlist.getLength(); i++) {
+
+				Node clustersNode = clusterlist.item(i);
+				Element element = (Element) clustersNode;
+				data = getValue("MainClass", element);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public static String getFedOtherArgs(File XMLfile) {
+		
+		String data = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			NodeList clusterlist = doc.getElementsByTagName("Fed");
+
+			for (int i = 0; i < clusterlist.getLength(); i++) {
+
+				Node clustersNode = clusterlist.item(i);
+				Element element = (Element) clustersNode;
+				data = getValue("OtherArgs", element);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public static String getFedArgs(File XMLfile , String argTag) {
+		
+		String data = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			NodeList clusterlist = doc.getElementsByTagName("Fed");
+
+			for (int i = 0; i < clusterlist.getLength(); i++) {
+
+				Node clustersNode = clusterlist.item(i);
+				Element element = (Element) clustersNode;
+				data = getValue(argTag, element);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
 	public Vector<Element> getElements() {
 		return elementArray;
 	}
