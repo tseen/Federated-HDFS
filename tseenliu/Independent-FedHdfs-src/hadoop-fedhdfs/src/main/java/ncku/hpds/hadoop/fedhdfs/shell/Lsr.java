@@ -9,6 +9,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.util.StringUtils;
 
 public class Lsr {
 	
@@ -56,6 +57,29 @@ class show {
 				+ " "
 				+ fileStatus.getGroup()
 				+ String.format("%11d", fileStatus.getLen())
+				+ " "
+				+ f.format(new Timestamp(fileStatus.getModificationTime()))
+				+ " " + userPath); 
+				/*fileStatus.getPath().getName());*/
+	}
+	
+	public static void DirFileInfoHuman(String Uri, Configuration conf) throws IOException {
+
+		FileSystem FS = FileSystem.get(URI.create(Uri), conf);
+		Path Path = new Path(Uri);
+		FileStatus fileStatus = FS.getFileStatus(Path);
+		
+		int tmpUserIndex = fileStatus.getPath().toString().indexOf("/user");
+		String userPath = fileStatus.getPath().toString().substring(tmpUserIndex, fileStatus.getPath().toString().length());
+
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		System.out.println(fileStatus.getPermission().toString()
+				+ String.format("%4d", fileStatus.getReplication())
+				+ " "
+				+ fileStatus.getOwner()
+				+ " "
+				+ fileStatus.getGroup()
+				+ String.format("%11d", fileStatus.getLen()) + " (" + StringUtils.byteDesc(fileStatus.getLen()) + ")"
 				+ " "
 				+ f.format(new Timestamp(fileStatus.getModificationTime()))
 				+ " " + userPath); 
