@@ -23,6 +23,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.util.StringUtils;
 import org.w3c.dom.Element;
 
 import ncku.hpds.hadoop.fedhdfs.FedHdfsConParser;
@@ -49,11 +50,11 @@ public class LsGlobalNamespace {
 	
 	public LsGlobalNamespace(String pathArgument, boolean recursive) {
 		if (recursive = true) {
-			GlobalNamespaceClient1(pathArgument);	
+			recursiveGlobalNamespaceClient(pathArgument);	
 		}
 	}
 	
-	public void GlobalNamespaceClient(String pathArgument) {
+	private void GlobalNamespaceClient(String pathArgument) {
 		
 		Socket client = new Socket();
 		ObjectInputStream ObjectIn;
@@ -85,7 +86,7 @@ public class LsGlobalNamespace {
 	        				String hostName = entry.getKey();
 	        				String PhysicalPath = GN.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().get(globalFile).get(hostName).getPath().toString();;
 	        				
-	        				LsGlobalNamespace.getFileStatus(hostName, PhysicalPath);
+	        				gnFileStatus(hostName, PhysicalPath);
 							System.out.println(" " + "AirDrive" + "/" + globalFile + "/" + hostName + PhysicalPath);
 	        			}
 	        		}
@@ -123,17 +124,38 @@ public class LsGlobalNamespace {
 					HashSet<String> setOfOwner = new HashSet<String>();
 					HashSet<String> setOfGroup = new HashSet<String>();
 					
+					ArrayList<Long> eachOfGloalfileLens = new ArrayList<Long>();
+					ArrayList<Short> eachOfGloalfileReplicas = new ArrayList<Short>();
+					long sumOfLen = 0;
+					short maxOfReplica;
+					
 					for (Map.Entry<String, PathInfo> SubEntry : GlobalFileValues.entrySet()) {
+						
+						String hostName = SubEntry.getKey();
+						String PhysicalPath = SubEntry.getValue().getPath().toString();
+						File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+						Configuration conf = new Configuration();
+						conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(FedConfpath, hostName));
+						InfoAggreration info = new InfoAggreration();
+						info.recursivelySumOfLen(PhysicalPath, conf);
+						info.maxOfReplica(PhysicalPath, conf);
+						eachOfGloalfileLens.add(info.getSumOfLen());
+						eachOfGloalfileReplicas.add(info.getMaxOfReplica());
 						
 						PathInfo valuesOfHost = SubEntry.getValue();
 						PathsInfo.add(valuesOfHost);	
 						setOfOwner.add(valuesOfHost.getOwner());
 						setOfGroup.add(valuesOfHost.getGroup());
 					}
-					
+					for (int i = 0; i < eachOfGloalfileLens.size(); i++) {
+						sumOfLen +=  eachOfGloalfileLens.get(i);
+					}
+					maxOfReplica = Collections.max(eachOfGloalfileReplicas);
 					tmpPathInfo.setModificationTime(pathInfoItegrate.getModificationTime(PathsInfo).getModificationTime());
-					tmpPathInfo.setLength(pathInfoItegrate.getLenSummarize(PathsInfo).getLength());
-					tmpPathInfo.setReplication(pathInfoItegrate.getReplication(PathsInfo).getReplication());
+					//tmpPathInfo.setLength(pathInfoItegrate.getLenSummarize(PathsInfo).getLength());
+					tmpPathInfo.setLength(sumOfLen);
+					//tmpPathInfo.setReplication(pathInfoItegrate.getReplication(PathsInfo).getReplication());
+					tmpPathInfo.setReplication(maxOfReplica);
 					tmpPathInfo.setPermission(null);
 					SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 					System.out.print("rw-r--r--"/*tmpPathInfo.getPermission().toString()*/
@@ -141,8 +163,8 @@ public class LsGlobalNamespace {
 							+ " "
 							+ setOfOwner
 							+ " "
-							+ setOfGroup
-							+ String.format("%11d", tmpPathInfo.getLength())
+							+ setOfGroup + " "
+							+ String.format("%11d", tmpPathInfo.getLength()) + " (" + StringUtils.byteDesc(tmpPathInfo.getLength()) + ")"
 							+ " "
 							+ f.format(new Timestamp(tmpPathInfo.getModificationTime())));
 					
@@ -160,7 +182,7 @@ public class LsGlobalNamespace {
 		}
 	}
 	
-	public void GlobalNamespaceClient1(String pathArgument) {
+	private void recursiveGlobalNamespaceClient(String pathArgument) {
 		
 		Socket client = new Socket();
 		ObjectInputStream ObjectIn;
@@ -230,8 +252,32 @@ public class LsGlobalNamespace {
 		}
 	}
 	
+	private void gnFileStatus(String hostName, String PhysicalPath) throws IOException {
+		
+		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+		Configuration conf = new Configuration();
+		conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(FedConfpath, hostName));
+		InfoAggreration info = new InfoAggreration();
+		info.recursivelySumOfLen(PhysicalPath, conf);
+		info.maxOfReplica(PhysicalPath, conf);
+		FileSystem FS = FileSystem.get(URI.create(PhysicalPath), conf);
+		Path Path = new Path(PhysicalPath);
+		FileStatus fileStatus = FS.getFileStatus(Path);
+
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		System.out.print(fileStatus.getPermission().toString()
+				+ String.format("%4d", info.getMaxOfReplica())
+				+ " "
+				+ fileStatus.getOwner()
+				+ " "
+				+ fileStatus.getGroup()+ " "
+				+ String.format("%11d", info.getSumOfLen())
+				+ " "
+				+ f.format(new Timestamp(fileStatus.getModificationTime())));
+		
+	}
 	
-	public static void getFileStatus(String hostName, String PhysicalPath) throws IOException {
+	private static void getFileStatus(String hostName, String PhysicalPath) throws IOException {
 		
 		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
 		Configuration conf = new Configuration();
@@ -247,7 +293,7 @@ public class LsGlobalNamespace {
 				+ " "
 				+ fileStatus.getOwner()
 				+ " "
-				+ fileStatus.getGroup()
+				+ fileStatus.getGroup()+ " "
 				+ String.format("%11d", fileStatus.getLen())
 				+ " "
 				+ f.format(new Timestamp(fileStatus.getModificationTime())));
