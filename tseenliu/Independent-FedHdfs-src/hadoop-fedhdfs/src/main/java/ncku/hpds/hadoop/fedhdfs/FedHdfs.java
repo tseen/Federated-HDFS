@@ -41,7 +41,7 @@ public class FedHdfs {
 		if (command.equalsIgnoreCase("-ls")){
 			
 			if(uri.length == 1) {
-				LsGlobalNamespace test = new LsGlobalNamespace();
+				LsGlobalNamespace lsGN = new LsGlobalNamespace();
 			}
 			if(uri.length == 2) {
 				if (uri[1].contains(":")){
@@ -60,7 +60,7 @@ public class FedHdfs {
 		    			}
 		    		}	
 				}
-				else {LsGlobalNamespace test = new LsGlobalNamespace(uri[1]);}
+				else {LsGlobalNamespace lsGN = new LsGlobalNamespace(uri[1]);}
 			}
 			
 		} else if (command.equalsIgnoreCase("-lsr")) {
@@ -87,7 +87,7 @@ public class FedHdfs {
 					System.exit(2);
 				}
 				boolean recursive = true;
-				LsGlobalNamespace test = new LsGlobalNamespace(uri[1], recursive);
+				LsGlobalNamespace lsGN = new LsGlobalNamespace(uri[1], recursive);
 			}
 			
 		} else if (command.equalsIgnoreCase("-mkdir")){
