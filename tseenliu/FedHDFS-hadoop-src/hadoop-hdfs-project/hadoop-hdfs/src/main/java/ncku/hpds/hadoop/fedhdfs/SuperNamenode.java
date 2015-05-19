@@ -28,9 +28,9 @@ public class SuperNamenode {
 		Thread GNLD = new Thread(new GlobalNamespaceLD(GN));
 		GNLD.start();
 		
-		Thread GNPD = new Thread(new GlobalNamespacePD(GN));
+		/*Thread GNPD = new Thread(new GlobalNamespacePD(GN));
 		//newThread2.setDaemon(true);
-		GNPD.start();
+		GNPD.start();*/
 		
 		Thread GNSerialize = new Thread(new GlobalNamespaceServer(GN));
 		GNSerialize.start();
@@ -54,7 +54,6 @@ class GlobalNamespaceLD implements Runnable {
     private ServerSocket server;
     private final int ServerPort = 8765;
    
-    @Override
     public void run() {
     	
     	Socket socket;
@@ -79,7 +78,7 @@ class GlobalNamespaceLD implements Runnable {
                 byte[] buffstr = new byte[1024];
                 String message = "";
                 int length;
-                while ((length = stringIn.read(buffstr)) > 0) // <=0的話就是結束了
+                while ((length = stringIn.read(buffstr)) > 0)
                 {
                 	message += new String(buffstr, 0, length);
                 }
@@ -111,17 +110,17 @@ class GlobalNamespaceLD implements Runnable {
                     GN.put(globalFileName, hostName, clusterPath);
                 }
                 
-                else if (command.equalsIgnoreCase("-rmdir")) {
-                	String globalFileName = split[1];
-                    GN.rmdir(globalFileName);
-                }
-                
                 else if (command.equalsIgnoreCase("-rm")) {
-                	String globalFileName = split[1];
-                    String hostName = split[2];
-                    GN.rm(globalFileName, hostName);
+                	if (split.length == 3) {
+                		String globalFileName = split[1];
+                        String hostName = split[2];
+                        GN.rm(globalFileName, hostName);
+                	}
+                	if (split.length == 2) {
+                		String globalFileName = split[1];
+                        GN.rmdir(globalFileName);
+                	}
                 }
-  
             } catch (java.io.IOException e) {
                 System.out.println("Socket connect error");
                 System.out.println("IOException :" + e.toString());
@@ -139,7 +138,6 @@ class GlobalNamespacePD implements Runnable {
 		this.GN = GN;
 	}
 	
-	@Override
 	public void run() {
 		try{
 			while(true){

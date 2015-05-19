@@ -45,8 +45,6 @@ public class SubmitJobsScheduler {
 		try {
 			
 			OutputStream stringOut = client.getOutputStream();
-			// 送出字串
-			//String globalFile = parseArg[3];
 			stringOut.write(globalfileInput.getBytes());
 			System.out.println("send globalFile to GN query server : " + globalfileInput);
 			
@@ -54,7 +52,6 @@ public class SubmitJobsScheduler {
 			Object object = objectIn.readObject();
 			
 			requestGlobalFile = (ArrayList<String>) object;
-            //System.out.println(requestGlobalFile.get(0));
 			
             stringOut.flush();
             stringOut.close();
@@ -99,37 +96,8 @@ public class SubmitJobsScheduler {
         for (int i = 0; i < requestGlobalFile.size(); i++) {
         	String tmpHostPath[] = requestGlobalFile.get(i).split(":");
         	Union unionGlobalFile = new Union();
-    		//unionGlobalFile.union("-union", globalfileOutput, tmpHostPath[0] + ":" + Ls.getPath(globalfileOutput, conf));
     		unionGlobalFile.union("-union", globalfileOutput, tmpHostPath[0] + ":/user/hpds/" + globalfileOutput);
         }
-        
-        
-        
-		/*test one = new test("c09", "/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.1.jar");
-		test two = new test("c34", "/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.0.jar");
-		
-		rList.add(one);
-		rList.add(two);*/
-	
-		/*try {
-			Runtime rt = Runtime.getRuntime();
-			String cmd = "ssh hpds@10.3.1.34 /opt/hadoop-2.5.0/bin/hadoop jar /opt/hadoop-2.5.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.0.jar wordcount README.txt wordcounttest1";
-			Process proc = rt.exec(cmd);
-			
-			InputStream stderr = proc.getErrorStream();
-			InputStreamReader isr = new InputStreamReader(stderr);
-			BufferedReader br = new BufferedReader(isr);
-			String line = null;
-			System.out.println("<ERROR>");
-			while ((line = br.readLine()) != null)
-				System.out.println(line);
-			System.out.println("</ERROR>");
-			
-			int exitVal = proc.waitFor();
-			System.out.println("Process exitValue: " + exitVal);
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}*/
 	}
 }
 
