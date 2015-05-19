@@ -39,6 +39,8 @@ import org.apache.hadoop.mapreduce.task.JobContextImpl;
 import org.apache.hadoop.mapreduce.util.ConfigUtil;
 import org.apache.hadoop.util.StringUtils;
 
+import ncku.hpds.fed.MRv2.FedJob;
+
 /**
  * The job submitter's view of the Job.
  * 
@@ -1299,7 +1301,16 @@ public class Job extends JobContextImpl implements JobContext {
   public boolean waitForCompletion(boolean verbose
                                    ) throws IOException, InterruptedException,
                                             ClassNotFoundException {
+    FedJob fedJob = new FedJob(this);
     if (state == JobState.DEFINE) {
+      if ( fedJob.isFedJob() == true ) {
+          try {
+			fedJob.startFedJob();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      }
       submit();
     }
     if (verbose) {
@@ -1314,6 +1325,9 @@ public class Job extends JobContextImpl implements JobContext {
         } catch (InterruptedException ie) {
         }
       }
+    }
+    if ( fedJob.isFedJob() == true ) {
+        fedJob.stopFedJob();
     }
     return isSuccessful();
   }

@@ -50,6 +50,7 @@ import org.apache.hadoop.security.token.Token;
 import org.apache.hadoop.security.token.TokenRenewer;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import ncku.hpds.fed.MRv1.FedJob;
 
 /**
  * <code>JobClient</code> is the primary interface for the user-job to interact
@@ -829,11 +830,19 @@ public class JobClient extends CLI {
    * @throws IOException if the job fails
    */
   public static RunningJob runJob(JobConf job) throws IOException {
+    FedJob fedJob = new FedJob(job);
+    if ( fedJob.isFedJob() == true ) { 
+        fedJob.startFedJob(); 
+    }
     JobClient jc = new JobClient(job);
     RunningJob rj = jc.submitJob(job);
     try {
+      System.out.println("Submit Job");
       if (!jc.monitorAndPrintJob(job, rj)) {
         throw new IOException("Job failed!");
+      }
+      if ( fedJob.isFedJob() == true ) {
+          fedJob.stopFedJob(); 
       }
     } catch (InterruptedException ie) {
       Thread.currentThread().interrupt();
@@ -1238,4 +1247,3 @@ public class JobClient extends CLI {
     System.exit(res);
   }
 }
-
