@@ -15,4 +15,8 @@
   		<version>2.4.1</version>
   	</dependency>
   </dependencies>
+  <properties>
+	<maven.compiler.target>1.5</maven.compiler.target>
+	<maven.compiler.source>1.5</maven.compiler.source>
+  </properties>
 </project>
