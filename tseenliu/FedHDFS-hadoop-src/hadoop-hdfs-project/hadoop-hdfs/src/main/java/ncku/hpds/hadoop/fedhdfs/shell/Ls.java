@@ -12,6 +12,29 @@ import org.apache.hadoop.fs.permission.FsPermission;
 
 public class Ls {
 	
+	public static void printFiles(String Uri, Configuration conf, String hostName) throws IOException {
+		
+		System.out.println("=============================GlobalNamespace-Cluster:" + hostName + "============================");
+		try {
+
+			FileSystem FS = FileSystem.get(URI.create(Uri), conf);
+			FileStatus[] status = FS.listStatus(new Path(Uri));
+
+			for (int i = 0; i < status.length; i++) {
+				if (status[i].isDirectory()) {
+					show.DirFileInfo(status[i].getPath().toString(), conf);
+				} else {
+					try {
+						show.DirFileInfo(status[i].getPath().toString(), conf);
+					} catch (Exception e) {
+						System.err.println(e.toString());
+					}
+				}
+			}
+		} catch (IOException e) {
+		}
+	}
+	
 	public static void print_info(String Uri, Configuration conf, String hostName) throws IOException {
 
 		FileSystem FS = FileSystem.get(URI.create(Uri), conf);

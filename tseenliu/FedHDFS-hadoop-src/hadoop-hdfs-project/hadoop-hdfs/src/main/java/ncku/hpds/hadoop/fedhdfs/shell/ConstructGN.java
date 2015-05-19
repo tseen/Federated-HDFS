@@ -16,7 +16,7 @@ public class ConstructGN {
             client.connect(isa, 10000);
             BufferedOutputStream out = new BufferedOutputStream(client
                     .getOutputStream());
-        // 送出字串
+
 	    String test = logicalName + " " + Path;
             out.write(test.getBytes());
             out.flush();
