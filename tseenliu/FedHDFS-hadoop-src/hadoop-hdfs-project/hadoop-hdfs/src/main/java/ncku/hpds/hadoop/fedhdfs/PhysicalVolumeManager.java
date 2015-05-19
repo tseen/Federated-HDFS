@@ -48,9 +48,8 @@ public class PhysicalVolumeManager implements Serializable {
 	}
 	
 	public void updataPhysicalTable(Vector<Element> theFedhdfsElements){
-		int VectorSize = fsPathElements.size();
-		//System.out.println("\nThe size of the VectorSize : " + VectorSize);
 		
+		int VectorSize = fsPathElements.size();
 		for (int i = 0; i < VectorSize; i++){
 			for (int j = 0; j < fsPathElements.get(i).size(); j++){
 				PhysicalMappingTable.put(fsPathElements.get(i).get(j), FedHdfsConParser.getValue("HostName",
@@ -149,7 +148,7 @@ public class PhysicalVolumeManager implements Serializable {
 			ex.printStackTrace();
 		}catch (IOException ex) {
 			ex.printStackTrace();
-		}catch (Exception e){//Catch exception if any
+		}catch (Exception e){
 			System.err.println("Error: " + e.getMessage());
 		}
 		

@@ -40,7 +40,6 @@ public class LogicalVolumeManager implements Serializable {
 			}
 			TestLogicalMappingTable.get(globalFileName).put(hostName, LogicalVolumeManager.getFileStatus(hostName, clusterPath));
 		}
-
 	}
 	
 	public void mkdirGlobalFileName(String globalFileName) {
@@ -63,13 +62,11 @@ public class LogicalVolumeManager implements Serializable {
 	public void rmdirGlobalFileNam(String globalFileName) {
 		
 		TestLogicalMappingTable.remove(globalFileName);
-		
 	}
 	
 	public void rmLogicalTable(String globalFileName, String hostName) {
 
 		TestLogicalMappingTable.get(globalFileName).remove(hostName);
-		
 	}
 	
 	public static PathInfo getFileStatus(String hostName, String path) {
@@ -155,5 +152,4 @@ public class LogicalVolumeManager implements Serializable {
 
 		System.out.println("\n[INFO] TestLogical Table download successful");
 	}
-
 }

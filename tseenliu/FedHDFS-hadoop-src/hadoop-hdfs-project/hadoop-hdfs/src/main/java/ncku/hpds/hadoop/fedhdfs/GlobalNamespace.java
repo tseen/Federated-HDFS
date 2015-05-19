@@ -53,7 +53,6 @@ public class GlobalNamespace implements Serializable {
 	
 	public void DynamicConstructPD() throws IOException{
 		
-		//PhysicalVolumeManager physicalDrive = new PhysicalVolumeManager();
 		for (int i = 0; i < theFedhdfsElements.size(); i++) {
 			physicalDrive.addfsPathElementToArrayLists("/user/hpds", conf[i]);
 		}
