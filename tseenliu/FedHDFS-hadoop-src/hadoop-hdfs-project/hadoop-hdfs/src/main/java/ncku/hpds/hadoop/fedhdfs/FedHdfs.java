@@ -40,30 +40,55 @@ public class FedHdfs {
 		
 		if (command.equalsIgnoreCase("-ls")){
 			
-			if (uri.length < 3) {
-				System.err.println("Usage: -ls [hostName] [<path> ...]");
-				System.exit(2);
+			if(uri.length == 1) {
+				LsGlobalNamespace lsGN = new LsGlobalNamespace();
 			}
-			
-			for (int i = 0; i < theElements.size(); i++) {
-    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-    				Ls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName",
-    						theElements.elementAt(i)));
-    			}
-    		}
+			if(uri.length == 2) {
+				if (uri[1].contains(":")){
+					if (uri.length < 2) {
+						System.err.println("Usage: -ls [hostName]:[<path> ...]");
+						System.err.println("Usage: -ls [globalFilePath]");
+						System.exit(2);
+					}
+					String[] split = uri[1].split(":");
+					String hostName = split[0];
+					String Uri = split[1];
+					for (int i = 0; i < theElements.size(); i++) {
+		    			if (hostName.equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
+		    				//Ls.print_info(uri[2], conf[i], FedHdfsConParser.getValue("HostName", theElements.elementAt(i)));
+		    				Ls.printFiles(Uri, conf[i], hostName);
+		    			}
+		    		}	
+				}
+				else {LsGlobalNamespace lsGN = new LsGlobalNamespace(uri[1]);}
+			}
 			
 		} else if (command.equalsIgnoreCase("-lsr")) {
 			
-			if (uri.length < 3) {
-				System.err.println("Usage: -ls [hostName] [<path> ...]");
-				System.exit(2);
+			if (uri[1].contains(":")) {
+				if (uri.length < 2) {
+					System.err.println("Usage: -ls [hostName]:[<path> ...]");
+					System.err.println("Usage: -ls [globalFilePath]");
+					System.exit(2);
+				}
+				String[] split = uri[1].split(":");
+				String hostName = split[0];
+				String Uri = split[1];
+				for (int i = 0; i < theElements.size(); i++) {
+	    			if (hostName.equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
+	    				Lsr.printFilesRecursively(Uri, conf[i]);
+	    			}
+	    		}
 			}
-			
-			for (int i = 0; i < theElements.size(); i++) {
-    			if (uri[1].equalsIgnoreCase(FedHdfsConParser.getValue("HostName", theElements.elementAt(i)))) {
-    				Lsr.printFilesRecursively(uri[2], conf[i]);	
-    			}
-    		}
+			else {
+				if (uri.length < 2) {
+					System.err.println("Usage: -ls [hostName]:[<path> ...]");
+					System.err.println("Usage: -ls [globalFilePath]");
+					System.exit(2);
+				}
+				boolean recursive = true;
+				LsGlobalNamespace lsGN = new LsGlobalNamespace(uri[1], recursive);
+			}
 			
 		} else if (command.equalsIgnoreCase("-mkdir")){
 			
@@ -75,25 +100,31 @@ public class FedHdfs {
 			Mkdir mkdirGN = new Mkdir();
 			mkdirGN.constructGlobalFile(command, uri[1]);	
 			
+		}	else if (command.equalsIgnoreCase("-mv")){
+			
+			if (uri.length < 4) {
+				System.err.println("Usage: -mv [globalfile] [hostName] [hostName:<path> ...]");
+				System.exit(2);
+			}
+			Delete rm = new Delete("-rm", uri[1], uri[2]);
+			Union unionGlobalFile = new Union();
+			unionGlobalFile.union("-un", uri[1], uri[3]);
+			
 		} else if (command.equalsIgnoreCase("-rm")){
 
-			if (uri.length < 3) {
-				System.err.println("Usage: -rm [globalfile] [hostName:<path> ...]");
-				System.exit(2);
-			}
-
-			Delete rm = new Delete();
-			rm.rmPathFromGN(command, uri[1], uri[2]);
-			
-		} else if (command.equalsIgnoreCase("-rmdir")) {
-
 			if (uri.length < 2) {
-				System.err.println("Usage: -rmdir [globalfile]");
+				System.err.println("Usage: -rm [globalfile]");
+				System.err.println("Usage: -rm [globalfile] [hostName]");
 				System.exit(2);
 			}
-
-			DeleteDir rmdir = new DeleteDir();
-			rmdir.rmGlobalFileFromGN(command, uri[1]);
+			
+			if(uri.length == 3) {
+				Delete rm = new Delete(command, uri[1], uri[2]);
+			}
+			
+			if(uri.length == 2) {
+				Delete rm = new Delete(command, uri[1]);
+			}
 			
 		} else if (command.equalsIgnoreCase("-union") | command.equalsIgnoreCase("-un")) {
 
@@ -115,12 +146,22 @@ public class FedHdfs {
 			SecureUnion sunionGlobalFile = new SecureUnion();
 			sunionGlobalFile.union(command, uri[1], uri[2]);
 			
-		} else if (command.equalsIgnoreCase("-lsP")) {
+		} /*else if (command.equalsIgnoreCase("-lsP")) {
 			
-			LsGlobalNamespace test = new LsGlobalNamespace();
-			test.GlobalNamespaceClient(uri[1]);
+			if(uri.length == 1) {
+				LsGlobalNamespace test = new LsGlobalNamespace();
+			}
+			if(uri.length == 2) {
+				LsGlobalNamespace test = new LsGlobalNamespace(uri[1]);
+			}
+			//test.GlobalNamespaceClient(uri[1]);
 			
-		} else if (command.equalsIgnoreCase("-fetchFedImage")){
+		}	else if (command.equalsIgnoreCase("-lspr")) {
+			boolean tag = true;
+			LsGlobalNamespace test = new LsGlobalNamespace(uri[1], tag);
+			
+			
+		}*/ else if (command.equalsIgnoreCase("-fetchFedImage")){
 			
 			FetchFsimage.initialize();
 			
