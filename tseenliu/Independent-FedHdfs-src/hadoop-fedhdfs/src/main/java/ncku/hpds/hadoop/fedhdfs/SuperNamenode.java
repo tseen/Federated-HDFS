@@ -28,9 +28,9 @@ public class SuperNamenode {
 		Thread GNLD = new Thread(new GlobalNamespaceLD(GN));
 		GNLD.start();
 		
-		Thread GNPD = new Thread(new GlobalNamespacePD(GN));
+		/*Thread GNPD = new Thread(new GlobalNamespacePD(GN));
 		//newThread2.setDaemon(true);
-		GNPD.start();
+		GNPD.start();*/
 		
 		Thread GNSerialize = new Thread(new GlobalNamespaceServer(GN));
 		GNSerialize.start();
