@@ -1,6 +1,5 @@
 package ncku.hpds.hadoop.fedhdfs;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -8,68 +7,64 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import ncku.hpds.hadoop.fedhdfs.shell.Ls;
 import ncku.hpds.hadoop.fedhdfs.shell.Mkdir;
 import ncku.hpds.hadoop.fedhdfs.shell.Union;
-
-import org.apache.hadoop.conf.Configuration;
 
 public class SubmitJobsScheduler {
 	
 	static ArrayList<String> requestGlobalFile;
+	static List<multipleMR> listJobs;
+	static List<FedMR> listFedJobs;
+	static List<copyJar> listCpJar;
+	static List<copyFedXML> listCpFedXML;
+	
+	static String jarPath = null;
+	static String jarFile = null;
+	static String mainClass = null;
+	static String globalfileInput = null;
+	static String globalfileOutput = null;
 	
 	public static void main(String[] args) throws Throwable {
 		
-		String SNaddress = "127.0.0.1";
-		int SNport = 8763;
-		
 		if (args.length < 5) {
 			System.err.println("Usage: submit jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
+			System.err.println("Usage: submit -f jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
 			System.exit(2);
 		}
-		
-		String parseArg[] = args;
-		String jarPath = parseArg[1];
-		String jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
-		String mainClass = parseArg[2];
-		String globalfileInput = parseArg[3];
-		String globalfileOutput = parseArg[4];
-		
-		Socket client = new Socket(SNaddress, SNport);
-		
-		try {
+		else if (args.length == 5) {
 			
-			OutputStream stringOut = client.getOutputStream();
-			stringOut.write(globalfileInput.getBytes());
-			System.out.println("send globalFile to GN query server : " + globalfileInput);
-			
-			ObjectInputStream objectIn = new ObjectInputStream(client.getInputStream());
-			Object object = objectIn.readObject();
-			
-			requestGlobalFile = (ArrayList<String>) object;
-			
-            stringOut.flush();
-            stringOut.close();
-            stringOut = null;
-			objectIn.close();
-			client.close();
-			client = null;
-
-		} catch (java.io.IOException e) {
-			System.out.println("Socket connect error");
-			System.out.println("IOException :" + e.toString());
+			String parseArg[] = args;
+			jarPath = parseArg[1];
+			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+			mainClass = parseArg[2];
+			globalfileInput = parseArg[3];
+			globalfileOutput = parseArg[4];
+			smJobs();
 		}
+		else if (args.length == 6) {
+			
+			String parseArg[] = args;
+			jarPath = parseArg[2];
+			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+			//mainClass = parseArg[3];
+			globalfileInput = parseArg[4];
+			globalfileOutput = parseArg[5];
+			fedJobs();
+		}
+	}
+	
+	private static void smJobs() throws Throwable {
 		
+		listCpJar = new ArrayList<copyJar>();
+		listJobs = new ArrayList<multipleMR>();
+		queryGlobalFile(globalfileInput);
+		System.out.println("Physical Input Path : ");
 		for ( String GNlink : requestGlobalFile ) { System.out.println(GNlink); }
 		System.out.println("JAR : " + jarFile);
-		
-		List<multipleMR> listClusters = new ArrayList<multipleMR>();
-		List<copyJar> listCpJar = new ArrayList<copyJar>();
 		
 		for (int i = 0; i < requestGlobalFile.size(); i++) {
 			String tmpHostPath[] = requestGlobalFile.get(i).split(":");
@@ -81,23 +76,216 @@ public class SubmitJobsScheduler {
 		
 		for (int i = 0; i < requestGlobalFile.size(); i++) {
 			String tmpHostPath[] = requestGlobalFile.get(i).split(":");
-			listClusters.add(new multipleMR(jarFile, mainClass,tmpHostPath[0], tmpHostPath[1], globalfileOutput));
+			listJobs.add(new multipleMR(jarFile, mainClass, tmpHostPath[0], tmpHostPath[1], globalfileOutput));
 		}
 		
 		System.out.println("Start running RegionCloud Jobs");
-		for ( multipleMR job : listClusters ) { job.start(); }
+		for ( multipleMR job : listJobs ) { job.start(); }
 		System.out.println("Wait For RegionCloud Jobs");
-        for ( multipleMR job : listClusters) { job.join(); } 
+        for ( multipleMR job : listJobs) { job.join(); } 
         System.out.println("RegionCloud Jobs all finished");
-        
-		Mkdir mkdirGN = new Mkdir();
-		mkdirGN.constructGlobalFile("-mkdir", globalfileOutput);
 		
-        for (int i = 0; i < requestGlobalFile.size(); i++) {
+        boolean isAllZero = true;
+        for ( multipleMR job : listJobs) {
+        	if(job.getExitVal() != 0){
+        		isAllZero = false;
+        		break;
+        	}
+        }
+        if(isAllZero){
+        	constructGN(globalfileOutput);
+        }
+	}
+	
+	private static void fedJobs() throws Throwable {
+		
+		String TopJarPath;
+		listCpJar = new ArrayList<copyJar>();
+		listFedJobs = new ArrayList<FedMR>();
+		listCpFedXML = new ArrayList<copyFedXML>();
+		
+		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+		//queryGlobalFile(FedHdfsConParser.getFedInputFile(FedConfpath));
+		queryGlobalFile(globalfileInput);
+		System.out.println(globalfileInput);
+		//for ( String GNlink : requestGlobalFile ) { System.out.println(GNlink); }
+		
+		TopcloudSelector top = new TopcloudSelector(globalfileInput);
+		TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, top.getTopCloud()) + jarPath.substring(jarPath.lastIndexOf("/"), jarPath.length());
+		//System.out.println(TopJarPath);
+		
+		XMLTransformer test = new XMLTransformer();
+		test.transformer(requestGlobalFile, top.getTopCloud(), TopJarPath);
+		
+		listCpJar.add(new copyJar(jarPath, top.getTopCloud()));
+		for ( copyJar job : listCpJar ) { job.start(); }
+		for ( copyJar job : listCpJar) { job.join(); }
+		
+		System.out.println(XMLTransformer.FedMR);
+		listCpFedXML.add(new copyFedXML(XMLTransformer.FedMR, top.getTopCloud()));
+		for ( copyFedXML job : listCpFedXML ) { job.start(); }
+		for ( copyFedXML job : listCpFedXML) { job.join(); }
+		
+		listFedJobs.add(new FedMR(jarFile, top.getTopCloud(), globalfileInput, globalfileOutput));
+		
+		for ( FedMR job : listFedJobs ) { job.start(); }
+		for ( FedMR job : listFedJobs ) { job.join();; }
+		
+		boolean isAllZero = true;
+        for ( FedMR job : listFedJobs ) {
+        	if(job.getExitVal() != 0){
+        		isAllZero = false;
+        		break;
+        	}
+        }
+        if(isAllZero){
+        	String globalfile = globalfileOutput.substring(globalfileOutput.lastIndexOf("/")+1, globalfileOutput.length());
+        	Mkdir mkdirGN = new Mkdir();
+    		mkdirGN.constructGlobalFile("-mkdir", globalfile);
+    		Union unionGlobalFile = new Union();
+    		unionGlobalFile.union("-union", globalfile, top.getTopCloud() + ":/user/hpds/" + globalfileOutput);
+        }
+	}
+	
+	private static void queryGlobalFile(String globalfileInput) throws Throwable {
+
+		String SNaddress = "10.3.1.34";
+		int SNport = 8763;
+		
+		Socket client = new Socket(SNaddress, SNport);
+
+		try {
+			OutputStream stringOut = client.getOutputStream();
+			
+			stringOut.write(globalfileInput.getBytes());
+			System.out.println("globalFile : " + globalfileInput);
+			ObjectInputStream objectIn = new ObjectInputStream(client.getInputStream());
+			Object object = objectIn.readObject();
+
+			requestGlobalFile = (ArrayList<String>) object;
+
+			stringOut.flush();
+			stringOut.close();
+			stringOut = null;
+			objectIn.close();
+			client.close();
+			client = null;
+
+		} catch (IOException e) {
+			System.out.println("Socket connect error");
+			System.out.println("IOException :" + e.toString());
+		}
+	}
+	
+	private static void constructGN(String globalfileOutput) {
+		
+		String globalfile = globalfileOutput.substring(globalfileOutput.lastIndexOf("/")+1, globalfileOutput.length());
+		Mkdir mkdirGN = new Mkdir();
+		mkdirGN.constructGlobalFile("-mkdir", globalfile);
+		for (int i = 0; i < requestGlobalFile.size(); i++) {
         	String tmpHostPath[] = requestGlobalFile.get(i).split(":");
         	Union unionGlobalFile = new Union();
-    		unionGlobalFile.union("-union", globalfileOutput, tmpHostPath[0] + ":/user/hpds/" + globalfileOutput);
-        }
+    		unionGlobalFile.union("-union", globalfile, tmpHostPath[0] + ":/user/hpds/" + globalfileOutput);
+		}
+		/*if (globalfileOutput.contains("/")) {
+			String globalfile = globalfileOutput.substring(globalfileOutput.lastIndexOf("/")+1, globalfileOutput.length());
+			Mkdir mkdirGN = new Mkdir();
+			mkdirGN.constructGlobalFile("-mkdir", globalfile);
+			for (int i = 0; i < requestGlobalFile.size(); i++) {
+	        	String tmpHostPath[] = requestGlobalFile.get(i).split(":");
+	        	Union unionGlobalFile = new Union();
+	    		unionGlobalFile.union("-union", globalfile, tmpHostPath[0] + ":/user/hpds/" + globalfileOutput);
+	        }
+		}
+		else {
+			Mkdir mkdirGN = new Mkdir();
+			mkdirGN.constructGlobalFile("-mkdir", globalfileOutput);
+	        for (int i = 0; i < requestGlobalFile.size(); i++) {
+	        	String tmpHostPath[] = requestGlobalFile.get(i).split(":");
+	        	Union unionGlobalFile = new Union();
+	    		unionGlobalFile.union("-union", globalfileOutput, tmpHostPath[0] + ":/user/hpds/" + globalfileOutput);
+	        }
+		}*/
+	}
+}
+
+class FedMR extends Thread {
+	
+	private String JAR;
+	private String hostName;
+	private String input;
+	private String output;
+	private int exitVal;
+	
+	private ShellMonitor mOutputMonitor;
+	private ShellMonitor mErrorMonitor;
+
+	public FedMR(String JAR, String topCloud, String input, String output) {
+		
+		this.JAR = JAR;
+		this.hostName = topCloud;
+		this.input = input;
+		this.output = output;
+	}
+	
+	File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	
+	@Override
+	public void run() {
+		
+		Runtime rt = Runtime.getRuntime();
+		String HdfsUri = FedHdfsConParser.getHdfsUri(FedConfpath, hostName);
+		String split[] = HdfsUri.split(":");
+		String HostAddress = split[0];
+		String cmd = "ssh hpds@" + HostAddress + " ";
+		cmd = cmd + FedHdfsConParser.getHadoopHOME(FedConfpath, hostName) + "/bin/hadoop jar" + " ";
+		cmd = cmd + FedHdfsConParser.getHadoopHOME(FedConfpath, hostName) + "/" + JAR + " ";
+		cmd = cmd + FedHdfsConParser.getFedMainClass(FedConfpath) + " ";
+		cmd = cmd + " -Dfed=true ";
+		cmd = cmd + " -Dfedconf=" + FedHdfsConParser.getHadoopHOME(FedConfpath, hostName) + "/fed_task/FedMR.xml ";
+		cmd = cmd + FedHdfsConParser.getFedOtherArgs(FedConfpath) + " ";
+		cmd = cmd + input + " " + output;
+	
+		System.out.println(" FedJob : " + cmd);
+		
+		Process proc;
+		try {
+			proc = rt.exec(cmd);
+			
+			mOutputMonitor = new ShellMonitor( proc.getInputStream(), "Fed" );
+			mErrorMonitor = new ShellMonitor( proc.getErrorStream(), "Fed" );
+			mOutputMonitor.start();
+			mErrorMonitor.start();
+			mOutputMonitor.join();
+			mErrorMonitor.join();
+			
+			/*String line = null;
+			InputStream stderr = proc.getErrorStream();
+			InputStreamReader isr = new InputStreamReader(stderr);
+			BufferedReader br = new BufferedReader(isr);
+			System.out.println("<ERROR>");
+			while ((line = br.readLine()) != null)
+				System.out.println(line);
+			System.out.println("</ERROR>");*/
+			
+			/*InputStream stdout = proc.getInputStream ();
+            InputStreamReader osr = new InputStreamReader (stdout);
+            BufferedReader obr = new BufferedReader (osr);
+            //System.out.println ("<output>");
+            while ( (line = obr.readLine ()) != null )
+                System.out.println(line);
+            //System.out.println ("</output>");*/
+
+			exitVal = proc.waitFor();
+			System.out.println("FedMR-Process exitValue: " + exitVal);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public int getExitVal() {
+		return exitVal;
 	}
 }
 
@@ -108,8 +296,12 @@ class multipleMR extends Thread {
 	private String hostName;
 	private String input;
 	private String output;
+	private int exitVal;
+	
+	private ShellMonitor mOutputMonitor;
+	private ShellMonitor mErrorMonitor;
 
-	public multipleMR(String JAR, String mainClass,String hostName, String input, String output) {
+	public multipleMR(String JAR, String mainClass, String hostName, String input, String output) {
 		
 		this.JAR = JAR;
 		this.mainClass = mainClass;
@@ -138,21 +330,33 @@ class multipleMR extends Thread {
 		Process proc;
 		try {
 			proc = rt.exec(cmd);
-			InputStream stderr = proc.getErrorStream();
+			
+			mOutputMonitor = new ShellMonitor( proc.getInputStream(), hostName + "-" + HostAddress );
+			mErrorMonitor = new ShellMonitor( proc.getErrorStream(), hostName + "-" + HostAddress );
+			mOutputMonitor.start();
+			mErrorMonitor.start();
+			mOutputMonitor.join();
+			mErrorMonitor.join();
+			
+			/*InputStream stderr = proc.getErrorStream();
 			InputStreamReader isr = new InputStreamReader(stderr);
 			BufferedReader br = new BufferedReader(isr);
 			String line = null;
-			System.out.println("<ERROR>");
+			//System.out.println("<ERROR>");
 			while ((line = br.readLine()) != null)
 				System.out.println(line);
-			System.out.println("</ERROR>");
+			//System.out.println("</ERROR>");*/
 
-			int exitVal = proc.waitFor();
-			System.out.println("Process exitValue: " + exitVal);
+			exitVal = proc.waitFor();
+			System.out.println("FedMR-Process exitValue: " + exitVal);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public int getExitVal() {
+		return exitVal;
 	}
 }
 
@@ -186,13 +390,57 @@ class copyJar extends Thread {
 			InputStreamReader isr = new InputStreamReader(stderr);
 			BufferedReader br = new BufferedReader(isr);
 			String line = null;
-			System.out.println("<ERROR>");
+			//System.out.println("<ERROR>");
 			while ((line = br.readLine()) != null)
 				System.out.println(line);
-			System.out.println("</ERROR>");
+			//System.out.println("</ERROR>");
 
 			int exitVal = proc.waitFor();
-			System.out.println("Process exitValue: " + exitVal);
+			System.out.println("JarCopy-Process exitValue: " + exitVal);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
+class copyFedXML extends Thread {
+	
+	private String FedXML;
+	private String hostName;
+
+	public copyFedXML(String FedXML, String hostName) {
+		this.hostName = hostName;
+		this.FedXML = FedXML;
+	}
+	
+	File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	
+	@Override
+	public void run() {
+		
+		Runtime rt = Runtime.getRuntime();
+		String HdfsUri = FedHdfsConParser.getHdfsUri(FedConfpath, hostName);
+		String split[] = HdfsUri.split(":");
+		String HostAddress = split[0];
+		String cmd = "scp" + " " + FedXML + " ";
+		cmd = cmd + "hpds@" + HostAddress + ":" + FedHdfsConParser.getHadoopHOME(FedConfpath, hostName) + "/fed_task";
+		System.out.println(cmd);
+		
+		Process proc;
+		try {
+			proc = rt.exec(cmd);
+			InputStream stderr = proc.getErrorStream();
+			InputStreamReader isr = new InputStreamReader(stderr);
+			BufferedReader br = new BufferedReader(isr);
+			String line = null;
+			//System.out.println("<ERROR>");
+			while ((line = br.readLine()) != null)
+				System.out.println(line);
+			//System.out.println("</ERROR>");
+
+			int exitVal = proc.waitFor();
+			System.out.println("XMLCopy-Process exitValue: " + exitVal);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
