@@ -241,6 +241,26 @@ public class FedHdfsConParser {
 		return data;
 	}
 	
+	/*GetLen Test*/
+	public static int getFedElementLen(File XMLfile) {
+		
+		int length = 0;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			length = doc.getElementsByTagName("Fed").getLength();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return length;
+	}
+	
 	public Vector<Element> getElements() {
 		return elementArray;
 	}
