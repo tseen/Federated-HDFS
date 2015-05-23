@@ -35,7 +35,12 @@ public class TopcloudSelector {
 	private String globalfileInput = "";
 	private String topcloud = "";
 	
-	public TopcloudSelector(File XMLfile, String Alex) throws Throwable {
+	public TopcloudSelector(String globalfile) throws Throwable {
+		queryGlobalFile(globalfile);
+		addCloudsInfo();
+		maxOfValue();
+	}
+	/*public TopcloudSelector(File XMLfile, String Alex) throws Throwable {
 		queryGlobalFile(XMLfile);
 		addCloudsInfo();
 		if (Alex.equalsIgnoreCase("-h")) {
@@ -46,9 +51,40 @@ public class TopcloudSelector {
 		}
 		//queryTopFromHdfsRemain();
 		//queryTopFromDataSize();
+	}*/
+	
+	private void queryGlobalFile(String globalfile) throws Throwable {
+
+		String SNaddress = "10.3.1.34";
+		int SNport = 8763;
+
+		globalfileInput = globalfile;
+		Socket client = new Socket(SNaddress, SNport);
+
+		try {
+			OutputStream stringOut = client.getOutputStream();
+			
+			stringOut.write(globalfileInput.getBytes());
+			System.out.println("globalFile : " + globalfileInput);
+			ObjectInputStream objectIn = new ObjectInputStream(client.getInputStream());
+			Object object = objectIn.readObject();
+
+			requestGlobalFile = (ArrayList<String>) object;
+
+			stringOut.flush();
+			stringOut.close();
+			stringOut = null;
+			objectIn.close();
+			client.close();
+			client = null;
+
+		} catch (IOException e) {
+			System.out.println("Socket connect error");
+			System.out.println("IOException :" + e.toString());
+		}
 	}
 
-	private void queryGlobalFile(File XMLfile) throws Throwable {
+	/*private void queryGlobalFile(File XMLfile) throws Throwable {
 
 		String SNaddress = "10.3.1.34";
 		int SNport = 8763;
@@ -77,9 +113,9 @@ public class TopcloudSelector {
 			System.out.println("Socket connect error");
 			System.out.println("IOException :" + e.toString());
 		}
-	}
+	}*/
 	
-	public void addCloudsInfo() throws Throwable {
+	private void addCloudsInfo() throws Throwable {
 		
 		for (int i = 0; i < requestGlobalFile.size(); i++) {
 
@@ -89,12 +125,13 @@ public class TopcloudSelector {
 			HdfsInfoCollector thisCluster = new HdfsInfoCollector();
 			tmpachHostInfo.setHdfs(thisCluster.getHdfsRemaining(tmpHost));
 			tmpachHostInfo.setData(thisCluster.getDataSize(globalfileInput, tmpHost));
+			tmpachHostInfo.setValue();
 			tmpElements.put(tmpHost, tmpachHostInfo);
 			
 		}
 	}
 	
-	public void maxOfHdfs() {
+	private void maxOfHdfs() {
 		
 		list_Data = new ArrayList<Map.Entry<String, CloudInfo>>(tmpElements.entrySet());
 		Collections.sort(list_Data, new Comparator<Map.Entry<String, CloudInfo>>() {
@@ -105,13 +142,13 @@ public class TopcloudSelector {
 			});
 		Collections.reverse(list_Data);
 
-		/*for (Entry<String, CloudInfo> entry:list_Data) {
+		for (Entry<String, CloudInfo> entry:list_Data) {
 			System.out.println(entry);
-        }*/
+        }
 		
 	}
 	
-	public void maxOfData() {
+	private void maxOfData() {
 		
 		list_Data = new ArrayList<Map.Entry<String, CloudInfo>>(tmpElements.entrySet());
 		Collections.sort(list_Data, new Comparator<Map.Entry<String, CloudInfo>>() {
@@ -122,9 +159,25 @@ public class TopcloudSelector {
 			});
 		Collections.reverse(list_Data);
 
-		/*for (Entry<String, CloudInfo> entry:list_Data) {
+		for (Entry<String, CloudInfo> entry:list_Data) {
 			System.out.println(entry);
-        }*/
+        }
+	}
+	
+	private void maxOfValue() {
+		
+		list_Data = new ArrayList<Map.Entry<String, CloudInfo>>(tmpElements.entrySet());
+		Collections.sort(list_Data, new Comparator<Map.Entry<String, CloudInfo>>() {
+			public int compare(Map.Entry<String, CloudInfo> first, Map.Entry<String, CloudInfo> second) {
+				//return (int) (second.getValue().getData() - first.getValue().getData());
+				return Double.valueOf(first.getValue().getValue()).compareTo(Double.valueOf(second.getValue().getValue()));
+			}
+			});
+		Collections.reverse(list_Data);
+
+		for (Entry<String, CloudInfo> entry:list_Data) {
+			System.out.println(entry);
+        }
 	}
 	
 	public String getTopCloud() {
