@@ -17,9 +17,10 @@ public class DynamicHdfsClientRellocater {
 
 	public static void main(String[] args) throws Throwable {
 		// TODO Auto-generated method stub
-		String Alex = args[0];
-		File XMfile = new File("etc/hadoop/fedhadoop-clusters.xml"); 
-		TopcloudSelector top = new TopcloudSelector(XMfile, Alex);
+		String file = args[0];
+		//File XMfile = new File("etc/hadoop/fedhadoop-clusters.xml"); 
+		//TopcloudSelector top = new TopcloudSelector(XMfile, Alex);
+		TopcloudSelector top = new TopcloudSelector(file);
 		System.out.println("ANS :" + top.getTopCloud());
 	}
 }
