@@ -76,11 +76,16 @@ public class InfoAggreration {
 		return sumOfLen;
 	}
 	
-	public short getMaxOfReplica(){
+	public short getMaxOfReplica() throws IOException{
 		
 		short maxOfReplica = 0;
-		maxOfReplica = Collections.max(tmpReplica);
-		return maxOfReplica;
+		if (tmpReplica.isEmpty()) {
+			return 0;
+		}
+		else {
+			maxOfReplica = Collections.max(tmpReplica);
+			return maxOfReplica;
+		}
 	}
 	
 	public void show(){
