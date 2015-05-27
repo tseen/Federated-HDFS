@@ -71,7 +71,7 @@ public class LogicalVolumeManager implements Serializable {
 	
 	public static PathInfo getFileStatus(String hostName, String path) {
 		
-		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+		File FedConfpath = SuperNamenode.XMfile;
 		Configuration conf = new Configuration();
 		conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(FedConfpath, hostName));
 		PathInfo tmpPathInfo = new PathInfo();

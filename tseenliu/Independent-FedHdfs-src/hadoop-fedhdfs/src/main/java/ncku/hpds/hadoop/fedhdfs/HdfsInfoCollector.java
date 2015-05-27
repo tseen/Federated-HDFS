@@ -20,14 +20,14 @@ import org.w3c.dom.Element;
 
 public class HdfsInfoCollector {
 	
-	private static File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	private static File FedConfpath = SuperNamenode.XMfile;
 	private static FedHdfsConParser hdfsIpList = new FedHdfsConParser(FedConfpath);
 	private static Vector<Element> theElements = hdfsIpList.getElements();
 	private long hdfsRemaining;
 	private long dataSize;
 	
-	private String address = "127.0.0.1";
-	private int port = 8764;
+	private String address = SuperNamenodeInfo.getSuperNamenodeAddress();
+	private int port = SuperNamenodeInfo.getGlobalNamespaceServerPort();
 	
 	public long getHdfsRemaining(String hostName) throws IOException {
 		

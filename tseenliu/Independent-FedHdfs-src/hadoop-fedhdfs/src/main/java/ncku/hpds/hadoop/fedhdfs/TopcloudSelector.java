@@ -40,23 +40,11 @@ public class TopcloudSelector {
 		addCloudsInfo();
 		maxOfValue();
 	}
-	/*public TopcloudSelector(File XMLfile, String Alex) throws Throwable {
-		queryGlobalFile(XMLfile);
-		addCloudsInfo();
-		if (Alex.equalsIgnoreCase("-h")) {
-			maxOfHdfs();
-		}
-		else if (Alex.equalsIgnoreCase("-d")){
-			maxOfData();
-		}
-		//queryTopFromHdfsRemain();
-		//queryTopFromDataSize();
-	}*/
 	
 	private void queryGlobalFile(String globalfile) throws Throwable {
 
-		String SNaddress = "10.3.1.34";
-		int SNport = 8763;
+		String SNaddress = SuperNamenodeInfo.getSuperNamenodeAddress();
+		int SNport = SuperNamenodeInfo.getGNQueryServerPort();
 
 		globalfileInput = globalfile;
 		Socket client = new Socket(SNaddress, SNport);
@@ -83,37 +71,6 @@ public class TopcloudSelector {
 			System.out.println("IOException :" + e.toString());
 		}
 	}
-
-	/*private void queryGlobalFile(File XMLfile) throws Throwable {
-
-		String SNaddress = "10.3.1.34";
-		int SNport = 8763;
-
-		globalfileInput = FedHdfsConParser.getFedInputFile(XMLfile);
-		Socket client = new Socket(SNaddress, SNport);
-
-		try {
-			OutputStream stringOut = client.getOutputStream();
-			
-			stringOut.write(FedHdfsConParser.getFedInputFile(XMLfile).getBytes());
-			System.out.println("globalFile : " + globalfileInput);
-			ObjectInputStream objectIn = new ObjectInputStream(client.getInputStream());
-			Object object = objectIn.readObject();
-
-			requestGlobalFile = (ArrayList<String>) object;
-
-			stringOut.flush();
-			stringOut.close();
-			stringOut = null;
-			objectIn.close();
-			client.close();
-			client = null;
-
-		} catch (IOException e) {
-			System.out.println("Socket connect error");
-			System.out.println("IOException :" + e.toString());
-		}
-	}*/
 	
 	private void addCloudsInfo() throws Throwable {
 		

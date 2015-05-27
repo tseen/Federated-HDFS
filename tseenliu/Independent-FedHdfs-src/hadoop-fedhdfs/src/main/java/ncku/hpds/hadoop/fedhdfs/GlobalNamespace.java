@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
 
 public class GlobalNamespace implements Serializable {
 	
-	private static File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	private static File FedConfpath = SuperNamenode.XMfile;
 	private static FedHdfsConParser FedhdfsConfList = new FedHdfsConParser(FedConfpath);
 	private static Vector<Element> theFedhdfsElements = FedhdfsConfList.getElements();
 	private static Configuration[] conf = new Configuration[theFedhdfsElements.size()];
