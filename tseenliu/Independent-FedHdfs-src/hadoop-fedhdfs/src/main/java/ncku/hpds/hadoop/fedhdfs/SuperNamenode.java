@@ -3,6 +3,7 @@ package ncku.hpds.hadoop.fedhdfs;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,9 +22,12 @@ import org.w3c.dom.Element;
 
 public class SuperNamenode {
 	
-	static GlobalNamespace GN = new GlobalNamespace();
+	public static File XMfile = new File("etc/hadoop/fedhadoop-clusters.xml");
 
 	public static void main(String[] args) throws Exception {
+		
+		GlobalNamespace GN = new GlobalNamespace();
+		FedHdfsConParser.setSupernamenodeConf(XMfile);
 		
 		Thread GNLD = new Thread(new GlobalNamespaceLD(GN));
 		GNLD.start();
@@ -52,7 +56,7 @@ class GlobalNamespaceLD implements Runnable {
 	
 	private boolean OutServer = false;
     private ServerSocket server;
-    private final int ServerPort = 8765;
+    private final int ServerPort = SuperNamenodeInfo.getFedUserConstructGNPort();
    
     public void run() {
     	
@@ -167,7 +171,7 @@ class GlobalNamespaceServer extends Thread {
 	
 	private boolean OutServer = false;
 	private ServerSocket server;
-	private final int ServerPort = 8764;
+	private final int ServerPort = SuperNamenodeInfo.getGlobalNamespaceServerPort();
 	
 	public void run() {
 		Socket socket;
@@ -218,7 +222,7 @@ class GNQueryServer extends Thread {
 	
 	private boolean OutServer = false;
 	private ServerSocket server;
-	private final int ServerPort = 8763;
+	private final int ServerPort = SuperNamenodeInfo.getGNQueryServerPort();
 	
 	@Override
     public void run() {
