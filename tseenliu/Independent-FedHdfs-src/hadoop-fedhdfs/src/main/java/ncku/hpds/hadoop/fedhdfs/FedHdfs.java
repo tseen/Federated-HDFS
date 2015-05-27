@@ -1,5 +1,6 @@
 package ncku.hpds.hadoop.fedhdfs;
 
+import java.io.File;
 import java.util.Vector;
 
 import ncku.hpds.hadoop.fedhdfs.shell.ConstructGN;
@@ -17,15 +18,15 @@ import org.apache.hadoop.conf.Configuration;
 import org.w3c.dom.Element;
 
 public class FedHdfs {
+	
+	private static File XMfile = SuperNamenode.XMfile;
+	private static FedHdfsConParser hdfsIpList = new FedHdfsConParser(XMfile);
+	private static Vector<Element> theElements = hdfsIpList.getElements();
 
 	public static void main(String[] args) throws Exception {
 		
 		String[] uri = args;
 		String command = uri[0];
-		
-		java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
-		FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
-		Vector<Element> theElements = hdfsIpList.getElements();
 		
 		Configuration[] conf = new Configuration[theElements.size()];
 		
@@ -37,6 +38,9 @@ public class FedHdfs {
 							+ FedHdfsConParser.getValue("fs.default.name",
 									theElements.elementAt(i)));
 		}
+		
+		/* TODO for setting configuration */
+		FedHdfsConParser.setSupernamenodeConf(XMfile);
 		
 		if (command.equalsIgnoreCase("-ls")){
 			
@@ -146,22 +150,7 @@ public class FedHdfs {
 			SecureUnion sunionGlobalFile = new SecureUnion();
 			sunionGlobalFile.union(command, uri[1], uri[2]);
 			
-		} /*else if (command.equalsIgnoreCase("-lsP")) {
-			
-			if(uri.length == 1) {
-				LsGlobalNamespace test = new LsGlobalNamespace();
-			}
-			if(uri.length == 2) {
-				LsGlobalNamespace test = new LsGlobalNamespace(uri[1]);
-			}
-			//test.GlobalNamespaceClient(uri[1]);
-			
-		}	else if (command.equalsIgnoreCase("-lspr")) {
-			boolean tag = true;
-			LsGlobalNamespace test = new LsGlobalNamespace(uri[1], tag);
-			
-			
-		}*/ else if (command.equalsIgnoreCase("-fetchFedImage")){
+		} else if (command.equalsIgnoreCase("-fetchFedImage")){
 			
 			FetchFsimage.initialize();
 			
