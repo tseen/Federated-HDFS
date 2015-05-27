@@ -1,8 +1,10 @@
 package ncku.hpds.hadoop.fedhdfs;
 
 import java.io.File;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
 import java.util.Vector;
 
 import org.w3c.dom.Document;
@@ -13,6 +15,7 @@ import org.w3c.dom.Element;
 public class FedHdfsConParser {
 
 	private Vector<Element> elementArray = new Vector<Element>(); // 宣告Vector,並指定type為Element,目的是為了動態疊加Element物件
+	static SuperNamenodeInfo SNconf = new SuperNamenodeInfo();
 
 	public static String getValue(String tag, Element element) {
 		NodeList nodes = element.getElementsByTagName(tag).item(0)
@@ -20,7 +23,49 @@ public class FedHdfsConParser {
 		Node node = (Node) nodes.item(0);
 		return node.getNodeValue();
 	}
+	
+	public static String getTagValue(String tag, Element element, String defaultValue) {
+		try {
+			NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
+			Node node = (Node) nodes.item(0);
+			return node.getNodeValue();
+		} catch (Exception e) {
+			System.out.println( "use default value : " + defaultValue);
+		}
+		return defaultValue;
+	}
 
+	/* TODO for setting supernamenode configuration*/
+	public static void setSupernamenodeConf(File XMLfile) {
+		// get the factory
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+			// Using factory get an instance of document builder
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			// parse using builder to get DOM representation of the XML file
+
+			Document doc = dBuilder.parse(XMLfile);
+			doc.getDocumentElement().normalize();
+
+			NodeList snConf = doc.getElementsByTagName("SuperNamenode");
+			for (int i = 0; i < snConf.getLength(); i++) {
+				Node snNode = snConf.item(i);
+				if (snNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) snNode;
+					
+					SNconf.setSuperNamenodeAddress(getTagValue("SuperNamenodeAddress", element, SuperNamenodeInfo.Default_SuperNamenodeAddress));
+					SNconf.setFedUserConstructGNPort(getTagValue("FedUserConstructGNPort", element, SuperNamenodeInfo.Default_FedUserConstructGNPort));
+					SNconf.setGlobalNamespaceServerPort(getTagValue("GlobalNamespaceServerPort", element, SuperNamenodeInfo.Default_GlobalNamespaceServerPort));
+					SNconf.setGNQueryServerPort(getTagValue("GNQueryServerPort", element, SuperNamenodeInfo.Default_GNQueryServerPort));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/* TODO for fed-hdfs */
 	public FedHdfsConParser(File XMLfile) {
 		// get the factory
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -241,7 +286,7 @@ public class FedHdfsConParser {
 		return data;
 	}
 	
-	/*GetLen Test*/
+	/* TODO for setting FedMR args configuration*/
 	public static int getFedElementLen(File XMLfile) {
 		
 		int length = 0;
