@@ -29,14 +29,16 @@ import org.w3c.dom.Element;
 import ncku.hpds.hadoop.fedhdfs.FedHdfsConParser;
 import ncku.hpds.hadoop.fedhdfs.GlobalNamespaceObject;
 import ncku.hpds.hadoop.fedhdfs.PathInfo;
+import ncku.hpds.hadoop.fedhdfs.SuperNamenode;
+import ncku.hpds.hadoop.fedhdfs.SuperNamenodeInfo;
 
 public class LsGlobalNamespace {
 
-	private String address = "127.0.0.1";
-	private int port = 8764;
+	private String address = SuperNamenodeInfo.getSuperNamenodeAddress();
+	private int port = SuperNamenodeInfo.getGlobalNamespaceServerPort();
 	
-	java.io.File path = new java.io.File("etc/hadoop/fedhadoop-clusters.xml");
-	FedHdfsConParser hdfsIpList = new FedHdfsConParser(path);
+	private File XMfile = SuperNamenode.XMfile; 
+	FedHdfsConParser hdfsIpList = new FedHdfsConParser(XMfile);
 	Vector<Element> theElements = hdfsIpList.getElements();
 	
 	public LsGlobalNamespace() {
@@ -133,9 +135,8 @@ public class LsGlobalNamespace {
 						
 						String hostName = SubEntry.getKey();
 						String PhysicalPath = SubEntry.getValue().getPath().toString();
-						File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
 						Configuration conf = new Configuration();
-						conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(FedConfpath, hostName));
+						conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(XMfile, hostName));
 						InfoAggreration info = new InfoAggreration();
 						info.recursivelySumOfLen(PhysicalPath, conf);
 						info.maxOfReplica(PhysicalPath, conf);
@@ -211,7 +212,7 @@ public class LsGlobalNamespace {
 						String hostName = SubEntry.getKey();
 						String PhysicalPath = GN.getGlobalNamespace().getLogicalDrive().getLogicalMappingTable().get(globalFile).get(hostName).getPath().toString();
 						
-						LsGlobalNamespace.getFileStatus(hostName, PhysicalPath);
+						getFileStatus(hostName, PhysicalPath);
 						System.out.println(" " + "AirDrive" + "/" + globalFile + "/" + hostName + PhysicalPath);
 					}
 				}
@@ -254,9 +255,8 @@ public class LsGlobalNamespace {
 	
 	private void gnFileStatus(String hostName, String PhysicalPath) throws IOException {
 		
-		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
 		Configuration conf = new Configuration();
-		conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(FedConfpath, hostName));
+		conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(XMfile, hostName));
 		InfoAggreration info = new InfoAggreration();
 		info.recursivelySumOfLen(PhysicalPath, conf);
 		info.maxOfReplica(PhysicalPath, conf);
@@ -277,11 +277,10 @@ public class LsGlobalNamespace {
 		
 	}
 	
-	private static void getFileStatus(String hostName, String PhysicalPath) throws IOException {
+	private void getFileStatus(String hostName, String PhysicalPath) throws IOException {
 		
-		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
 		Configuration conf = new Configuration();
-		conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(FedConfpath, hostName));
+		conf.set("fs.defaultFS", "hdfs://" + FedHdfsConParser.getHdfsUri(XMfile, hostName));
 		
 		FileSystem FS = FileSystem.get(URI.create(PhysicalPath), conf);
 		Path Path = new Path(PhysicalPath);

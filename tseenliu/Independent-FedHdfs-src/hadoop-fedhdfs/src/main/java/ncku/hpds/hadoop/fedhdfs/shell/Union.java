@@ -6,12 +6,13 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import ncku.hpds.hadoop.fedhdfs.GlobalNamespaceObject;
+import ncku.hpds.hadoop.fedhdfs.SuperNamenodeInfo;
 
 public class Union {
 	
-	private String SNaddress = "127.0.0.1";
-    private int SNport = 8765;
-    private int port = 8764;
+	private String SNaddress = SuperNamenodeInfo.getSuperNamenodeAddress();
+    private int SNport = SuperNamenodeInfo.getFedUserConstructGNPort();
+    private int port = SuperNamenodeInfo.getGlobalNamespaceServerPort();
     
 	public void union(String command, String globalFileName, String Path) {
 

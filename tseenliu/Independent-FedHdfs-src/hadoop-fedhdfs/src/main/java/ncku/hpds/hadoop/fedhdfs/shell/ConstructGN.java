@@ -4,10 +4,12 @@ import java.io.BufferedOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+import ncku.hpds.hadoop.fedhdfs.SuperNamenodeInfo;
+
 public class ConstructGN {
 	
-	private String SNaddress = "127.0.0.1";
-    private int SNport = 8765;
+	private String SNaddress = SuperNamenodeInfo.getSuperNamenodeAddress();
+    private int SNport = SuperNamenodeInfo.getFedUserConstructGNPort();
     
 	public void logicalMapping(String logicalName, String Path) {
 		Socket client = new Socket();
