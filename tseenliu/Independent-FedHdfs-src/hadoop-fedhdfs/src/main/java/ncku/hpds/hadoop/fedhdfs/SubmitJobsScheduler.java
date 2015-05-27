@@ -16,19 +16,23 @@ import ncku.hpds.hadoop.fedhdfs.shell.Union;
 
 public class SubmitJobsScheduler {
 	
-	static ArrayList<String> requestGlobalFile;
-	static List<multipleMR> listJobs;
-	static List<FedMR> listFedJobs;
-	static List<copyJar> listCpJar;
-	static List<copyFedXML> listCpFedXML;
+	private static File FedConfpath = SuperNamenode.XMfile;
 	
-	static String jarPath = null;
-	static String jarFile = null;
-	static String mainClass = null;
-	static String globalfileInput = null;
-	static String globalfileOutput = null;
+	private static ArrayList<String> requestGlobalFile;
+	private static List<multipleMR> listJobs;
+	private static List<FedMR> listFedJobs;
+	private static List<copyJar> listCpJar;
+	private static List<copyFedXML> listCpFedXML;
+	
+	private static String jarPath = null;
+	private static String jarFile = null;
+	private static String mainClass = null;
+	private static String globalfileInput = null;
+	private static String globalfileOutput = null;
 	
 	public static void main(String[] args) throws Throwable {
+		
+		FedHdfsConParser.setSupernamenodeConf(FedConfpath);
 		
 		if (args.length < 5) {
 			System.err.println("Usage: submit jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
@@ -104,7 +108,6 @@ public class SubmitJobsScheduler {
 		listFedJobs = new ArrayList<FedMR>();
 		listCpFedXML = new ArrayList<copyFedXML>();
 		
-		File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
 		//queryGlobalFile(FedHdfsConParser.getFedInputFile(FedConfpath));
 		queryGlobalFile(globalfileInput);
 		System.out.println(globalfileInput);
@@ -149,8 +152,8 @@ public class SubmitJobsScheduler {
 	
 	private static void queryGlobalFile(String globalfileInput) throws Throwable {
 
-		String SNaddress = "10.3.1.34";
-		int SNport = 8763;
+		String SNaddress = SuperNamenodeInfo.getSuperNamenodeAddress();
+		int SNport = SuperNamenodeInfo.getGNQueryServerPort();
 		
 		Socket client = new Socket(SNaddress, SNport);
 
@@ -228,7 +231,7 @@ class FedMR extends Thread {
 		this.output = output;
 	}
 	
-	File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	File FedConfpath = SuperNamenode.XMfile;
 	
 	@Override
 	public void run() {
@@ -310,7 +313,7 @@ class multipleMR extends Thread {
 		this.output = output;
 	}
 	
-	File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	File FedConfpath = SuperNamenode.XMfile;
 	
 	@Override
 	public void run() {
@@ -370,7 +373,7 @@ class copyJar extends Thread {
 		this.JAR = JAR;
 	}
 	
-	File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	File FedConfpath = SuperNamenode.XMfile;
 	
 	@Override
 	public void run() {
@@ -414,7 +417,7 @@ class copyFedXML extends Thread {
 		this.FedXML = FedXML;
 	}
 	
-	File FedConfpath = new File("etc/hadoop/fedhadoop-clusters.xml");
+	File FedConfpath = SuperNamenode.XMfile;
 	
 	@Override
 	public void run() {
