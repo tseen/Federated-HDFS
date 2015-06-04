@@ -57,6 +57,7 @@ public class FedHdfsConParser {
 					SNconf.setFedUserConstructGNPort(getTagValue("FedUserConstructGNPort", element, SuperNamenodeInfo.Default_FedUserConstructGNPort));
 					SNconf.setGlobalNamespaceServerPort(getTagValue("GlobalNamespaceServerPort", element, SuperNamenodeInfo.Default_GlobalNamespaceServerPort));
 					SNconf.setGNQueryServerPort(getTagValue("GNQueryServerPort", element, SuperNamenodeInfo.Default_GNQueryServerPort));
+					SNconf.setAlpha(getTagValue("Alpha", element, SuperNamenodeInfo.Default_Alpha));
 				}
 			}
 		} catch (Exception e) {

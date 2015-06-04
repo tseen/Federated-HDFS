@@ -7,11 +7,13 @@ public class SuperNamenodeInfo {
 	public static String Default_FedUserConstructGNPort = "8765";
 	public static String Default_GlobalNamespaceServerPort = "8764";
 	public static String Default_GNQueryServerPort = "8763";
+	public static String Default_Alpha = "1.0";
 
 	public void setSuperNamenodeAddress(String SuperNamenodeAddress) { this.Default_SuperNamenodeAddress = SuperNamenodeAddress; }
 	public void setFedUserConstructGNPort(String FedUserConstructGNPort) { this.Default_FedUserConstructGNPort = FedUserConstructGNPort; }
 	public void setGlobalNamespaceServerPort(String GlobalNamespaceServerPort) { this.Default_GlobalNamespaceServerPort = GlobalNamespaceServerPort; }
 	public void setGNQueryServerPort(String GNQueryServerPort) { this.Default_GNQueryServerPort = GNQueryServerPort; }
+	public void setAlpha(String Alpha) { this.Default_Alpha = Alpha; }
 	
 	
 	public static String getSuperNamenodeAddress() { return Default_SuperNamenodeAddress; }
@@ -28,6 +30,10 @@ public class SuperNamenodeInfo {
 		return Integer.parseInt(Default_GNQueryServerPort);
 	}
 	
+	public static double getAlpha() {
+		return Double.parseDouble(Default_Alpha);
+	}
+	
 	
 	
 	public static void show() {
@@ -35,6 +41,7 @@ public class SuperNamenodeInfo {
 		System.out.println(Default_FedUserConstructGNPort);
 		System.out.println(Default_GlobalNamespaceServerPort);
 		System.out.println(Default_GNQueryServerPort);
+		System.out.println(Default_Alpha);
 	}
 
 }

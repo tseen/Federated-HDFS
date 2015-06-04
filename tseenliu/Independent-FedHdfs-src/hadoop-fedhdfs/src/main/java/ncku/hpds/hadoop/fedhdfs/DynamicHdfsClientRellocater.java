@@ -17,18 +17,21 @@ public class DynamicHdfsClientRellocater {
 
 	public static void main(String[] args) throws Throwable {
 		// TODO Auto-generated method stub
-		//String file = args[0];
+		String file = args[0];
 		File XMfile = new File("Alex.xml"); 
 		//TopcloudSelector top = new TopcloudSelector(XMfile, Alex);
-		/*TopcloudSelector top = new TopcloudSelector(file);
-		System.out.println("ANS :" + top.getTopCloud());*/
+		
+		TopcloudSelector top = new TopcloudSelector(file);
 		
 		FedHdfsConParser.setSupernamenodeConf(XMfile);
+		
+		System.out.println("ANS :" + top.getTopCloud());
 		
 		System.out.println(SuperNamenodeInfo.getSuperNamenodeAddress());
 		System.out.println(SuperNamenodeInfo.getFedUserConstructGNPort());
 		System.out.println(SuperNamenodeInfo.getGlobalNamespaceServerPort());
 		System.out.println(SuperNamenodeInfo.getGNQueryServerPort());
+		System.out.println(SuperNamenodeInfo.getAlpha());
 		
 		SuperNamenodeInfo.show();
 		

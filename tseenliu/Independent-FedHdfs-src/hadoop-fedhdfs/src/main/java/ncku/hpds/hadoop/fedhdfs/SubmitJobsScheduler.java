@@ -114,8 +114,9 @@ public class SubmitJobsScheduler {
 		//for ( String GNlink : requestGlobalFile ) { System.out.println(GNlink); }
 		
 		TopcloudSelector top = new TopcloudSelector(globalfileInput);
-		TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, top.getTopCloud()) + jarPath.substring(jarPath.lastIndexOf("/"), jarPath.length());
-		//System.out.println(TopJarPath);
+		//TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, top.getTopCloud()) + jarPath.substring(jarPath.lastIndexOf("/"), jarPath.length());
+		TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, top.getTopCloud()) + "/" + jarFile;
+		System.out.println(TopJarPath);
 		
 		XMLTransformer test = new XMLTransformer();
 		test.transformer(requestGlobalFile, top.getTopCloud(), TopJarPath);

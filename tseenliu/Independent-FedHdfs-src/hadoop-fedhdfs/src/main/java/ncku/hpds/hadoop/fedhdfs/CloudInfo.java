@@ -7,7 +7,7 @@ public class CloudInfo {
 	private long hdfsRemain;
 	private long dataSize;
 	private double mValue;
-	private double Alpha = 0.7;
+	private double Alpha = SuperNamenodeInfo.getAlpha();
 
 	public void setHdfs(long hdfs) {
 		this.hdfsRemain = hdfs;
