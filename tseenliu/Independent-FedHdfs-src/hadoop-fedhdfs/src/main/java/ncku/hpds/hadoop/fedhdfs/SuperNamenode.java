@@ -4,9 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,15 +29,26 @@ public class SuperNamenode {
 
 	public static void main(String[] args) throws Exception {
 		
-		GlobalNamespace GN = new GlobalNamespace();
+		GlobalNamespace GN;
+		File file = new File("GlobalNamespace");
+		if (file.exists()) {
+            FileInputStream f = new FileInputStream(file);
+            ObjectInputStream s = new ObjectInputStream(f);
+            GN = (GlobalNamespace) s.readObject();
+            s.close();
+        }else {
+        	GN = new GlobalNamespace();
+        }
+		
 		FedHdfsConParser.setSupernamenodeConf(XMfile);
 		
 		Thread GNLD = new Thread(new GlobalNamespaceLD(GN));
 		GNLD.start();
 		
-		/*Thread GNPD = new Thread(new GlobalNamespacePD(GN));
+		Thread GNPD = new Thread(new GlobalNamespacePD(GN));
 		//newThread2.setDaemon(true);
-		GNPD.start();*/
+		GNPD.start();
+		
 		
 		Thread GNSerialize = new Thread(new GlobalNamespaceServer(GN));
 		GNSerialize.start();
@@ -147,9 +161,19 @@ class GlobalNamespacePD implements Runnable {
 			while(true){
 				Thread.sleep(60000);
 				//GlobalNamespace GN1 = new GlobalNamespace();
-				GN.setFedConf();
-				GN.DynamicConstructPD();
-				System.out.println("!!!! PHashTable download sucessful !!!!");
+
+				File file = new File("GlobalNamespace");
+				FileOutputStream f = new FileOutputStream(file);
+				ObjectOutputStream s = new ObjectOutputStream(f);
+				s.writeObject(GN);
+				s.flush();
+				s.close();
+				GN.getLogicalDrive().showLogicalHashTable();
+				
+				//GN.setFedConf();
+				//GN.DynamicConstructPD();
+				//System.out.println("!!!! PHashTable download sucessful !!!!");
+				
 			}
 			
 		}catch(InterruptedException e){	
