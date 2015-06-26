@@ -252,7 +252,6 @@ class GNQueryServer extends Thread {
     public void run() {
     	
     	Socket socket;
-    	InputStream stringIn;
         try {
 			server = new ServerSocket(ServerPort);
 		} catch (IOException e1) {
@@ -268,24 +267,10 @@ class GNQueryServer extends Thread {
                     socket = server.accept();
                 }
                 socket.setSoTimeout(15000);
+                
+                new GNQuerySubServer(GN, socket).start();
  
-                byte buffstr[] = new byte[1024];
-                stringIn = socket.getInputStream();
-    			int str = stringIn.read(buffstr);
-    			String globalFile = new String(buffstr, 0, str);
-    			//System.out.println(globalFile);
-    			System.out.println("FedHDDS client query GlobalFile : " + globalFile + "\n");
-    			
-    			ObjectOutputStream objectOut = new ObjectOutputStream(socket.getOutputStream());
-                //BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
-    			//out.write(requestGlobalFile.toString().getBytes());
-    			ArrayList<String> requestGlobalFile = GN.queryGlobalFile(globalFile);
-    			objectOut.writeObject(requestGlobalFile);
-    			stringIn.close();
-    			stringIn = null;
-                objectOut.close();
-                objectOut.flush();
-                socket.close();
+                
                 
             } catch (java.io.IOException e) {
                 System.out.println("Socket connect error");
@@ -293,4 +278,44 @@ class GNQueryServer extends Thread {
             }
         }
     }
+}
+
+class GNQuerySubServer extends Thread {
+	
+	protected Socket socket;
+	static GlobalNamespace GN;
+	
+	public GNQuerySubServer(GlobalNamespace GN, Socket server) {
+		this.socket = server;
+		this.GN = GN;
+	}
+	
+	@Override
+	public void run() {
+		
+		InputStream stringIn;
+		try {
+			byte buffstr[] = new byte[1024];
+	        stringIn = socket.getInputStream();
+			int str = stringIn.read(buffstr);
+			String globalFile = new String(buffstr, 0, str);
+			//System.out.println(globalFile);
+			System.out.println("FedHDDS client query GlobalFile : " + globalFile + "\n");
+			
+			ObjectOutputStream objectOut = new ObjectOutputStream(socket.getOutputStream());
+	        //BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
+			//out.write(requestGlobalFile.toString().getBytes());
+			ArrayList<String> requestGlobalFile = GN.queryGlobalFile(globalFile);
+			objectOut.writeObject(requestGlobalFile);
+			stringIn.close();
+			stringIn = null;
+	        objectOut.close();
+	        objectOut.flush();
+	        socket.close();
+            
+        } catch (java.io.IOException e) {
+            System.out.println("Socket connect error");
+            System.out.println("IOException :" + e.toString());
+        }	
+	}
 }

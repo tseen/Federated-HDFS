@@ -22,7 +22,7 @@ public class XMLTransformer {
 	DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder icBuilder;
     
-    public void transformer(ArrayList<String> requestGlobalFile, String topCloud, String TopJarPath) {
+    public void transformer(ArrayList<String> requestGlobalFile, String topCloud, String TopJarPath, String mainClass) {
     	try {
             icBuilder = icFactory.newDocumentBuilder();
             Document doc = icBuilder.newDocument();
@@ -30,14 +30,14 @@ public class XMLTransformer {
             doc.appendChild(mainRootElement);
            
             // append child elements to root element
-            mainRootElement.appendChild(getTopCloud(doc, topCloud, TopJarPath));
+            mainRootElement.appendChild(getTopCloud(doc, topCloud, TopJarPath, mainClass));
             
             for ( int i = 0 ; i < requestGlobalFile.size(); i++ ) {
             	String tmpHostPath[] = requestGlobalFile.get(i).split(":");
             	String tmpHost = tmpHostPath[0];
             	String subInput = tmpHostPath[1];
             	
-            	mainRootElement.appendChild(getRegionCloud(doc, tmpHost, subInput));
+            	mainRootElement.appendChild(getRegionCloud(doc, tmpHost, subInput, mainClass));
             }
             
             // output DOM XML to console
@@ -60,19 +60,20 @@ public class XMLTransformer {
         }
     }
     
-    private static Node getTopCloud(Document doc, String topCloud, String TopJarPath) {
+    private static Node getTopCloud(Document doc, String topCloud, String TopJarPath, String mainClass) {
     	String HdfsUriSplit[] = FedHdfsConParser.getHdfsUri(FedConfpath, topCloud).split(":");
 		String CloudAddress = HdfsUriSplit[0];
     	
         Element TopCloud = doc.createElement("TopCloud");
         TopCloud.appendChild(getCompanyElements(doc, TopCloud, "CloudAddress", CloudAddress));
-        TopCloud.appendChild(getCompanyElements(doc, TopCloud, "JobName", FedHdfsConParser.getFedMainClass(FedConfpath) + "-YARN"));
+        //TopCloud.appendChild(getCompanyElements(doc, TopCloud, "JobName", FedHdfsConParser.getFedMainClass(FedConfpath) + "-YARN"));
+        TopCloud.appendChild(getCompanyElements(doc, TopCloud, "JobName", mainClass + "-YARN"));
         TopCloud.appendChild(getCompanyElements(doc, TopCloud, "JarPath", TopJarPath));
         //TopCloud.appendChild(getCompanyElements(doc, TopCloud, "JarPath", FedHdfsConParser.getFedJarPath(FedConfpath)));
         return TopCloud;
     }
     
-    private static Node getRegionCloud(Document doc, String hostName, String input) {
+    private static Node getRegionCloud(Document doc, String hostName, String input, String mainClass) {
         Element RegionCloud = doc.createElement("RegionCloud");
         
         String HdfsUriSplit[] = FedHdfsConParser.getHdfsUri(FedConfpath, hostName).split(":");
@@ -81,8 +82,10 @@ public class XMLTransformer {
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "Name", hostName));
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "CloudAddress", CloudAddress));
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "HadoopHome", FedHdfsConParser.getHadoopHOME(FedConfpath, hostName)));
-        RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "JobName", FedHdfsConParser.getFedMainClass(FedConfpath) + "-YARN"));
-        RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "MainClass", FedHdfsConParser.getFedMainClass(FedConfpath)));
+        RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "JobName", mainClass + "-YARN"));
+        RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "MainClass", mainClass));
+        //RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "JobName", FedHdfsConParser.getFedMainClass(FedConfpath) + "-YARN"));
+        //RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "MainClass", FedHdfsConParser.getFedMainClass(FedConfpath)));
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "OtherArgs", FedHdfsConParser.getFedOtherArgs(FedConfpath)));
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "Arg0", input));
         for ( int j = 1 ; j <= FedHdfsConParser.getFedElementLen(FedConfpath) ; j++ ) {

@@ -30,18 +30,38 @@ public class SubmitJobsScheduler {
 	private static String globalfileInput = null;
 	private static String globalfileOutput = null;
 	
+	private static String otherArgs = "";
+	
 	public static void main(String[] args) throws Throwable {
 		
 		FedHdfsConParser.setSupernamenodeConf(FedConfpath);
 		
+		String parseArg[] = args;
+		
 		if (args.length < 5) {
-			System.err.println("Usage: submit jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
-			System.err.println("Usage: submit -f jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
+			System.err.println("Oringinal-MR Usage: submit jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
+			System.err.println("Fed-MR Usage: submit -f jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
 			System.exit(2);
+		}
+		else if (parseArg[0].equalsIgnoreCase("-f")) {
+			
+			jarPath = parseArg[2];
+			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+			mainClass = parseArg[3];
+			globalfileInput = parseArg[4];
+			globalfileOutput = parseArg[5];
+			fedJobs();
+			
+			/*String parseArg[] = args;
+			jarPath = parseArg[1];
+			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+			mainClass = parseArg[2];
+			globalfileInput = parseArg[3];
+			globalfileOutput = parseArg[4];
+			smJobs();*/
 		}
 		else if (args.length == 5) {
 			
-			String parseArg[] = args;
 			jarPath = parseArg[1];
 			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
 			mainClass = parseArg[2];
@@ -49,15 +69,18 @@ public class SubmitJobsScheduler {
 			globalfileOutput = parseArg[4];
 			smJobs();
 		}
-		else if (args.length == 6) {
-			
-			String parseArg[] = args;
-			jarPath = parseArg[2];
+		else {
+			jarPath = parseArg[1];
 			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
-			//mainClass = parseArg[3];
-			globalfileInput = parseArg[4];
-			globalfileOutput = parseArg[5];
-			fedJobs();
+			mainClass = parseArg[2];
+			globalfileInput = parseArg[3];
+			globalfileOutput = parseArg[4];
+			
+			for (int i = 6; i <= parseArg.length; i++ ){
+				otherArgs = otherArgs + parseArg[i-1] + " ";
+			}
+			System.out.println(otherArgs);
+			smJobs();
 		}
 	}
 	
@@ -80,7 +103,7 @@ public class SubmitJobsScheduler {
 		
 		for (int i = 0; i < requestGlobalFile.size(); i++) {
 			String tmpHostPath[] = requestGlobalFile.get(i).split(":");
-			listJobs.add(new multipleMR(jarFile, mainClass, tmpHostPath[0], tmpHostPath[1], globalfileOutput));
+			listJobs.add(new multipleMR(jarFile, mainClass, tmpHostPath[0], tmpHostPath[1], globalfileOutput, otherArgs));
 		}
 		
 		System.out.println("Start running RegionCloud Jobs");
@@ -119,7 +142,7 @@ public class SubmitJobsScheduler {
 		System.out.println(TopJarPath);
 		
 		XMLTransformer test = new XMLTransformer();
-		test.transformer(requestGlobalFile, top.getTopCloud(), TopJarPath);
+		test.transformer(requestGlobalFile, top.getTopCloud(), TopJarPath, mainClass);
 		
 		listCpJar.add(new copyJar(jarPath, top.getTopCloud()));
 		for ( copyJar job : listCpJar ) { job.start(); }
@@ -300,18 +323,20 @@ class multipleMR extends Thread {
 	private String hostName;
 	private String input;
 	private String output;
+	private String otherArgs;
 	private int exitVal;
 	
 	private ShellMonitor mOutputMonitor;
 	private ShellMonitor mErrorMonitor;
 
-	public multipleMR(String JAR, String mainClass, String hostName, String input, String output) {
+	public multipleMR(String JAR, String mainClass, String hostName, String input, String output, String otherArgs) {
 		
 		this.JAR = JAR;
 		this.mainClass = mainClass;
 		this.hostName = hostName;
 		this.input = input;
 		this.output = output;
+		this.otherArgs = otherArgs;
 	}
 	
 	File FedConfpath = SuperNamenode.XMfile;
@@ -328,6 +353,7 @@ class multipleMR extends Thread {
 		cmd = cmd + FedHdfsConParser.getHadoopHOME(FedConfpath, hostName) + "/" + JAR + " ";
 		cmd = cmd + mainClass + " ";
 		cmd = cmd + input + " " + output;
+		cmd = cmd + " " + otherArgs;
 	
 		System.out.println(cmd);
 		
