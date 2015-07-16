@@ -1,0 +1,998 @@
+use default value : 1.0
+globalFile : amazon300G
+Physical Input Path : 
+c19:/user/hpds/amazon120G
+c07:/user/hpds/amazon60G
+c02:/user/hpds/amazon30G
+c13:/user/hpds/amazon90G
+JAR : hadoop-mapreduce-examples-2.5.0.jar
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.7:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.13:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.19:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+JarCopy-Process exitValue: 0
+JarCopy-Process exitValue: 0
+JarCopy-Process exitValue: 0
+JarCopy-Process exitValue: 0
+Start running RegionCloud Jobs
+Wait For RegionCloud Jobs
+ssh hpds@10.3.1.7 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon60G 300Gwc_out_0709 
+ssh hpds@10.3.1.19 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon120G 300Gwc_out_0709 
+ssh hpds@10.3.1.2 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon30G 300Gwc_out_0709 
+ssh hpds@10.3.1.13 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon90G 300Gwc_out_0709 
+c19-10.3.1.19>15/07/09 20:11:48 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+c19-10.3.1.19>15/07/09 20:11:49 INFO input.FileInputFormat: Total input paths to process : 27
+c19-10.3.1.19>15/07/09 20:11:49 INFO mapreduce.JobSubmitter: number of splits:994
+c19-10.3.1.19>15/07/09 20:11:49 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273844725_0019
+c19-10.3.1.19>15/07/09 20:11:49 INFO impl.YarnClientImpl: Submitted application application_1436273844725_0019
+c19-10.3.1.19>15/07/09 20:11:49 INFO mapreduce.Job: The url to track the job: http://c19:40888/proxy/application_1436273844725_0019/
+c19-10.3.1.19>15/07/09 20:11:49 INFO mapreduce.Job: Running job: job_1436273844725_0019
+c07-10.3.1.7>15/07/09 20:11:46 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+c02-10.3.1.2>15/07/09 20:11:54 INFO client.RMProxy: Connecting to ResourceManager at c02/10.3.1.2:40832
+c13-10.3.1.13>15/07/09 20:11:45 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+c07-10.3.1.7>15/07/09 20:11:47 INFO input.FileInputFormat: Total input paths to process : 13
+c02-10.3.1.2>15/07/09 20:11:54 INFO input.FileInputFormat: Total input paths to process : 6
+c07-10.3.1.7>15/07/09 20:11:47 INFO mapreduce.JobSubmitter: number of splits:479
+c13-10.3.1.13>15/07/09 20:11:45 INFO input.FileInputFormat: Total input paths to process : 20
+c02-10.3.1.2>15/07/09 20:11:54 INFO mapreduce.JobSubmitter: number of splits:220
+c07-10.3.1.7>15/07/09 20:11:47 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273621930_0024
+c02-10.3.1.2>15/07/09 20:11:54 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273655163_0021
+c13-10.3.1.13>15/07/09 20:11:46 INFO mapreduce.JobSubmitter: number of splits:732
+c07-10.3.1.7>15/07/09 20:11:47 INFO impl.YarnClientImpl: Submitted application application_1436273621930_0024
+c07-10.3.1.7>15/07/09 20:11:47 INFO mapreduce.Job: The url to track the job: http://c07:40888/proxy/application_1436273621930_0024/
+c07-10.3.1.7>15/07/09 20:11:47 INFO mapreduce.Job: Running job: job_1436273621930_0024
+c02-10.3.1.2>15/07/09 20:11:54 INFO impl.YarnClientImpl: Submitted application application_1436273655163_0021
+c02-10.3.1.2>15/07/09 20:11:54 INFO mapreduce.Job: The url to track the job: http://c02:40888/proxy/application_1436273655163_0021/
+c13-10.3.1.13>15/07/09 20:11:46 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273680176_0032
+c02-10.3.1.2>15/07/09 20:11:54 INFO mapreduce.Job: Running job: job_1436273655163_0021
+c13-10.3.1.13>15/07/09 20:11:46 INFO impl.YarnClientImpl: Submitted application application_1436273680176_0032
+c13-10.3.1.13>15/07/09 20:11:46 INFO mapreduce.Job: The url to track the job: http://c13:40888/proxy/application_1436273680176_0032/
+c13-10.3.1.13>15/07/09 20:11:46 INFO mapreduce.Job: Running job: job_1436273680176_0032
+c19-10.3.1.19>15/07/09 20:11:53 INFO mapreduce.Job: Job job_1436273844725_0019 running in uber mode : false
+c19-10.3.1.19>15/07/09 20:11:53 INFO mapreduce.Job:  map 0% reduce 0%
+c02-10.3.1.2>15/07/09 20:11:58 INFO mapreduce.Job: Job job_1436273655163_0021 running in uber mode : false
+c02-10.3.1.2>15/07/09 20:11:58 INFO mapreduce.Job:  map 0% reduce 0%
+c07-10.3.1.7>15/07/09 20:11:51 INFO mapreduce.Job: Job job_1436273621930_0024 running in uber mode : false
+c07-10.3.1.7>15/07/09 20:11:51 INFO mapreduce.Job:  map 0% reduce 0%
+c13-10.3.1.13>15/07/09 20:11:50 INFO mapreduce.Job: Job job_1436273680176_0032 running in uber mode : false
+c13-10.3.1.13>15/07/09 20:11:50 INFO mapreduce.Job:  map 0% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:08 INFO mapreduce.Job:  map 1% reduce 0%
+c07-10.3.1.7>15/07/09 20:12:03 INFO mapreduce.Job:  map 1% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:13 INFO mapreduce.Job:  map 2% reduce 0%
+c13-10.3.1.13>15/07/09 20:12:05 INFO mapreduce.Job:  map 1% reduce 0%
+c19-10.3.1.19>15/07/09 20:12:15 INFO mapreduce.Job:  map 1% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:21 INFO mapreduce.Job:  map 3% reduce 0%
+c07-10.3.1.7>15/07/09 20:12:19 INFO mapreduce.Job:  map 2% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:26 INFO mapreduce.Job:  map 4% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:36 INFO mapreduce.Job:  map 5% reduce 0%
+c13-10.3.1.13>15/07/09 20:12:30 INFO mapreduce.Job:  map 2% reduce 0%
+c07-10.3.1.7>15/07/09 20:12:34 INFO mapreduce.Job:  map 3% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:46 INFO mapreduce.Job:  map 6% reduce 0%
+c19-10.3.1.19>15/07/09 20:12:47 INFO mapreduce.Job:  map 2% reduce 0%
+c02-10.3.1.2>15/07/09 20:12:50 INFO mapreduce.Job:  map 7% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:00 INFO mapreduce.Job:  map 8% reduce 0%
+c07-10.3.1.7>15/07/09 20:12:54 INFO mapreduce.Job:  map 4% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:04 INFO mapreduce.Job:  map 9% reduce 0%
+c13-10.3.1.13>15/07/09 20:12:56 INFO mapreduce.Job:  map 3% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:13 INFO mapreduce.Job:  map 10% reduce 0%
+c07-10.3.1.7>15/07/09 20:13:08 INFO mapreduce.Job:  map 5% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:18 INFO mapreduce.Job:  map 11% reduce 0%
+c19-10.3.1.19>15/07/09 20:13:22 INFO mapreduce.Job:  map 3% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:27 INFO mapreduce.Job:  map 12% reduce 0%
+c13-10.3.1.13>15/07/09 20:13:21 INFO mapreduce.Job:  map 4% reduce 0%
+c07-10.3.1.7>15/07/09 20:13:23 INFO mapreduce.Job:  map 6% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:32 INFO mapreduce.Job:  map 13% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:41 INFO mapreduce.Job:  map 14% reduce 0%
+c07-10.3.1.7>15/07/09 20:13:39 INFO mapreduce.Job:  map 7% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:46 INFO mapreduce.Job:  map 15% reduce 0%
+c13-10.3.1.13>15/07/09 20:13:46 INFO mapreduce.Job:  map 5% reduce 0%
+c19-10.3.1.19>15/07/09 20:13:53 INFO mapreduce.Job:  map 4% reduce 0%
+c02-10.3.1.2>15/07/09 20:13:56 INFO mapreduce.Job:  map 16% reduce 0%
+c07-10.3.1.7>15/07/09 20:13:55 INFO mapreduce.Job:  map 8% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:05 INFO mapreduce.Job:  map 17% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:11 INFO mapreduce.Job:  map 18% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:20 INFO mapreduce.Job:  map 19% reduce 0%
+c13-10.3.1.13>15/07/09 20:14:11 INFO mapreduce.Job:  map 6% reduce 0%
+c07-10.3.1.7>15/07/09 20:14:13 INFO mapreduce.Job:  map 9% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:24 INFO mapreduce.Job:  map 20% reduce 0%
+c19-10.3.1.19>15/07/09 20:14:28 INFO mapreduce.Job:  map 5% reduce 0%
+c07-10.3.1.7>15/07/09 20:14:26 INFO mapreduce.Job:  map 10% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:35 INFO mapreduce.Job:  map 21% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:38 INFO mapreduce.Job:  map 22% reduce 0%
+c13-10.3.1.13>15/07/09 20:14:31 INFO mapreduce.Job:  map 7% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:48 INFO mapreduce.Job:  map 23% reduce 0%
+c07-10.3.1.7>15/07/09 20:14:43 INFO mapreduce.Job:  map 11% reduce 0%
+c02-10.3.1.2>15/07/09 20:14:53 INFO mapreduce.Job:  map 24% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:02 INFO mapreduce.Job:  map 25% reduce 0%
+c19-10.3.1.19>15/07/09 20:15:00 INFO mapreduce.Job:  map 6% reduce 0%
+c07-10.3.1.7>15/07/09 20:14:57 INFO mapreduce.Job:  map 12% reduce 0%
+c13-10.3.1.13>15/07/09 20:14:55 INFO mapreduce.Job:  map 8% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:12 INFO mapreduce.Job:  map 26% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:16 INFO mapreduce.Job:  map 27% reduce 0%
+c07-10.3.1.7>15/07/09 20:15:14 INFO mapreduce.Job:  map 13% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:25 INFO mapreduce.Job:  map 28% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:30 INFO mapreduce.Job:  map 29% reduce 0%
+c13-10.3.1.13>15/07/09 20:15:22 INFO mapreduce.Job:  map 9% reduce 0%
+c19-10.3.1.19>15/07/09 20:15:33 INFO mapreduce.Job:  map 7% reduce 0%
+c07-10.3.1.7>15/07/09 20:15:32 INFO mapreduce.Job:  map 14% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:39 INFO mapreduce.Job:  map 30% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:44 INFO mapreduce.Job:  map 31% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:53 INFO mapreduce.Job:  map 32% reduce 0%
+c07-10.3.1.7>15/07/09 20:15:47 INFO mapreduce.Job:  map 15% reduce 0%
+c13-10.3.1.13>15/07/09 20:15:47 INFO mapreduce.Job:  map 10% reduce 0%
+c02-10.3.1.2>15/07/09 20:15:58 INFO mapreduce.Job:  map 33% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:07 INFO mapreduce.Job:  map 34% reduce 0%
+c19-10.3.1.19>15/07/09 20:16:05 INFO mapreduce.Job:  map 8% reduce 0%
+c07-10.3.1.7>15/07/09 20:16:03 INFO mapreduce.Job:  map 16% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:12 INFO mapreduce.Job:  map 35% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:20 INFO mapreduce.Job:  map 36% reduce 0%
+c13-10.3.1.13>15/07/09 20:16:12 INFO mapreduce.Job:  map 11% reduce 0%
+c07-10.3.1.7>15/07/09 20:16:16 INFO mapreduce.Job:  map 17% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:28 INFO mapreduce.Job:  map 37% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:35 INFO mapreduce.Job:  map 38% reduce 0%
+c07-10.3.1.7>15/07/09 20:16:34 INFO mapreduce.Job:  map 18% reduce 0%
+c19-10.3.1.19>15/07/09 20:16:40 INFO mapreduce.Job:  map 9% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:45 INFO mapreduce.Job:  map 39% reduce 0%
+c13-10.3.1.13>15/07/09 20:16:37 INFO mapreduce.Job:  map 12% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:50 INFO mapreduce.Job:  map 40% reduce 0%
+c02-10.3.1.2>15/07/09 20:16:58 INFO mapreduce.Job:  map 41% reduce 0%
+c07-10.3.1.7>15/07/09 20:16:51 INFO mapreduce.Job:  map 19% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:03 INFO mapreduce.Job:  map 42% reduce 0%
+c13-10.3.1.13>15/07/09 20:16:59 INFO mapreduce.Job:  map 13% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:12 INFO mapreduce.Job:  map 43% reduce 0%
+c07-10.3.1.7>15/07/09 20:17:06 INFO mapreduce.Job:  map 20% reduce 0%
+c19-10.3.1.19>15/07/09 20:17:11 INFO mapreduce.Job:  map 10% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:18 INFO mapreduce.Job:  map 44% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:26 INFO mapreduce.Job:  map 45% reduce 0%
+c07-10.3.1.7>15/07/09 20:17:21 INFO mapreduce.Job:  map 21% reduce 0%
+c13-10.3.1.13>15/07/09 20:17:22 INFO mapreduce.Job:  map 14% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:35 INFO mapreduce.Job:  map 46% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:42 INFO mapreduce.Job:  map 47% reduce 0%
+c07-10.3.1.7>15/07/09 20:17:36 INFO mapreduce.Job:  map 22% reduce 0%
+c19-10.3.1.19>15/07/09 20:17:42 INFO mapreduce.Job:  map 11% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:52 INFO mapreduce.Job:  map 48% reduce 0%
+c02-10.3.1.2>15/07/09 20:17:56 INFO mapreduce.Job:  map 49% reduce 0%
+c13-10.3.1.13>15/07/09 20:17:49 INFO mapreduce.Job:  map 15% reduce 0%
+c07-10.3.1.7>15/07/09 20:17:53 INFO mapreduce.Job:  map 23% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:04 INFO mapreduce.Job:  map 50% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:10 INFO mapreduce.Job:  map 51% reduce 0%
+c07-10.3.1.7>15/07/09 20:18:12 INFO mapreduce.Job:  map 24% reduce 0%
+c19-10.3.1.19>15/07/09 20:18:17 INFO mapreduce.Job:  map 12% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:20 INFO mapreduce.Job:  map 52% reduce 5%
+c13-10.3.1.13>15/07/09 20:18:13 INFO mapreduce.Job:  map 16% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:30 INFO mapreduce.Job:  map 53% reduce 5%
+c02-10.3.1.2>15/07/09 20:18:32 INFO mapreduce.Job:  map 53% reduce 7%
+c07-10.3.1.7>15/07/09 20:18:26 INFO mapreduce.Job:  map 25% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:35 INFO mapreduce.Job:  map 53% reduce 8%
+c02-10.3.1.2>15/07/09 20:18:38 INFO mapreduce.Job:  map 53% reduce 9%
+c02-10.3.1.2>15/07/09 20:18:40 INFO mapreduce.Job:  map 54% reduce 9%
+c13-10.3.1.13>15/07/09 20:18:38 INFO mapreduce.Job:  map 17% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:47 INFO mapreduce.Job:  map 54% reduce 10%
+c07-10.3.1.7>15/07/09 20:18:41 INFO mapreduce.Job:  map 26% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:49 INFO mapreduce.Job:  map 55% reduce 10%
+c02-10.3.1.2>15/07/09 20:18:50 INFO mapreduce.Job:  map 55% reduce 11%
+c19-10.3.1.19>15/07/09 20:18:49 INFO mapreduce.Job:  map 13% reduce 0%
+c02-10.3.1.2>15/07/09 20:18:53 INFO mapreduce.Job:  map 55% reduce 12%
+c02-10.3.1.2>15/07/09 20:18:59 INFO mapreduce.Job:  map 56% reduce 13%
+c02-10.3.1.2>15/07/09 20:19:02 INFO mapreduce.Job:  map 56% reduce 14%
+c07-10.3.1.7>15/07/09 20:18:56 INFO mapreduce.Job:  map 27% reduce 0%
+c02-10.3.1.2>15/07/09 20:19:05 INFO mapreduce.Job:  map 56% reduce 15%
+c02-10.3.1.2>15/07/09 20:19:08 INFO mapreduce.Job:  map 56% reduce 16%
+c02-10.3.1.2>15/07/09 20:19:09 INFO mapreduce.Job:  map 57% reduce 16%
+c13-10.3.1.13>15/07/09 20:19:04 INFO mapreduce.Job:  map 18% reduce 0%
+c02-10.3.1.2>15/07/09 20:19:17 INFO mapreduce.Job:  map 57% reduce 17%
+c02-10.3.1.2>15/07/09 20:19:19 INFO mapreduce.Job:  map 58% reduce 17%
+c07-10.3.1.7>15/07/09 20:19:12 INFO mapreduce.Job:  map 28% reduce 0%
+c02-10.3.1.2>15/07/09 20:19:20 INFO mapreduce.Job:  map 58% reduce 18%
+c02-10.3.1.2>15/07/09 20:19:23 INFO mapreduce.Job:  map 58% reduce 19%
+c19-10.3.1.19>15/07/09 20:19:25 INFO mapreduce.Job:  map 14% reduce 0%
+c02-10.3.1.2>15/07/09 20:19:29 INFO mapreduce.Job:  map 59% reduce 19%
+c02-10.3.1.2>15/07/09 20:19:32 INFO mapreduce.Job:  map 59% reduce 20%
+c13-10.3.1.13>15/07/09 20:19:27 INFO mapreduce.Job:  map 19% reduce 0%
+c07-10.3.1.7>15/07/09 20:19:30 INFO mapreduce.Job:  map 29% reduce 0%
+c02-10.3.1.2>15/07/09 20:19:39 INFO mapreduce.Job:  map 60% reduce 20%
+c02-10.3.1.2>15/07/09 20:19:49 INFO mapreduce.Job:  map 61% reduce 20%
+c07-10.3.1.7>15/07/09 20:19:46 INFO mapreduce.Job:  map 30% reduce 0%
+c02-10.3.1.2>15/07/09 20:19:57 INFO mapreduce.Job:  map 62% reduce 20%
+c13-10.3.1.13>15/07/09 20:19:50 INFO mapreduce.Job:  map 20% reduce 0%
+c19-10.3.1.19>15/07/09 20:19:57 INFO mapreduce.Job:  map 15% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:02 INFO mapreduce.Job:  map 62% reduce 21%
+c07-10.3.1.7>15/07/09 20:19:59 INFO mapreduce.Job:  map 31% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:08 INFO mapreduce.Job:  map 63% reduce 21%
+c02-10.3.1.2>15/07/09 20:20:17 INFO mapreduce.Job:  map 64% reduce 21%
+c07-10.3.1.7>15/07/09 20:20:14 INFO mapreduce.Job:  map 32% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:23 INFO mapreduce.Job:  map 65% reduce 21%
+c13-10.3.1.13>15/07/09 20:20:16 INFO mapreduce.Job:  map 21% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:26 INFO mapreduce.Job:  map 65% reduce 22%
+c19-10.3.1.19>15/07/09 20:20:32 INFO mapreduce.Job:  map 16% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:37 INFO mapreduce.Job:  map 66% reduce 22%
+c07-10.3.1.7>15/07/09 20:20:33 INFO mapreduce.Job:  map 33% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:44 INFO mapreduce.Job:  map 67% reduce 22%
+c13-10.3.1.13>15/07/09 20:20:41 INFO mapreduce.Job:  map 22% reduce 0%
+c07-10.3.1.7>15/07/09 20:20:47 INFO mapreduce.Job:  map 34% reduce 0%
+c02-10.3.1.2>15/07/09 20:20:58 INFO mapreduce.Job:  map 68% reduce 22%
+c02-10.3.1.2>15/07/09 20:21:05 INFO mapreduce.Job:  map 68% reduce 23%
+c19-10.3.1.19>15/07/09 20:21:04 INFO mapreduce.Job:  map 17% reduce 0%
+c02-10.3.1.2>15/07/09 20:21:08 INFO mapreduce.Job:  map 69% reduce 23%
+c07-10.3.1.7>15/07/09 20:21:05 INFO mapreduce.Job:  map 35% reduce 0%
+c13-10.3.1.13>15/07/09 20:21:05 INFO mapreduce.Job:  map 23% reduce 0%
+c02-10.3.1.2>15/07/09 20:21:19 INFO mapreduce.Job:  map 70% reduce 23%
+c07-10.3.1.7>15/07/09 20:21:19 INFO mapreduce.Job:  map 36% reduce 0%
+c02-10.3.1.2>15/07/09 20:21:33 INFO mapreduce.Job:  map 71% reduce 23%
+c19-10.3.1.19>15/07/09 20:21:37 INFO mapreduce.Job:  map 18% reduce 0%
+c13-10.3.1.13>15/07/09 20:21:32 INFO mapreduce.Job:  map 24% reduce 0%
+c02-10.3.1.2>15/07/09 20:21:41 INFO mapreduce.Job:  map 71% reduce 24%
+c02-10.3.1.2>15/07/09 20:21:42 INFO mapreduce.Job:  map 72% reduce 24%
+c07-10.3.1.7>15/07/09 20:21:37 INFO mapreduce.Job:  map 37% reduce 0%
+c07-10.3.1.7>15/07/09 20:21:50 INFO mapreduce.Job:  map 38% reduce 0%
+c02-10.3.1.2>15/07/09 20:21:59 INFO mapreduce.Job:  map 73% reduce 24%
+c13-10.3.1.13>15/07/09 20:21:53 INFO mapreduce.Job:  map 25% reduce 0%
+c19-10.3.1.19>15/07/09 20:22:08 INFO mapreduce.Job:  map 19% reduce 0%
+c02-10.3.1.2>15/07/09 20:22:13 INFO mapreduce.Job:  map 74% reduce 24%
+c07-10.3.1.7>15/07/09 20:22:07 INFO mapreduce.Job:  map 39% reduce 0%
+c02-10.3.1.2>15/07/09 20:22:15 INFO mapreduce.Job:  map 74% reduce 25%
+c02-10.3.1.2>15/07/09 20:22:24 INFO mapreduce.Job:  map 75% reduce 25%
+c13-10.3.1.13>15/07/09 20:22:20 INFO mapreduce.Job:  map 26% reduce 0%
+c07-10.3.1.7>15/07/09 20:22:24 INFO mapreduce.Job:  map 40% reduce 0%
+c02-10.3.1.2>15/07/09 20:22:38 INFO mapreduce.Job:  map 76% reduce 25%
+c19-10.3.1.19>15/07/09 20:22:41 INFO mapreduce.Job:  map 20% reduce 0%
+c07-10.3.1.7>15/07/09 20:22:40 INFO mapreduce.Job:  map 41% reduce 0%
+c02-10.3.1.2>15/07/09 20:22:50 INFO mapreduce.Job:  map 77% reduce 25%
+c13-10.3.1.13>15/07/09 20:22:44 INFO mapreduce.Job:  map 27% reduce 0%
+c02-10.3.1.2>15/07/09 20:22:58 INFO mapreduce.Job:  map 77% reduce 26%
+c07-10.3.1.7>15/07/09 20:22:55 INFO mapreduce.Job:  map 42% reduce 0%
+c02-10.3.1.2>15/07/09 20:23:06 INFO mapreduce.Job:  map 78% reduce 26%
+c19-10.3.1.19>15/07/09 20:23:13 INFO mapreduce.Job:  map 21% reduce 0%
+c13-10.3.1.13>15/07/09 20:23:08 INFO mapreduce.Job:  map 28% reduce 0%
+c07-10.3.1.7>15/07/09 20:23:10 INFO mapreduce.Job:  map 43% reduce 0%
+c02-10.3.1.2>15/07/09 20:23:19 INFO mapreduce.Job:  map 79% reduce 26%
+c02-10.3.1.2>15/07/09 20:23:31 INFO mapreduce.Job:  map 80% reduce 26%
+c02-10.3.1.2>15/07/09 20:23:34 INFO mapreduce.Job:  map 80% reduce 27%
+c07-10.3.1.7>15/07/09 20:23:27 INFO mapreduce.Job:  map 44% reduce 0%
+c13-10.3.1.13>15/07/09 20:23:32 INFO mapreduce.Job:  map 29% reduce 0%
+c02-10.3.1.2>15/07/09 20:23:45 INFO mapreduce.Job:  map 81% reduce 27%
+c19-10.3.1.19>15/07/09 20:23:46 INFO mapreduce.Job:  map 22% reduce 0%
+c07-10.3.1.7>15/07/09 20:23:43 INFO mapreduce.Job:  map 45% reduce 0%
+c02-10.3.1.2>15/07/09 20:23:57 INFO mapreduce.Job:  map 82% reduce 27%
+c13-10.3.1.13>15/07/09 20:23:55 INFO mapreduce.Job:  map 30% reduce 0%
+c07-10.3.1.7>15/07/09 20:23:57 INFO mapreduce.Job:  map 46% reduce 0%
+c02-10.3.1.2>15/07/09 20:24:12 INFO mapreduce.Job:  map 83% reduce 27%
+c02-10.3.1.2>15/07/09 20:24:16 INFO mapreduce.Job:  map 83% reduce 28%
+c07-10.3.1.7>15/07/09 20:24:14 INFO mapreduce.Job:  map 47% reduce 0%
+c19-10.3.1.19>15/07/09 20:24:21 INFO mapreduce.Job:  map 23% reduce 0%
+c02-10.3.1.2>15/07/09 20:24:26 INFO mapreduce.Job:  map 84% reduce 28%
+c13-10.3.1.13>15/07/09 20:24:19 INFO mapreduce.Job:  map 31% reduce 0%
+c02-10.3.1.2>15/07/09 20:24:37 INFO mapreduce.Job:  map 85% reduce 28%
+c07-10.3.1.7>15/07/09 20:24:32 INFO mapreduce.Job:  map 48% reduce 0%
+c02-10.3.1.2>15/07/09 20:24:50 INFO mapreduce.Job:  map 86% reduce 28%
+c13-10.3.1.13>15/07/09 20:24:43 INFO mapreduce.Job:  map 32% reduce 0%
+c07-10.3.1.7>15/07/09 20:24:48 INFO mapreduce.Job:  map 49% reduce 0%
+c19-10.3.1.19>15/07/09 20:24:54 INFO mapreduce.Job:  map 24% reduce 0%
+c02-10.3.1.2>15/07/09 20:24:58 INFO mapreduce.Job:  map 86% reduce 29%
+c02-10.3.1.2>15/07/09 20:25:03 INFO mapreduce.Job:  map 87% reduce 29%
+c07-10.3.1.7>15/07/09 20:25:04 INFO mapreduce.Job:  map 50% reduce 0%
+c13-10.3.1.13>15/07/09 20:25:09 INFO mapreduce.Job:  map 33% reduce 0%
+c02-10.3.1.2>15/07/09 20:25:19 INFO mapreduce.Job:  map 88% reduce 29%
+c07-10.3.1.7>15/07/09 20:25:19 INFO mapreduce.Job:  map 51% reduce 0%
+c19-10.3.1.19>15/07/09 20:25:26 INFO mapreduce.Job:  map 25% reduce 0%
+c02-10.3.1.2>15/07/09 20:25:31 INFO mapreduce.Job:  map 89% reduce 29%
+c02-10.3.1.2>15/07/09 20:25:34 INFO mapreduce.Job:  map 89% reduce 30%
+c07-10.3.1.7>15/07/09 20:25:28 INFO mapreduce.Job:  map 51% reduce 3%
+c13-10.3.1.13>15/07/09 20:25:35 INFO mapreduce.Job:  map 34% reduce 0%
+c02-10.3.1.2>15/07/09 20:25:44 INFO mapreduce.Job:  map 90% reduce 30%
+c07-10.3.1.7>15/07/09 20:25:40 INFO mapreduce.Job:  map 52% reduce 3%
+c07-10.3.1.7>15/07/09 20:25:41 INFO mapreduce.Job:  map 52% reduce 4%
+c07-10.3.1.7>15/07/09 20:25:50 INFO mapreduce.Job:  map 52% reduce 5%
+c02-10.3.1.2>15/07/09 20:25:57 INFO mapreduce.Job:  map 91% reduce 30%
+c19-10.3.1.19>15/07/09 20:25:59 INFO mapreduce.Job:  map 26% reduce 0%
+c07-10.3.1.7>15/07/09 20:25:56 INFO mapreduce.Job:  map 52% reduce 6%
+c13-10.3.1.13>15/07/09 20:25:59 INFO mapreduce.Job:  map 35% reduce 0%
+c07-10.3.1.7>15/07/09 20:26:02 INFO mapreduce.Job:  map 53% reduce 6%
+c02-10.3.1.2>15/07/09 20:26:10 INFO mapreduce.Job:  map 92% reduce 30%
+c07-10.3.1.7>15/07/09 20:26:05 INFO mapreduce.Job:  map 53% reduce 7%
+c07-10.3.1.7>15/07/09 20:26:11 INFO mapreduce.Job:  map 53% reduce 8%
+c02-10.3.1.2>15/07/09 20:26:26 INFO mapreduce.Job:  map 92% reduce 31%
+c02-10.3.1.2>15/07/09 20:26:30 INFO mapreduce.Job:  map 93% reduce 31%
+c07-10.3.1.7>15/07/09 20:26:23 INFO mapreduce.Job:  map 54% reduce 9%
+c13-10.3.1.13>15/07/09 20:26:23 INFO mapreduce.Job:  map 36% reduce 0%
+c19-10.3.1.19>15/07/09 20:26:31 INFO mapreduce.Job:  map 27% reduce 0%
+c07-10.3.1.7>15/07/09 20:26:32 INFO mapreduce.Job:  map 54% reduce 10%
+c07-10.3.1.7>15/07/09 20:26:38 INFO mapreduce.Job:  map 54% reduce 11%
+c02-10.3.1.2>15/07/09 20:26:46 INFO mapreduce.Job:  map 94% reduce 31%
+c07-10.3.1.7>15/07/09 20:26:45 INFO mapreduce.Job:  map 55% reduce 11%
+c13-10.3.1.13>15/07/09 20:26:47 INFO mapreduce.Job:  map 37% reduce 0%
+c07-10.3.1.7>15/07/09 20:26:51 INFO mapreduce.Job:  map 55% reduce 12%
+c02-10.3.1.2>15/07/09 20:27:01 INFO mapreduce.Job:  map 95% reduce 31%
+c02-10.3.1.2>15/07/09 20:27:05 INFO mapreduce.Job:  map 95% reduce 32%
+c19-10.3.1.19>15/07/09 20:27:06 INFO mapreduce.Job:  map 28% reduce 0%
+c07-10.3.1.7>15/07/09 20:27:03 INFO mapreduce.Job:  map 55% reduce 13%
+c07-10.3.1.7>15/07/09 20:27:06 INFO mapreduce.Job:  map 56% reduce 13%
+c07-10.3.1.7>15/07/09 20:27:09 INFO mapreduce.Job:  map 56% reduce 14%
+c02-10.3.1.2>15/07/09 20:27:18 INFO mapreduce.Job:  map 96% reduce 32%
+c13-10.3.1.13>15/07/09 20:27:12 INFO mapreduce.Job:  map 38% reduce 0%
+c07-10.3.1.7>15/07/09 20:27:21 INFO mapreduce.Job:  map 56% reduce 15%
+c07-10.3.1.7>15/07/09 20:27:26 INFO mapreduce.Job:  map 57% reduce 15%
+c07-10.3.1.7>15/07/09 20:27:27 INFO mapreduce.Job:  map 57% reduce 16%
+c02-10.3.1.2>15/07/09 20:27:36 INFO mapreduce.Job:  map 97% reduce 32%
+c19-10.3.1.19>15/07/09 20:27:39 INFO mapreduce.Job:  map 29% reduce 0%
+c02-10.3.1.2>15/07/09 20:27:44 INFO mapreduce.Job:  map 98% reduce 32%
+c07-10.3.1.7>15/07/09 20:27:39 INFO mapreduce.Job:  map 57% reduce 17%
+c02-10.3.1.2>15/07/09 20:27:47 INFO mapreduce.Job:  map 98% reduce 33%
+c13-10.3.1.13>15/07/09 20:27:40 INFO mapreduce.Job:  map 39% reduce 0%
+c07-10.3.1.7>15/07/09 20:27:49 INFO mapreduce.Job:  map 58% reduce 17%
+c07-10.3.1.7>15/07/09 20:27:51 INFO mapreduce.Job:  map 58% reduce 18%
+c02-10.3.1.2>15/07/09 20:28:01 INFO mapreduce.Job:  map 99% reduce 33%
+c07-10.3.1.7>15/07/09 20:27:57 INFO mapreduce.Job:  map 58% reduce 19%
+c02-10.3.1.2>15/07/09 20:28:09 INFO mapreduce.Job:  map 100% reduce 33%
+c02-10.3.1.2>15/07/09 20:28:11 INFO mapreduce.Job:  map 100% reduce 36%
+c13-10.3.1.13>15/07/09 20:28:05 INFO mapreduce.Job:  map 40% reduce 0%
+c02-10.3.1.2>15/07/09 20:28:14 INFO mapreduce.Job:  map 100% reduce 67%
+c19-10.3.1.19>15/07/09 20:28:14 INFO mapreduce.Job:  map 30% reduce 0%
+c07-10.3.1.7>15/07/09 20:28:11 INFO mapreduce.Job:  map 59% reduce 19%
+c02-10.3.1.2>15/07/09 20:28:23 INFO mapreduce.Job:  map 100% reduce 68%
+c07-10.3.1.7>15/07/09 20:28:18 INFO mapreduce.Job:  map 59% reduce 20%
+c02-10.3.1.2>15/07/09 20:28:26 INFO mapreduce.Job:  map 100% reduce 69%
+c02-10.3.1.2>15/07/09 20:28:32 INFO mapreduce.Job:  map 100% reduce 70%
+c07-10.3.1.7>15/07/09 20:28:29 INFO mapreduce.Job:  map 60% reduce 20%
+c02-10.3.1.2>15/07/09 20:28:38 INFO mapreduce.Job:  map 100% reduce 71%
+c13-10.3.1.13>15/07/09 20:28:32 INFO mapreduce.Job:  map 41% reduce 0%
+c02-10.3.1.2>15/07/09 20:28:44 INFO mapreduce.Job:  map 100% reduce 72%
+c02-10.3.1.2>15/07/09 20:28:47 INFO mapreduce.Job:  map 100% reduce 73%
+c19-10.3.1.19>15/07/09 20:28:46 INFO mapreduce.Job:  map 31% reduce 0%
+c02-10.3.1.2>15/07/09 20:28:53 INFO mapreduce.Job:  map 100% reduce 74%
+c07-10.3.1.7>15/07/09 20:28:51 INFO mapreduce.Job:  map 61% reduce 20%
+c02-10.3.1.2>15/07/09 20:28:59 INFO mapreduce.Job:  map 100% reduce 75%
+c13-10.3.1.13>15/07/09 20:28:52 INFO mapreduce.Job:  map 42% reduce 0%
+c02-10.3.1.2>15/07/09 20:29:05 INFO mapreduce.Job:  map 100% reduce 76%
+c02-10.3.1.2>15/07/09 20:29:08 INFO mapreduce.Job:  map 100% reduce 77%
+c02-10.3.1.2>15/07/09 20:29:14 INFO mapreduce.Job:  map 100% reduce 78%
+c02-10.3.1.2>15/07/09 20:29:17 INFO mapreduce.Job:  map 100% reduce 79%
+c07-10.3.1.7>15/07/09 20:29:12 INFO mapreduce.Job:  map 62% reduce 20%
+c02-10.3.1.2>15/07/09 20:29:23 INFO mapreduce.Job:  map 100% reduce 80%
+c19-10.3.1.19>15/07/09 20:29:21 INFO mapreduce.Job:  map 32% reduce 0%
+c13-10.3.1.13>15/07/09 20:29:16 INFO mapreduce.Job:  map 43% reduce 0%
+c07-10.3.1.7>15/07/09 20:29:18 INFO mapreduce.Job:  map 62% reduce 21%
+c02-10.3.1.2>15/07/09 20:29:26 INFO mapreduce.Job:  map 100% reduce 81%
+c02-10.3.1.2>15/07/09 20:29:29 INFO mapreduce.Job:  map 100% reduce 82%
+c02-10.3.1.2>15/07/09 20:29:32 INFO mapreduce.Job:  map 100% reduce 83%
+c02-10.3.1.2>15/07/09 20:29:38 INFO mapreduce.Job:  map 100% reduce 84%
+c07-10.3.1.7>15/07/09 20:29:36 INFO mapreduce.Job:  map 63% reduce 21%
+c02-10.3.1.2>15/07/09 20:29:44 INFO mapreduce.Job:  map 100% reduce 85%
+c02-10.3.1.2>15/07/09 20:29:47 INFO mapreduce.Job:  map 100% reduce 86%
+c02-10.3.1.2>15/07/09 20:29:50 INFO mapreduce.Job:  map 100% reduce 87%
+c13-10.3.1.13>15/07/09 20:29:42 INFO mapreduce.Job:  map 44% reduce 0%
+c02-10.3.1.2>15/07/09 20:29:53 INFO mapreduce.Job:  map 100% reduce 88%
+c19-10.3.1.19>15/07/09 20:29:52 INFO mapreduce.Job:  map 33% reduce 0%
+c02-10.3.1.2>15/07/09 20:29:56 INFO mapreduce.Job:  map 100% reduce 89%
+c02-10.3.1.2>15/07/09 20:30:02 INFO mapreduce.Job:  map 100% reduce 90%
+c07-10.3.1.7>15/07/09 20:29:59 INFO mapreduce.Job:  map 64% reduce 21%
+c02-10.3.1.2>15/07/09 20:30:08 INFO mapreduce.Job:  map 100% reduce 91%
+c02-10.3.1.2>15/07/09 20:30:14 INFO mapreduce.Job:  map 100% reduce 92%
+c13-10.3.1.13>15/07/09 20:30:08 INFO mapreduce.Job:  map 45% reduce 0%
+c02-10.3.1.2>15/07/09 20:30:17 INFO mapreduce.Job:  map 100% reduce 93%
+c02-10.3.1.2>15/07/09 20:30:20 INFO mapreduce.Job:  map 100% reduce 94%
+c07-10.3.1.7>15/07/09 20:30:16 INFO mapreduce.Job:  map 65% reduce 21%
+c02-10.3.1.2>15/07/09 20:30:23 INFO mapreduce.Job:  map 100% reduce 95%
+c07-10.3.1.7>15/07/09 20:30:22 INFO mapreduce.Job:  map 65% reduce 22%
+c02-10.3.1.2>15/07/09 20:30:29 INFO mapreduce.Job:  map 100% reduce 96%
+c19-10.3.1.19>15/07/09 20:30:29 INFO mapreduce.Job:  map 34% reduce 0%
+c02-10.3.1.2>15/07/09 20:30:32 INFO mapreduce.Job:  map 100% reduce 97%
+c13-10.3.1.13>15/07/09 20:30:32 INFO mapreduce.Job:  map 46% reduce 0%
+c02-10.3.1.2>15/07/09 20:30:41 INFO mapreduce.Job:  map 100% reduce 98%
+c02-10.3.1.2>15/07/09 20:30:44 INFO mapreduce.Job:  map 100% reduce 99%
+c02-10.3.1.2>15/07/09 20:30:47 INFO mapreduce.Job:  map 100% reduce 100%
+c07-10.3.1.7>15/07/09 20:30:41 INFO mapreduce.Job:  map 66% reduce 22%
+c02-10.3.1.2>15/07/09 20:30:48 INFO mapreduce.Job: Job job_1436273655163_0021 completed successfully
+c02-10.3.1.2>15/07/09 20:30:48 INFO mapreduce.Job: Counters: 50
+c02-10.3.1.2>	File System Counters
+c02-10.3.1.2>		FILE: Number of bytes read=18930644891
+c02-10.3.1.2>		FILE: Number of bytes written=28173441136
+c02-10.3.1.2>		FILE: Number of read operations=0
+c02-10.3.1.2>		FILE: Number of large read operations=0
+c02-10.3.1.2>		FILE: Number of write operations=0
+c02-10.3.1.2>		HDFS: Number of bytes read=29146832019
+c02-10.3.1.2>		HDFS: Number of bytes written=5685339149
+c02-10.3.1.2>		HDFS: Number of read operations=663
+c02-10.3.1.2>		HDFS: Number of large read operations=0
+c02-10.3.1.2>		HDFS: Number of write operations=2
+c02-10.3.1.2>	Job Counters 
+c02-10.3.1.2>		Launched map tasks=220
+c02-10.3.1.2>		Launched reduce tasks=1
+c02-10.3.1.2>		Data-local map tasks=152
+c02-10.3.1.2>		Rack-local map tasks=68
+c02-10.3.1.2>		Total time spent by all maps in occupied slots (ms)=2614615
+c02-10.3.1.2>		Total time spent by all reduces in occupied slots (ms)=755733
+c02-10.3.1.2>		Total time spent by all map tasks (ms)=2614615
+c02-10.3.1.2>		Total time spent by all reduce tasks (ms)=755733
+c02-10.3.1.2>		Total vcore-seconds taken by all map tasks=2614615
+c02-10.3.1.2>		Total vcore-seconds taken by all reduce tasks=755733
+c02-10.3.1.2>		Total megabyte-seconds taken by all map tasks=10709463040
+c02-10.3.1.2>		Total megabyte-seconds taken by all reduce tasks=6190964736
+c02-10.3.1.2>	Map-Reduce Framework
+c02-10.3.1.2>		Map input records=519995660
+c02-10.3.1.2>		Map output records=1608050175
+c02-10.3.1.2>		Map output bytes=32471660176
+c02-10.3.1.2>		Map output materialized bytes=9222131144
+c02-10.3.1.2>		Input split bytes=36080
+c02-10.3.1.2>		Combine input records=1823230576
+c02-10.3.1.2>		Combine output records=406849395
+c02-10.3.1.2>		Reduce input groups=89885441
+c02-10.3.1.2>		Reduce shuffle bytes=9222131144
+c02-10.3.1.2>		Reduce input records=191668994
+c02-10.3.1.2>		Reduce output records=89885441
+c02-10.3.1.2>		Spilled Records=599316634
+c02-10.3.1.2>		Shuffled Maps =220
+c02-10.3.1.2>		Failed Shuffles=0
+c02-10.3.1.2>		Merged Map outputs=220
+c02-10.3.1.2>		GC time elapsed (ms)=32410
+c02-10.3.1.2>		CPU time spent (ms)=3365770
+c02-10.3.1.2>		Physical memory (bytes) snapshot=122947944448
+c02-10.3.1.2>		Virtual memory (bytes) snapshot=1130420871168
+c02-10.3.1.2>		Total committed heap usage (bytes)=144690905088
+c02-10.3.1.2>	Shuffle Errors
+c02-10.3.1.2>		BAD_ID=0
+c02-10.3.1.2>		CONNECTION=0
+c02-10.3.1.2>		IO_ERROR=0
+c02-10.3.1.2>		WRONG_LENGTH=0
+c02-10.3.1.2>		WRONG_MAP=0
+c02-10.3.1.2>		WRONG_REDUCE=0
+c02-10.3.1.2>	File Input Format Counters 
+c02-10.3.1.2>		Bytes Read=29146795939
+c02-10.3.1.2>	File Output Format Counters 
+c02-10.3.1.2>		Bytes Written=5685339149
+FedMR-Process exitValue: 0
+c19-10.3.1.19>15/07/09 20:31:00 INFO mapreduce.Job:  map 35% reduce 0%
+c13-10.3.1.13>15/07/09 20:30:57 INFO mapreduce.Job:  map 47% reduce 0%
+c07-10.3.1.7>15/07/09 20:31:00 INFO mapreduce.Job:  map 67% reduce 22%
+c13-10.3.1.13>15/07/09 20:31:18 INFO mapreduce.Job:  map 48% reduce 0%
+c07-10.3.1.7>15/07/09 20:31:22 INFO mapreduce.Job:  map 68% reduce 22%
+c07-10.3.1.7>15/07/09 20:31:28 INFO mapreduce.Job:  map 68% reduce 23%
+c19-10.3.1.19>15/07/09 20:31:34 INFO mapreduce.Job:  map 36% reduce 0%
+c13-10.3.1.13>15/07/09 20:31:43 INFO mapreduce.Job:  map 49% reduce 0%
+c07-10.3.1.7>15/07/09 20:31:47 INFO mapreduce.Job:  map 69% reduce 23%
+c19-10.3.1.19>15/07/09 20:32:06 INFO mapreduce.Job:  map 37% reduce 0%
+c07-10.3.1.7>15/07/09 20:32:05 INFO mapreduce.Job:  map 70% reduce 23%
+c13-10.3.1.13>15/07/09 20:32:08 INFO mapreduce.Job:  map 50% reduce 0%
+c07-10.3.1.7>15/07/09 20:32:23 INFO mapreduce.Job:  map 71% reduce 23%
+c07-10.3.1.7>15/07/09 20:32:25 INFO mapreduce.Job:  map 71% reduce 24%
+c13-10.3.1.13>15/07/09 20:32:34 INFO mapreduce.Job:  map 51% reduce 0%
+c13-10.3.1.13>15/07/09 20:32:35 INFO mapreduce.Job:  map 51% reduce 2%
+c19-10.3.1.19>15/07/09 20:32:41 INFO mapreduce.Job:  map 38% reduce 0%
+c13-10.3.1.13>15/07/09 20:32:44 INFO mapreduce.Job:  map 51% reduce 3%
+c07-10.3.1.7>15/07/09 20:32:52 INFO mapreduce.Job:  map 72% reduce 24%
+c13-10.3.1.13>15/07/09 20:32:59 INFO mapreduce.Job:  map 51% reduce 4%
+c13-10.3.1.13>15/07/09 20:33:03 INFO mapreduce.Job:  map 52% reduce 4%
+c19-10.3.1.19>15/07/09 20:33:11 INFO mapreduce.Job:  map 39% reduce 0%
+c13-10.3.1.13>15/07/09 20:33:06 INFO mapreduce.Job:  map 52% reduce 5%
+c07-10.3.1.7>15/07/09 20:33:19 INFO mapreduce.Job:  map 73% reduce 24%
+c13-10.3.1.13>15/07/09 20:33:23 INFO mapreduce.Job:  map 52% reduce 6%
+c13-10.3.1.13>15/07/09 20:33:32 INFO mapreduce.Job:  map 52% reduce 7%
+c13-10.3.1.13>15/07/09 20:33:39 INFO mapreduce.Job:  map 53% reduce 7%
+c19-10.3.1.19>15/07/09 20:33:47 INFO mapreduce.Job:  map 40% reduce 0%
+c07-10.3.1.7>15/07/09 20:33:50 INFO mapreduce.Job:  map 74% reduce 24%
+c13-10.3.1.13>15/07/09 20:33:54 INFO mapreduce.Job:  map 53% reduce 8%
+c07-10.3.1.7>15/07/09 20:33:58 INFO mapreduce.Job:  map 74% reduce 25%
+c13-10.3.1.13>15/07/09 20:34:10 INFO mapreduce.Job:  map 53% reduce 9%
+c13-10.3.1.13>15/07/09 20:34:11 INFO mapreduce.Job:  map 54% reduce 9%
+c19-10.3.1.19>15/07/09 20:34:19 INFO mapreduce.Job:  map 41% reduce 0%
+c07-10.3.1.7>15/07/09 20:34:19 INFO mapreduce.Job:  map 75% reduce 25%
+c13-10.3.1.13>15/07/09 20:34:25 INFO mapreduce.Job:  map 54% reduce 10%
+c13-10.3.1.13>15/07/09 20:34:37 INFO mapreduce.Job:  map 54% reduce 11%
+c13-10.3.1.13>15/07/09 20:34:46 INFO mapreduce.Job:  map 55% reduce 11%
+c07-10.3.1.7>15/07/09 20:34:50 INFO mapreduce.Job:  map 76% reduce 25%
+c19-10.3.1.19>15/07/09 20:34:54 INFO mapreduce.Job:  map 42% reduce 0%
+c13-10.3.1.13>15/07/09 20:34:52 INFO mapreduce.Job:  map 55% reduce 12%
+c13-10.3.1.13>15/07/09 20:35:07 INFO mapreduce.Job:  map 55% reduce 13%
+c07-10.3.1.7>15/07/09 20:35:18 INFO mapreduce.Job:  map 77% reduce 25%
+c13-10.3.1.13>15/07/09 20:35:16 INFO mapreduce.Job:  map 56% reduce 13%
+c19-10.3.1.19>15/07/09 20:35:27 INFO mapreduce.Job:  map 43% reduce 0%
+c13-10.3.1.13>15/07/09 20:35:22 INFO mapreduce.Job:  map 56% reduce 14%
+c07-10.3.1.7>15/07/09 20:35:26 INFO mapreduce.Job:  map 77% reduce 26%
+c13-10.3.1.13>15/07/09 20:35:32 INFO mapreduce.Job:  map 56% reduce 15%
+c13-10.3.1.13>15/07/09 20:35:44 INFO mapreduce.Job:  map 56% reduce 16%
+c07-10.3.1.7>15/07/09 20:35:47 INFO mapreduce.Job:  map 78% reduce 26%
+c19-10.3.1.19>15/07/09 20:35:58 INFO mapreduce.Job:  map 44% reduce 0%
+c13-10.3.1.13>15/07/09 20:35:53 INFO mapreduce.Job:  map 57% reduce 16%
+c07-10.3.1.7>15/07/09 20:36:18 INFO mapreduce.Job:  map 79% reduce 26%
+c13-10.3.1.13>15/07/09 20:36:26 INFO mapreduce.Job:  map 58% reduce 17%
+c19-10.3.1.19>15/07/09 20:36:33 INFO mapreduce.Job:  map 45% reduce 0%
+c13-10.3.1.13>15/07/09 20:36:41 INFO mapreduce.Job:  map 58% reduce 18%
+c07-10.3.1.7>15/07/09 20:36:45 INFO mapreduce.Job:  map 80% reduce 26%
+c07-10.3.1.7>15/07/09 20:36:47 INFO mapreduce.Job:  map 80% reduce 27%
+c13-10.3.1.13>15/07/09 20:36:53 INFO mapreduce.Job:  map 58% reduce 19%
+c19-10.3.1.19>15/07/09 20:37:04 INFO mapreduce.Job:  map 46% reduce 0%
+c13-10.3.1.13>15/07/09 20:37:01 INFO mapreduce.Job:  map 59% reduce 19%
+c13-10.3.1.13>15/07/09 20:37:08 INFO mapreduce.Job:  map 59% reduce 20%
+c07-10.3.1.7>15/07/09 20:37:16 INFO mapreduce.Job:  map 81% reduce 27%
+c13-10.3.1.13>15/07/09 20:37:32 INFO mapreduce.Job:  map 60% reduce 20%
+c19-10.3.1.19>15/07/09 20:37:39 INFO mapreduce.Job:  map 47% reduce 0%
+c07-10.3.1.7>15/07/09 20:37:43 INFO mapreduce.Job:  map 82% reduce 27%
+c19-10.3.1.19>15/07/09 20:38:11 INFO mapreduce.Job:  map 48% reduce 0%
+c13-10.3.1.13>15/07/09 20:38:05 INFO mapreduce.Job:  map 61% reduce 20%
+c07-10.3.1.7>15/07/09 20:38:13 INFO mapreduce.Job:  map 83% reduce 27%
+c07-10.3.1.7>15/07/09 20:38:20 INFO mapreduce.Job:  map 83% reduce 28%
+c13-10.3.1.13>15/07/09 20:38:35 INFO mapreduce.Job:  map 62% reduce 20%
+c19-10.3.1.19>15/07/09 20:38:45 INFO mapreduce.Job:  map 49% reduce 0%
+c13-10.3.1.13>15/07/09 20:38:41 INFO mapreduce.Job:  map 62% reduce 21%
+c07-10.3.1.7>15/07/09 20:38:43 INFO mapreduce.Job:  map 84% reduce 28%
+c19-10.3.1.19>15/07/09 20:39:16 INFO mapreduce.Job:  map 50% reduce 0%
+c07-10.3.1.7>15/07/09 20:39:13 INFO mapreduce.Job:  map 85% reduce 28%
+c13-10.3.1.13>15/07/09 20:39:12 INFO mapreduce.Job:  map 63% reduce 21%
+c07-10.3.1.7>15/07/09 20:39:42 INFO mapreduce.Job:  map 86% reduce 28%
+c13-10.3.1.13>15/07/09 20:39:41 INFO mapreduce.Job:  map 64% reduce 21%
+c07-10.3.1.7>15/07/09 20:39:45 INFO mapreduce.Job:  map 86% reduce 29%
+c19-10.3.1.19>15/07/09 20:39:49 INFO mapreduce.Job:  map 50% reduce 1%
+c19-10.3.1.19>15/07/09 20:39:54 INFO mapreduce.Job:  map 51% reduce 1%
+c19-10.3.1.19>15/07/09 20:39:58 INFO mapreduce.Job:  map 51% reduce 2%
+c19-10.3.1.19>15/07/09 20:40:10 INFO mapreduce.Job:  map 51% reduce 3%
+c07-10.3.1.7>15/07/09 20:40:13 INFO mapreduce.Job:  map 87% reduce 29%
+c13-10.3.1.13>15/07/09 20:40:15 INFO mapreduce.Job:  map 65% reduce 21%
+c19-10.3.1.19>15/07/09 20:40:22 INFO mapreduce.Job:  map 51% reduce 4%
+c13-10.3.1.13>15/07/09 20:40:24 INFO mapreduce.Job:  map 65% reduce 22%
+c19-10.3.1.19>15/07/09 20:40:38 INFO mapreduce.Job:  map 52% reduce 4%
+c19-10.3.1.19>15/07/09 20:40:43 INFO mapreduce.Job:  map 52% reduce 5%
+c07-10.3.1.7>15/07/09 20:40:42 INFO mapreduce.Job:  map 88% reduce 29%
+c13-10.3.1.13>15/07/09 20:40:48 INFO mapreduce.Job:  map 66% reduce 22%
+c19-10.3.1.19>15/07/09 20:40:55 INFO mapreduce.Job:  map 52% reduce 6%
+c19-10.3.1.19>15/07/09 20:41:13 INFO mapreduce.Job:  map 52% reduce 7%
+c07-10.3.1.7>15/07/09 20:41:12 INFO mapreduce.Job:  map 89% reduce 29%
+c07-10.3.1.7>15/07/09 20:41:15 INFO mapreduce.Job:  map 89% reduce 30%
+c19-10.3.1.19>15/07/09 20:41:22 INFO mapreduce.Job:  map 53% reduce 7%
+c13-10.3.1.13>15/07/09 20:41:21 INFO mapreduce.Job:  map 67% reduce 22%
+c19-10.3.1.19>15/07/09 20:41:32 INFO mapreduce.Job:  map 53% reduce 8%
+c07-10.3.1.7>15/07/09 20:41:40 INFO mapreduce.Job:  map 90% reduce 30%
+c19-10.3.1.19>15/07/09 20:41:52 INFO mapreduce.Job:  map 53% reduce 9%
+c13-10.3.1.13>15/07/09 20:41:56 INFO mapreduce.Job:  map 68% reduce 22%
+c19-10.3.1.19>15/07/09 20:42:11 INFO mapreduce.Job:  map 54% reduce 10%
+c13-10.3.1.13>15/07/09 20:42:08 INFO mapreduce.Job:  map 68% reduce 23%
+c07-10.3.1.7>15/07/09 20:42:11 INFO mapreduce.Job:  map 91% reduce 30%
+c19-10.3.1.19>15/07/09 20:42:28 INFO mapreduce.Job:  map 54% reduce 11%
+c13-10.3.1.13>15/07/09 20:42:29 INFO mapreduce.Job:  map 69% reduce 23%
+c07-10.3.1.7>15/07/09 20:42:41 INFO mapreduce.Job:  map 92% reduce 30%
+c07-10.3.1.7>15/07/09 20:42:45 INFO mapreduce.Job:  map 92% reduce 31%
+c19-10.3.1.19>15/07/09 20:42:50 INFO mapreduce.Job:  map 54% reduce 12%
+c19-10.3.1.19>15/07/09 20:42:56 INFO mapreduce.Job:  map 55% reduce 12%
+c19-10.3.1.19>15/07/09 20:43:05 INFO mapreduce.Job:  map 55% reduce 13%
+c13-10.3.1.13>15/07/09 20:43:07 INFO mapreduce.Job:  map 70% reduce 23%
+c07-10.3.1.7>15/07/09 20:43:12 INFO mapreduce.Job:  map 93% reduce 31%
+c19-10.3.1.19>15/07/09 20:43:26 INFO mapreduce.Job:  map 55% reduce 14%
+c19-10.3.1.19>15/07/09 20:43:41 INFO mapreduce.Job:  map 55% reduce 15%
+c19-10.3.1.19>15/07/09 20:43:42 INFO mapreduce.Job:  map 56% reduce 15%
+c07-10.3.1.7>15/07/09 20:43:40 INFO mapreduce.Job:  map 94% reduce 31%
+c13-10.3.1.13>15/07/09 20:43:39 INFO mapreduce.Job:  map 71% reduce 23%
+c13-10.3.1.13>15/07/09 20:43:51 INFO mapreduce.Job:  map 71% reduce 24%
+c19-10.3.1.19>15/07/09 20:43:59 INFO mapreduce.Job:  map 56% reduce 16%
+c07-10.3.1.7>15/07/09 20:44:09 INFO mapreduce.Job:  map 95% reduce 31%
+c07-10.3.1.7>15/07/09 20:44:12 INFO mapreduce.Job:  map 95% reduce 32%
+c19-10.3.1.19>15/07/09 20:44:24 INFO mapreduce.Job:  map 56% reduce 17%
+c19-10.3.1.19>15/07/09 20:44:29 INFO mapreduce.Job:  map 57% reduce 17%
+c13-10.3.1.13>15/07/09 20:44:28 INFO mapreduce.Job:  map 72% reduce 24%
+c19-10.3.1.19>15/07/09 20:44:42 INFO mapreduce.Job:  map 57% reduce 18%
+c07-10.3.1.7>15/07/09 20:44:41 INFO mapreduce.Job:  map 96% reduce 32%
+c19-10.3.1.19>15/07/09 20:45:00 INFO mapreduce.Job:  map 57% reduce 19%
+c07-10.3.1.7>15/07/09 20:45:09 INFO mapreduce.Job:  map 97% reduce 32%
+c19-10.3.1.19>15/07/09 20:45:14 INFO mapreduce.Job:  map 58% reduce 19%
+c13-10.3.1.13>15/07/09 20:45:13 INFO mapreduce.Job:  map 73% reduce 24%
+c07-10.3.1.7>15/07/09 20:45:44 INFO mapreduce.Job:  map 98% reduce 32%
+c07-10.3.1.7>15/07/09 20:45:52 INFO mapreduce.Job:  map 98% reduce 33%
+c13-10.3.1.13>15/07/09 20:45:51 INFO mapreduce.Job:  map 74% reduce 24%
+c19-10.3.1.19>15/07/09 20:46:00 INFO mapreduce.Job:  map 59% reduce 19%
+c19-10.3.1.19>15/07/09 20:46:03 INFO mapreduce.Job:  map 59% reduce 20%
+c13-10.3.1.13>15/07/09 20:45:58 INFO mapreduce.Job:  map 74% reduce 25%
+c07-10.3.1.7>15/07/09 20:46:17 INFO mapreduce.Job:  map 99% reduce 33%
+c07-10.3.1.7>15/07/09 20:46:32 INFO mapreduce.Job:  map 100% reduce 33%
+c13-10.3.1.13>15/07/09 20:46:34 INFO mapreduce.Job:  map 75% reduce 25%
+c19-10.3.1.19>15/07/09 20:46:40 INFO mapreduce.Job:  map 60% reduce 20%
+c19-10.3.1.19>15/07/09 20:47:26 INFO mapreduce.Job:  map 61% reduce 20%
+c13-10.3.1.13>15/07/09 20:47:23 INFO mapreduce.Job:  map 76% reduce 25%
+c07-10.3.1.7>15/07/09 20:47:34 INFO mapreduce.Job:  map 100% reduce 67%
+c07-10.3.1.7>15/07/09 20:47:43 INFO mapreduce.Job:  map 100% reduce 68%
+c07-10.3.1.7>15/07/09 20:47:58 INFO mapreduce.Job:  map 100% reduce 69%
+c19-10.3.1.19>15/07/09 20:48:12 INFO mapreduce.Job:  map 62% reduce 20%
+c13-10.3.1.13>15/07/09 20:48:07 INFO mapreduce.Job:  map 77% reduce 25%
+c07-10.3.1.7>15/07/09 20:48:10 INFO mapreduce.Job:  map 100% reduce 70%
+c13-10.3.1.13>15/07/09 20:48:11 INFO mapreduce.Job:  map 77% reduce 26%
+c19-10.3.1.19>15/07/09 20:48:20 INFO mapreduce.Job:  map 62% reduce 21%
+c07-10.3.1.7>15/07/09 20:48:25 INFO mapreduce.Job:  map 100% reduce 71%
+c07-10.3.1.7>15/07/09 20:48:37 INFO mapreduce.Job:  map 100% reduce 72%
+c07-10.3.1.7>15/07/09 20:48:49 INFO mapreduce.Job:  map 100% reduce 73%
+c19-10.3.1.19>15/07/09 20:48:56 INFO mapreduce.Job:  map 63% reduce 21%
+c13-10.3.1.13>15/07/09 20:48:52 INFO mapreduce.Job:  map 78% reduce 26%
+c07-10.3.1.7>15/07/09 20:49:01 INFO mapreduce.Job:  map 100% reduce 74%
+c07-10.3.1.7>15/07/09 20:49:13 INFO mapreduce.Job:  map 100% reduce 75%
+c07-10.3.1.7>15/07/09 20:49:25 INFO mapreduce.Job:  map 100% reduce 76%
+c07-10.3.1.7>15/07/09 20:49:34 INFO mapreduce.Job:  map 100% reduce 77%
+c19-10.3.1.19>15/07/09 20:49:40 INFO mapreduce.Job:  map 64% reduce 21%
+c13-10.3.1.13>15/07/09 20:49:36 INFO mapreduce.Job:  map 79% reduce 26%
+c07-10.3.1.7>15/07/09 20:49:46 INFO mapreduce.Job:  map 100% reduce 78%
+c07-10.3.1.7>15/07/09 20:49:55 INFO mapreduce.Job:  map 100% reduce 79%
+c07-10.3.1.7>15/07/09 20:50:07 INFO mapreduce.Job:  map 100% reduce 80%
+c07-10.3.1.7>15/07/09 20:50:17 INFO mapreduce.Job:  map 100% reduce 81%
+c19-10.3.1.19>15/07/09 20:50:23 INFO mapreduce.Job:  map 65% reduce 21%
+c13-10.3.1.13>15/07/09 20:50:20 INFO mapreduce.Job:  map 80% reduce 26%
+c07-10.3.1.7>15/07/09 20:50:23 INFO mapreduce.Job:  map 100% reduce 82%
+c13-10.3.1.13>15/07/09 20:50:23 INFO mapreduce.Job:  map 80% reduce 27%
+c19-10.3.1.19>15/07/09 20:50:32 INFO mapreduce.Job:  map 65% reduce 22%
+c07-10.3.1.7>15/07/09 20:50:35 INFO mapreduce.Job:  map 100% reduce 83%
+c07-10.3.1.7>15/07/09 20:50:41 INFO mapreduce.Job:  map 100% reduce 84%
+c07-10.3.1.7>15/07/09 20:50:47 INFO mapreduce.Job:  map 100% reduce 85%
+c07-10.3.1.7>15/07/09 20:50:56 INFO mapreduce.Job:  map 100% reduce 86%
+c07-10.3.1.7>15/07/09 20:51:02 INFO mapreduce.Job:  map 100% reduce 87%
+c13-10.3.1.13>15/07/09 20:51:04 INFO mapreduce.Job:  map 81% reduce 27%
+c19-10.3.1.19>15/07/09 20:51:10 INFO mapreduce.Job:  map 66% reduce 22%
+c07-10.3.1.7>15/07/09 20:51:11 INFO mapreduce.Job:  map 100% reduce 88%
+c07-10.3.1.7>15/07/09 20:51:20 INFO mapreduce.Job:  map 100% reduce 89%
+c07-10.3.1.7>15/07/09 20:51:32 INFO mapreduce.Job:  map 100% reduce 90%
+c07-10.3.1.7>15/07/09 20:51:41 INFO mapreduce.Job:  map 100% reduce 91%
+c19-10.3.1.19>15/07/09 20:51:53 INFO mapreduce.Job:  map 67% reduce 22%
+c07-10.3.1.7>15/07/09 20:51:53 INFO mapreduce.Job:  map 100% reduce 92%
+c13-10.3.1.13>15/07/09 20:51:51 INFO mapreduce.Job:  map 82% reduce 27%
+c07-10.3.1.7>15/07/09 20:52:02 INFO mapreduce.Job:  map 100% reduce 93%
+c07-10.3.1.7>15/07/09 20:52:08 INFO mapreduce.Job:  map 100% reduce 94%
+c07-10.3.1.7>15/07/09 20:52:17 INFO mapreduce.Job:  map 100% reduce 95%
+c07-10.3.1.7>15/07/09 20:52:29 INFO mapreduce.Job:  map 100% reduce 96%
+c19-10.3.1.19>15/07/09 20:52:34 INFO mapreduce.Job:  map 68% reduce 22%
+c19-10.3.1.19>15/07/09 20:52:36 INFO mapreduce.Job:  map 68% reduce 23%
+c07-10.3.1.7>15/07/09 20:52:35 INFO mapreduce.Job:  map 100% reduce 97%
+c13-10.3.1.13>15/07/09 20:52:34 INFO mapreduce.Job:  map 83% reduce 27%
+c13-10.3.1.13>15/07/09 20:52:38 INFO mapreduce.Job:  map 83% reduce 28%
+c07-10.3.1.7>15/07/09 20:52:44 INFO mapreduce.Job:  map 100% reduce 98%
+c07-10.3.1.7>15/07/09 20:52:56 INFO mapreduce.Job:  map 100% reduce 99%
+c07-10.3.1.7>15/07/09 20:53:02 INFO mapreduce.Job:  map 100% reduce 100%
+c19-10.3.1.19>15/07/09 20:53:11 INFO mapreduce.Job:  map 69% reduce 23%
+c07-10.3.1.7>15/07/09 20:53:07 INFO mapreduce.Job: Job job_1436273621930_0024 completed successfully
+c07-10.3.1.7>15/07/09 20:53:07 INFO mapreduce.Job: Counters: 50
+c07-10.3.1.7>	File System Counters
+c07-10.3.1.7>		FILE: Number of bytes read=50059991630
+c07-10.3.1.7>		FILE: Number of bytes written=70102226373
+c07-10.3.1.7>		FILE: Number of read operations=0
+c07-10.3.1.7>		FILE: Number of large read operations=0
+c07-10.3.1.7>		FILE: Number of write operations=0
+c07-10.3.1.7>		HDFS: Number of bytes read=63245501632
+c07-10.3.1.7>		HDFS: Number of bytes written=11224126281
+c07-10.3.1.7>		HDFS: Number of read operations=1440
+c07-10.3.1.7>		HDFS: Number of large read operations=0
+c07-10.3.1.7>		HDFS: Number of write operations=2
+c07-10.3.1.7>	Job Counters 
+c07-10.3.1.7>		Launched map tasks=479
+c07-10.3.1.7>		Launched reduce tasks=1
+c07-10.3.1.7>		Data-local map tasks=334
+c07-10.3.1.7>		Rack-local map tasks=145
+c07-10.3.1.7>		Total time spent by all maps in occupied slots (ms)=5629141
+c07-10.3.1.7>		Total time spent by all reduces in occupied slots (ms)=1665656
+c07-10.3.1.7>		Total time spent by all map tasks (ms)=5629141
+c07-10.3.1.7>		Total time spent by all reduce tasks (ms)=1665656
+c07-10.3.1.7>		Total vcore-seconds taken by all map tasks=5629141
+c07-10.3.1.7>		Total vcore-seconds taken by all reduce tasks=1665656
+c07-10.3.1.7>		Total megabyte-seconds taken by all map tasks=23056961536
+c07-10.3.1.7>		Total megabyte-seconds taken by all reduce tasks=13645053952
+c07-10.3.1.7>	Map-Reduce Framework
+c07-10.3.1.7>		Map input records=1128721848
+c07-10.3.1.7>		Map output records=3489155754
+c07-10.3.1.7>		Map output bytes=70485391709
+c07-10.3.1.7>		Map output materialized bytes=19997350590
+c07-10.3.1.7>		Input split bytes=78556
+c07-10.3.1.7>		Combine input records=3955117302
+c07-10.3.1.7>		Combine output records=881640902
+c07-10.3.1.7>		Reduce input groups=166990314
+c07-10.3.1.7>		Reduce shuffle bytes=19997350590
+c07-10.3.1.7>		Reduce input records=415679354
+c07-10.3.1.7>		Reduce output records=166990314
+c07-10.3.1.7>		Spilled Records=1485966997
+c07-10.3.1.7>		Shuffled Maps =479
+c07-10.3.1.7>		Failed Shuffles=0
+c07-10.3.1.7>		Merged Map outputs=479
+c07-10.3.1.7>		GC time elapsed (ms)=68616
+c07-10.3.1.7>		CPU time spent (ms)=7405150
+c07-10.3.1.7>		Physical memory (bytes) snapshot=266951876608
+c07-10.3.1.7>		Virtual memory (bytes) snapshot=2451295809536
+c07-10.3.1.7>		Total committed heap usage (bytes)=313107939328
+c07-10.3.1.7>	Shuffle Errors
+c07-10.3.1.7>		BAD_ID=0
+c07-10.3.1.7>		CONNECTION=0
+c07-10.3.1.7>		IO_ERROR=0
+c07-10.3.1.7>		WRONG_LENGTH=0
+c07-10.3.1.7>		WRONG_MAP=0
+c07-10.3.1.7>		WRONG_REDUCE=0
+c07-10.3.1.7>	File Input Format Counters 
+c07-10.3.1.7>		Bytes Read=63245423076
+c07-10.3.1.7>	File Output Format Counters 
+c07-10.3.1.7>		Bytes Written=11224126281
+FedMR-Process exitValue: 0
+c13-10.3.1.13>15/07/09 20:53:20 INFO mapreduce.Job:  map 84% reduce 28%
+c19-10.3.1.19>15/07/09 20:53:57 INFO mapreduce.Job:  map 70% reduce 23%
+c13-10.3.1.13>15/07/09 20:54:06 INFO mapreduce.Job:  map 85% reduce 28%
+c19-10.3.1.19>15/07/09 20:54:54 INFO mapreduce.Job:  map 71% reduce 23%
+c19-10.3.1.19>15/07/09 20:54:56 INFO mapreduce.Job:  map 71% reduce 24%
+c13-10.3.1.13>15/07/09 20:54:51 INFO mapreduce.Job:  map 86% reduce 28%
+c13-10.3.1.13>15/07/09 20:54:54 INFO mapreduce.Job:  map 86% reduce 29%
+c13-10.3.1.13>15/07/09 20:55:38 INFO mapreduce.Job:  map 87% reduce 29%
+c19-10.3.1.19>15/07/09 20:55:47 INFO mapreduce.Job:  map 72% reduce 24%
+c13-10.3.1.13>15/07/09 20:56:22 INFO mapreduce.Job:  map 88% reduce 29%
+c19-10.3.1.19>15/07/09 20:56:30 INFO mapreduce.Job:  map 73% reduce 24%
+c19-10.3.1.19>15/07/09 20:57:11 INFO mapreduce.Job:  map 74% reduce 24%
+c19-10.3.1.19>15/07/09 20:57:16 INFO mapreduce.Job:  map 74% reduce 25%
+c13-10.3.1.13>15/07/09 20:57:10 INFO mapreduce.Job:  map 89% reduce 29%
+c13-10.3.1.13>15/07/09 20:57:15 INFO mapreduce.Job:  map 89% reduce 30%
+c13-10.3.1.13>15/07/09 20:57:56 INFO mapreduce.Job:  map 90% reduce 30%
+c19-10.3.1.19>15/07/09 20:58:11 INFO mapreduce.Job:  map 75% reduce 25%
+c13-10.3.1.13>15/07/09 20:58:38 INFO mapreduce.Job:  map 91% reduce 30%
+c19-10.3.1.19>15/07/09 20:59:09 INFO mapreduce.Job:  map 76% reduce 25%
+c13-10.3.1.13>15/07/09 20:59:26 INFO mapreduce.Job:  map 92% reduce 30%
+c13-10.3.1.13>15/07/09 20:59:28 INFO mapreduce.Job:  map 92% reduce 31%
+c19-10.3.1.19>15/07/09 21:00:09 INFO mapreduce.Job:  map 77% reduce 25%
+c19-10.3.1.19>15/07/09 21:00:16 INFO mapreduce.Job:  map 77% reduce 26%
+c13-10.3.1.13>15/07/09 21:00:12 INFO mapreduce.Job:  map 93% reduce 31%
+c13-10.3.1.13>15/07/09 21:00:59 INFO mapreduce.Job:  map 94% reduce 31%
+c19-10.3.1.19>15/07/09 21:01:11 INFO mapreduce.Job:  map 78% reduce 26%
+c13-10.3.1.13>15/07/09 21:01:48 INFO mapreduce.Job:  map 95% reduce 31%
+c13-10.3.1.13>15/07/09 21:01:55 INFO mapreduce.Job:  map 95% reduce 32%
+c19-10.3.1.19>15/07/09 21:02:13 INFO mapreduce.Job:  map 79% reduce 26%
+c13-10.3.1.13>15/07/09 21:02:40 INFO mapreduce.Job:  map 96% reduce 32%
+c19-10.3.1.19>15/07/09 21:03:14 INFO mapreduce.Job:  map 80% reduce 26%
+c19-10.3.1.19>15/07/09 21:03:20 INFO mapreduce.Job:  map 80% reduce 27%
+c13-10.3.1.13>15/07/09 21:03:22 INFO mapreduce.Job:  map 97% reduce 32%
+c13-10.3.1.13>15/07/09 21:04:08 INFO mapreduce.Job:  map 98% reduce 32%
+c19-10.3.1.19>15/07/09 21:04:15 INFO mapreduce.Job:  map 81% reduce 27%
+c13-10.3.1.13>15/07/09 21:04:11 INFO mapreduce.Job:  map 98% reduce 33%
+c13-10.3.1.13>15/07/09 21:04:53 INFO mapreduce.Job:  map 99% reduce 33%
+c19-10.3.1.19>15/07/09 21:05:15 INFO mapreduce.Job:  map 82% reduce 27%
+c13-10.3.1.13>15/07/09 21:05:29 INFO mapreduce.Job:  map 100% reduce 33%
+c13-10.3.1.13>15/07/09 21:05:35 INFO mapreduce.Job:  map 100% reduce 34%
+c13-10.3.1.13>15/07/09 21:05:38 INFO mapreduce.Job:  map 100% reduce 36%
+c13-10.3.1.13>15/07/09 21:05:41 INFO mapreduce.Job:  map 100% reduce 37%
+c13-10.3.1.13>15/07/09 21:05:44 INFO mapreduce.Job:  map 100% reduce 39%
+c13-10.3.1.13>15/07/09 21:05:47 INFO mapreduce.Job:  map 100% reduce 41%
+c13-10.3.1.13>15/07/09 21:05:50 INFO mapreduce.Job:  map 100% reduce 43%
+c13-10.3.1.13>15/07/09 21:05:59 INFO mapreduce.Job:  map 100% reduce 46%
+c13-10.3.1.13>15/07/09 21:06:02 INFO mapreduce.Job:  map 100% reduce 47%
+c13-10.3.1.13>15/07/09 21:06:05 INFO mapreduce.Job:  map 100% reduce 49%
+c13-10.3.1.13>15/07/09 21:06:08 INFO mapreduce.Job:  map 100% reduce 51%
+c19-10.3.1.19>15/07/09 21:06:16 INFO mapreduce.Job:  map 83% reduce 27%
+c13-10.3.1.13>15/07/09 21:06:11 INFO mapreduce.Job:  map 100% reduce 54%
+c13-10.3.1.13>15/07/09 21:06:14 INFO mapreduce.Job:  map 100% reduce 56%
+c13-10.3.1.13>15/07/09 21:06:17 INFO mapreduce.Job:  map 100% reduce 58%
+c19-10.3.1.19>15/07/09 21:06:23 INFO mapreduce.Job:  map 83% reduce 28%
+c13-10.3.1.13>15/07/09 21:06:26 INFO mapreduce.Job:  map 100% reduce 60%
+c13-10.3.1.13>15/07/09 21:06:29 INFO mapreduce.Job:  map 100% reduce 62%
+c13-10.3.1.13>15/07/09 21:06:32 INFO mapreduce.Job:  map 100% reduce 65%
+c13-10.3.1.13>15/07/09 21:06:35 INFO mapreduce.Job:  map 100% reduce 67%
+c13-10.3.1.13>15/07/09 21:06:55 INFO mapreduce.Job:  map 100% reduce 68%
+c19-10.3.1.19>15/07/09 21:07:16 INFO mapreduce.Job:  map 84% reduce 28%
+c13-10.3.1.13>15/07/09 21:07:10 INFO mapreduce.Job:  map 100% reduce 69%
+c13-10.3.1.13>15/07/09 21:07:29 INFO mapreduce.Job:  map 100% reduce 70%
+c13-10.3.1.13>15/07/09 21:07:50 INFO mapreduce.Job:  map 100% reduce 71%
+c13-10.3.1.13>15/07/09 21:08:08 INFO mapreduce.Job:  map 100% reduce 72%
+c19-10.3.1.19>15/07/09 21:08:18 INFO mapreduce.Job:  map 85% reduce 28%
+c13-10.3.1.13>15/07/09 21:08:29 INFO mapreduce.Job:  map 100% reduce 73%
+c13-10.3.1.13>15/07/09 21:08:47 INFO mapreduce.Job:  map 100% reduce 74%
+c13-10.3.1.13>15/07/09 21:09:05 INFO mapreduce.Job:  map 100% reduce 75%
+c19-10.3.1.19>15/07/09 21:09:18 INFO mapreduce.Job:  map 86% reduce 28%
+c19-10.3.1.19>15/07/09 21:09:22 INFO mapreduce.Job:  map 86% reduce 29%
+c13-10.3.1.13>15/07/09 21:09:23 INFO mapreduce.Job:  map 100% reduce 76%
+c13-10.3.1.13>15/07/09 21:09:41 INFO mapreduce.Job:  map 100% reduce 77%
+c13-10.3.1.13>15/07/09 21:09:56 INFO mapreduce.Job:  map 100% reduce 78%
+c13-10.3.1.13>15/07/09 21:10:11 INFO mapreduce.Job:  map 100% reduce 79%
+c19-10.3.1.19>15/07/09 21:10:21 INFO mapreduce.Job:  map 87% reduce 29%
+c13-10.3.1.13>15/07/09 21:10:26 INFO mapreduce.Job:  map 100% reduce 80%
+c13-10.3.1.13>15/07/09 21:10:41 INFO mapreduce.Job:  map 100% reduce 81%
+c13-10.3.1.13>15/07/09 21:10:53 INFO mapreduce.Job:  map 100% reduce 82%
+c13-10.3.1.13>15/07/09 21:11:11 INFO mapreduce.Job:  map 100% reduce 83%
+c19-10.3.1.19>15/07/09 21:11:23 INFO mapreduce.Job:  map 88% reduce 29%
+c13-10.3.1.13>15/07/09 21:11:23 INFO mapreduce.Job:  map 100% reduce 84%
+c13-10.3.1.13>15/07/09 21:11:41 INFO mapreduce.Job:  map 100% reduce 85%
+c13-10.3.1.13>15/07/09 21:11:50 INFO mapreduce.Job:  map 100% reduce 86%
+c13-10.3.1.13>15/07/09 21:12:08 INFO mapreduce.Job:  map 100% reduce 87%
+c19-10.3.1.19>15/07/09 21:12:25 INFO mapreduce.Job:  map 89% reduce 29%
+c13-10.3.1.13>15/07/09 21:12:20 INFO mapreduce.Job:  map 100% reduce 88%
+c19-10.3.1.19>15/07/09 21:12:29 INFO mapreduce.Job:  map 89% reduce 30%
+c13-10.3.1.13>15/07/09 21:12:38 INFO mapreduce.Job:  map 100% reduce 89%
+c13-10.3.1.13>15/07/09 21:12:56 INFO mapreduce.Job:  map 100% reduce 90%
+c13-10.3.1.13>15/07/09 21:13:15 INFO mapreduce.Job:  map 100% reduce 91%
+c19-10.3.1.19>15/07/09 21:13:23 INFO mapreduce.Job:  map 90% reduce 30%
+c13-10.3.1.13>15/07/09 21:13:30 INFO mapreduce.Job:  map 100% reduce 92%
+c13-10.3.1.13>15/07/09 21:13:45 INFO mapreduce.Job:  map 100% reduce 93%
+c13-10.3.1.13>15/07/09 21:13:57 INFO mapreduce.Job:  map 100% reduce 94%
+c13-10.3.1.13>15/07/09 21:14:12 INFO mapreduce.Job:  map 100% reduce 95%
+c19-10.3.1.19>15/07/09 21:14:28 INFO mapreduce.Job:  map 91% reduce 30%
+c13-10.3.1.13>15/07/09 21:14:30 INFO mapreduce.Job:  map 100% reduce 96%
+c13-10.3.1.13>15/07/09 21:14:51 INFO mapreduce.Job:  map 100% reduce 97%
+c13-10.3.1.13>15/07/09 21:15:03 INFO mapreduce.Job:  map 100% reduce 98%
+c13-10.3.1.13>15/07/09 21:15:18 INFO mapreduce.Job:  map 100% reduce 99%
+c19-10.3.1.19>15/07/09 21:15:35 INFO mapreduce.Job:  map 92% reduce 30%
+c19-10.3.1.19>15/07/09 21:15:38 INFO mapreduce.Job:  map 92% reduce 31%
+c13-10.3.1.13>15/07/09 21:15:33 INFO mapreduce.Job:  map 100% reduce 100%
+c13-10.3.1.13>15/07/09 21:15:38 INFO mapreduce.Job: Job job_1436273680176_0032 completed successfully
+c13-10.3.1.13>15/07/09 21:15:38 INFO mapreduce.Job: Counters: 50
+c13-10.3.1.13>	File System Counters
+c13-10.3.1.13>		FILE: Number of bytes read=86243061998
+c13-10.3.1.13>		FILE: Number of bytes written=117070477359
+c13-10.3.1.13>		FILE: Number of read operations=0
+c13-10.3.1.13>		FILE: Number of large read operations=0
+c13-10.3.1.13>		FILE: Number of write operations=0
+c13-10.3.1.13>		HDFS: Number of bytes read=97178835292
+c13-10.3.1.13>		HDFS: Number of bytes written=16494040668
+c13-10.3.1.13>		HDFS: Number of read operations=2199
+c13-10.3.1.13>		HDFS: Number of large read operations=0
+c13-10.3.1.13>		HDFS: Number of write operations=2
+c13-10.3.1.13>	Job Counters 
+c13-10.3.1.13>		Launched map tasks=732
+c13-10.3.1.13>		Launched reduce tasks=1
+c13-10.3.1.13>		Data-local map tasks=524
+c13-10.3.1.13>		Rack-local map tasks=208
+c13-10.3.1.13>		Total time spent by all maps in occupied slots (ms)=8775504
+c13-10.3.1.13>		Total time spent by all reduces in occupied slots (ms)=2589735
+c13-10.3.1.13>		Total time spent by all map tasks (ms)=8775504
+c13-10.3.1.13>		Total time spent by all reduce tasks (ms)=2589735
+c13-10.3.1.13>		Total vcore-seconds taken by all map tasks=8775504
+c13-10.3.1.13>		Total vcore-seconds taken by all reduce tasks=2589735
+c13-10.3.1.13>		Total megabyte-seconds taken by all map tasks=35944464384
+c13-10.3.1.13>		Total megabyte-seconds taken by all reduce tasks=21215109120
+c13-10.3.1.13>	Map-Reduce Framework
+c13-10.3.1.13>		Map input records=1736856638
+c13-10.3.1.13>		Map output records=5361245352
+c13-10.3.1.13>		Map output bytes=108256620475
+c13-10.3.1.13>		Map output materialized bytes=30758871965
+c13-10.3.1.13>		Input split bytes=120048
+c13-10.3.1.13>		Combine input records=6079169923
+c13-10.3.1.13>		Combine output records=1357771183
+c13-10.3.1.13>		Reduce input groups=237424516
+c13-10.3.1.13>		Reduce shuffle bytes=30758871965
+c13-10.3.1.13>		Reduce input records=639846612
+c13-10.3.1.13>		Reduce output records=237424516
+c13-10.3.1.13>		Spilled Records=2481954696
+c13-10.3.1.13>		Shuffled Maps =732
+c13-10.3.1.13>		Failed Shuffles=0
+c13-10.3.1.13>		Merged Map outputs=732
+c13-10.3.1.13>		GC time elapsed (ms)=117293
+c13-10.3.1.13>		CPU time spent (ms)=11558020
+c13-10.3.1.13>		Physical memory (bytes) snapshot=399673647104
+c13-10.3.1.13>		Virtual memory (bytes) snapshot=3741407084544
+c13-10.3.1.13>		Total committed heap usage (bytes)=469678686208
+c13-10.3.1.13>	Shuffle Errors
+c13-10.3.1.13>		BAD_ID=0
+c13-10.3.1.13>		CONNECTION=0
+c13-10.3.1.13>		IO_ERROR=0
+c13-10.3.1.13>		WRONG_LENGTH=0
+c13-10.3.1.13>		WRONG_MAP=0
+c13-10.3.1.13>		WRONG_REDUCE=0
+c13-10.3.1.13>	File Input Format Counters 
+c13-10.3.1.13>		Bytes Read=97178715244
+c13-10.3.1.13>	File Output Format Counters 
+c13-10.3.1.13>		Bytes Written=16494040668
+FedMR-Process exitValue: 0
+c19-10.3.1.19>15/07/09 21:16:42 INFO mapreduce.Job:  map 93% reduce 31%
+c19-10.3.1.19>15/07/09 21:17:42 INFO mapreduce.Job:  map 94% reduce 31%
+c19-10.3.1.19>15/07/09 21:18:42 INFO mapreduce.Job:  map 95% reduce 31%
+c19-10.3.1.19>15/07/09 21:18:50 INFO mapreduce.Job:  map 95% reduce 32%
+c19-10.3.1.19>15/07/09 21:19:44 INFO mapreduce.Job:  map 96% reduce 32%
+c19-10.3.1.19>15/07/09 21:20:43 INFO mapreduce.Job:  map 97% reduce 32%
+c19-10.3.1.19>15/07/09 21:21:45 INFO mapreduce.Job:  map 98% reduce 32%
+c19-10.3.1.19>15/07/09 21:21:53 INFO mapreduce.Job:  map 98% reduce 33%
+c19-10.3.1.19>15/07/09 21:22:46 INFO mapreduce.Job:  map 99% reduce 33%
+c19-10.3.1.19>15/07/09 21:23:35 INFO mapreduce.Job:  map 100% reduce 33%
+c19-10.3.1.19>15/07/09 21:23:48 INFO mapreduce.Job:  map 100% reduce 35%
+c19-10.3.1.19>15/07/09 21:23:51 INFO mapreduce.Job:  map 100% reduce 36%
+c19-10.3.1.19>15/07/09 21:23:54 INFO mapreduce.Job:  map 100% reduce 37%
+c19-10.3.1.19>15/07/09 21:23:57 INFO mapreduce.Job:  map 100% reduce 39%
+c19-10.3.1.19>15/07/09 21:24:00 INFO mapreduce.Job:  map 100% reduce 40%
+c19-10.3.1.19>15/07/09 21:24:03 INFO mapreduce.Job:  map 100% reduce 41%
+c19-10.3.1.19>15/07/09 21:24:06 INFO mapreduce.Job:  map 100% reduce 42%
+c19-10.3.1.19>15/07/09 21:24:12 INFO mapreduce.Job:  map 100% reduce 43%
+c19-10.3.1.19>15/07/09 21:24:15 INFO mapreduce.Job:  map 100% reduce 44%
+c19-10.3.1.19>15/07/09 21:24:18 INFO mapreduce.Job:  map 100% reduce 45%
+c19-10.3.1.19>15/07/09 21:24:21 INFO mapreduce.Job:  map 100% reduce 46%
+c19-10.3.1.19>15/07/09 21:24:24 INFO mapreduce.Job:  map 100% reduce 48%
+c19-10.3.1.19>15/07/09 21:24:27 INFO mapreduce.Job:  map 100% reduce 50%
+c19-10.3.1.19>15/07/09 21:24:30 INFO mapreduce.Job:  map 100% reduce 52%
+c19-10.3.1.19>15/07/09 21:24:36 INFO mapreduce.Job:  map 100% reduce 53%
+c19-10.3.1.19>15/07/09 21:24:39 INFO mapreduce.Job:  map 100% reduce 55%
+c19-10.3.1.19>15/07/09 21:24:45 INFO mapreduce.Job:  map 100% reduce 56%
+c19-10.3.1.19>15/07/09 21:24:48 INFO mapreduce.Job:  map 100% reduce 58%
+c19-10.3.1.19>15/07/09 21:24:54 INFO mapreduce.Job:  map 100% reduce 61%
+c19-10.3.1.19>15/07/09 21:24:57 INFO mapreduce.Job:  map 100% reduce 62%
+c19-10.3.1.19>15/07/09 21:25:00 INFO mapreduce.Job:  map 100% reduce 64%
+c19-10.3.1.19>15/07/09 21:25:03 INFO mapreduce.Job:  map 100% reduce 65%
+c19-10.3.1.19>15/07/09 21:25:06 INFO mapreduce.Job:  map 100% reduce 67%
+c19-10.3.1.19>15/07/09 21:25:27 INFO mapreduce.Job:  map 100% reduce 68%
+c19-10.3.1.19>15/07/09 21:25:51 INFO mapreduce.Job:  map 100% reduce 69%
+c19-10.3.1.19>15/07/09 21:26:12 INFO mapreduce.Job:  map 100% reduce 70%
+c19-10.3.1.19>15/07/09 21:26:39 INFO mapreduce.Job:  map 100% reduce 71%
+c19-10.3.1.19>15/07/09 21:27:03 INFO mapreduce.Job:  map 100% reduce 72%
+c19-10.3.1.19>15/07/09 21:27:27 INFO mapreduce.Job:  map 100% reduce 73%
+c19-10.3.1.19>15/07/09 21:27:52 INFO mapreduce.Job:  map 100% reduce 74%
+c19-10.3.1.19>15/07/09 21:28:13 INFO mapreduce.Job:  map 100% reduce 75%
+c19-10.3.1.19>15/07/09 21:28:34 INFO mapreduce.Job:  map 100% reduce 76%
+c19-10.3.1.19>15/07/09 21:28:58 INFO mapreduce.Job:  map 100% reduce 77%
+c19-10.3.1.19>15/07/09 21:29:19 INFO mapreduce.Job:  map 100% reduce 78%
+c19-10.3.1.19>15/07/09 21:29:34 INFO mapreduce.Job:  map 100% reduce 79%
+c19-10.3.1.19>15/07/09 21:29:55 INFO mapreduce.Job:  map 100% reduce 80%
+c19-10.3.1.19>15/07/09 21:30:13 INFO mapreduce.Job:  map 100% reduce 81%
+c19-10.3.1.19>15/07/09 21:30:34 INFO mapreduce.Job:  map 100% reduce 82%
+c19-10.3.1.19>15/07/09 21:30:52 INFO mapreduce.Job:  map 100% reduce 83%
+c19-10.3.1.19>15/07/09 21:31:07 INFO mapreduce.Job:  map 100% reduce 84%
+c19-10.3.1.19>15/07/09 21:31:22 INFO mapreduce.Job:  map 100% reduce 85%
+c19-10.3.1.19>15/07/09 21:31:39 INFO mapreduce.Job:  map 100% reduce 86%
+c19-10.3.1.19>15/07/09 21:31:54 INFO mapreduce.Job:  map 100% reduce 87%
+c19-10.3.1.19>15/07/09 21:32:12 INFO mapreduce.Job:  map 100% reduce 88%
+c19-10.3.1.19>15/07/09 21:32:33 INFO mapreduce.Job:  map 100% reduce 89%
+c19-10.3.1.19>15/07/09 21:32:57 INFO mapreduce.Job:  map 100% reduce 90%
+c19-10.3.1.19>15/07/09 21:33:18 INFO mapreduce.Job:  map 100% reduce 91%
+c19-10.3.1.19>15/07/09 21:33:40 INFO mapreduce.Job:  map 100% reduce 92%
+c19-10.3.1.19>15/07/09 21:33:58 INFO mapreduce.Job:  map 100% reduce 93%
+c19-10.3.1.19>15/07/09 21:34:13 INFO mapreduce.Job:  map 100% reduce 94%
+c19-10.3.1.19>15/07/09 21:34:34 INFO mapreduce.Job:  map 100% reduce 95%
+c19-10.3.1.19>15/07/09 21:34:52 INFO mapreduce.Job:  map 100% reduce 96%
+c19-10.3.1.19>15/07/09 21:35:13 INFO mapreduce.Job:  map 100% reduce 97%
+c19-10.3.1.19>15/07/09 21:35:34 INFO mapreduce.Job:  map 100% reduce 98%
+c19-10.3.1.19>15/07/09 21:35:55 INFO mapreduce.Job:  map 100% reduce 99%
+c19-10.3.1.19>15/07/09 21:36:16 INFO mapreduce.Job:  map 100% reduce 100%
+c19-10.3.1.19>15/07/09 21:36:22 INFO mapreduce.Job: Job job_1436273844725_0019 completed successfully
+c19-10.3.1.19>15/07/09 21:36:22 INFO mapreduce.Job: Counters: 50
+c19-10.3.1.19>	File System Counters
+c19-10.3.1.19>		FILE: Number of bytes read=120418495688
+c19-10.3.1.19>		FILE: Number of bytes written=162027101870
+c19-10.3.1.19>		FILE: Number of read operations=0
+c19-10.3.1.19>		FILE: Number of large read operations=0
+c19-10.3.1.19>		FILE: Number of write operations=0
+c19-10.3.1.19>		HDFS: Number of bytes read=131342450351
+c19-10.3.1.19>		HDFS: Number of bytes written=21516031391
+c19-10.3.1.19>		HDFS: Number of read operations=2985
+c19-10.3.1.19>		HDFS: Number of large read operations=0
+c19-10.3.1.19>		HDFS: Number of write operations=2
+c19-10.3.1.19>	Job Counters 
+c19-10.3.1.19>		Launched map tasks=994
+c19-10.3.1.19>		Launched reduce tasks=1
+c19-10.3.1.19>		Data-local map tasks=717
+c19-10.3.1.19>		Rack-local map tasks=277
+c19-10.3.1.19>		Total time spent by all maps in occupied slots (ms)=11702449
+c19-10.3.1.19>		Total time spent by all reduces in occupied slots (ms)=3399554
+c19-10.3.1.19>		Total time spent by all map tasks (ms)=11702449
+c19-10.3.1.19>		Total time spent by all reduce tasks (ms)=3399554
+c19-10.3.1.19>		Total vcore-seconds taken by all map tasks=11702449
+c19-10.3.1.19>		Total vcore-seconds taken by all reduce tasks=3399554
+c19-10.3.1.19>		Total megabyte-seconds taken by all map tasks=47933231104
+c19-10.3.1.19>		Total megabyte-seconds taken by all reduce tasks=27849146368
+c19-10.3.1.19>	Map-Reduce Framework
+c19-10.3.1.19>		Map input records=2348291203
+c19-10.3.1.19>		Map output records=7243574753
+c19-10.3.1.19>		Map output bytes=146224118566
+c19-10.3.1.19>		Map output materialized bytes=41515561909
+c19-10.3.1.19>		Input split bytes=164010
+c19-10.3.1.19>		Combine input records=8212780017
+c19-10.3.1.19>		Combine output records=1833770977
+c19-10.3.1.19>		Reduce input groups=303748873
+c19-10.3.1.19>		Reduce shuffle bytes=41515561909
+c19-10.3.1.19>		Reduce input records=864565713
+c19-10.3.1.19>		Reduce output records=303748873
+c19-10.3.1.19>		Spilled Records=3437816538
+c19-10.3.1.19>		Shuffled Maps =994
+c19-10.3.1.19>		Failed Shuffles=0
+c19-10.3.1.19>		Merged Map outputs=994
+c19-10.3.1.19>		GC time elapsed (ms)=155815
+c19-10.3.1.19>		CPU time spent (ms)=15592090
+c19-10.3.1.19>		Physical memory (bytes) snapshot=542077947904
+c19-10.3.1.19>		Virtual memory (bytes) snapshot=5077709975552
+c19-10.3.1.19>		Total committed heap usage (bytes)=640987693056
+c19-10.3.1.19>	Shuffle Errors
+c19-10.3.1.19>		BAD_ID=0
+c19-10.3.1.19>		CONNECTION=0
+c19-10.3.1.19>		IO_ERROR=0
+c19-10.3.1.19>		WRONG_LENGTH=0
+c19-10.3.1.19>		WRONG_MAP=0
+c19-10.3.1.19>		WRONG_REDUCE=0
+c19-10.3.1.19>	File Input Format Counters 
+c19-10.3.1.19>		Bytes Read=131342286341
+c19-10.3.1.19>	File Output Format Counters 
+c19-10.3.1.19>		Bytes Written=21516031391
+FedMR-Process exitValue: 0
+RegionCloud Jobs all finished
+globalFileName : 300Gwc_out_0709
+globalFileName : 300Gwc_out_0709
+host and path : c19:/user/hpds/300Gwc_out_0709
+globalFileName : 300Gwc_out_0709
+host and path : c07:/user/hpds/300Gwc_out_0709
+globalFileName : 300Gwc_out_0709
+host and path : c02:/user/hpds/300Gwc_out_0709
+globalFileName : 300Gwc_out_0709
+host and path : c13:/user/hpds/300Gwc_out_0709
