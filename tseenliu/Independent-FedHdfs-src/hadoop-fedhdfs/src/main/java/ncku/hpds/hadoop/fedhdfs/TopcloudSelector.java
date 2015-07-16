@@ -35,10 +35,14 @@ public class TopcloudSelector {
 	private String globalfileInput = "";
 	private String topcloud = "";
 	
-	public TopcloudSelector(String globalfile) throws Throwable {
+	public TopcloudSelector(String globalfile, boolean minTag) throws Throwable {
 		queryGlobalFile(globalfile);
 		addCloudsInfo();
-		maxOfValue();
+		if(minTag == true){
+			minOfValue();
+		}else{
+			maxOfValue();
+		}
 	}
 	
 	private void queryGlobalFile(String globalfile) throws Throwable {
@@ -128,6 +132,22 @@ public class TopcloudSelector {
 			public int compare(Map.Entry<String, CloudInfo> first, Map.Entry<String, CloudInfo> second) {
 				//return (int) (second.getValue().getData() - first.getValue().getData());
 				return Double.valueOf(first.getValue().getValue()).compareTo(Double.valueOf(second.getValue().getValue()));
+			}
+			});
+		Collections.reverse(list_Data);
+
+		for (Entry<String, CloudInfo> entry:list_Data) {
+			System.out.println(entry);
+        }
+	}
+	
+	private void minOfValue() {
+		
+		list_Data = new ArrayList<Map.Entry<String, CloudInfo>>(tmpElements.entrySet());
+		Collections.sort(list_Data, new Comparator<Map.Entry<String, CloudInfo>>() {
+			public int compare(Map.Entry<String, CloudInfo> first, Map.Entry<String, CloudInfo> second) {
+				//return (int) (second.getValue().getData() - first.getValue().getData());
+				return Double.valueOf(second.getValue().getValue()).compareTo(Double.valueOf(first.getValue().getValue()));
 			}
 			});
 		Collections.reverse(list_Data);

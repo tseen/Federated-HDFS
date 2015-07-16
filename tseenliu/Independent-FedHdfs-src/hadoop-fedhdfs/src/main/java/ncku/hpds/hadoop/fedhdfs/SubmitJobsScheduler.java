@@ -30,6 +30,10 @@ public class SubmitJobsScheduler {
 	private static String globalfileInput = null;
 	private static String globalfileOutput = null;
 	
+	private static String hostName = null;
+	private static Boolean assignHostName = false;
+	private static Boolean minTag = false;
+	
 	private static String otherArgs = "";
 	
 	public static void main(String[] args) throws Throwable {
@@ -39,26 +43,63 @@ public class SubmitJobsScheduler {
 		String parseArg[] = args;
 		
 		if (args.length < 5) {
-			System.err.println("Oringinal-MR Usage: submit jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
-			System.err.println("Fed-MR Usage: submit -f jar [jarFile] [program] [globalfileInput] [globalfileOutput]");
+			System.err.println("Oringinal-MR Usage: submit jar [jarFile] [program] [globalfileInput] [globalfileOutput] [otherArgs]");
+			System.err.println("Fed-MR Usage: submit -f/-mf jar [jarFile] [program] [globalfileInput] [globalfileOutput] [otherArgs]");
 			System.exit(2);
 		}
 		else if (parseArg[0].equalsIgnoreCase("-f")) {
+			
+			if (args.length == 6) {
+				jarPath = parseArg[2];
+				jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+				mainClass = parseArg[3];
+				globalfileInput = parseArg[4];
+				globalfileOutput = parseArg[5];
+				fedJobs(minTag);
+			}
+			else if (parseArg[1].contains("-Dcluster=")) {
+				jarPath = parseArg[3];
+				jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+				mainClass = parseArg[4];
+				globalfileInput = parseArg[5];
+				globalfileOutput = parseArg[6];
+				hostName = parseArg[1].substring(10, parseArg[1].length());
+				assignHostName = true;
+				
+				for (int i = 8; i <= parseArg.length; i++ ){
+					otherArgs = otherArgs + parseArg[i-1] + " ";
+				}
+				System.out.println(otherArgs);
+				fedJobs(minTag);
+			}
+			else {
+				jarPath = parseArg[2];
+				jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
+				mainClass = parseArg[3];
+				globalfileInput = parseArg[4];
+				globalfileOutput = parseArg[5];
+				
+				for (int i = 7; i <= parseArg.length; i++ ){
+					otherArgs = otherArgs + parseArg[i-1] + " ";
+				}
+				System.out.println(otherArgs);
+				fedJobs(minTag);
+			}
+		}
+		else if (parseArg[0].equalsIgnoreCase("-mf")) {
 			
 			jarPath = parseArg[2];
 			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
 			mainClass = parseArg[3];
 			globalfileInput = parseArg[4];
 			globalfileOutput = parseArg[5];
-			fedJobs();
+			minTag = true;
 			
-			/*String parseArg[] = args;
-			jarPath = parseArg[1];
-			jarFile = jarPath.substring(jarPath.lastIndexOf("/")+1, jarPath.length());
-			mainClass = parseArg[2];
-			globalfileInput = parseArg[3];
-			globalfileOutput = parseArg[4];
-			smJobs();*/
+			for (int i = 7; i <= parseArg.length; i++ ){
+				otherArgs = otherArgs + parseArg[i-1] + " ";
+			}
+			System.out.println(otherArgs);
+			fedJobs(minTag);
 		}
 		else if (args.length == 5) {
 			
@@ -124,9 +165,10 @@ public class SubmitJobsScheduler {
         }
 	}
 	
-	private static void fedJobs() throws Throwable {
+	private static void fedJobs(boolean minTag) throws Throwable {
 		
 		String TopJarPath;
+		String realTop;
 		listCpJar = new ArrayList<copyJar>();
 		listFedJobs = new ArrayList<FedMR>();
 		listCpFedXML = new ArrayList<copyFedXML>();
@@ -136,24 +178,31 @@ public class SubmitJobsScheduler {
 		System.out.println(globalfileInput);
 		//for ( String GNlink : requestGlobalFile ) { System.out.println(GNlink); }
 		
-		TopcloudSelector top = new TopcloudSelector(globalfileInput);
+		TopcloudSelector top = new TopcloudSelector(globalfileInput, minTag);
+		if (assignHostName == true) {
+			realTop = hostName;
+		} else {
+			realTop = top.getTopCloud();
+		}
+		System.out.println("Top Cloud of FedMR:" + realTop);
+		
 		//TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, top.getTopCloud()) + jarPath.substring(jarPath.lastIndexOf("/"), jarPath.length());
-		TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, top.getTopCloud()) + "/" + jarFile;
+		TopJarPath = FedHdfsConParser.getHadoopHOME(FedConfpath, realTop) + "/" + jarFile;
 		System.out.println(TopJarPath);
 		
 		XMLTransformer test = new XMLTransformer();
-		test.transformer(requestGlobalFile, top.getTopCloud(), TopJarPath, mainClass);
+		test.transformer(requestGlobalFile, realTop, TopJarPath, mainClass);
 		
-		listCpJar.add(new copyJar(jarPath, top.getTopCloud()));
+		listCpJar.add(new copyJar(jarPath, realTop));
 		for ( copyJar job : listCpJar ) { job.start(); }
 		for ( copyJar job : listCpJar) { job.join(); }
 		
 		System.out.println(XMLTransformer.FedMR);
-		listCpFedXML.add(new copyFedXML(XMLTransformer.FedMR, top.getTopCloud()));
+		listCpFedXML.add(new copyFedXML(XMLTransformer.FedMR, realTop));
 		for ( copyFedXML job : listCpFedXML ) { job.start(); }
 		for ( copyFedXML job : listCpFedXML) { job.join(); }
 		
-		listFedJobs.add(new FedMR(jarFile, top.getTopCloud(), globalfileInput, globalfileOutput));
+		listFedJobs.add(new FedMR(jarFile, realTop, globalfileInput, globalfileOutput, otherArgs));
 		
 		for ( FedMR job : listFedJobs ) { job.start(); }
 		for ( FedMR job : listFedJobs ) { job.join();; }
@@ -170,7 +219,7 @@ public class SubmitJobsScheduler {
         	Mkdir mkdirGN = new Mkdir();
     		mkdirGN.constructGlobalFile("-mkdir", globalfile);
     		Union unionGlobalFile = new Union();
-    		unionGlobalFile.union("-union", globalfile, top.getTopCloud() + ":/user/hpds/" + globalfileOutput);
+    		unionGlobalFile.union("-union", globalfile, realTop + ":/user/hpds/" + globalfileOutput);
         }
 	}
 	
@@ -242,17 +291,19 @@ class FedMR extends Thread {
 	private String hostName;
 	private String input;
 	private String output;
+	private String otherArgs;
 	private int exitVal;
 	
 	private ShellMonitor mOutputMonitor;
 	private ShellMonitor mErrorMonitor;
 
-	public FedMR(String JAR, String topCloud, String input, String output) {
+	public FedMR(String JAR, String topCloud, String input, String output, String otherArgs) {
 		
 		this.JAR = JAR;
 		this.hostName = topCloud;
 		this.input = input;
 		this.output = output;
+		this.otherArgs = otherArgs;
 	}
 	
 	File FedConfpath = SuperNamenode.XMfile;
@@ -272,6 +323,7 @@ class FedMR extends Thread {
 		cmd = cmd + " -Dfedconf=" + FedHdfsConParser.getHadoopHOME(FedConfpath, hostName) + "/fed_task/FedMR.xml ";
 		cmd = cmd + FedHdfsConParser.getFedOtherArgs(FedConfpath) + " ";
 		cmd = cmd + input + " " + output;
+		cmd = cmd + " " + otherArgs;
 	
 		System.out.println(" FedJob : " + cmd);
 		

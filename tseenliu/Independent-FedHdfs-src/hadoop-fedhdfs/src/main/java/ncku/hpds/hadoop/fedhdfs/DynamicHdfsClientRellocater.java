@@ -21,7 +21,8 @@ public class DynamicHdfsClientRellocater {
 		File XMfile = new File("Alex.xml"); 
 		//TopcloudSelector top = new TopcloudSelector(XMfile, Alex);
 		
-		TopcloudSelector top = new TopcloudSelector(file);
+		boolean minTag = true;
+		TopcloudSelector top = new TopcloudSelector(file, minTag);
 		
 		FedHdfsConParser.setSupernamenodeConf(XMfile);
 		

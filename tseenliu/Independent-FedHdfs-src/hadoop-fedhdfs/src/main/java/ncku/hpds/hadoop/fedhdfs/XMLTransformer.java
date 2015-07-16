@@ -88,7 +88,7 @@ public class XMLTransformer {
         //RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "MainClass", FedHdfsConParser.getFedMainClass(FedConfpath)));
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "OtherArgs", FedHdfsConParser.getFedOtherArgs(FedConfpath)));
         RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, "Arg0", input));
-        for ( int j = 1 ; j <= FedHdfsConParser.getFedElementLen(FedConfpath) ; j++ ) {
+        for ( int j = 1 ; j <= 9 ; j++ ) {
         	String argTag = "Arg" + String.valueOf(j);
         	RegionCloud.appendChild(getCompanyElements(doc, RegionCloud, argTag, FedHdfsConParser.getFedArgs(FedConfpath, argTag)));
         }

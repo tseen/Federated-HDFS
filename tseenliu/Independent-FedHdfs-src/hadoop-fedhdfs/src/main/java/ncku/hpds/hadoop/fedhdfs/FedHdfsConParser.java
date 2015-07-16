@@ -13,6 +13,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 public class FedHdfsConParser {
+	
+	 public static String INVALID_VALUE = "none";
 
 	private Vector<Element> elementArray = new Vector<Element>(); // 宣告Vector,並指定type為Element,目的是為了動態疊加Element物件
 	static SuperNamenodeInfo SNconf = new SuperNamenodeInfo();
@@ -278,7 +280,7 @@ public class FedHdfsConParser {
 
 				Node clustersNode = clusterlist.item(i);
 				Element element = (Element) clustersNode;
-				data = getValue(argTag, element);
+				data = getTagValue(argTag, element, INVALID_VALUE);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
