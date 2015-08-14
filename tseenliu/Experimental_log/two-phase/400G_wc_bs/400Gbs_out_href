@@ -1,0 +1,1476 @@
+use default value : 1.0
+href 
+globalFile : 400Gwc_out_0709_2
+400Gwc_out_0709_2
+globalFile : 400Gwc_out_0709_2
+c02=3415929049088 7315895222 7315895222
+c07=1768476016640 14280510905 14280510905
+c13=2510195888128 21539521036 21539521036
+c19=1098790383616 27851052518 27851052518
+Top Cloud of FedMR:c02
+/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+
+XML DOM Created Successfully
+scp BlockSearch.jar hpds@10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+JarCopy-Process exitValue: 0
+FedMR.xml
+scp FedMR.xml hpds@10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task
+XMLCopy-Process exitValue: 0
+ FedJob : ssh hpds@10.3.1.2 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar BlockSearch  -Dfed=true  -Dfedconf=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/FedMR.xml   400Gwc_out_0709_2 400Gbs_out_href href 
+Fed>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>fed = true
+Fed>mFedFlag = true
+Fed>15/07/10 13:01:28 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>Tag : RegionCloudListenPort use default value : 55679
+Fed>regJarFileName = BlockSearch.jar
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c19_BlockSearch-YARN_OUT_20150710130128
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c07_BlockSearch-YARN_OUT_20150710130128
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c02_BlockSearch-YARN_OUT_20150710130128
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c13_BlockSearch-YARN_OUT_20150710130128
+Fed>make FedRegionCloudJobs
+Fed>init FedRegionCloudJob
+Fed>init FedRegionCloudJob
+Fed>init FedRegionCloudJob
+Fed>init FedRegionCloudJob
+Fed>add path [c19_BlockSearch-YARN_OUT_20150710130128/] in InputPaths
+Fed>add path [c07_BlockSearch-YARN_OUT_20150710130128/] in InputPaths
+Fed>add path [c02_BlockSearch-YARN_OUT_20150710130128/] in InputPaths
+Fed>add path [c13_BlockSearch-YARN_OUT_20150710130128/] in InputPaths
+Fed>FedRegionCloudJobs size : 4
+Fed>make FedCloudMonitorClients
+Fed>init JarCopyJob 
+Fed>init JarCopyJob 
+Fed>init JarCopyJob 
+Fed>init JarCopyJob 
+Fed>Run AS Top Cloud
+Fed>Start Jar copy jobs
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar 10.3.1.7:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar 10.3.1.19:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>Wait For Jar copy finishing
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar 10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar 10.3.1.13:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>Jar copy Jobs finished
+Fed>TopCloud Report : RegionCloud Start Time = 1436504496994(ms)
+Fed>Start FedRegionCloudJobs
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>Arg 0 = /user/hpds/400Gwc_out_0709_2
+Fed>Arg 1 = out
+Fed>Arg 2 = href
+Fed>Arg 3 = none
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.19 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/BlockSearch.jar  BlockSearch -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c19_BlockSearch-YARN_OUT_20150710130128  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/400Gwc_out_0709_2 out href 
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>Arg 0 = /user/hpds/400Gwc_out_0709_2
+Fed>Arg 0 = /user/hpds/400Gwc_out_0709_2
+Fed>Arg 1 = out
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>Arg 0 = /user/hpds/400Gwc_out_0709_2
+Fed>Arg 1 = out
+Fed>Arg 2 = href
+Fed>Arg 3 = none
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.13 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/BlockSearch.jar  BlockSearch -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c13_BlockSearch-YARN_OUT_20150710130128  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/400Gwc_out_0709_2 out href 
+Fed>Start FedCloudMonitorClient
+Fed>Arg 2 = href
+Fed>Arg 3 = none
+Fed>Arg 1 = out
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.7 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/BlockSearch.jar  BlockSearch -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c07_BlockSearch-YARN_OUT_20150710130128  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/400Gwc_out_0709_2 out href 
+Fed>Wait For FedRegionCloudJob Join
+Fed>Arg 2 = href
+Fed>Arg 3 = none
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.2 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/BlockSearch.jar  BlockSearch -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c02_BlockSearch-YARN_OUT_20150710130128  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/400Gwc_out_0709_2 out href 
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>connect to 10.3.1.19 failed reconnect 
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>connect to 10.3.1.7 failed reconnect 
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>connect to 10.3.1.13 failed reconnect 
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>connect to 10.3.1.2 failed reconnect 
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>BlockSearch-YARN-c19-10.3.1.19>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>BlockSearch-YARN-c19-10.3.1.19>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>BlockSearch-YARN-c19-10.3.1.19>fed = off
+Fed>BlockSearch-YARN-c19-10.3.1.19>mFedFlag = false
+Fed>BlockSearch-YARN-c19-10.3.1.19>Run AS Region Cloud
+Fed>BlockSearch-YARN-c19-10.3.1.19>----------------------------------
+Fed>BlockSearch-YARN-c19-10.3.1.19>|        RegionCloud Mode        |
+Fed>BlockSearch-YARN-c19-10.3.1.19>----------------------------------
+Fed>BlockSearch-YARN-c19-10.3.1.19>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextText
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:35 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:35 INFO input.FileInputFormat: Total input paths to process : 1
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:35 INFO mapreduce.JobSubmitter: number of splits:208
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:36 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273844725_0024
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:36 INFO impl.YarnClientImpl: Submitted application application_1436273844725_0024
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:36 INFO mapreduce.Job: The url to track the job: http://c19:40888/proxy/application_1436273844725_0024/
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:36 INFO mapreduce.Job: Running job: job_1436273844725_0024
+Fed>connect to 10.3.1.7 failed reconnect 
+Fed>connect to 10.3.1.2 failed reconnect 
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>Client to 10.3.1.19  mRunFlag = true
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>connect to 10.3.1.13 failed reconnect 
+Fed>BlockSearch-YARN-c02-10.3.1.2>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>BlockSearch-YARN-c02-10.3.1.2>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>BlockSearch-YARN-c02-10.3.1.2>fed = off
+Fed>BlockSearch-YARN-c02-10.3.1.2>mFedFlag = false
+Fed>BlockSearch-YARN-c13-10.3.1.13>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>BlockSearch-YARN-c13-10.3.1.13>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>BlockSearch-YARN-c13-10.3.1.13>fed = off
+Fed>BlockSearch-YARN-c13-10.3.1.13>mFedFlag = false
+Fed>BlockSearch-YARN-c07-10.3.1.7>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>BlockSearch-YARN-c07-10.3.1.7>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>BlockSearch-YARN-c07-10.3.1.7>fed = off
+Fed>BlockSearch-YARN-c07-10.3.1.7>mFedFlag = false
+Fed>BlockSearch-YARN-c02-10.3.1.2>Run AS Region Cloud
+Fed>BlockSearch-YARN-c02-10.3.1.2>----------------------------------
+Fed>BlockSearch-YARN-c02-10.3.1.2>|        RegionCloud Mode        |
+Fed>BlockSearch-YARN-c02-10.3.1.2>----------------------------------
+Fed>BlockSearch-YARN-c02-10.3.1.2>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextText
+Fed>BlockSearch-YARN-c13-10.3.1.13>Run AS Region Cloud
+Fed>BlockSearch-YARN-c13-10.3.1.13>----------------------------------
+Fed>BlockSearch-YARN-c13-10.3.1.13>|        RegionCloud Mode        |
+Fed>BlockSearch-YARN-c13-10.3.1.13>----------------------------------
+Fed>BlockSearch-YARN-c13-10.3.1.13>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextText
+Fed>BlockSearch-YARN-c07-10.3.1.7>Run AS Region Cloud
+Fed>BlockSearch-YARN-c07-10.3.1.7>----------------------------------
+Fed>BlockSearch-YARN-c07-10.3.1.7>|        RegionCloud Mode        |
+Fed>BlockSearch-YARN-c07-10.3.1.7>----------------------------------
+Fed>BlockSearch-YARN-c07-10.3.1.7>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextText
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:40 INFO client.RMProxy: Connecting to ResourceManager at c02/10.3.1.2:40832
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:31 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:32 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:33 INFO input.FileInputFormat: Total input paths to process : 1
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:41 INFO input.FileInputFormat: Total input paths to process : 1
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:31 INFO input.FileInputFormat: Total input paths to process : 1
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:33 INFO mapreduce.JobSubmitter: number of splits:107
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:41 INFO mapreduce.JobSubmitter: number of splits:55
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:33 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273621930_0029
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:31 INFO mapreduce.JobSubmitter: number of splits:161
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:41 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273655163_0026
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:33 INFO impl.YarnClientImpl: Submitted application application_1436273621930_0029
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:31 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273680176_0040
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:33 INFO mapreduce.Job: The url to track the job: http://c07:40888/proxy/application_1436273621930_0029/
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:33 INFO mapreduce.Job: Running job: job_1436273621930_0029
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:41 INFO impl.YarnClientImpl: Submitted application application_1436273655163_0026
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:41 INFO mapreduce.Job: The url to track the job: http://c02:40888/proxy/application_1436273655163_0026/
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:41 INFO mapreduce.Job: Running job: job_1436273655163_0026
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:32 INFO impl.YarnClientImpl: Submitted application application_1436273680176_0040
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:32 INFO mapreduce.Job: The url to track the job: http://c13:40888/proxy/application_1436273680176_0040/
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:32 INFO mapreduce.Job: Running job: job_1436273680176_0040
+Fed>Client to 10.3.1.2  mRunFlag = true
+Fed>Client to 10.3.1.7  mRunFlag = true
+Fed>Client to 10.3.1.13  mRunFlag = true
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:35 INFO mapreduce.Job: Job job_1436273680176_0040 running in uber mode : false
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:35 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:37 INFO mapreduce.Job: Job job_1436273621930_0029 running in uber mode : false
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:37 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:45 INFO mapreduce.Job: Job job_1436273655163_0026 running in uber mode : false
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:45 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:43 INFO mapreduce.Job: Job job_1436273844725_0024 running in uber mode : false
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:43 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:50 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:42 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:44 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:53 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:51 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:47 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:56 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:47 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:01:54 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:49 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:57 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:50 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:01:59 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:50 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:00 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:51 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:53 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:54 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:00 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:03 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:04 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:55 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:57 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:03 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:01:57 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:01:59 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:08 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:09 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:02 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:11 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:01 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:09 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:05 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:13 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:07 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:15 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:05 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:12 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:08 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:06 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:17 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:10 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:19 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:17 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:21 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:11 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:14 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:23 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:13 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:16 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:21 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:25 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:18 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:17 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:20 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:26 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:22 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:30 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:21 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:24 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:22 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:33 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:30 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:26 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:35 INFO mapreduce.Job:  map 38% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:26 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:35 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:31 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:32 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:30 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:40 INFO mapreduce.Job:  map 42% reduce 13%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:39 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:35 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:34 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:37 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:46 INFO mapreduce.Job:  map 42% reduce 14%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:39 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:37 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:47 INFO mapreduce.Job:  map 45% reduce 14%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:44 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:38 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:41 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:43 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:42 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:52 INFO mapreduce.Job:  map 45% reduce 15%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:45 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:53 INFO mapreduce.Job:  map 49% reduce 15%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:51 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:47 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:46 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:49 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:58 INFO mapreduce.Job:  map 49% reduce 16%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:02:55 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:51 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:49 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:02:59 INFO mapreduce.Job:  map 51% reduce 16%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:00 INFO mapreduce.Job:  map 53% reduce 16%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:53 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:00 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:56 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:04 INFO mapreduce.Job:  map 53% reduce 18%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:55 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:02:58 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:06 INFO mapreduce.Job:  map 55% reduce 18%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:07 INFO mapreduce.Job:  map 56% reduce 18%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:04 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:00 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:02:59 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:10 INFO mapreduce.Job:  map 56% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:04 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:02 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:12 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:09 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:13 INFO mapreduce.Job:  map 60% reduce 19%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:16 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:07 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:09 INFO mapreduce.Job:  map 37% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:17 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:14 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:11 INFO mapreduce.Job:  map 37% reduce 12%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:19 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:12 INFO mapreduce.Job:  map 38% reduce 12%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:20 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:11 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:22 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:19 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:15 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:17 INFO mapreduce.Job:  map 38% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:25 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:18 INFO mapreduce.Job:  map 39% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:26 INFO mapreduce.Job:  map 69% reduce 22%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:23 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:20 INFO mapreduce.Job:  map 40% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:28 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:19 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:29 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:21 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:31 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:28 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:24 INFO mapreduce.Job:  map 41% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:32 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:33 INFO mapreduce.Job:  map 75% reduce 24%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:34 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:32 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:28 INFO mapreduce.Job:  map 42% reduce 13%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:29 INFO mapreduce.Job:  map 42% reduce 14%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:37 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:28 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:31 INFO mapreduce.Job:  map 43% reduce 14%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:40 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:37 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:31 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:41 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:34 INFO mapreduce.Job:  map 44% reduce 14%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:43 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:41 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:45 INFO mapreduce.Job:  map 84% reduce 27%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:36 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:38 INFO mapreduce.Job:  map 44% reduce 15%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:46 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:40 INFO mapreduce.Job:  map 45% reduce 15%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:41 INFO mapreduce.Job:  map 46% reduce 15%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:49 INFO mapreduce.Job:  map 87% reduce 28%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:41 INFO mapreduce.Job:  map 35% reduce 12%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:51 INFO mapreduce.Job:  map 89% reduce 28%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:48 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:52 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:53 INFO mapreduce.Job:  map 93% reduce 30%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:44 INFO mapreduce.Job:  map 36% reduce 12%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:47 INFO mapreduce.Job:  map 47% reduce 15%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:55 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:52 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:48 INFO mapreduce.Job:  map 48% reduce 15%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:56 INFO mapreduce.Job:  map 96% reduce 31%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:57 INFO mapreduce.Job:  map 98% reduce 31%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:48 INFO mapreduce.Job:  map 37% reduce 12%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:50 INFO mapreduce.Job:  map 48% reduce 16%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:03:58 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:00 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:03:57 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:01 INFO mapreduce.Job:  map 100% reduce 38%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:55 INFO mapreduce.Job:  map 50% reduce 16%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:04 INFO mapreduce.Job:  map 100% reduce 51%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:01 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:56 INFO mapreduce.Job:  map 38% reduce 12%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:03:59 INFO mapreduce.Job:  map 50% reduce 17%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:07 INFO mapreduce.Job:  map 100% reduce 65%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:03:59 INFO mapreduce.Job:  map 38% reduce 13%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:06 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:00 INFO mapreduce.Job:  map 39% reduce 13%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:02 INFO mapreduce.Job:  map 51% reduce 17%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:10 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:14 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:11 INFO mapreduce.Job:  map 30% reduce 10%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:12 INFO mapreduce.Job:  map 31% reduce 10%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:08 INFO mapreduce.Job:  map 52% reduce 17%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:17 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:09 INFO mapreduce.Job:  map 53% reduce 17%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:08 INFO mapreduce.Job:  map 40% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:20 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:18 INFO mapreduce.Job:  map 32% reduce 10%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:14 INFO mapreduce.Job:  map 53% reduce 18%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:15 INFO mapreduce.Job:  map 55% reduce 18%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:20 INFO mapreduce.Job:  map 32% reduce 11%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:26 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:17 INFO mapreduce.Job:  map 41% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:29 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:21 INFO mapreduce.Job:  map 56% reduce 18%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:26 INFO mapreduce.Job:  map 33% reduce 11%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:21 INFO mapreduce.Job:  map 42% reduce 13%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:23 INFO mapreduce.Job:  map 57% reduce 18%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:32 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:23 INFO mapreduce.Job:  map 42% reduce 14%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:26 INFO mapreduce.Job:  map 57% reduce 19%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:35 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:29 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:38 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:34 INFO mapreduce.Job:  map 34% reduce 11%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:28 INFO mapreduce.Job:  map 43% reduce 14%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:30 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:41 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:34 INFO mapreduce.Job:  map 60% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:35 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:44 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:36 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:42 INFO mapreduce.Job:  map 35% reduce 11%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:36 INFO mapreduce.Job:  map 44% reduce 14%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:47 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:44 INFO mapreduce.Job:  map 35% reduce 12%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:40 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:41 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:50 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:41 INFO mapreduce.Job:  map 44% reduce 15%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:42 INFO mapreduce.Job:  map 45% reduce 15%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:53 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:50 INFO mapreduce.Job:  map 36% reduce 12%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:46 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:56 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:51 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:04:59 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:53 INFO mapreduce.Job:  map 66% reduce 21%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:04:58 INFO mapreduce.Job:  map 37% reduce 12%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:51 INFO mapreduce.Job:  map 46% reduce 15%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:54 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:02 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:55 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:05 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:55 INFO mapreduce.Job:  map 47% reduce 15%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:58 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:04:59 INFO mapreduce.Job:  map 69% reduce 22%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:00 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:08 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:04:58 INFO mapreduce.Job:  map 47% reduce 16%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:06 INFO mapreduce.Job:  map 38% reduce 12%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:03 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:09 INFO mapreduce.Job:  map 38% reduce 13%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:02 INFO mapreduce.Job:  map 48% reduce 16%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:05 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:06 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:14 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:17 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:10 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:11 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:12 INFO mapreduce.Job:  map 74% reduce 25%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:20 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:10 INFO mapreduce.Job:  map 49% reduce 16%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:14 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:19 INFO mapreduce.Job:  map 39% reduce 13%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:23 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:14 INFO mapreduce.Job:  map 50% reduce 16%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:17 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:18 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:26 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:16 INFO mapreduce.Job:  map 50% reduce 17%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:21 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:29 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:26 INFO mapreduce.Job:  map 40% reduce 13%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:22 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:23 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:22 INFO mapreduce.Job:  map 51% reduce 17%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:27 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:35 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:34 INFO mapreduce.Job:  map 41% reduce 13%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:30 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:38 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:30 INFO mapreduce.Job:  map 52% reduce 17%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:33 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:41 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:39 INFO mapreduce.Job:  map 41% reduce 14%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:36 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:36 INFO mapreduce.Job:  map 53% reduce 17%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:43 INFO mapreduce.Job:  map 42% reduce 14%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:47 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:38 INFO mapreduce.Job:  map 53% reduce 18%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:40 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:42 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:50 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:45 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:53 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:50 INFO mapreduce.Job:  map 43% reduce 14%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:44 INFO mapreduce.Job:  map 54% reduce 18%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:47 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:48 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:56 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:48 INFO mapreduce.Job:  map 55% reduce 18%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:51 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:05:59 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:52 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:53 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:05:58 INFO mapreduce.Job:  map 44% reduce 14%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:54 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:55 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:00 INFO mapreduce.Job:  map 44% reduce 15%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:06:04 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:06:04 INFO mapreduce.Job: Job job_1436273655163_0026 completed successfully
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:06:04 INFO mapreduce.Job: Counters: 50
+Fed>BlockSearch-YARN-c02-10.3.1.2>	File System Counters
+Fed>BlockSearch-YARN-c02-10.3.1.2>		FILE: Number of bytes read=5933570202
+Fed>BlockSearch-YARN-c02-10.3.1.2>		FILE: Number of bytes written=8349313963
+Fed>BlockSearch-YARN-c02-10.3.1.2>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		HDFS: Number of bytes read=7316164076
+Fed>BlockSearch-YARN-c02-10.3.1.2>		HDFS: Number of bytes written=201130
+Fed>BlockSearch-YARN-c02-10.3.1.2>		HDFS: Number of read operations=168
+Fed>BlockSearch-YARN-c02-10.3.1.2>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		HDFS: Number of write operations=2
+Fed>BlockSearch-YARN-c02-10.3.1.2>	Job Counters 
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Launched map tasks=55
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Launched reduce tasks=1
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Data-local map tasks=26
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Rack-local map tasks=29
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total time spent by all maps in occupied slots (ms)=200470
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total time spent by all reduces in occupied slots (ms)=210689
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total time spent by all map tasks (ms)=200470
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total time spent by all reduce tasks (ms)=210689
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total vcore-seconds taken by all map tasks=200470
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total vcore-seconds taken by all reduce tasks=210689
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total megabyte-seconds taken by all map tasks=821125120
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total megabyte-seconds taken by all reduce tasks=1725964288
+Fed>BlockSearch-YARN-c02-10.3.1.2>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Map input records=113040850
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Map output records=26533835
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Map output bytes=2336100661
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Map output materialized bytes=2392573263
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Input split bytes=6710
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Combine input records=40840343
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Combine output records=40840343
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Reduce input groups=1
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Reduce shuffle bytes=2392573263
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Reduce input records=26533835
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Reduce output records=26561
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Spilled Records=91569158
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Shuffled Maps =55
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Merged Map outputs=55
+Fed>BlockSearch-YARN-c02-10.3.1.2>		GC time elapsed (ms)=6494
+Fed>BlockSearch-YARN-c02-10.3.1.2>		CPU time spent (ms)=318320
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Physical memory (bytes) snapshot=24369889280
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Virtual memory (bytes) snapshot=288738336768
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Total committed heap usage (bytes)=30200037376
+Fed>BlockSearch-YARN-c02-10.3.1.2>	Shuffle Errors
+Fed>BlockSearch-YARN-c02-10.3.1.2>		BAD_ID=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		CONNECTION=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		IO_ERROR=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		WRONG_LENGTH=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		WRONG_MAP=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>		WRONG_REDUCE=0
+Fed>BlockSearch-YARN-c02-10.3.1.2>	File Input Format Counters 
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Bytes Read=7316157366
+Fed>BlockSearch-YARN-c02-10.3.1.2>	File Output Format Counters 
+Fed>BlockSearch-YARN-c02-10.3.1.2>		Bytes Written=201130
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:05:55 INFO mapreduce.Job:  map 56% reduce 18%
+Fed>----------------------------------
+Fed>mIP 10.3.1.2 Global Aggregation Start Time = 1436504765720
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:06:06 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>BlockSearch-YARN-c02-10.3.1.2> userName = hpds
+Fed>BlockSearch-YARN-c02-10.3.1.2> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>BlockSearch-YARN-c02-10.3.1.2> outputPath = c02_BlockSearch-YARN_OUT_20150710130128
+Fed>BlockSearch-YARN-c02-10.3.1.2> srcHDFS = hdfs://c02:39100/
+Fed>BlockSearch-YARN-c02-10.3.1.2>Server To Join
+Fed>BlockSearch-YARN-c02-10.3.1.2>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>BlockSearch-YARN-c02-10.3.1.2>Stop Server
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:05:59 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>BlockSearch-YARN-c02-10.3.1.2>sockettimeout exeception occurs
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:05 INFO mapreduce.Job:  map 45% reduce 15%
+Fed>----------------------------------
+Fed>mIP 10.3.1.2 Global Aggreagtion End Time = 1436504768721
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c02-10.3.1.2>Region Cloud Recvied Bye
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:01 INFO mapreduce.Job:  map 56% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:03 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:02 INFO mapreduce.Job:  map 57% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:05 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:06 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:11 INFO mapreduce.Job:  map 46% reduce 15%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:07 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:09 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:11 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:15 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:20 INFO mapreduce.Job:  map 47% reduce 15%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:17 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:24 INFO mapreduce.Job:  map 47% reduce 16%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:20 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:19 INFO mapreduce.Job:  map 59% reduce 20%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:27 INFO mapreduce.Job:  map 48% reduce 16%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:22 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:26 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:34 INFO mapreduce.Job:  map 49% reduce 16%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:29 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:32 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:41 INFO mapreduce.Job:  map 50% reduce 16%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:35 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:38 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:37 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:45 INFO mapreduce.Job:  map 50% reduce 17%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:39 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:47 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:52 INFO mapreduce.Job:  map 51% reduce 17%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:47 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:49 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:53 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:52 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:06:59 INFO mapreduce.Job:  map 52% reduce 17%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:06:56 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:06:59 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>BlockSearch-YARN-c02-10.3.1.2>java.net.SocketTimeoutException: Accept timed out
+Fed>BlockSearch-YARN-c02-10.3.1.2>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>BlockSearch-YARN-c02-10.3.1.2>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>BlockSearch-YARN-c02-10.3.1.2>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>BlockSearch-YARN-c02-10.3.1.2>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>BlockSearch-YARN-c02-10.3.1.2>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>BlockSearch-YARN-c02-10.3.1.2>Region Cloud Server Closed
+Fed>BlockSearch-YARN-c02-10.3.1.2>Region Cloud Report : RegionCloudsTime = 263795(ms)
+Fed>BlockSearch-YARN-c02-10.3.1.2>Region Cloud Report : GlobalAggregationTime = 64153(ms)
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:07:09 INFO ipc.Client: Retrying connect to server: c04/10.3.1.4:53557. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:06 INFO mapreduce.Job:  map 53% reduce 17%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:07:10 INFO ipc.Client: Retrying connect to server: c04/10.3.1.4:53557. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:01 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:07:11 INFO ipc.Client: Retrying connect to server: c04/10.3.1.4:53557. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c02-10.3.1.2>15/07/10 13:07:11 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:09 INFO mapreduce.Job:  map 53% reduce 18%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:05 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:05 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:08 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:07 INFO mapreduce.Job:  map 68% reduce 23%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:14 INFO mapreduce.Job:  map 54% reduce 18%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:10 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:13 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:21 INFO mapreduce.Job:  map 55% reduce 18%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:17 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:20 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:28 INFO mapreduce.Job:  map 56% reduce 18%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:22 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:26 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:25 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:33 INFO mapreduce.Job:  map 56% reduce 19%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:28 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:36 INFO mapreduce.Job:  map 57% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:32 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:34 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:38 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:37 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:44 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:44 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:43 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:51 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:54 INFO mapreduce.Job:  map 59% reduce 20%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:50 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:53 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:52 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:07:59 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:53 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:07:59 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:07:58 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:06 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:01 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:05 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:04 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:12 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:08 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:07 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:15 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:18 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:14 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:13 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:16 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:20 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:19 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:27 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:22 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:33 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:34 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:29 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:28 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:31 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:39 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:34 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:38 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:37 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:45 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:40 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:45 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:51 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:52 INFO mapreduce.Job:  map 68% reduce 23%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:46 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:49 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:08:57 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:08:54 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:52 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:08:55 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:03 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:00 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:01 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:09 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:10 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:04 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:09 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:15 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:08 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:15 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:13 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:21 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:15 INFO mapreduce.Job:  map 96% reduce 31%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:16 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:18 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:27 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:28 INFO mapreduce.Job:  map 74% reduce 25%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:24 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:22 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:24 INFO mapreduce.Job:  map 99% reduce 32%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:25 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:33 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:27 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:30 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:28 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:36 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:43 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:38 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:42 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:49 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:47 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:52 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:48 INFO mapreduce.Job: Job job_1436273621930_0029 completed successfully
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:48 INFO mapreduce.Job: Counters: 50
+Fed>BlockSearch-YARN-c07-10.3.1.7>	File System Counters
+Fed>BlockSearch-YARN-c07-10.3.1.7>		FILE: Number of bytes read=11903817373
+Fed>BlockSearch-YARN-c07-10.3.1.7>		FILE: Number of bytes written=16585059376
+Fed>BlockSearch-YARN-c07-10.3.1.7>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		HDFS: Number of bytes read=14281900215
+Fed>BlockSearch-YARN-c07-10.3.1.7>		HDFS: Number of bytes written=496818
+Fed>BlockSearch-YARN-c07-10.3.1.7>		HDFS: Number of read operations=324
+Fed>BlockSearch-YARN-c07-10.3.1.7>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		HDFS: Number of write operations=2
+Fed>BlockSearch-YARN-c07-10.3.1.7>	Job Counters 
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Launched map tasks=107
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Launched reduce tasks=1
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Data-local map tasks=54
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Rack-local map tasks=53
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total time spent by all maps in occupied slots (ms)=375449
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total time spent by all reduces in occupied slots (ms)=403537
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total time spent by all map tasks (ms)=375449
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total time spent by all reduce tasks (ms)=403537
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total vcore-seconds taken by all map tasks=375449
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total vcore-seconds taken by all reduce tasks=403537
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total megabyte-seconds taken by all map tasks=1537839104
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total megabyte-seconds taken by all reduce tasks=3305775104
+Fed>BlockSearch-YARN-c07-10.3.1.7>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Map input records=208127000
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Map output records=50316618
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Map output bytes=4528186686
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Map output materialized bytes=4635793458
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Input split bytes=13054
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Combine input records=76854821
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Combine output records=76854821
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Reduce input groups=1
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Reduce shuffle bytes=4635793458
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Reduce input records=50316618
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Reduce output records=50367
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Spilled Records=179849988
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Shuffled Maps =107
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Merged Map outputs=107
+Fed>BlockSearch-YARN-c07-10.3.1.7>		GC time elapsed (ms)=13038
+Fed>BlockSearch-YARN-c07-10.3.1.7>		CPU time spent (ms)=611400
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Physical memory (bytes) snapshot=48282628096
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Virtual memory (bytes) snapshot=553860202496
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Total committed heap usage (bytes)=60240691200
+Fed>BlockSearch-YARN-c07-10.3.1.7>	Shuffle Errors
+Fed>BlockSearch-YARN-c07-10.3.1.7>		BAD_ID=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		CONNECTION=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		IO_ERROR=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		WRONG_LENGTH=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		WRONG_MAP=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>		WRONG_REDUCE=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>	File Input Format Counters 
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Bytes Read=14281887161
+Fed>BlockSearch-YARN-c07-10.3.1.7>	File Output Format Counters 
+Fed>BlockSearch-YARN-c07-10.3.1.7>		Bytes Written=496818
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:47 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>----------------------------------
+Fed>mIP 10.3.1.7 Global Aggregation Start Time = 1436504997509
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:09:50 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>BlockSearch-YARN-c07-10.3.1.7> userName = hpds
+Fed>BlockSearch-YARN-c07-10.3.1.7> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>BlockSearch-YARN-c07-10.3.1.7> outputPath = c07_BlockSearch-YARN_OUT_20150710130128
+Fed>BlockSearch-YARN-c07-10.3.1.7> srcHDFS = hdfs://c07:39100/
+Fed>BlockSearch-YARN-c07-10.3.1.7>RegionCloud Distcp [/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop distcp hdfs://c07:39100/user/hpds/c07_BlockSearch-YARN_OUT_20150710130128 hdfs://c02:39100/user/hpds/c07_BlockSearch-YARN_OUT_20150710130128]
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:50 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, maxMaps=20, sslConfigurationFile='null', copyStrategy='uniformsize', sourceFileListing=null, sourcePaths=[hdfs://c07:39100/user/hpds/c07_BlockSearch-YARN_OUT_20150710130128], targetPath=hdfs://c02:39100/user/hpds/c07_BlockSearch-YARN_OUT_20150710130128}
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:50 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:09:55 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO Configuration.deprecation: io.sort.mb is deprecated. Instead, use mapreduce.task.io.sort.mb
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO Configuration.deprecation: io.sort.factor is deprecated. Instead, use mapreduce.task.io.sort.factor
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO mapreduce.JobSubmitter: number of splits:2
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273621930_0030
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO impl.YarnClientImpl: Submitted application application_1436273621930_0030
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO mapreduce.Job: The url to track the job: http://c07:40888/proxy/application_1436273621930_0030/
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO tools.DistCp: DistCp job-id: job_1436273621930_0030
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:51 INFO mapreduce.Job: Running job: job_1436273621930_0030
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:01 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:57 INFO mapreduce.Job: Job job_1436273621930_0030 running in uber mode : false
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:09:57 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:09:59 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:10:00 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:07 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:10:03 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:10:03 INFO mapreduce.Job: Job job_1436273621930_0030 completed successfully
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>15/07/10 13:10:03 INFO mapreduce.Job: Counters: 33
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>	File System Counters
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of bytes read=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of bytes written=191378
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of bytes read=497788
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of bytes written=496818
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of read operations=35
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of write operations=8
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>	Job Counters 
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Launched map tasks=2
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Other local map tasks=2
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Total time spent by all maps in occupied slots (ms)=4530
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Total time spent by all reduces in occupied slots (ms)=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Total time spent by all map tasks (ms)=4530
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Total vcore-seconds taken by all map tasks=4530
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Total megabyte-seconds taken by all map tasks=4638720
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Map input records=2
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Map output records=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Input split bytes=266
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Spilled Records=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Merged Map outputs=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		GC time elapsed (ms)=79
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		CPU time spent (ms)=850
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Physical memory (bytes) snapshot=388603904
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Virtual memory (bytes) snapshot=10196590592
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Total committed heap usage (bytes)=378535936
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>	File Input Format Counters 
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Bytes Read=704
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>	File Output Format Counters 
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		Bytes Written=0
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>	org.apache.hadoop.tools.mapred.CopyMapper$Counter
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		BYTESCOPIED=496818
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		BYTESEXPECTED=496818
+Fed>BlockSearch-YARN-c07-10.3.1.7>Distcp_>		COPY=2
+Fed>BlockSearch-YARN-c07-10.3.1.7>Server To Join
+Fed>BlockSearch-YARN-c07-10.3.1.7>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>BlockSearch-YARN-c07-10.3.1.7>Stop Server
+Fed>BlockSearch-YARN-c07-10.3.1.7>sockettimeout exeception occurs
+Fed>----------------------------------
+Fed>mIP 10.3.1.7 Global Aggreagtion End Time = 1436505013522
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c07-10.3.1.7>Region Cloud Recvied Bye
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:10 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:13 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:10:08 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:19 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:10:17 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:25 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:28 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:31 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:10:26 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:37 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:10:35 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:43 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:46 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:49 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:10:47 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:10:55 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:10:56 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:03 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:04 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:09 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>BlockSearch-YARN-c07-10.3.1.7>java.net.SocketTimeoutException: Accept timed out
+Fed>BlockSearch-YARN-c07-10.3.1.7>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>BlockSearch-YARN-c07-10.3.1.7>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>BlockSearch-YARN-c07-10.3.1.7>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>BlockSearch-YARN-c07-10.3.1.7>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>BlockSearch-YARN-c07-10.3.1.7>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>BlockSearch-YARN-c07-10.3.1.7>Region Cloud Server Closed
+Fed>BlockSearch-YARN-c07-10.3.1.7>Region Cloud Report : RegionCloudsTime = 495505(ms)
+Fed>BlockSearch-YARN-c07-10.3.1.7>Region Cloud Report : GlobalAggregationTime = 77210(ms)
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:11:06 INFO ipc.Client: Retrying connect to server: c10/10.3.1.10:49401. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:05 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:11:07 INFO ipc.Client: Retrying connect to server: c10/10.3.1.10:49401. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:11:08 INFO ipc.Client: Retrying connect to server: c10/10.3.1.10:49401. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c07-10.3.1.7>15/07/10 13:11:08 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:15 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:13 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:20 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:22 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:27 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:22 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:33 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:31 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:40 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:43 INFO mapreduce.Job:  map 95% reduce 32%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:44 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:40 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:48 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:50 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:52 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:49 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:55 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:11:59 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:12:01 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:11:58 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:12:10 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:12:07 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:12:16 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:12:26 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:12:25 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:12:38 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:12:34 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:12:50 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:12:43 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:13:02 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:12:55 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:13:04 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:13:14 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:13:16 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:13:26 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:13:25 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:13:38 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:13:34 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:13:43 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:13:53 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:13:52 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:14:05 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:04 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:14:17 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:16 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:14:29 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:29 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:14:41 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:41 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:14:53 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:47 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:49 INFO mapreduce.Job: Job job_1436273680176_0040 completed successfully
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:49 INFO mapreduce.Job: Counters: 50
+Fed>BlockSearch-YARN-c13-10.3.1.13>	File System Counters
+Fed>BlockSearch-YARN-c13-10.3.1.13>		FILE: Number of bytes read=19274603602
+Fed>BlockSearch-YARN-c13-10.3.1.13>		FILE: Number of bytes written=26303774349
+Fed>BlockSearch-YARN-c13-10.3.1.13>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		HDFS: Number of bytes read=21541478086
+Fed>BlockSearch-YARN-c13-10.3.1.13>		HDFS: Number of bytes written=632467
+Fed>BlockSearch-YARN-c13-10.3.1.13>		HDFS: Number of read operations=486
+Fed>BlockSearch-YARN-c13-10.3.1.13>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		HDFS: Number of write operations=2
+Fed>BlockSearch-YARN-c13-10.3.1.13>	Job Counters 
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Launched map tasks=161
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Launched reduce tasks=1
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Data-local map tasks=26
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Rack-local map tasks=135
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total time spent by all maps in occupied slots (ms)=595067
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total time spent by all reduces in occupied slots (ms)=674569
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total time spent by all map tasks (ms)=595067
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total time spent by all reduce tasks (ms)=674569
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total vcore-seconds taken by all map tasks=595067
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total vcore-seconds taken by all reduce tasks=674569
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total megabyte-seconds taken by all map tasks=2437394432
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total megabyte-seconds taken by all reduce tasks=5526069248
+Fed>BlockSearch-YARN-c13-10.3.1.13>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Map input records=303483962
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Map output records=74538133
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Map output bytes=6801222854
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Map output materialized bytes=6961052266
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Input split bytes=19642
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Combine input records=111712284
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Combine output records=111712284
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Reduce input groups=1
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Reduce shuffle bytes=6961052266
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Reduce input records=74538133
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Reduce output records=74613
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Spilled Records=282743592
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Shuffled Maps =161
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Merged Map outputs=161
+Fed>BlockSearch-YARN-c13-10.3.1.13>		GC time elapsed (ms)=19293
+Fed>BlockSearch-YARN-c13-10.3.1.13>		CPU time spent (ms)=928100
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Physical memory (bytes) snapshot=70597267456
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Virtual memory (bytes) snapshot=829317304320
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Total committed heap usage (bytes)=87801462784
+Fed>BlockSearch-YARN-c13-10.3.1.13>	Shuffle Errors
+Fed>BlockSearch-YARN-c13-10.3.1.13>		BAD_ID=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		CONNECTION=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		IO_ERROR=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		WRONG_LENGTH=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		WRONG_MAP=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>		WRONG_REDUCE=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>	File Input Format Counters 
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Bytes Read=21541458444
+Fed>BlockSearch-YARN-c13-10.3.1.13>	File Output Format Counters 
+Fed>BlockSearch-YARN-c13-10.3.1.13>		Bytes Written=632467
+Fed>----------------------------------
+Fed>mIP 10.3.1.13 Global Aggregation Start Time = 1436505300299
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:14:51 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>BlockSearch-YARN-c13-10.3.1.13> userName = hpds
+Fed>BlockSearch-YARN-c13-10.3.1.13> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>BlockSearch-YARN-c13-10.3.1.13> outputPath = c13_BlockSearch-YARN_OUT_20150710130128
+Fed>BlockSearch-YARN-c13-10.3.1.13> srcHDFS = hdfs://c13:39100/
+Fed>BlockSearch-YARN-c13-10.3.1.13>RegionCloud Distcp [/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop distcp hdfs://c13:39100/user/hpds/c13_BlockSearch-YARN_OUT_20150710130128 hdfs://c02:39100/user/hpds/c13_BlockSearch-YARN_OUT_20150710130128]
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:51 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, maxMaps=20, sslConfigurationFile='null', copyStrategy='uniformsize', sourceFileListing=null, sourcePaths=[hdfs://c13:39100/user/hpds/c13_BlockSearch-YARN_OUT_20150710130128], targetPath=hdfs://c02:39100/user/hpds/c13_BlockSearch-YARN_OUT_20150710130128}
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:51 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO Configuration.deprecation: io.sort.mb is deprecated. Instead, use mapreduce.task.io.sort.mb
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO Configuration.deprecation: io.sort.factor is deprecated. Instead, use mapreduce.task.io.sort.factor
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO mapreduce.JobSubmitter: number of splits:2
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273680176_0041
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO impl.YarnClientImpl: Submitted application application_1436273680176_0041
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO mapreduce.Job: The url to track the job: http://c13:40888/proxy/application_1436273680176_0041/
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO tools.DistCp: DistCp job-id: job_1436273680176_0041
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:14:52 INFO mapreduce.Job: Running job: job_1436273680176_0041
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:15:05 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:15:01 INFO mapreduce.Job: Job job_1436273680176_0041 running in uber mode : false
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:15:01 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:15:06 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:15:06 INFO mapreduce.Job: Job job_1436273680176_0041 completed successfully
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>15/07/10 13:15:06 INFO mapreduce.Job: Counters: 33
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>	File System Counters
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of bytes read=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of bytes written=191394
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of bytes read=633441
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of bytes written=632467
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of read operations=35
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of write operations=8
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>	Job Counters 
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Launched map tasks=2
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Other local map tasks=2
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Total time spent by all maps in occupied slots (ms)=3140
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Total time spent by all reduces in occupied slots (ms)=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Total time spent by all map tasks (ms)=3140
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Total vcore-seconds taken by all map tasks=3140
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Total megabyte-seconds taken by all map tasks=3215360
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Map input records=2
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Map output records=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Input split bytes=270
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Spilled Records=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Merged Map outputs=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		GC time elapsed (ms)=73
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		CPU time spent (ms)=800
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Physical memory (bytes) snapshot=383840256
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Virtual memory (bytes) snapshot=10194001920
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Total committed heap usage (bytes)=451936256
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>	File Input Format Counters 
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Bytes Read=704
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>	File Output Format Counters 
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		Bytes Written=0
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>	org.apache.hadoop.tools.mapred.CopyMapper$Counter
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		BYTESCOPIED=632467
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		BYTESEXPECTED=632467
+Fed>BlockSearch-YARN-c13-10.3.1.13>Distcp_>		COPY=2
+Fed>BlockSearch-YARN-c13-10.3.1.13>Server To Join
+Fed>BlockSearch-YARN-c13-10.3.1.13>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>BlockSearch-YARN-c13-10.3.1.13>Stop Server
+Fed>BlockSearch-YARN-c13-10.3.1.13>sockettimeout exeception occurs
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:15:14 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>----------------------------------
+Fed>mIP 10.3.1.13 Global Aggreagtion End Time = 1436505318314
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c13-10.3.1.13>Region Cloud Recvied Bye
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:15:26 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:15:41 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:15:50 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:16:05 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:16:14 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>BlockSearch-YARN-c13-10.3.1.13>java.net.SocketTimeoutException: Accept timed out
+Fed>BlockSearch-YARN-c13-10.3.1.13>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>BlockSearch-YARN-c13-10.3.1.13>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>BlockSearch-YARN-c13-10.3.1.13>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>BlockSearch-YARN-c13-10.3.1.13>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>BlockSearch-YARN-c13-10.3.1.13>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>BlockSearch-YARN-c13-10.3.1.13>Region Cloud Server Closed
+Fed>BlockSearch-YARN-c13-10.3.1.13>Region Cloud Report : RegionCloudsTime = 798154(ms)
+Fed>BlockSearch-YARN-c13-10.3.1.13>Region Cloud Report : GlobalAggregationTime = 79384(ms)
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:16:09 INFO ipc.Client: Retrying connect to server: c27/10.3.1.27:34722. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:16:10 INFO ipc.Client: Retrying connect to server: c27/10.3.1.27:34722. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:16:11 INFO ipc.Client: Retrying connect to server: c27/10.3.1.27:34722. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c13-10.3.1.13>15/07/10 13:16:11 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:16:29 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:16:44 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:16:56 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:17:08 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:17:23 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:17:35 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:17:54 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:18:09 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:18:24 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:18:36 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:18:47 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:18:59 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:19:01 INFO mapreduce.Job: Job job_1436273844725_0024 completed successfully
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:19:01 INFO mapreduce.Job: Counters: 49
+Fed>BlockSearch-YARN-c19-10.3.1.19>	File System Counters
+Fed>BlockSearch-YARN-c19-10.3.1.19>		FILE: Number of bytes read=24655240793
+Fed>BlockSearch-YARN-c19-10.3.1.19>		FILE: Number of bytes written=33734137842
+Fed>BlockSearch-YARN-c19-10.3.1.19>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		HDFS: Number of bytes read=27853150470
+Fed>BlockSearch-YARN-c19-10.3.1.19>		HDFS: Number of bytes written=618634
+Fed>BlockSearch-YARN-c19-10.3.1.19>		HDFS: Number of read operations=627
+Fed>BlockSearch-YARN-c19-10.3.1.19>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		HDFS: Number of write operations=2
+Fed>BlockSearch-YARN-c19-10.3.1.19>	Job Counters 
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Launched map tasks=208
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Launched reduce tasks=1
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Rack-local map tasks=208
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total time spent by all maps in occupied slots (ms)=683397
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total time spent by all reduces in occupied slots (ms)=895384
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total time spent by all map tasks (ms)=683397
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total time spent by all reduce tasks (ms)=895384
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total vcore-seconds taken by all map tasks=683397
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total vcore-seconds taken by all reduce tasks=895384
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total megabyte-seconds taken by all map tasks=2799194112
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total megabyte-seconds taken by all reduce tasks=7334985728
+Fed>BlockSearch-YARN-c19-10.3.1.19>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Map input records=384982611
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Map output records=95649571
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Map output bytes=8785592995
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Map output materialized bytes=8991044642
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Input split bytes=25376
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Combine input records=135130995
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Combine output records=135130995
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Reduce input groups=1
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Reduce shuffle bytes=8991044642
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Reduce input records=95649571
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Reduce output records=95746
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Spilled Records=360623764
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Shuffled Maps =208
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Merged Map outputs=208
+Fed>BlockSearch-YARN-c19-10.3.1.19>		GC time elapsed (ms)=25099
+Fed>BlockSearch-YARN-c19-10.3.1.19>		CPU time spent (ms)=1198020
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Physical memory (bytes) snapshot=91799400448
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Virtual memory (bytes) snapshot=1068916002816
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Total committed heap usage (bytes)=114251792384
+Fed>BlockSearch-YARN-c19-10.3.1.19>	Shuffle Errors
+Fed>BlockSearch-YARN-c19-10.3.1.19>		BAD_ID=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		CONNECTION=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		IO_ERROR=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		WRONG_LENGTH=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		WRONG_MAP=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>		WRONG_REDUCE=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>	File Input Format Counters 
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Bytes Read=27853125094
+Fed>BlockSearch-YARN-c19-10.3.1.19>	File Output Format Counters 
+Fed>BlockSearch-YARN-c19-10.3.1.19>		Bytes Written=618634
+Fed>----------------------------------
+Fed>mIP 10.3.1.19 Global Aggregation Start Time = 1436505545938
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:19:03 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>BlockSearch-YARN-c19-10.3.1.19> userName = hpds
+Fed>BlockSearch-YARN-c19-10.3.1.19> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>BlockSearch-YARN-c19-10.3.1.19> outputPath = c19_BlockSearch-YARN_OUT_20150710130128
+Fed>BlockSearch-YARN-c19-10.3.1.19> srcHDFS = hdfs://c19:39100/
+Fed>BlockSearch-YARN-c19-10.3.1.19>RegionCloud Distcp [/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop distcp hdfs://c19:39100/user/hpds/c19_BlockSearch-YARN_OUT_20150710130128 hdfs://c02:39100/user/hpds/c19_BlockSearch-YARN_OUT_20150710130128]
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:03 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, maxMaps=20, sslConfigurationFile='null', copyStrategy='uniformsize', sourceFileListing=null, sourcePaths=[hdfs://c19:39100/user/hpds/c19_BlockSearch-YARN_OUT_20150710130128], targetPath=hdfs://c02:39100/user/hpds/c19_BlockSearch-YARN_OUT_20150710130128}
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:03 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO Configuration.deprecation: io.sort.mb is deprecated. Instead, use mapreduce.task.io.sort.mb
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO Configuration.deprecation: io.sort.factor is deprecated. Instead, use mapreduce.task.io.sort.factor
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO mapreduce.JobSubmitter: number of splits:2
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273844725_0025
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO impl.YarnClientImpl: Submitted application application_1436273844725_0025
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO mapreduce.Job: The url to track the job: http://c19:40888/proxy/application_1436273844725_0025/
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO tools.DistCp: DistCp job-id: job_1436273844725_0025
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:04 INFO mapreduce.Job: Running job: job_1436273844725_0025
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:10 INFO mapreduce.Job: Job job_1436273844725_0025 running in uber mode : false
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:10 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:14 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:15 INFO mapreduce.Job: Job job_1436273844725_0025 completed successfully
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>15/07/10 13:19:15 INFO mapreduce.Job: Counters: 33
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>	File System Counters
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of bytes read=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of bytes written=191388
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of read operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of large read operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of write operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of bytes read=619606
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of bytes written=618634
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of read operations=35
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of large read operations=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of write operations=8
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>	Job Counters 
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Launched map tasks=2
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Other local map tasks=2
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Total time spent by all maps in occupied slots (ms)=3111
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Total time spent by all reduces in occupied slots (ms)=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Total time spent by all map tasks (ms)=3111
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Total vcore-seconds taken by all map tasks=3111
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Total megabyte-seconds taken by all map tasks=3185664
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>	Map-Reduce Framework
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Map input records=2
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Map output records=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Input split bytes=268
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Spilled Records=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Failed Shuffles=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Merged Map outputs=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		GC time elapsed (ms)=75
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		CPU time spent (ms)=780
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Physical memory (bytes) snapshot=384962560
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Virtual memory (bytes) snapshot=10194984960
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Total committed heap usage (bytes)=379060224
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>	File Input Format Counters 
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Bytes Read=704
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>	File Output Format Counters 
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		Bytes Written=0
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>	org.apache.hadoop.tools.mapred.CopyMapper$Counter
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		BYTESCOPIED=618634
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		BYTESEXPECTED=618634
+Fed>BlockSearch-YARN-c19-10.3.1.19>Distcp_>		COPY=2
+Fed>BlockSearch-YARN-c19-10.3.1.19>Server To Join
+Fed>BlockSearch-YARN-c19-10.3.1.19>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>BlockSearch-YARN-c19-10.3.1.19>Stop Server
+Fed>BlockSearch-YARN-c19-10.3.1.19>sockettimeout exeception occurs
+Fed>----------------------------------
+Fed>mIP 10.3.1.19 Global Aggreagtion End Time = 1436505560949
+Fed>----------------------------------
+Fed>BlockSearch-YARN-c19-10.3.1.19>Region Cloud Recvied Bye
+Fed>BlockSearch-YARN-c19-10.3.1.19>java.net.SocketTimeoutException: Accept timed out
+Fed>BlockSearch-YARN-c19-10.3.1.19>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>BlockSearch-YARN-c19-10.3.1.19>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>BlockSearch-YARN-c19-10.3.1.19>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>BlockSearch-YARN-c19-10.3.1.19>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>BlockSearch-YARN-c19-10.3.1.19>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>BlockSearch-YARN-c19-10.3.1.19>Region Cloud Server Closed
+Fed>BlockSearch-YARN-c19-10.3.1.19>Region Cloud Report : RegionCloudsTime = 1046325(ms)
+Fed>BlockSearch-YARN-c19-10.3.1.19>Region Cloud Report : GlobalAggregationTime = 76314(ms)
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:20:18 INFO ipc.Client: Retrying connect to server: c24/10.3.1.24:33003. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:20:19 INFO ipc.Client: Retrying connect to server: c24/10.3.1.24:33003. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:20:20 INFO ipc.Client: Retrying connect to server: c24/10.3.1.24:33003. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>BlockSearch-YARN-c19-10.3.1.19>15/07/10 13:20:20 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>FedRegionCloudJob All Joined
+Fed>TopCloud Report : RegionCloud End Time = 1127545(ms)
+Fed>TopCloud Report : RegionCloud Total Time = 1127545(ms)
+Fed>----------------------------------
+Fed>Map-ProxyReduce Phrase Finished
+Fed>----------------------------------
+Fed>
+Fed>----------------------------------
+Fed>Global Aggregation Start ...
+Fed>----------------------------------
+Fed>Wait For FedCouldMonitorClient Join
+Fed>FedCouldMonitorClient All Joined
+Fed>Top Cloud Report : Global Aggregation Consuming Time :
+Fed>mIP 10.3.1.19 Intermediate data Aggregation Time = 15011(ms)
+Fed>mIP 10.3.1.7 Intermediate data Aggregation Time = 16013(ms)
+Fed>mIP 10.3.1.2 Intermediate data Aggregation Time = 3001(ms)
+Fed>mIP 10.3.1.13 Intermediate data Aggregation Time = 18015(ms)
+Fed>----------------------------------
+Fed>Global Aggregation End ...
+Fed>----------------------------------
+Fed>Select ProxyMapper : ncku.hpds.fed.MRv2.ProxySelector.ProxyMapperTextText
+Fed>----------------------------------
+Fed>TopCloud Start Time = 1436505624544
+Fed>----------------------------------
+Fed>15/07/10 13:20:24 INFO client.RMProxy: Connecting to ResourceManager at c02/10.3.1.2:40832
+Fed>15/07/10 13:20:25 INFO input.FileInputFormat: Total input paths to process : 4
+Fed>15/07/10 13:20:25 INFO mapreduce.JobSubmitter: number of splits:4
+Fed>15/07/10 13:20:25 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273655163_0027
+Fed>15/07/10 13:20:25 INFO impl.YarnClientImpl: Submitted application application_1436273655163_0027
+Fed>15/07/10 13:20:25 INFO mapreduce.Job: The url to track the job: http://c02:40888/proxy/application_1436273655163_0027/
+Fed>15/07/10 13:20:25 INFO mapreduce.Job: Running job: job_1436273655163_0027
+Fed>15/07/10 13:20:29 INFO mapreduce.Job: Job job_1436273655163_0027 running in uber mode : false
+Fed>15/07/10 13:20:29 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>15/07/10 13:20:33 INFO mapreduce.Job:  map 75% reduce 0%
+Fed>15/07/10 13:20:34 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>15/07/10 13:20:37 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>15/07/10 13:20:37 INFO mapreduce.Job: Job job_1436273655163_0027 completed successfully
+Fed>----------------------------------
+Fed>TopCloudEnd() = 1436505637686
+Fed>----------------------------------
+Fed>Top Cloud Report : RegionCloud Work Time = 1127545(ms)
+Fed>Top Cloud Report : Top Cloud Work Time = 13142(ms)
+Fed>Top Cloud Report : Global Aggregation Time Details : 
+Fed>mIP 10.3.1.19 Intermediate data Aggregation Time = 15011(ms)
+Fed>mIP 10.3.1.7 Intermediate data Aggregation Time = 16013(ms)
+Fed>mIP 10.3.1.2 Intermediate data Aggregation Time = 3001(ms)
+Fed>mIP 10.3.1.13 Intermediate data Aggregation Time = 18015(ms)
+Fed>Top Cloud Report : Total Global Aggregation Time = 52040(ms)
+Fed>actual Aggregation Time = 795229(ms)
+Fed>total time = 1935916.0 (ms), 1935.916(s)
+Fed>15/07/10 13:20:37 INFO mapreduce.Job: Counters: 50
+Fed>	File System Counters
+Fed>		FILE: Number of bytes read=485219
+Fed>		FILE: Number of bytes written=1440841
+Fed>		FILE: Number of read operations=0
+Fed>		FILE: Number of large read operations=0
+Fed>		FILE: Number of write operations=0
+Fed>		HDFS: Number of bytes read=1949625
+Fed>		HDFS: Number of bytes written=477156
+Fed>		HDFS: Number of read operations=15
+Fed>		HDFS: Number of large read operations=0
+Fed>		HDFS: Number of write operations=2
+Fed>	Job Counters 
+Fed>		Launched map tasks=4
+Fed>		Launched reduce tasks=1
+Fed>		Data-local map tasks=2
+Fed>		Rack-local map tasks=2
+Fed>		Total time spent by all maps in occupied slots (ms)=5754
+Fed>		Total time spent by all reduces in occupied slots (ms)=1605
+Fed>		Total time spent by all map tasks (ms)=5754
+Fed>		Total time spent by all reduce tasks (ms)=1605
+Fed>		Total vcore-seconds taken by all map tasks=5754
+Fed>		Total vcore-seconds taken by all reduce tasks=1605
+Fed>		Total megabyte-seconds taken by all map tasks=23568384
+Fed>		Total megabyte-seconds taken by all reduce tasks=13148160
+Fed>	Map-Reduce Framework
+Fed>		Map input records=247287
+Fed>		Map output records=2867
+Fed>		Map output bytes=478308
+Fed>		Map output materialized bytes=485237
+Fed>		Input split bytes=576
+Fed>		Combine input records=2867
+Fed>		Combine output records=2867
+Fed>		Reduce input groups=1
+Fed>		Reduce shuffle bytes=485237
+Fed>		Reduce input records=2867
+Fed>		Reduce output records=2867
+Fed>		Spilled Records=5734
+Fed>		Shuffled Maps =4
+Fed>		Failed Shuffles=0
+Fed>		Merged Map outputs=4
+Fed>		GC time elapsed (ms)=223
+Fed>		CPU time spent (ms)=3710
+Fed>		Physical memory (bytes) snapshot=1405190144
+Fed>		Virtual memory (bytes) snapshot=28820283392
+Fed>		Total committed heap usage (bytes)=1283457024
+Fed>	Shuffle Errors
+Fed>		BAD_ID=0
+Fed>		CONNECTION=0
+Fed>		IO_ERROR=0
+Fed>		WRONG_LENGTH=0
+Fed>		WRONG_MAP=0
+Fed>		WRONG_REDUCE=0
+Fed>	File Input Format Counters 
+Fed>		Bytes Read=1949049
+Fed>	File Output Format Counters 
+Fed>		Bytes Written=477156
+FedMR-Process exitValue: 0
+globalFileName : 400Gbs_out_href
+globalFileName : 400Gbs_out_href
+host and path : c02:/user/hpds/400Gbs_out_href

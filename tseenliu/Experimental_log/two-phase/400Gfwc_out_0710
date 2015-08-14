@@ -1,0 +1,1893 @@
+use default value : 1.0
+
+globalFile : amazon400G
+amazon400G
+globalFile : amazon400G
+c02=3413543215104 38891857209 38891857209
+c07=1763864190976 82792027227 82792027227
+c13=2503281184768 131091898386 131091898386
+c19=1089899069440 175158577171 175158577171
+Top Cloud of FedMR:c02
+/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+use default value : none
+
+XML DOM Created Successfully
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+JarCopy-Process exitValue: 0
+FedMR.xml
+scp FedMR.xml hpds@10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task
+XMLCopy-Process exitValue: 0
+ FedJob : ssh hpds@10.3.1.2 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount  -Dfed=true  -Dfedconf=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/FedMR.xml   amazon400G 400Gfwc_out_0710 
+Fed>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>fed = true
+Fed>mFedFlag = true
+Fed>15/07/10 14:17:17 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>Tag : RegionCloudListenPort use default value : 55679
+Fed>regJarFileName = hadoop-mapreduce-examples-2.5.0.jar
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c19_wordcount-YARN_OUT_20150710141717
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c07_wordcount-YARN_OUT_20150710141717
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c02_wordcount-YARN_OUT_20150710141717
+Fed>Tag : HDFSInputPath use default value : none
+Fed>Tag : HDFSOutputPath use default value : c13_wordcount-YARN_OUT_20150710141717
+Fed>make FedRegionCloudJobs
+Fed>init FedRegionCloudJob
+Fed>init FedRegionCloudJob
+Fed>init FedRegionCloudJob
+Fed>init FedRegionCloudJob
+Fed>add path [c19_wordcount-YARN_OUT_20150710141717/] in InputPaths
+Fed>add path [c07_wordcount-YARN_OUT_20150710141717/] in InputPaths
+Fed>add path [c02_wordcount-YARN_OUT_20150710141717/] in InputPaths
+Fed>add path [c13_wordcount-YARN_OUT_20150710141717/] in InputPaths
+Fed>FedRegionCloudJobs size : 4
+Fed>make FedCloudMonitorClients
+Fed>init JarCopyJob 
+Fed>init JarCopyJob 
+Fed>init JarCopyJob 
+Fed>init JarCopyJob 
+Fed>Run AS Top Cloud
+Fed>Start Jar copy jobs
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar 10.3.1.19:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar 10.3.1.7:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar 10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>Wait For Jar copy finishing
+Fed>run JarCopyJob 
+Fed>make region cloud command
+Fed>JarCopyJob cmd scp /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar 10.3.1.13:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/
+Fed>Jar copy Jobs finished
+Fed>TopCloud Report : RegionCloud Start Time = 1436509041150(ms)
+Fed>Start FedRegionCloudJobs
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>Arg 0 = /user/hpds/amazon160G
+Fed>Arg 1 = out
+Fed>Arg 2 = none
+Fed>Arg 3 = none
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.19 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/hadoop-mapreduce-examples-2.5.0.jar  wordcount -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c19_wordcount-YARN_OUT_20150710141717  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/amazon160G out 
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>Start FedCloudMonitorClient
+Fed>Arg 0 = /user/hpds/amazon40G
+Fed>Arg 1 = out
+Fed>run FedRegionCloudJob
+Fed>make region cloud command
+Fed>Arg 0 = /user/hpds/amazon80G
+Fed>Arg 0 = /user/hpds/amazon120G
+Fed>Arg 2 = none
+Fed>Arg 3 = none
+Fed>Arg 1 = out
+Fed>Arg 1 = out
+Fed>Arg 2 = none
+Fed>Arg 3 = none
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.13 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/hadoop-mapreduce-examples-2.5.0.jar  wordcount -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c13_wordcount-YARN_OUT_20150710141717  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/amazon120G out 
+Fed>Arg 4 = none
+Fed>Arg 2 = none
+Fed>Arg 5 = none
+Fed>Arg 3 = none
+Fed>Arg 4 = none
+Fed>Arg 5 = none
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.7 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/hadoop-mapreduce-examples-2.5.0.jar  wordcount -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c07_wordcount-YARN_OUT_20150710141717  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/amazon80G out 
+Fed>Arg 6 = none
+Fed>Arg 7 = none
+Fed>Arg 8 = none
+Fed>Arg 9 = none
+Fed>RegionCloud cmd ssh 10.3.1.2 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/fed_task/hadoop-mapreduce-examples-2.5.0.jar  wordcount -DregionCloud=on  -DtopCloudHDFS=hdfs://c02:39100/  -DregionCloudServerPort=55679  -DregionCloudOutput=c02_wordcount-YARN_OUT_20150710141717  -DregionCloudHadoopHome=/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1   /user/hpds/amazon40G out 
+Fed>Wait For FedRegionCloudJob Join
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>connect to 10.3.1.2 failed reconnect 
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>connect to 10.3.1.13 failed reconnect 
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>connect to 10.3.1.19 failed reconnect 
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>connect to 10.3.1.7 failed reconnect 
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>wordcount-YARN-c19-10.3.1.19>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>wordcount-YARN-c19-10.3.1.19>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>wordcount-YARN-c19-10.3.1.19>fed = off
+Fed>wordcount-YARN-c19-10.3.1.19>mFedFlag = false
+Fed>wordcount-YARN-c19-10.3.1.19>Run AS Region Cloud
+Fed>wordcount-YARN-c19-10.3.1.19>----------------------------------
+Fed>wordcount-YARN-c19-10.3.1.19>|        RegionCloud Mode        |
+Fed>wordcount-YARN-c19-10.3.1.19>----------------------------------
+Fed>wordcount-YARN-c19-10.3.1.19>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextInt
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:19 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:19 INFO input.FileInputFormat: Total input paths to process : 36
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:19 INFO mapreduce.JobSubmitter: number of splits:1325
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:20 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273844725_0026
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:20 INFO impl.YarnClientImpl: Submitted application application_1436273844725_0026
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:20 INFO mapreduce.Job: The url to track the job: http://c19:40888/proxy/application_1436273844725_0026/
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:20 INFO mapreduce.Job: Running job: job_1436273844725_0026
+Fed>connect to 10.3.1.2 failed reconnect 
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>connect to 10.3.1.13 failed reconnect 
+Fed>java.net.ConnectException: Connection refused
+Fed>	at java.net.PlainSocketImpl.socketConnect(Native Method)
+Fed>	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+Fed>	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+Fed>	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+Fed>	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+Fed>	at java.net.Socket.connect(Socket.java:589)
+Fed>	at ncku.hpds.fed.MRv2.FedCloudMonitorClient.run(FedCloudMonitorClient.java:36)
+Fed>connect to 10.3.1.7 failed reconnect 
+Fed>Client to 10.3.1.19  mRunFlag = true
+Fed>wordcount-YARN-c02-10.3.1.2>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>wordcount-YARN-c02-10.3.1.2>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>wordcount-YARN-c02-10.3.1.2>fed = off
+Fed>wordcount-YARN-c02-10.3.1.2>mFedFlag = false
+Fed>wordcount-YARN-c13-10.3.1.13>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/
+Fed>wordcount-YARN-c13-10.3.1.13>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>wordcount-YARN-c13-10.3.1.13>fed = off
+Fed>wordcount-YARN-c13-10.3.1.13>mFedFlag = false
+Fed>wordcount-YARN-c02-10.3.1.2>Run AS Region Cloud
+Fed>wordcount-YARN-c02-10.3.1.2>----------------------------------
+Fed>wordcount-YARN-c02-10.3.1.2>|        RegionCloud Mode        |
+Fed>wordcount-YARN-c02-10.3.1.2>----------------------------------
+Fed>wordcount-YARN-c02-10.3.1.2>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextInt
+Fed>wordcount-YARN-c13-10.3.1.13>Run AS Region Cloud
+Fed>wordcount-YARN-c13-10.3.1.13>----------------------------------
+Fed>wordcount-YARN-c13-10.3.1.13>|        RegionCloud Mode        |
+Fed>wordcount-YARN-c13-10.3.1.13>----------------------------------
+Fed>wordcount-YARN-c13-10.3.1.13>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextInt
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO client.RMProxy: Connecting to ResourceManager at c02/10.3.1.2:40832
+Fed>wordcount-YARN-c07-10.3.1.7>Hadoop Home Path : /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>wordcount-YARN-c07-10.3.1.7>###### outputFormat.getCanonicalName() = org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
+Fed>wordcount-YARN-c07-10.3.1.7>fed = off
+Fed>wordcount-YARN-c07-10.3.1.7>mFedFlag = false
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:15 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+Fed>wordcount-YARN-c07-10.3.1.7>Run AS Region Cloud
+Fed>wordcount-YARN-c07-10.3.1.7>----------------------------------
+Fed>wordcount-YARN-c07-10.3.1.7>|        RegionCloud Mode        |
+Fed>wordcount-YARN-c07-10.3.1.7>----------------------------------
+Fed>wordcount-YARN-c07-10.3.1.7>Select ProxyReducer : ncku.hpds.fed.MRv2.ProxySelector.ProxyReducerTextInt
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO input.FileInputFormat: Total input paths to process : 8
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:15 INFO input.FileInputFormat: Total input paths to process : 27
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO input.FileInputFormat: Total input paths to process : 17
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO mapreduce.JobSubmitter: number of splits:294
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:15 INFO mapreduce.JobSubmitter: number of splits:987
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO mapreduce.JobSubmitter: number of splits:627
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273655163_0028
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:15 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273680176_0042
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273621930_0031
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO impl.YarnClientImpl: Submitted application application_1436273655163_0028
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO mapreduce.Job: The url to track the job: http://c02:40888/proxy/application_1436273655163_0028/
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:25 INFO mapreduce.Job: Running job: job_1436273655163_0028
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:16 INFO impl.YarnClientImpl: Submitted application application_1436273680176_0042
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:16 INFO mapreduce.Job: The url to track the job: http://c13:40888/proxy/application_1436273680176_0042/
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:16 INFO mapreduce.Job: Running job: job_1436273680176_0042
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO impl.YarnClientImpl: Submitted application application_1436273621930_0031
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO mapreduce.Job: The url to track the job: http://c07:40888/proxy/application_1436273621930_0031/
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:17 INFO mapreduce.Job: Running job: job_1436273621930_0031
+Fed>Client to 10.3.1.2  mRunFlag = true
+Fed>Client to 10.3.1.13  mRunFlag = true
+Fed>Client to 10.3.1.7  mRunFlag = true
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:24 INFO mapreduce.Job: Job job_1436273844725_0026 running in uber mode : false
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:24 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:29 INFO mapreduce.Job: Job job_1436273655163_0028 running in uber mode : false
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:29 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:22 INFO mapreduce.Job: Job job_1436273621930_0031 running in uber mode : false
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:22 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:21 INFO mapreduce.Job: Job job_1436273680176_0042 running in uber mode : false
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:21 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:39 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:36 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:52 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:17:49 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:17:44 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:17:57 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:17:58 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:18:09 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:18:19 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:18:14 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:18:17 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:18:32 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:18:36 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:18:34 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:18:39 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:18:48 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:18:59 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:18:50 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:19:04 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:19:02 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:19:15 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:19:20 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:19:25 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:19:20 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:19:21 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:19:38 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:19:44 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:19:44 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:19:55 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:20:05 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:19:55 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:20:03 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:20:02 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:20:17 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:20:23 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:20:33 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:20:25 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:20:26 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:20:45 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:20:46 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:20:43 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:20:54 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:21:03 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:21:12 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:21:02 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:21:05 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:21:24 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:21:32 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:21:34 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:21:29 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:21:41 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:21:32 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:21:51 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:21:46 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:03 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:10 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:22:02 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:22:09 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:22:16 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:20 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:30 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:22:26 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:42 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:22:37 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:49 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:22:50 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:22:59 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:22:59 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:23:09 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:23:09 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:23:19 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:23:09 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:23:28 INFO mapreduce.Job:  map 37% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:23:40 INFO mapreduce.Job:  map 38% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:23:32 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:23:45 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:23:50 INFO mapreduce.Job:  map 39% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:23:42 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:23:58 INFO mapreduce.Job:  map 40% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:23:50 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:24:08 INFO mapreduce.Job:  map 41% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:24:19 INFO mapreduce.Job:  map 42% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:24:12 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:24:14 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:24:29 INFO mapreduce.Job:  map 43% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:24:29 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:24:38 INFO mapreduce.Job:  map 44% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:24:36 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:24:47 INFO mapreduce.Job:  map 45% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:24:57 INFO mapreduce.Job:  map 46% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:24:50 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:24:54 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:10 INFO mapreduce.Job:  map 47% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:25:13 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:17 INFO mapreduce.Job:  map 48% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:25 INFO mapreduce.Job:  map 49% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:25:17 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:25:20 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:36 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:25:35 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:44 INFO mapreduce.Job:  map 51% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:52 INFO mapreduce.Job:  map 51% reduce 4%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:25:56 INFO mapreduce.Job:  map 52% reduce 4%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:25:56 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:01 INFO mapreduce.Job:  map 52% reduce 5%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:04 INFO mapreduce.Job:  map 52% reduce 6%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:25:58 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:07 INFO mapreduce.Job:  map 52% reduce 7%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:25:57 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:10 INFO mapreduce.Job:  map 53% reduce 7%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:16 INFO mapreduce.Job:  map 53% reduce 8%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:22 INFO mapreduce.Job:  map 53% reduce 9%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:23 INFO mapreduce.Job:  map 54% reduce 9%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:26:18 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:29 INFO mapreduce.Job:  map 54% reduce 10%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:35 INFO mapreduce.Job:  map 54% reduce 11%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:36 INFO mapreduce.Job:  map 55% reduce 11%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:26:27 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:38 INFO mapreduce.Job:  map 55% reduce 12%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:26:41 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:26:39 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:47 INFO mapreduce.Job:  map 55% reduce 13%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:50 INFO mapreduce.Job:  map 56% reduce 14%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:26:53 INFO mapreduce.Job:  map 56% reduce 15%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:02 INFO mapreduce.Job:  map 56% reduce 16%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:03 INFO mapreduce.Job:  map 57% reduce 16%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:05 INFO mapreduce.Job:  map 57% reduce 17%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:27:01 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:27:03 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:16 INFO mapreduce.Job:  map 58% reduce 17%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:18 INFO mapreduce.Job:  map 58% reduce 18%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:21 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:27:25 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:27:21 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:30 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:32 INFO mapreduce.Job:  map 59% reduce 20%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:27:33 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:44 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:27:44 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:27:56 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:28:01 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:10 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:11 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:28:08 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:28:10 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:23 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:28:25 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:35 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:47 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:50 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:28:40 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:28:45 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:28:51 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:28:58 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:29:13 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:29:05 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:29:14 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:29:25 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:29:29 INFO mapreduce.Job:  map 68% reduce 23%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:29:27 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:29:37 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:29:36 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:29:53 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:29:46 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:29:46 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:30:11 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:30:08 INFO mapreduce.Job:  map 37% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:30:17 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:30:19 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:30:17 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:30:28 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:30:29 INFO mapreduce.Job:  map 38% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:30:45 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:30:51 INFO mapreduce.Job:  map 39% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:30:51 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:31:04 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:31:04 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:31:11 INFO mapreduce.Job:  map 74% reduce 25%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:31:11 INFO mapreduce.Job:  map 40% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:31:22 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:31:22 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:31:38 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:31:33 INFO mapreduce.Job:  map 41% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:31:48 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:31:57 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:32:00 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:31:55 INFO mapreduce.Job:  map 42% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:31:57 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:32:15 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:32:13 INFO mapreduce.Job:  map 43% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:32:33 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:32:33 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:32:29 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:32:35 INFO mapreduce.Job:  map 44% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:32:51 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:32:54 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:32:55 INFO mapreduce.Job:  map 45% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:33:09 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:33:04 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:33:18 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:33:17 INFO mapreduce.Job:  map 46% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:33:26 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:33:43 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:33:35 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:33:38 INFO mapreduce.Job:  map 47% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:33:48 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:34:01 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:34:01 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:33:58 INFO mapreduce.Job:  map 48% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:34:09 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:34:20 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:34:21 INFO mapreduce.Job:  map 49% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:34:38 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:34:42 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:34:44 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:34:40 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:34:40 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:34:56 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:01 INFO mapreduce.Job:  map 51% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:06 INFO mapreduce.Job:  map 51% reduce 2%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:35:15 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:35:15 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:18 INFO mapreduce.Job:  map 51% reduce 3%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:35:33 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:35:30 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:27 INFO mapreduce.Job:  map 51% reduce 4%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:28 INFO mapreduce.Job:  map 52% reduce 4%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:35:39 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:36 INFO mapreduce.Job:  map 52% reduce 5%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:42 INFO mapreduce.Job:  map 52% reduce 6%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:35:51 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:35:47 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:57 INFO mapreduce.Job:  map 52% reduce 7%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:35:58 INFO mapreduce.Job:  map 53% reduce 7%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:36:10 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:09 INFO mapreduce.Job:  map 53% reduce 8%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:36:14 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:21 INFO mapreduce.Job:  map 53% reduce 9%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:36:30 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:36:21 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:28 INFO mapreduce.Job:  map 54% reduce 9%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:36:36 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:36 INFO mapreduce.Job:  map 54% reduce 10%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:42 INFO mapreduce.Job:  map 54% reduce 11%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:36:53 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:36:58 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:56 INFO mapreduce.Job:  map 55% reduce 11%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:36:54 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:36:57 INFO mapreduce.Job:  map 55% reduce 12%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:37:17 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:37:09 INFO mapreduce.Job:  map 55% reduce 13%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:37:24 INFO mapreduce.Job:  map 56% reduce 14%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:37:27 INFO mapreduce.Job:  map 37% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:37:38 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:37:30 INFO mapreduce.Job:  map 56% reduce 15%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:37:43 INFO mapreduce.Job:  map 95% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:37:47 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:37:45 INFO mapreduce.Job:  map 56% reduce 16%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:37:59 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:37:51 INFO mapreduce.Job:  map 57% reduce 16%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:37:57 INFO mapreduce.Job:  map 57% reduce 17%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:38:01 INFO mapreduce.Job:  map 38% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:38:10 INFO mapreduce.Job:  map 57% reduce 18%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:38:19 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:38:19 INFO mapreduce.Job:  map 58% reduce 18%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:38:22 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:38:29 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:38:42 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:38:33 INFO mapreduce.Job:  map 39% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:38:46 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:38:49 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:38:59 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:38:53 INFO mapreduce.Job:  map 59% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:07 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:10 INFO mapreduce.Job:  map 100% reduce 35%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:13 INFO mapreduce.Job:  map 100% reduce 36%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:39:11 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:16 INFO mapreduce.Job:  map 100% reduce 38%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:39:07 INFO mapreduce.Job:  map 40% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:19 INFO mapreduce.Job:  map 100% reduce 39%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:39:16 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:25 INFO mapreduce.Job:  map 100% reduce 41%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:28 INFO mapreduce.Job:  map 100% reduce 43%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:31 INFO mapreduce.Job:  map 100% reduce 45%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:34 INFO mapreduce.Job:  map 100% reduce 48%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:37 INFO mapreduce.Job:  map 100% reduce 51%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:40 INFO mapreduce.Job:  map 100% reduce 53%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:46 INFO mapreduce.Job:  map 100% reduce 55%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:39:39 INFO mapreduce.Job:  map 41% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:49 INFO mapreduce.Job:  map 100% reduce 57%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:39:43 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:52 INFO mapreduce.Job:  map 100% reduce 58%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:55 INFO mapreduce.Job:  map 100% reduce 60%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:39:58 INFO mapreduce.Job:  map 100% reduce 63%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:40:01 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:39:59 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:40:10 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:40:15 INFO mapreduce.Job:  map 42% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:40:17 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:40:40 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:40:36 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:40:41 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:40:46 INFO mapreduce.Job:  map 43% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:41:06 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:41:24 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:41:21 INFO mapreduce.Job:  map 44% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:41:34 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:41:29 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:41:32 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:41:51 INFO mapreduce.Job:  map 45% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:41:58 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:42:11 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:42:35 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:42:26 INFO mapreduce.Job:  map 46% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:42:34 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:42:54 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:42:57 INFO mapreduce.Job:  map 47% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:43:06 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:43:12 INFO mapreduce.Job:  map 68% reduce 23%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:43:32 INFO mapreduce.Job:  map 48% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:43:39 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:43:37 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:43:56 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:44:03 INFO mapreduce.Job:  map 49% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:44:09 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:44:22 INFO mapreduce.Job:  map 37% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:44:35 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:44:45 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:44:51 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:44:59 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:45:08 INFO mapreduce.Job:  map 38% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:45:09 INFO mapreduce.Job:  map 50% reduce 1%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:45:10 INFO mapreduce.Job:  map 51% reduce 1%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:45:16 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:45:21 INFO mapreduce.Job:  map 51% reduce 2%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:45:36 INFO mapreduce.Job:  map 51% reduce 3%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:45:49 INFO mapreduce.Job:  map 39% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:45:48 INFO mapreduce.Job:  map 51% reduce 4%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:46:02 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:45:55 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:45:54 INFO mapreduce.Job:  map 52% reduce 4%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:46:09 INFO mapreduce.Job:  map 52% reduce 5%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:46:21 INFO mapreduce.Job:  map 52% reduce 6%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:46:36 INFO mapreduce.Job:  map 40% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:46:35 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:46:36 INFO mapreduce.Job:  map 52% reduce 7%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:46:39 INFO mapreduce.Job:  map 74% reduce 25%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:46:38 INFO mapreduce.Job:  map 53% reduce 7%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:46:54 INFO mapreduce.Job:  map 53% reduce 8%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:47:05 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:47:12 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:47:20 INFO mapreduce.Job:  map 41% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:47:19 INFO mapreduce.Job:  map 53% reduce 9%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:47:28 INFO mapreduce.Job:  map 54% reduce 9%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:47:37 INFO mapreduce.Job:  map 54% reduce 10%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:47:50 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:47:55 INFO mapreduce.Job:  map 54% reduce 11%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:48:06 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:48:04 INFO mapreduce.Job:  map 42% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:48:09 INFO mapreduce.Job:  map 55% reduce 11%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:48:13 INFO mapreduce.Job:  map 55% reduce 12%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:48:30 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:48:34 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:48:34 INFO mapreduce.Job:  map 55% reduce 13%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:48:48 INFO mapreduce.Job:  map 43% reduce 0%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:49:03 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:48:54 INFO mapreduce.Job:  map 56% reduce 13%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:48:55 INFO mapreduce.Job:  map 56% reduce 14%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:49:07 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:49:13 INFO mapreduce.Job:  map 56% reduce 15%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:49:33 INFO mapreduce.Job:  map 44% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:49:31 INFO mapreduce.Job:  map 56% reduce 16%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:49:38 INFO mapreduce.Job:  map 57% reduce 16%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:49:47 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:49:52 INFO mapreduce.Job:  map 57% reduce 17%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:50:06 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:50:10 INFO mapreduce.Job:  map 57% reduce 18%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:50:17 INFO mapreduce.Job:  map 45% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:50:26 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:50:28 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:50:31 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:51:03 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:51:03 INFO mapreduce.Job:  map 46% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:51:05 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:51:11 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:51:17 INFO mapreduce.Job:  map 59% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:51:44 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:51:46 INFO mapreduce.Job:  map 47% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:51:44 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:51:54 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:52:22 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:52:29 INFO mapreduce.Job:  map 48% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:52:29 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:52:41 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:52:39 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:53:01 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:53:21 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:53:18 INFO mapreduce.Job:  map 49% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:53:21 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:53:29 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:53:40 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:54:00 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:53:59 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:54:02 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:54:17 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:54:26 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:54:39 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:54:37 INFO mapreduce.Job:  map 50% reduce 1%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:54:49 INFO mapreduce.Job:  map 51% reduce 1%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:54:47 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:54:53 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:55:01 INFO mapreduce.Job:  map 51% reduce 2%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:55:09 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:55:13 INFO mapreduce.Job:  map 51% reduce 3%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:55:39 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:55:37 INFO mapreduce.Job:  map 51% reduce 4%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:55:33 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:55:34 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:55:39 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:55:48 INFO mapreduce.Job:  map 52% reduce 4%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:56:01 INFO mapreduce.Job:  map 52% reduce 5%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:56:09 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:56:14 INFO mapreduce.Job:  map 52% reduce 6%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:56:11 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:56:14 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:56:16 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:56:39 INFO mapreduce.Job:  map 52% reduce 7%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:56:42 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:56:49 INFO mapreduce.Job:  map 53% reduce 7%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:56:50 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:57:06 INFO mapreduce.Job:  map 53% reduce 8%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:57:00 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:57:15 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:57:26 INFO mapreduce.Job:  map 53% reduce 9%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:57:29 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:57:47 INFO mapreduce.Job:  map 54% reduce 9%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:57:45 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:57:54 INFO mapreduce.Job:  map 54% reduce 10%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:57:48 INFO mapreduce.Job:  map 68% reduce 23%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:58:03 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:58:10 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:58:12 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:58:21 INFO mapreduce.Job:  map 54% reduce 11%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:58:36 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:58:44 INFO mapreduce.Job:  map 54% reduce 12%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:58:49 INFO mapreduce.Job:  map 55% reduce 12%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:58:48 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 14:59:13 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:59:11 INFO mapreduce.Job:  map 55% reduce 13%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 14:59:28 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 14:59:26 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:59:35 INFO mapreduce.Job:  map 55% reduce 14%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 14:59:51 INFO mapreduce.Job:  map 56% reduce 14%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:00:06 INFO mapreduce.Job:  map 56% reduce 15%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:00:16 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:00:08 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:00:12 INFO mapreduce.Job:  map 95% reduce 32%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:00:21 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:00:22 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:00:35 INFO mapreduce.Job:  map 56% reduce 16%
+Fed>wordcount-YARN-c19-10.3.1.19>sockettimeout exeception occurs
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:00:44 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:00:51 INFO mapreduce.Job:  map 57% reduce 16%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:00:58 INFO mapreduce.Job:  map 57% reduce 17%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:01:10 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:01:09 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:01:23 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:01:29 INFO mapreduce.Job:  map 57% reduce 18%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:01:52 INFO mapreduce.Job:  map 58% reduce 18%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:02:01 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:01:58 INFO mapreduce.Job:  map 58% reduce 19%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:01:53 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:02:02 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:02:09 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:02:25 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:02:42 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:02:44 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:02:53 INFO mapreduce.Job:  map 59% reduce 19%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:02:50 INFO mapreduce.Job:  map 74% reduce 25%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:02:59 INFO mapreduce.Job:  map 59% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:03:10 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:03 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:10 INFO mapreduce.Job:  map 100% reduce 34%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:13 INFO mapreduce.Job:  map 100% reduce 35%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:16 INFO mapreduce.Job:  map 100% reduce 36%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:22 INFO mapreduce.Job:  map 100% reduce 37%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:25 INFO mapreduce.Job:  map 100% reduce 38%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:31 INFO mapreduce.Job:  map 100% reduce 39%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:40 INFO mapreduce.Job:  map 100% reduce 40%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:46 INFO mapreduce.Job:  map 100% reduce 41%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:03:45 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:03:55 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:03:52 INFO mapreduce.Job:  map 60% reduce 20%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:49 INFO mapreduce.Job:  map 100% reduce 42%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:03:55 INFO mapreduce.Job:  map 100% reduce 43%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:01 INFO mapreduce.Job:  map 100% reduce 44%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:04 INFO mapreduce.Job:  map 100% reduce 45%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:07 INFO mapreduce.Job:  map 100% reduce 46%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:04:16 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:10 INFO mapreduce.Job:  map 100% reduce 47%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:13 INFO mapreduce.Job:  map 100% reduce 48%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:16 INFO mapreduce.Job:  map 100% reduce 49%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:25 INFO mapreduce.Job:  map 100% reduce 50%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:28 INFO mapreduce.Job:  map 100% reduce 51%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:31 INFO mapreduce.Job:  map 100% reduce 52%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:37 INFO mapreduce.Job:  map 100% reduce 53%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:40 INFO mapreduce.Job:  map 100% reduce 55%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:04:51 INFO mapreduce.Job:  map 61% reduce 20%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:04:56 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:49 INFO mapreduce.Job:  map 100% reduce 56%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:04:47 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:52 INFO mapreduce.Job:  map 100% reduce 57%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:04:58 INFO mapreduce.Job:  map 100% reduce 58%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:01 INFO mapreduce.Job:  map 100% reduce 59%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:04 INFO mapreduce.Job:  map 100% reduce 60%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:07 INFO mapreduce.Job:  map 100% reduce 61%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:10 INFO mapreduce.Job:  map 100% reduce 62%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:19 INFO mapreduce.Job:  map 100% reduce 63%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:05:31 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:25 INFO mapreduce.Job:  map 100% reduce 64%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:28 INFO mapreduce.Job:  map 100% reduce 65%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:34 INFO mapreduce.Job:  map 100% reduce 66%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:05:37 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:05:51 INFO mapreduce.Job:  map 62% reduce 20%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:05:49 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:05:57 INFO mapreduce.Job:  map 62% reduce 21%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:06:04 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:05:57 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:06:22 INFO mapreduce.Job: Job job_1436273655163_0028 completed successfully
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:06:22 INFO mapreduce.Job: Counters: 51
+Fed>wordcount-YARN-c02-10.3.1.2>	File System Counters
+Fed>wordcount-YARN-c02-10.3.1.2>		FILE: Number of bytes read=28245274723
+Fed>wordcount-YARN-c02-10.3.1.2>		FILE: Number of bytes written=40584322769
+Fed>wordcount-YARN-c02-10.3.1.2>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c02-10.3.1.2>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c02-10.3.1.2>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c02-10.3.1.2>		HDFS: Number of bytes read=38894780817
+Fed>wordcount-YARN-c02-10.3.1.2>		HDFS: Number of bytes written=7983400282
+Fed>wordcount-YARN-c02-10.3.1.2>		HDFS: Number of read operations=885
+Fed>wordcount-YARN-c02-10.3.1.2>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c02-10.3.1.2>		HDFS: Number of write operations=2
+Fed>wordcount-YARN-c02-10.3.1.2>	Job Counters 
+Fed>wordcount-YARN-c02-10.3.1.2>		Killed map tasks=1
+Fed>wordcount-YARN-c02-10.3.1.2>		Launched map tasks=295
+Fed>wordcount-YARN-c02-10.3.1.2>		Launched reduce tasks=1
+Fed>wordcount-YARN-c02-10.3.1.2>		Data-local map tasks=204
+Fed>wordcount-YARN-c02-10.3.1.2>		Rack-local map tasks=91
+Fed>wordcount-YARN-c02-10.3.1.2>		Total time spent by all maps in occupied slots (ms)=3504150
+Fed>wordcount-YARN-c02-10.3.1.2>		Total time spent by all reduces in occupied slots (ms)=2435853
+Fed>wordcount-YARN-c02-10.3.1.2>		Total time spent by all map tasks (ms)=3504150
+Fed>wordcount-YARN-c02-10.3.1.2>		Total time spent by all reduce tasks (ms)=2435853
+Fed>wordcount-YARN-c02-10.3.1.2>		Total vcore-seconds taken by all map tasks=3504150
+Fed>wordcount-YARN-c02-10.3.1.2>		Total vcore-seconds taken by all reduce tasks=2435853
+Fed>wordcount-YARN-c02-10.3.1.2>		Total megabyte-seconds taken by all map tasks=14352998400
+Fed>wordcount-YARN-c02-10.3.1.2>		Total megabyte-seconds taken by all reduce tasks=19954507776
+Fed>wordcount-YARN-c02-10.3.1.2>	Map-Reduce Framework
+Fed>wordcount-YARN-c02-10.3.1.2>		Map input records=693244214
+Fed>wordcount-YARN-c02-10.3.1.2>		Map output records=2146279935
+Fed>wordcount-YARN-c02-10.3.1.2>		Map output bytes=43341889561
+Fed>wordcount-YARN-c02-10.3.1.2>		Map output materialized bytes=12311084573
+Fed>wordcount-YARN-c02-10.3.1.2>		Input split bytes=48216
+Fed>wordcount-YARN-c02-10.3.1.2>		Combine input records=2433424757
+Fed>wordcount-YARN-c02-10.3.1.2>		Combine output records=543067382
+Fed>wordcount-YARN-c02-10.3.1.2>		Reduce input groups=113040850
+Fed>wordcount-YARN-c02-10.3.1.2>		Reduce shuffle bytes=12311084573
+Fed>wordcount-YARN-c02-10.3.1.2>		Reduce input records=255922560
+Fed>wordcount-YARN-c02-10.3.1.2>		Reduce output records=113040850
+Fed>wordcount-YARN-c02-10.3.1.2>		Spilled Records=861630736
+Fed>wordcount-YARN-c02-10.3.1.2>		Shuffled Maps =294
+Fed>wordcount-YARN-c02-10.3.1.2>		Failed Shuffles=0
+Fed>wordcount-YARN-c02-10.3.1.2>		Merged Map outputs=294
+Fed>wordcount-YARN-c02-10.3.1.2>		GC time elapsed (ms)=45187
+Fed>wordcount-YARN-c02-10.3.1.2>		CPU time spent (ms)=5907670
+Fed>wordcount-YARN-c02-10.3.1.2>		Physical memory (bytes) snapshot=161752518656
+Fed>wordcount-YARN-c02-10.3.1.2>		Virtual memory (bytes) snapshot=1507828912128
+Fed>wordcount-YARN-c02-10.3.1.2>		Total committed heap usage (bytes)=192096501760
+Fed>wordcount-YARN-c02-10.3.1.2>	Shuffle Errors
+Fed>wordcount-YARN-c02-10.3.1.2>		BAD_ID=0
+Fed>wordcount-YARN-c02-10.3.1.2>		CONNECTION=0
+Fed>wordcount-YARN-c02-10.3.1.2>		IO_ERROR=0
+Fed>wordcount-YARN-c02-10.3.1.2>		WRONG_LENGTH=0
+Fed>wordcount-YARN-c02-10.3.1.2>		WRONG_MAP=0
+Fed>wordcount-YARN-c02-10.3.1.2>		WRONG_REDUCE=0
+Fed>wordcount-YARN-c02-10.3.1.2>	File Input Format Counters 
+Fed>wordcount-YARN-c02-10.3.1.2>		Bytes Read=38894732601
+Fed>wordcount-YARN-c02-10.3.1.2>	File Output Format Counters 
+Fed>wordcount-YARN-c02-10.3.1.2>		Bytes Written=7983400282
+Fed>----------------------------------
+Fed>mIP 10.3.1.2 Global Aggregation Start Time = 1436511983619
+Fed>----------------------------------
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:06:24 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>wordcount-YARN-c02-10.3.1.2> userName = hpds
+Fed>wordcount-YARN-c02-10.3.1.2> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>wordcount-YARN-c02-10.3.1.2> outputPath = c02_wordcount-YARN_OUT_20150710141717
+Fed>wordcount-YARN-c02-10.3.1.2> srcHDFS = hdfs://c02:39100/
+Fed>wordcount-YARN-c02-10.3.1.2>Server To Join
+Fed>wordcount-YARN-c02-10.3.1.2>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>wordcount-YARN-c02-10.3.1.2>Stop Server
+Fed>wordcount-YARN-c02-10.3.1.2>sockettimeout exeception occurs
+Fed>----------------------------------
+Fed>mIP 10.3.1.2 Global Aggreagtion End Time = 1436511986620
+Fed>----------------------------------
+Fed>wordcount-YARN-c02-10.3.1.2>Region Cloud Recvied Bye
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:06:49 INFO mapreduce.Job:  map 63% reduce 21%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:06:49 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:06:58 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>wordcount-YARN-c02-10.3.1.2>java.net.SocketTimeoutException: Accept timed out
+Fed>wordcount-YARN-c02-10.3.1.2>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>wordcount-YARN-c02-10.3.1.2>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>wordcount-YARN-c02-10.3.1.2>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>wordcount-YARN-c02-10.3.1.2>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>wordcount-YARN-c02-10.3.1.2>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>wordcount-YARN-c02-10.3.1.2>Region Cloud Server Closed
+Fed>wordcount-YARN-c02-10.3.1.2>Region Cloud Report : RegionCloudsTime = 2937340(ms)
+Fed>wordcount-YARN-c02-10.3.1.2>Region Cloud Report : GlobalAggregationTime = 64324(ms)
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:07:27 INFO ipc.Client: Retrying connect to server: c03/10.3.1.3:37778. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:07:28 INFO ipc.Client: Retrying connect to server: c03/10.3.1.3:37778. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:07:29 INFO ipc.Client: Retrying connect to server: c03/10.3.1.3:37778. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c02-10.3.1.2>15/07/10 15:07:29 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:07:48 INFO mapreduce.Job:  map 64% reduce 21%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:07:48 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:08:46 INFO mapreduce.Job:  map 65% reduce 21%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:08:44 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:08:50 INFO mapreduce.Job:  map 65% reduce 22%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:08:51 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:08:54 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:09:45 INFO mapreduce.Job:  map 66% reduce 22%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:09:50 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:10:45 INFO mapreduce.Job:  map 67% reduce 22%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:10:44 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:10:48 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:11:43 INFO mapreduce.Job:  map 68% reduce 22%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:11:50 INFO mapreduce.Job:  map 68% reduce 23%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:11:48 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:11:55 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:12:40 INFO mapreduce.Job:  map 69% reduce 23%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:12:50 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:13:25 INFO mapreduce.Job:  map 70% reduce 23%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:13:26 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:13:52 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:14:35 INFO mapreduce.Job:  map 71% reduce 23%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:14:45 INFO mapreduce.Job:  map 71% reduce 24%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:14:51 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:14:53 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:15:35 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:15:43 INFO mapreduce.Job:  map 72% reduce 24%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:15:54 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:16:37 INFO mapreduce.Job:  map 73% reduce 24%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:16:52 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:17:38 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:17:45 INFO mapreduce.Job:  map 74% reduce 24%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:17:48 INFO mapreduce.Job:  map 74% reduce 25%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:17:56 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:18:00 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:18:53 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:19:08 INFO mapreduce.Job:  map 75% reduce 25%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:19:47 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:19:54 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:20:26 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:20:58 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:21:04 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:21:45 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:21:50 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:21:52 INFO mapreduce.Job:  map 77% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:21:59 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:23:11 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:23:17 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:23:42 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:24:18 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:24:22 INFO mapreduce.Job:  map 95% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:24:31 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:25:23 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:25:45 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:25:51 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:25:58 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:26:21 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:27:15 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:27:20 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:27:29 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:27:37 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:28:22 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:28:36 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:29:06 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:21 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:32 INFO mapreduce.Job:  map 100% reduce 35%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:35 INFO mapreduce.Job:  map 100% reduce 36%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:38 INFO mapreduce.Job:  map 100% reduce 37%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:41 INFO mapreduce.Job:  map 100% reduce 38%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:44 INFO mapreduce.Job:  map 100% reduce 40%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:47 INFO mapreduce.Job:  map 100% reduce 41%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:29:56 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:53 INFO mapreduce.Job:  map 100% reduce 42%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:56 INFO mapreduce.Job:  map 100% reduce 43%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:30:03 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:29:59 INFO mapreduce.Job:  map 100% reduce 44%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:02 INFO mapreduce.Job:  map 100% reduce 45%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:05 INFO mapreduce.Job:  map 100% reduce 47%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:08 INFO mapreduce.Job:  map 100% reduce 49%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:11 INFO mapreduce.Job:  map 100% reduce 51%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:14 INFO mapreduce.Job:  map 100% reduce 52%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:17 INFO mapreduce.Job:  map 100% reduce 53%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:20 INFO mapreduce.Job:  map 100% reduce 55%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:23 INFO mapreduce.Job:  map 100% reduce 56%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:26 INFO mapreduce.Job:  map 100% reduce 57%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:29 INFO mapreduce.Job:  map 100% reduce 58%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:32 INFO mapreduce.Job:  map 100% reduce 59%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:35 INFO mapreduce.Job:  map 100% reduce 61%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:38 INFO mapreduce.Job:  map 100% reduce 63%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:41 INFO mapreduce.Job:  map 100% reduce 65%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:30:44 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:31:00 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:31:16 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:32:18 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:32:36 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:32:42 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:33:37 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:34:03 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:34:06 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:34:55 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:35:21 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:35:34 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:35:58 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:36:58 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:37:01 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:37:58 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:38:18 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:38:22 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:38:24 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:39:05 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:39:37 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:40:14 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:41:01 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:41:53 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:42:20 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:42:27 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:42:31 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:43:43 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:44:13 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:45:04 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:45:49 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:46:17 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:46:26 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:46:34 INFO mapreduce.Job:  map 95% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:47:45 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:48:02 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:48:56 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:49:07 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:49:41 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:50:32 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:50:35 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:50:36 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:51:53 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:52:09 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:52:10 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:00 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:17 INFO mapreduce.Job:  map 100% reduce 34%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:20 INFO mapreduce.Job:  map 100% reduce 35%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:26 INFO mapreduce.Job:  map 100% reduce 36%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:32 INFO mapreduce.Job:  map 100% reduce 37%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:53:33 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:38 INFO mapreduce.Job:  map 100% reduce 38%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:44 INFO mapreduce.Job:  map 100% reduce 39%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:50 INFO mapreduce.Job:  map 100% reduce 40%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:53:56 INFO mapreduce.Job:  map 100% reduce 41%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:02 INFO mapreduce.Job:  map 100% reduce 42%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:11 INFO mapreduce.Job:  map 100% reduce 43%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:14 INFO mapreduce.Job:  map 100% reduce 44%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:20 INFO mapreduce.Job:  map 100% reduce 45%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:23 INFO mapreduce.Job:  map 100% reduce 46%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:54:24 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:29 INFO mapreduce.Job:  map 100% reduce 47%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:36 INFO mapreduce.Job:  map 100% reduce 48%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:41 INFO mapreduce.Job:  map 100% reduce 49%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:44 INFO mapreduce.Job:  map 100% reduce 50%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:47 INFO mapreduce.Job:  map 100% reduce 51%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:53 INFO mapreduce.Job:  map 100% reduce 52%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:56 INFO mapreduce.Job:  map 100% reduce 53%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:54:59 INFO mapreduce.Job:  map 100% reduce 54%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:02 INFO mapreduce.Job:  map 100% reduce 55%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:11 INFO mapreduce.Job:  map 100% reduce 56%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:55:08 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:17 INFO mapreduce.Job:  map 100% reduce 57%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:23 INFO mapreduce.Job:  map 100% reduce 58%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:26 INFO mapreduce.Job:  map 100% reduce 59%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:32 INFO mapreduce.Job:  map 100% reduce 60%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:38 INFO mapreduce.Job:  map 100% reduce 61%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:44 INFO mapreduce.Job:  map 100% reduce 62%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:55:42 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:50 INFO mapreduce.Job:  map 100% reduce 63%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:56 INFO mapreduce.Job:  map 100% reduce 64%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:55:59 INFO mapreduce.Job:  map 100% reduce 65%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:56:05 INFO mapreduce.Job:  map 100% reduce 66%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:56:08 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:57:01 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 15:58:11 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:58:16 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 15:58:44 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:58:52 INFO mapreduce.Job: Job job_1436273621930_0031 completed successfully
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:58:52 INFO mapreduce.Job: Counters: 50
+Fed>wordcount-YARN-c07-10.3.1.7>	File System Counters
+Fed>wordcount-YARN-c07-10.3.1.7>		FILE: Number of bytes read=70816626150
+Fed>wordcount-YARN-c07-10.3.1.7>		FILE: Number of bytes written=97069184148
+Fed>wordcount-YARN-c07-10.3.1.7>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>		HDFS: Number of bytes read=82797577735
+Fed>wordcount-YARN-c07-10.3.1.7>		HDFS: Number of bytes written=15736683330
+Fed>wordcount-YARN-c07-10.3.1.7>		HDFS: Number of read operations=1884
+Fed>wordcount-YARN-c07-10.3.1.7>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>		HDFS: Number of write operations=2
+Fed>wordcount-YARN-c07-10.3.1.7>	Job Counters 
+Fed>wordcount-YARN-c07-10.3.1.7>		Launched map tasks=627
+Fed>wordcount-YARN-c07-10.3.1.7>		Launched reduce tasks=1
+Fed>wordcount-YARN-c07-10.3.1.7>		Data-local map tasks=433
+Fed>wordcount-YARN-c07-10.3.1.7>		Rack-local map tasks=194
+Fed>wordcount-YARN-c07-10.3.1.7>		Total time spent by all maps in occupied slots (ms)=7356552
+Fed>wordcount-YARN-c07-10.3.1.7>		Total time spent by all reduces in occupied slots (ms)=5032882
+Fed>wordcount-YARN-c07-10.3.1.7>		Total time spent by all map tasks (ms)=7356552
+Fed>wordcount-YARN-c07-10.3.1.7>		Total time spent by all reduce tasks (ms)=5032882
+Fed>wordcount-YARN-c07-10.3.1.7>		Total vcore-seconds taken by all map tasks=7356552
+Fed>wordcount-YARN-c07-10.3.1.7>		Total vcore-seconds taken by all reduce tasks=5032882
+Fed>wordcount-YARN-c07-10.3.1.7>		Total megabyte-seconds taken by all map tasks=30132436992
+Fed>wordcount-YARN-c07-10.3.1.7>		Total megabyte-seconds taken by all reduce tasks=41229369344
+Fed>wordcount-YARN-c07-10.3.1.7>	Map-Reduce Framework
+Fed>wordcount-YARN-c07-10.3.1.7>		Map input records=1477378636
+Fed>wordcount-YARN-c07-10.3.1.7>		Map output records=4568121812
+Fed>wordcount-YARN-c07-10.3.1.7>		Map output bytes=92283850698
+Fed>wordcount-YARN-c07-10.3.1.7>		Map output materialized bytes=26193028161
+Fed>wordcount-YARN-c07-10.3.1.7>		Input split bytes=102828
+Fed>wordcount-YARN-c07-10.3.1.7>		Combine input records=5177519748
+Fed>wordcount-YARN-c07-10.3.1.7>		Combine output records=1153821546
+Fed>wordcount-YARN-c07-10.3.1.7>		Reduce input groups=208127000
+Fed>wordcount-YARN-c07-10.3.1.7>		Reduce shuffle bytes=26193028161
+Fed>wordcount-YARN-c07-10.3.1.7>		Reduce input records=544423610
+Fed>wordcount-YARN-c07-10.3.1.7>		Reduce output records=208127000
+Fed>wordcount-YARN-c07-10.3.1.7>		Spilled Records=2057331674
+Fed>wordcount-YARN-c07-10.3.1.7>		Shuffled Maps =627
+Fed>wordcount-YARN-c07-10.3.1.7>		Failed Shuffles=0
+Fed>wordcount-YARN-c07-10.3.1.7>		Merged Map outputs=627
+Fed>wordcount-YARN-c07-10.3.1.7>		GC time elapsed (ms)=103877
+Fed>wordcount-YARN-c07-10.3.1.7>		CPU time spent (ms)=12571930
+Fed>wordcount-YARN-c07-10.3.1.7>		Physical memory (bytes) snapshot=348239065088
+Fed>wordcount-YARN-c07-10.3.1.7>		Virtual memory (bytes) snapshot=3205988216832
+Fed>wordcount-YARN-c07-10.3.1.7>		Total committed heap usage (bytes)=409878921216
+Fed>wordcount-YARN-c07-10.3.1.7>	Shuffle Errors
+Fed>wordcount-YARN-c07-10.3.1.7>		BAD_ID=0
+Fed>wordcount-YARN-c07-10.3.1.7>		CONNECTION=0
+Fed>wordcount-YARN-c07-10.3.1.7>		IO_ERROR=0
+Fed>wordcount-YARN-c07-10.3.1.7>		WRONG_LENGTH=0
+Fed>wordcount-YARN-c07-10.3.1.7>		WRONG_MAP=0
+Fed>wordcount-YARN-c07-10.3.1.7>		WRONG_REDUCE=0
+Fed>wordcount-YARN-c07-10.3.1.7>	File Input Format Counters 
+Fed>wordcount-YARN-c07-10.3.1.7>		Bytes Read=82797474907
+Fed>wordcount-YARN-c07-10.3.1.7>	File Output Format Counters 
+Fed>wordcount-YARN-c07-10.3.1.7>		Bytes Written=15736683330
+Fed>----------------------------------
+Fed>mIP 10.3.1.7 Global Aggregation Start Time = 1436515141839
+Fed>----------------------------------
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 15:58:54 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>wordcount-YARN-c07-10.3.1.7> userName = hpds
+Fed>wordcount-YARN-c07-10.3.1.7> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>wordcount-YARN-c07-10.3.1.7> outputPath = c07_wordcount-YARN_OUT_20150710141717
+Fed>wordcount-YARN-c07-10.3.1.7> srcHDFS = hdfs://c07:39100/
+Fed>wordcount-YARN-c07-10.3.1.7>RegionCloud Distcp [/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop distcp hdfs://c07:39100/user/hpds/c07_wordcount-YARN_OUT_20150710141717 hdfs://c02:39100/user/hpds/c07_wordcount-YARN_OUT_20150710141717]
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:54 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, maxMaps=20, sslConfigurationFile='null', copyStrategy='uniformsize', sourceFileListing=null, sourcePaths=[hdfs://c07:39100/user/hpds/c07_wordcount-YARN_OUT_20150710141717], targetPath=hdfs://c02:39100/user/hpds/c07_wordcount-YARN_OUT_20150710141717}
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:54 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:55 INFO Configuration.deprecation: io.sort.mb is deprecated. Instead, use mapreduce.task.io.sort.mb
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:55 INFO Configuration.deprecation: io.sort.factor is deprecated. Instead, use mapreduce.task.io.sort.factor
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:55 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:56 INFO mapreduce.JobSubmitter: number of splits:2
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:56 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273621930_0032
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:56 INFO impl.YarnClientImpl: Submitted application application_1436273621930_0032
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:56 INFO mapreduce.Job: The url to track the job: http://c07:40888/proxy/application_1436273621930_0032/
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:56 INFO tools.DistCp: DistCp job-id: job_1436273621930_0032
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:58:56 INFO mapreduce.Job: Running job: job_1436273621930_0032
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:59:11 INFO mapreduce.Job: Job job_1436273621930_0032 running in uber mode : false
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:59:11 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:59:16 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 15:59:22 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:01:09 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 16:01:57 INFO mapreduce.Job: Job job_1436273621930_0032 completed successfully
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>15/07/10 16:01:57 INFO mapreduce.Job: Counters: 33
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>	File System Counters
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of bytes read=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of bytes written=191386
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of bytes read=15736684296
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of bytes written=15736683330
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of read operations=35
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		HDFS: Number of write operations=8
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>	Job Counters 
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Launched map tasks=2
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Other local map tasks=2
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Total time spent by all maps in occupied slots (ms)=163187
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Total time spent by all reduces in occupied slots (ms)=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Total time spent by all map tasks (ms)=163187
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Total vcore-seconds taken by all map tasks=163187
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Total megabyte-seconds taken by all map tasks=167103488
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>	Map-Reduce Framework
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Map input records=2
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Map output records=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Input split bytes=268
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Spilled Records=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Failed Shuffles=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Merged Map outputs=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		GC time elapsed (ms)=646
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		CPU time spent (ms)=83760
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Physical memory (bytes) snapshot=468660224
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Virtual memory (bytes) snapshot=10200752128
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Total committed heap usage (bytes)=435159040
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>	File Input Format Counters 
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Bytes Read=698
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>	File Output Format Counters 
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		Bytes Written=0
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>	org.apache.hadoop.tools.mapred.CopyMapper$Counter
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		BYTESCOPIED=15736683330
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		BYTESEXPECTED=15736683330
+Fed>wordcount-YARN-c07-10.3.1.7>Distcp_>		COPY=2
+Fed>wordcount-YARN-c07-10.3.1.7>Server To Join
+Fed>wordcount-YARN-c07-10.3.1.7>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>wordcount-YARN-c07-10.3.1.7>Stop Server
+Fed>wordcount-YARN-c07-10.3.1.7>sockettimeout exeception occurs
+Fed>----------------------------------
+Fed>mIP 10.3.1.7 Global Aggreagtion End Time = 1436515328007
+Fed>----------------------------------
+Fed>wordcount-YARN-c07-10.3.1.7>Region Cloud Recvied Bye
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:02:18 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>wordcount-YARN-c07-10.3.1.7>java.net.SocketTimeoutException: Accept timed out
+Fed>wordcount-YARN-c07-10.3.1.7>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>wordcount-YARN-c07-10.3.1.7>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>wordcount-YARN-c07-10.3.1.7>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>wordcount-YARN-c07-10.3.1.7>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>wordcount-YARN-c07-10.3.1.7>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>wordcount-YARN-c07-10.3.1.7>Region Cloud Server Closed
+Fed>wordcount-YARN-c07-10.3.1.7>Region Cloud Report : RegionCloudsTime = 6095525(ms)
+Fed>wordcount-YARN-c07-10.3.1.7>Region Cloud Report : GlobalAggregationTime = 247374(ms)
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 16:03:00 INFO ipc.Client: Retrying connect to server: c09/10.3.1.9:53483. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 16:03:01 INFO ipc.Client: Retrying connect to server: c09/10.3.1.9:53483. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 16:03:02 INFO ipc.Client: Retrying connect to server: c09/10.3.1.9:53483. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c07-10.3.1.7>15/07/10 16:03:03 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:03:59 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:06:19 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:06:15 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:09:06 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:10:58 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:11:40 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:12:55 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:14:55 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:16:04 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:16:28 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:17:58 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:19:28 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:20:08 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:21:07 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:22:50 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:24:26 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:25:17 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:28:20 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:28:51 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:31:53 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:32:21 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:34:36 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:36:15 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:37:06 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:38:24 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:40:01 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:40:40 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:42:49 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:43:01 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:44:04 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:46:02 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:46:50 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:47:55 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:49:16 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:49:49 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:50:44 INFO mapreduce.Job: Job job_1436273680176_0042 completed successfully
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:50:44 INFO mapreduce.Job: Counters: 51
+Fed>wordcount-YARN-c13-10.3.1.13>	File System Counters
+Fed>wordcount-YARN-c13-10.3.1.13>		FILE: Number of bytes read=119577991653
+Fed>wordcount-YARN-c13-10.3.1.13>		FILE: Number of bytes written=161159263379
+Fed>wordcount-YARN-c13-10.3.1.13>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>		HDFS: Number of bytes read=131100597305
+Fed>wordcount-YARN-c13-10.3.1.13>		HDFS: Number of bytes written=23878097496
+Fed>wordcount-YARN-c13-10.3.1.13>		HDFS: Number of read operations=2964
+Fed>wordcount-YARN-c13-10.3.1.13>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>		HDFS: Number of write operations=2
+Fed>wordcount-YARN-c13-10.3.1.13>	Job Counters 
+Fed>wordcount-YARN-c13-10.3.1.13>		Killed map tasks=1
+Fed>wordcount-YARN-c13-10.3.1.13>		Launched map tasks=988
+Fed>wordcount-YARN-c13-10.3.1.13>		Launched reduce tasks=1
+Fed>wordcount-YARN-c13-10.3.1.13>		Data-local map tasks=710
+Fed>wordcount-YARN-c13-10.3.1.13>		Rack-local map tasks=278
+Fed>wordcount-YARN-c13-10.3.1.13>		Total time spent by all maps in occupied slots (ms)=11772810
+Fed>wordcount-YARN-c13-10.3.1.13>		Total time spent by all reduces in occupied slots (ms)=7541657
+Fed>wordcount-YARN-c13-10.3.1.13>		Total time spent by all map tasks (ms)=11772810
+Fed>wordcount-YARN-c13-10.3.1.13>		Total time spent by all reduce tasks (ms)=7541657
+Fed>wordcount-YARN-c13-10.3.1.13>		Total vcore-seconds taken by all map tasks=11772810
+Fed>wordcount-YARN-c13-10.3.1.13>		Total vcore-seconds taken by all reduce tasks=7541657
+Fed>wordcount-YARN-c13-10.3.1.13>		Total megabyte-seconds taken by all map tasks=48221429760
+Fed>wordcount-YARN-c13-10.3.1.13>		Total megabyte-seconds taken by all reduce tasks=61781254144
+Fed>wordcount-YARN-c13-10.3.1.13>	Map-Reduce Framework
+Fed>wordcount-YARN-c13-10.3.1.13>		Map input records=2342634098
+Fed>wordcount-YARN-c13-10.3.1.13>		Map output records=7233741337
+Fed>wordcount-YARN-c13-10.3.1.13>		Map output bytes=146052721388
+Fed>wordcount-YARN-c13-10.3.1.13>		Map output materialized bytes=41487613445
+Fed>wordcount-YARN-c13-10.3.1.13>		Input split bytes=162855
+Fed>wordcount-YARN-c13-10.3.1.13>		Combine input records=8203124349
+Fed>wordcount-YARN-c13-10.3.1.13>		Combine output records=1832648178
+Fed>wordcount-YARN-c13-10.3.1.13>		Reduce input groups=303483962
+Fed>wordcount-YARN-c13-10.3.1.13>		Reduce shuffle bytes=41487613445
+Fed>wordcount-YARN-c13-10.3.1.13>		Reduce input records=863265166
+Fed>wordcount-YARN-c13-10.3.1.13>		Reduce output records=303483962
+Fed>wordcount-YARN-c13-10.3.1.13>		Spilled Records=3415292752
+Fed>wordcount-YARN-c13-10.3.1.13>		Shuffled Maps =987
+Fed>wordcount-YARN-c13-10.3.1.13>		Failed Shuffles=0
+Fed>wordcount-YARN-c13-10.3.1.13>		Merged Map outputs=987
+Fed>wordcount-YARN-c13-10.3.1.13>		GC time elapsed (ms)=171447
+Fed>wordcount-YARN-c13-10.3.1.13>		CPU time spent (ms)=19848640
+Fed>wordcount-YARN-c13-10.3.1.13>		Physical memory (bytes) snapshot=545281859584
+Fed>wordcount-YARN-c13-10.3.1.13>		Virtual memory (bytes) snapshot=5041837785088
+Fed>wordcount-YARN-c13-10.3.1.13>		Total committed heap usage (bytes)=641605304320
+Fed>wordcount-YARN-c13-10.3.1.13>	Shuffle Errors
+Fed>wordcount-YARN-c13-10.3.1.13>		BAD_ID=0
+Fed>wordcount-YARN-c13-10.3.1.13>		CONNECTION=0
+Fed>wordcount-YARN-c13-10.3.1.13>		IO_ERROR=0
+Fed>wordcount-YARN-c13-10.3.1.13>		WRONG_LENGTH=0
+Fed>wordcount-YARN-c13-10.3.1.13>		WRONG_MAP=0
+Fed>wordcount-YARN-c13-10.3.1.13>		WRONG_REDUCE=0
+Fed>wordcount-YARN-c13-10.3.1.13>	File Input Format Counters 
+Fed>wordcount-YARN-c13-10.3.1.13>		Bytes Read=131100434450
+Fed>wordcount-YARN-c13-10.3.1.13>	File Output Format Counters 
+Fed>wordcount-YARN-c13-10.3.1.13>		Bytes Written=23878097496
+Fed>----------------------------------
+Fed>mIP 10.3.1.13 Global Aggregation Start Time = 1436518255342
+Fed>----------------------------------
+Fed>wordcount-YARN-c13-10.3.1.13> userName = hpds
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:50:45 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>wordcount-YARN-c13-10.3.1.13> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>wordcount-YARN-c13-10.3.1.13> outputPath = c13_wordcount-YARN_OUT_20150710141717
+Fed>wordcount-YARN-c13-10.3.1.13> srcHDFS = hdfs://c13:39100/
+Fed>wordcount-YARN-c13-10.3.1.13>RegionCloud Distcp [/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop distcp hdfs://c13:39100/user/hpds/c13_wordcount-YARN_OUT_20150710141717 hdfs://c02:39100/user/hpds/c13_wordcount-YARN_OUT_20150710141717]
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:46 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, maxMaps=20, sslConfigurationFile='null', copyStrategy='uniformsize', sourceFileListing=null, sourcePaths=[hdfs://c13:39100/user/hpds/c13_wordcount-YARN_OUT_20150710141717], targetPath=hdfs://c02:39100/user/hpds/c13_wordcount-YARN_OUT_20150710141717}
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:46 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO Configuration.deprecation: io.sort.mb is deprecated. Instead, use mapreduce.task.io.sort.mb
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO Configuration.deprecation: io.sort.factor is deprecated. Instead, use mapreduce.task.io.sort.factor
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO mapreduce.JobSubmitter: number of splits:2
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273680176_0043
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO impl.YarnClientImpl: Submitted application application_1436273680176_0043
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO mapreduce.Job: The url to track the job: http://c13:40888/proxy/application_1436273680176_0043/
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO tools.DistCp: DistCp job-id: job_1436273680176_0043
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:47 INFO mapreduce.Job: Running job: job_1436273680176_0043
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:52 INFO mapreduce.Job: Job job_1436273680176_0043 running in uber mode : false
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:50:52 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:51:01 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:51:28 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:51:53 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:54:33 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:55:00 INFO mapreduce.Job: Job job_1436273680176_0043 completed successfully
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>15/07/10 16:55:00 INFO mapreduce.Job: Counters: 33
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>	File System Counters
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of bytes read=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of bytes written=191396
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of bytes read=23878098464
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of bytes written=23878097496
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of read operations=35
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		HDFS: Number of write operations=8
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>	Job Counters 
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Launched map tasks=2
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Other local map tasks=2
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Total time spent by all maps in occupied slots (ms)=277772
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Total time spent by all reduces in occupied slots (ms)=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Total time spent by all map tasks (ms)=277772
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Total vcore-seconds taken by all map tasks=277772
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Total megabyte-seconds taken by all map tasks=284438528
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>	Map-Reduce Framework
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Map input records=2
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Map output records=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Input split bytes=270
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Spilled Records=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Failed Shuffles=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Merged Map outputs=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		GC time elapsed (ms)=1442
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		CPU time spent (ms)=134750
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Physical memory (bytes) snapshot=400347136
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Virtual memory (bytes) snapshot=10201669632
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Total committed heap usage (bytes)=313524224
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>	File Input Format Counters 
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Bytes Read=698
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>	File Output Format Counters 
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		Bytes Written=0
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>	org.apache.hadoop.tools.mapred.CopyMapper$Counter
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		BYTESCOPIED=23878097496
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		BYTESEXPECTED=23878097496
+Fed>wordcount-YARN-c13-10.3.1.13>Distcp_>		COPY=2
+Fed>wordcount-YARN-c13-10.3.1.13>Server To Join
+Fed>wordcount-YARN-c13-10.3.1.13>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>wordcount-YARN-c13-10.3.1.13>Stop Server
+Fed>wordcount-YARN-c13-10.3.1.13>sockettimeout exeception occurs
+Fed>----------------------------------
+Fed>mIP 10.3.1.13 Global Aggreagtion End Time = 1436518513077
+Fed>----------------------------------
+Fed>wordcount-YARN-c13-10.3.1.13>Region Cloud Recvied Bye
+Fed>wordcount-YARN-c13-10.3.1.13>java.net.SocketTimeoutException: Accept timed out
+Fed>wordcount-YARN-c13-10.3.1.13>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>wordcount-YARN-c13-10.3.1.13>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>wordcount-YARN-c13-10.3.1.13>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>wordcount-YARN-c13-10.3.1.13>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>wordcount-YARN-c13-10.3.1.13>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>wordcount-YARN-c13-10.3.1.13>Region Cloud Server Closed
+Fed>wordcount-YARN-c13-10.3.1.13>Region Cloud Report : RegionCloudsTime = 9209028(ms)
+Fed>wordcount-YARN-c13-10.3.1.13>Region Cloud Report : GlobalAggregationTime = 318871(ms)
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:56:04 INFO ipc.Client: Retrying connect to server: c28/10.3.1.28:37906. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:56:05 INFO ipc.Client: Retrying connect to server: c28/10.3.1.28:37906. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:56:06 INFO ipc.Client: Retrying connect to server: c28/10.3.1.28:37906. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c13-10.3.1.13>15/07/10 16:56:06 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:56:32 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 16:58:35 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:00:33 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:02:45 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:05:03 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:08:13 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:12:55 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:17:02 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:20:35 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:23:59 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:25:41 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:28:42 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:31:42 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:33:22 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:36:01 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:38:31 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:41:02 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:42:15 INFO mapreduce.Job: Job job_1436273844725_0026 completed successfully
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:42:15 INFO mapreduce.Job: Counters: 50
+Fed>wordcount-YARN-c19-10.3.1.19>	File System Counters
+Fed>wordcount-YARN-c19-10.3.1.19>		FILE: Number of bytes read=163034279364
+Fed>wordcount-YARN-c19-10.3.1.19>		FILE: Number of bytes written=218518331263
+Fed>wordcount-YARN-c19-10.3.1.19>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>		HDFS: Number of bytes read=175173422612
+Fed>wordcount-YARN-c19-10.3.1.19>		HDFS: Number of bytes written=30805650463
+Fed>wordcount-YARN-c19-10.3.1.19>		HDFS: Number of read operations=3978
+Fed>wordcount-YARN-c19-10.3.1.19>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>		HDFS: Number of write operations=2
+Fed>wordcount-YARN-c19-10.3.1.19>	Job Counters 
+Fed>wordcount-YARN-c19-10.3.1.19>		Launched map tasks=1325
+Fed>wordcount-YARN-c19-10.3.1.19>		Launched reduce tasks=1
+Fed>wordcount-YARN-c19-10.3.1.19>		Data-local map tasks=957
+Fed>wordcount-YARN-c19-10.3.1.19>		Rack-local map tasks=368
+Fed>wordcount-YARN-c19-10.3.1.19>		Total time spent by all maps in occupied slots (ms)=15636145
+Fed>wordcount-YARN-c19-10.3.1.19>		Total time spent by all reduces in occupied slots (ms)=10063953
+Fed>wordcount-YARN-c19-10.3.1.19>		Total time spent by all map tasks (ms)=15636145
+Fed>wordcount-YARN-c19-10.3.1.19>		Total time spent by all reduce tasks (ms)=10063953
+Fed>wordcount-YARN-c19-10.3.1.19>		Total vcore-seconds taken by all map tasks=15636145
+Fed>wordcount-YARN-c19-10.3.1.19>		Total vcore-seconds taken by all reduce tasks=10063953
+Fed>wordcount-YARN-c19-10.3.1.19>		Total megabyte-seconds taken by all map tasks=64045649920
+Fed>wordcount-YARN-c19-10.3.1.19>		Total megabyte-seconds taken by all reduce tasks=82443902976
+Fed>wordcount-YARN-c19-10.3.1.19>	Map-Reduce Framework
+Fed>wordcount-YARN-c19-10.3.1.19>		Map input records=3133822946
+Fed>wordcount-YARN-c19-10.3.1.19>		Map output records=9661700887
+Fed>wordcount-YARN-c19-10.3.1.19>		Map output bytes=195014621810
+Fed>wordcount-YARN-c19-10.3.1.19>		Map output materialized bytes=55358350919
+Fed>wordcount-YARN-c19-10.3.1.19>		Input split bytes=218625
+Fed>wordcount-YARN-c19-10.3.1.19>		Combine input records=10954256753
+Fed>wordcount-YARN-c19-10.3.1.19>		Combine output records=2444898479
+Fed>wordcount-YARN-c19-10.3.1.19>		Reduce input groups=384982611
+Fed>wordcount-YARN-c19-10.3.1.19>		Reduce shuffle bytes=55358350919
+Fed>wordcount-YARN-c19-10.3.1.19>		Reduce input records=1152342613
+Fed>wordcount-YARN-c19-10.3.1.19>		Reduce output records=385036812
+Fed>wordcount-YARN-c19-10.3.1.19>		Spilled Records=4631699856
+Fed>wordcount-YARN-c19-10.3.1.19>		Shuffled Maps =1325
+Fed>wordcount-YARN-c19-10.3.1.19>		Failed Shuffles=0
+Fed>wordcount-YARN-c19-10.3.1.19>		Merged Map outputs=1325
+Fed>wordcount-YARN-c19-10.3.1.19>		GC time elapsed (ms)=239190
+Fed>wordcount-YARN-c19-10.3.1.19>		CPU time spent (ms)=26540960
+Fed>wordcount-YARN-c19-10.3.1.19>		Physical memory (bytes) snapshot=754082099200
+Fed>wordcount-YARN-c19-10.3.1.19>		Virtual memory (bytes) snapshot=6765640470528
+Fed>wordcount-YARN-c19-10.3.1.19>		Total committed heap usage (bytes)=889220759552
+Fed>wordcount-YARN-c19-10.3.1.19>	Shuffle Errors
+Fed>wordcount-YARN-c19-10.3.1.19>		BAD_ID=0
+Fed>wordcount-YARN-c19-10.3.1.19>		CONNECTION=0
+Fed>wordcount-YARN-c19-10.3.1.19>		IO_ERROR=0
+Fed>wordcount-YARN-c19-10.3.1.19>		WRONG_LENGTH=0
+Fed>wordcount-YARN-c19-10.3.1.19>		WRONG_MAP=0
+Fed>wordcount-YARN-c19-10.3.1.19>		WRONG_REDUCE=0
+Fed>wordcount-YARN-c19-10.3.1.19>	File Input Format Counters 
+Fed>wordcount-YARN-c19-10.3.1.19>		Bytes Read=175173203987
+Fed>wordcount-YARN-c19-10.3.1.19>	File Output Format Counters 
+Fed>wordcount-YARN-c19-10.3.1.19>		Bytes Written=30805650463
+Fed>----------------------------------
+Fed>mIP 10.3.1.19 Global Aggregation Start Time = 1436521340370
+Fed>----------------------------------
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:42:17 INFO Configuration.deprecation: fs.default.name is deprecated. Instead, use fs.defaultFS
+Fed>wordcount-YARN-c19-10.3.1.19> userName = hpds
+Fed>wordcount-YARN-c19-10.3.1.19> hadoop_home = /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+Fed>wordcount-YARN-c19-10.3.1.19> outputPath = c19_wordcount-YARN_OUT_20150710141717
+Fed>wordcount-YARN-c19-10.3.1.19> srcHDFS = hdfs://c19:39100/
+Fed>wordcount-YARN-c19-10.3.1.19>RegionCloud Distcp [/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop distcp hdfs://c19:39100/user/hpds/c19_wordcount-YARN_OUT_20150710141717 hdfs://c02:39100/user/hpds/c19_wordcount-YARN_OUT_20150710141717]
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:17 INFO tools.DistCp: Input Options: DistCpOptions{atomicCommit=false, syncFolder=false, deleteMissing=false, ignoreFailures=false, maxMaps=20, sslConfigurationFile='null', copyStrategy='uniformsize', sourceFileListing=null, sourcePaths=[hdfs://c19:39100/user/hpds/c19_wordcount-YARN_OUT_20150710141717], targetPath=hdfs://c02:39100/user/hpds/c19_wordcount-YARN_OUT_20150710141717}
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:17 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:18 INFO Configuration.deprecation: io.sort.mb is deprecated. Instead, use mapreduce.task.io.sort.mb
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:18 INFO Configuration.deprecation: io.sort.factor is deprecated. Instead, use mapreduce.task.io.sort.factor
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:18 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:18 INFO mapreduce.JobSubmitter: number of splits:2
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:19 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273844725_0027
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:19 INFO impl.YarnClientImpl: Submitted application application_1436273844725_0027
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:19 INFO mapreduce.Job: The url to track the job: http://c19:40888/proxy/application_1436273844725_0027/
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:19 INFO tools.DistCp: DistCp job-id: job_1436273844725_0027
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:19 INFO mapreduce.Job: Running job: job_1436273844725_0027
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:33 INFO mapreduce.Job: Job job_1436273844725_0027 running in uber mode : false
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:33 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:37 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:42:43 INFO mapreduce.Job:  map 100% reduce 0%
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:47:41 INFO mapreduce.Job: Job job_1436273844725_0027 completed successfully
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>15/07/10 17:47:41 INFO mapreduce.Job: Counters: 33
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>	File System Counters
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of bytes read=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of bytes written=191396
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of read operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of large read operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		FILE: Number of write operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of bytes read=30805651431
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of bytes written=30805650463
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of read operations=35
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of large read operations=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		HDFS: Number of write operations=8
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>	Job Counters 
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Launched map tasks=2
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Other local map tasks=2
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Total time spent by all maps in occupied slots (ms)=306524
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Total time spent by all reduces in occupied slots (ms)=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Total time spent by all map tasks (ms)=306524
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Total vcore-seconds taken by all map tasks=306524
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Total megabyte-seconds taken by all map tasks=313880576
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>	Map-Reduce Framework
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Map input records=2
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Map output records=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Input split bytes=270
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Spilled Records=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Failed Shuffles=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Merged Map outputs=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		GC time elapsed (ms)=1617
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		CPU time spent (ms)=172750
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Physical memory (bytes) snapshot=464969728
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Virtual memory (bytes) snapshot=10194415616
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Total committed heap usage (bytes)=363855872
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>	File Input Format Counters 
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Bytes Read=698
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>	File Output Format Counters 
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		Bytes Written=0
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>	org.apache.hadoop.tools.mapred.CopyMapper$Counter
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		BYTESCOPIED=30805650463
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		BYTESEXPECTED=30805650463
+Fed>wordcount-YARN-c19-10.3.1.19>Distcp_>		COPY=2
+Fed>wordcount-YARN-c19-10.3.1.19>Server To Join
+Fed>wordcount-YARN-c19-10.3.1.19>send REQ_MIGRATE_DATA_FINISHED
+Fed>Top Cloud Recv MIGRATE Data Finished
+Fed>wordcount-YARN-c19-10.3.1.19>Stop Server
+Fed>wordcount-YARN-c19-10.3.1.19>sockettimeout exeception occurs
+Fed>----------------------------------
+Fed>mIP 10.3.1.19 Global Aggreagtion End Time = 1436521667158
+Fed>----------------------------------
+Fed>wordcount-YARN-c19-10.3.1.19>Region Cloud Recvied Bye
+Fed>wordcount-YARN-c19-10.3.1.19>java.net.SocketTimeoutException: Accept timed out
+Fed>wordcount-YARN-c19-10.3.1.19>	at java.net.PlainSocketImpl.socketAccept(Native Method)
+Fed>wordcount-YARN-c19-10.3.1.19>	at java.net.AbstractPlainSocketImpl.accept(AbstractPlainSocketImpl.java:404)
+Fed>wordcount-YARN-c19-10.3.1.19>	at java.net.ServerSocket.implAccept(ServerSocket.java:545)
+Fed>wordcount-YARN-c19-10.3.1.19>	at java.net.ServerSocket.accept(ServerSocket.java:513)
+Fed>wordcount-YARN-c19-10.3.1.19>	at ncku.hpds.fed.MRv2.FedCloudMonitorServer.run(FedCloudMonitorServer.java:66)
+Fed>wordcount-YARN-c19-10.3.1.19>Region Cloud Server Closed
+Fed>wordcount-YARN-c19-10.3.1.19>Region Cloud Report : RegionCloudsTime = 12296446(ms)
+Fed>wordcount-YARN-c19-10.3.1.19>Region Cloud Report : GlobalAggregationTime = 388115(ms)
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:48:44 INFO ipc.Client: Retrying connect to server: c21/10.3.1.21:43555. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:48:45 INFO ipc.Client: Retrying connect to server: c21/10.3.1.21:43555. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:48:46 INFO ipc.Client: Retrying connect to server: c21/10.3.1.21:43555. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=3, sleepTime=1000 MILLISECONDS)
+Fed>wordcount-YARN-c19-10.3.1.19>15/07/10 17:48:46 INFO mapred.ClientServiceDelegate: Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+Fed>FedRegionCloudJob All Joined
+Fed>TopCloud Report : RegionCloud End Time = 12689652(ms)
+Fed>TopCloud Report : RegionCloud Total Time = 12689652(ms)
+Fed>----------------------------------
+Fed>Map-ProxyReduce Phrase Finished
+Fed>----------------------------------
+Fed>
+Fed>----------------------------------
+Fed>Global Aggregation Start ...
+Fed>----------------------------------
+Fed>Wait For FedCouldMonitorClient Join
+Fed>FedCouldMonitorClient All Joined
+Fed>Top Cloud Report : Global Aggregation Consuming Time :
+Fed>mIP 10.3.1.19 Intermediate data Aggregation Time = 326788(ms)
+Fed>mIP 10.3.1.7 Intermediate data Aggregation Time = 186168(ms)
+Fed>mIP 10.3.1.2 Intermediate data Aggregation Time = 3001(ms)
+Fed>mIP 10.3.1.13 Intermediate data Aggregation Time = 257735(ms)
+Fed>----------------------------------
+Fed>Global Aggregation End ...
+Fed>----------------------------------
+Fed>Select ProxyMapper : ncku.hpds.fed.MRv2.ProxySelector.ProxyMapperTextInt
+Fed>----------------------------------
+Fed>TopCloud Start Time = 1436521730807
+Fed>----------------------------------
+Fed>15/07/10 17:48:50 INFO client.RMProxy: Connecting to ResourceManager at c02/10.3.1.2:40832
+Fed>15/07/10 17:48:51 INFO input.FileInputFormat: Total input paths to process : 4
+Fed>15/07/10 17:48:51 INFO mapreduce.JobSubmitter: number of splits:586
+Fed>15/07/10 17:48:51 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273655163_0029
+Fed>15/07/10 17:48:51 INFO impl.YarnClientImpl: Submitted application application_1436273655163_0029
+Fed>15/07/10 17:48:51 INFO mapreduce.Job: The url to track the job: http://c02:40888/proxy/application_1436273655163_0029/
+Fed>15/07/10 17:48:51 INFO mapreduce.Job: Running job: job_1436273655163_0029
+Fed>15/07/10 17:48:56 INFO mapreduce.Job: Job job_1436273655163_0029 running in uber mode : false
+Fed>15/07/10 17:48:56 INFO mapreduce.Job:  map 0% reduce 0%
+Fed>15/07/10 17:49:08 INFO mapreduce.Job:  map 1% reduce 0%
+Fed>15/07/10 17:49:20 INFO mapreduce.Job:  map 2% reduce 0%
+Fed>15/07/10 17:49:39 INFO mapreduce.Job:  map 3% reduce 0%
+Fed>15/07/10 17:49:56 INFO mapreduce.Job:  map 4% reduce 0%
+Fed>15/07/10 17:50:16 INFO mapreduce.Job:  map 5% reduce 0%
+Fed>15/07/10 17:50:34 INFO mapreduce.Job:  map 6% reduce 0%
+Fed>15/07/10 17:50:55 INFO mapreduce.Job:  map 7% reduce 0%
+Fed>15/07/10 17:51:12 INFO mapreduce.Job:  map 8% reduce 0%
+Fed>15/07/10 17:51:31 INFO mapreduce.Job:  map 9% reduce 0%
+Fed>15/07/10 17:51:53 INFO mapreduce.Job:  map 10% reduce 0%
+Fed>15/07/10 17:52:10 INFO mapreduce.Job:  map 11% reduce 0%
+Fed>15/07/10 17:52:26 INFO mapreduce.Job:  map 12% reduce 0%
+Fed>15/07/10 17:52:36 INFO mapreduce.Job:  map 13% reduce 0%
+Fed>15/07/10 17:52:53 INFO mapreduce.Job:  map 14% reduce 0%
+Fed>15/07/10 17:53:06 INFO mapreduce.Job:  map 15% reduce 0%
+Fed>15/07/10 17:53:19 INFO mapreduce.Job:  map 16% reduce 0%
+Fed>15/07/10 17:53:30 INFO mapreduce.Job:  map 17% reduce 0%
+Fed>15/07/10 17:53:44 INFO mapreduce.Job:  map 18% reduce 0%
+Fed>15/07/10 17:54:01 INFO mapreduce.Job:  map 19% reduce 0%
+Fed>15/07/10 17:54:12 INFO mapreduce.Job:  map 20% reduce 0%
+Fed>15/07/10 17:54:25 INFO mapreduce.Job:  map 21% reduce 0%
+Fed>15/07/10 17:54:39 INFO mapreduce.Job:  map 22% reduce 0%
+Fed>15/07/10 17:54:53 INFO mapreduce.Job:  map 23% reduce 0%
+Fed>15/07/10 17:55:07 INFO mapreduce.Job:  map 24% reduce 0%
+Fed>15/07/10 17:55:22 INFO mapreduce.Job:  map 25% reduce 0%
+Fed>15/07/10 17:55:36 INFO mapreduce.Job:  map 26% reduce 0%
+Fed>15/07/10 17:55:50 INFO mapreduce.Job:  map 27% reduce 0%
+Fed>15/07/10 17:56:03 INFO mapreduce.Job:  map 28% reduce 0%
+Fed>15/07/10 17:56:22 INFO mapreduce.Job:  map 29% reduce 0%
+Fed>15/07/10 17:56:33 INFO mapreduce.Job:  map 30% reduce 0%
+Fed>15/07/10 17:56:46 INFO mapreduce.Job:  map 31% reduce 0%
+Fed>15/07/10 17:57:03 INFO mapreduce.Job:  map 32% reduce 0%
+Fed>15/07/10 17:57:17 INFO mapreduce.Job:  map 33% reduce 0%
+Fed>15/07/10 17:57:35 INFO mapreduce.Job:  map 34% reduce 0%
+Fed>15/07/10 17:57:50 INFO mapreduce.Job:  map 35% reduce 0%
+Fed>15/07/10 17:58:06 INFO mapreduce.Job:  map 36% reduce 0%
+Fed>15/07/10 17:58:15 INFO mapreduce.Job:  map 37% reduce 0%
+Fed>15/07/10 17:58:29 INFO mapreduce.Job:  map 38% reduce 0%
+Fed>15/07/10 17:58:46 INFO mapreduce.Job:  map 39% reduce 0%
+Fed>15/07/10 17:58:58 INFO mapreduce.Job:  map 40% reduce 0%
+Fed>15/07/10 17:59:13 INFO mapreduce.Job:  map 41% reduce 0%
+Fed>15/07/10 17:59:28 INFO mapreduce.Job:  map 42% reduce 0%
+Fed>15/07/10 17:59:41 INFO mapreduce.Job:  map 43% reduce 0%
+Fed>15/07/10 17:59:56 INFO mapreduce.Job:  map 44% reduce 0%
+Fed>15/07/10 18:00:14 INFO mapreduce.Job:  map 45% reduce 0%
+Fed>15/07/10 18:00:26 INFO mapreduce.Job:  map 46% reduce 0%
+Fed>15/07/10 18:00:43 INFO mapreduce.Job:  map 47% reduce 0%
+Fed>15/07/10 18:00:54 INFO mapreduce.Job:  map 48% reduce 0%
+Fed>15/07/10 18:01:04 INFO mapreduce.Job:  map 49% reduce 0%
+Fed>15/07/10 18:01:17 INFO mapreduce.Job:  map 50% reduce 0%
+Fed>15/07/10 18:01:34 INFO mapreduce.Job:  map 51% reduce 0%
+Fed>15/07/10 18:01:42 INFO mapreduce.Job:  map 51% reduce 1%
+Fed>15/07/10 18:01:59 INFO mapreduce.Job:  map 52% reduce 1%
+Fed>15/07/10 18:02:00 INFO mapreduce.Job:  map 52% reduce 2%
+Fed>15/07/10 18:02:20 INFO mapreduce.Job:  map 52% reduce 3%
+Fed>15/07/10 18:02:25 INFO mapreduce.Job:  map 53% reduce 3%
+Fed>15/07/10 18:02:46 INFO mapreduce.Job:  map 54% reduce 3%
+Fed>15/07/10 18:02:50 INFO mapreduce.Job:  map 54% reduce 4%
+Fed>15/07/10 18:03:10 INFO mapreduce.Job:  map 55% reduce 4%
+Fed>15/07/10 18:03:15 INFO mapreduce.Job:  map 55% reduce 5%
+Fed>15/07/10 18:03:33 INFO mapreduce.Job:  map 56% reduce 5%
+Fed>15/07/10 18:03:36 INFO mapreduce.Job:  map 56% reduce 6%
+Fed>15/07/10 18:03:52 INFO mapreduce.Job:  map 57% reduce 6%
+Fed>15/07/10 18:03:54 INFO mapreduce.Job:  map 57% reduce 7%
+Fed>15/07/10 18:04:14 INFO mapreduce.Job:  map 58% reduce 7%
+Fed>15/07/10 18:04:16 INFO mapreduce.Job:  map 58% reduce 8%
+Fed>15/07/10 18:04:35 INFO mapreduce.Job:  map 59% reduce 8%
+Fed>15/07/10 18:04:40 INFO mapreduce.Job:  map 59% reduce 9%
+Fed>15/07/10 18:04:52 INFO mapreduce.Job:  map 60% reduce 9%
+Fed>15/07/10 18:05:04 INFO mapreduce.Job:  map 60% reduce 10%
+Fed>15/07/10 18:05:15 INFO mapreduce.Job:  map 61% reduce 10%
+Fed>15/07/10 18:05:25 INFO mapreduce.Job:  map 61% reduce 11%
+Fed>15/07/10 18:05:44 INFO mapreduce.Job:  map 62% reduce 11%
+Fed>15/07/10 18:05:50 INFO mapreduce.Job:  map 62% reduce 12%
+Fed>15/07/10 18:06:09 INFO mapreduce.Job:  map 63% reduce 12%
+Fed>15/07/10 18:06:11 INFO mapreduce.Job:  map 63% reduce 13%
+Fed>15/07/10 18:06:35 INFO mapreduce.Job:  map 63% reduce 14%
+Fed>15/07/10 18:06:41 INFO mapreduce.Job:  map 64% reduce 14%
+Fed>15/07/10 18:06:55 INFO mapreduce.Job:  map 65% reduce 14%
+Fed>15/07/10 18:06:56 INFO mapreduce.Job:  map 65% reduce 15%
+Fed>15/07/10 18:07:14 INFO mapreduce.Job:  map 66% reduce 15%
+Fed>15/07/10 18:07:17 INFO mapreduce.Job:  map 66% reduce 16%
+Fed>15/07/10 18:07:36 INFO mapreduce.Job:  map 67% reduce 16%
+Fed>15/07/10 18:07:41 INFO mapreduce.Job:  map 67% reduce 17%
+Fed>15/07/10 18:07:59 INFO mapreduce.Job:  map 68% reduce 17%
+Fed>15/07/10 18:08:04 INFO mapreduce.Job:  map 68% reduce 18%
+Fed>15/07/10 18:08:26 INFO mapreduce.Job:  map 68% reduce 19%
+Fed>15/07/10 18:08:32 INFO mapreduce.Job:  map 69% reduce 19%
+Fed>15/07/10 18:08:47 INFO mapreduce.Job:  map 69% reduce 20%
+Fed>15/07/10 18:09:01 INFO mapreduce.Job:  map 70% reduce 20%
+Fed>15/07/10 18:09:29 INFO mapreduce.Job:  map 71% reduce 21%
+Fed>15/07/10 18:09:59 INFO mapreduce.Job:  map 72% reduce 21%
+Fed>15/07/10 18:10:17 INFO mapreduce.Job:  map 72% reduce 22%
+Fed>15/07/10 18:10:28 INFO mapreduce.Job:  map 73% reduce 22%
+Fed>15/07/10 18:10:53 INFO mapreduce.Job:  map 73% reduce 23%
+Fed>15/07/10 18:10:55 INFO mapreduce.Job:  map 74% reduce 23%
+Fed>15/07/10 18:11:32 INFO mapreduce.Job:  map 75% reduce 23%
+Fed>15/07/10 18:11:47 INFO mapreduce.Job:  map 75% reduce 24%
+Fed>15/07/10 18:11:59 INFO mapreduce.Job:  map 76% reduce 24%
+Fed>15/07/10 18:12:20 INFO mapreduce.Job:  map 76% reduce 25%
+Fed>15/07/10 18:12:28 INFO mapreduce.Job:  map 77% reduce 25%
+Fed>15/07/10 18:13:01 INFO mapreduce.Job:  map 78% reduce 25%
+Fed>15/07/10 18:13:03 INFO mapreduce.Job:  map 78% reduce 26%
+Fed>15/07/10 18:13:43 INFO mapreduce.Job:  map 79% reduce 26%
+Fed>15/07/10 18:14:28 INFO mapreduce.Job:  map 80% reduce 26%
+Fed>15/07/10 18:14:33 INFO mapreduce.Job:  map 80% reduce 27%
+Fed>15/07/10 18:15:08 INFO mapreduce.Job:  map 81% reduce 27%
+Fed>15/07/10 18:15:41 INFO mapreduce.Job:  map 82% reduce 27%
+Fed>15/07/10 18:16:16 INFO mapreduce.Job:  map 83% reduce 27%
+Fed>15/07/10 18:16:24 INFO mapreduce.Job:  map 83% reduce 28%
+Fed>15/07/10 18:16:54 INFO mapreduce.Job:  map 84% reduce 28%
+Fed>15/07/10 18:17:37 INFO mapreduce.Job:  map 85% reduce 28%
+Fed>15/07/10 18:18:17 INFO mapreduce.Job:  map 86% reduce 28%
+Fed>15/07/10 18:18:21 INFO mapreduce.Job:  map 86% reduce 29%
+Fed>15/07/10 18:18:48 INFO mapreduce.Job:  map 87% reduce 29%
+Fed>15/07/10 18:19:24 INFO mapreduce.Job:  map 88% reduce 29%
+Fed>15/07/10 18:20:04 INFO mapreduce.Job:  map 89% reduce 29%
+Fed>15/07/10 18:20:09 INFO mapreduce.Job:  map 89% reduce 30%
+Fed>15/07/10 18:20:43 INFO mapreduce.Job:  map 90% reduce 30%
+Fed>15/07/10 18:21:28 INFO mapreduce.Job:  map 91% reduce 30%
+Fed>15/07/10 18:22:03 INFO mapreduce.Job:  map 92% reduce 30%
+Fed>15/07/10 18:22:06 INFO mapreduce.Job:  map 92% reduce 31%
+Fed>15/07/10 18:22:37 INFO mapreduce.Job:  map 93% reduce 31%
+Fed>15/07/10 18:23:15 INFO mapreduce.Job:  map 94% reduce 31%
+Fed>15/07/10 18:23:45 INFO mapreduce.Job:  map 95% reduce 31%
+Fed>15/07/10 18:23:52 INFO mapreduce.Job:  map 95% reduce 32%
+Fed>15/07/10 18:24:25 INFO mapreduce.Job:  map 96% reduce 32%
+Fed>15/07/10 18:25:02 INFO mapreduce.Job:  map 97% reduce 32%
+Fed>15/07/10 18:25:36 INFO mapreduce.Job:  map 98% reduce 32%
+Fed>15/07/10 18:25:40 INFO mapreduce.Job:  map 98% reduce 33%
+Fed>15/07/10 18:26:16 INFO mapreduce.Job:  map 99% reduce 33%
+Fed>15/07/10 18:26:42 INFO mapreduce.Job:  map 100% reduce 33%
+Fed>15/07/10 18:46:07 INFO mapreduce.Job:  map 100% reduce 34%
+Fed>15/07/10 18:46:31 INFO mapreduce.Job:  map 100% reduce 35%
+Fed>15/07/10 18:46:58 INFO mapreduce.Job:  map 100% reduce 36%
+Fed>15/07/10 18:47:22 INFO mapreduce.Job:  map 100% reduce 37%
+Fed>15/07/10 18:47:40 INFO mapreduce.Job:  map 100% reduce 38%
+Fed>15/07/10 18:48:07 INFO mapreduce.Job:  map 100% reduce 39%
+Fed>15/07/10 18:48:31 INFO mapreduce.Job:  map 100% reduce 40%
+Fed>15/07/10 18:48:55 INFO mapreduce.Job:  map 100% reduce 41%
+Fed>15/07/10 18:49:19 INFO mapreduce.Job:  map 100% reduce 42%
+Fed>15/07/10 18:49:39 INFO mapreduce.Job:  map 100% reduce 43%
+Fed>15/07/10 18:50:03 INFO mapreduce.Job:  map 100% reduce 44%
+Fed>15/07/10 18:50:30 INFO mapreduce.Job:  map 100% reduce 45%
+Fed>15/07/10 18:50:51 INFO mapreduce.Job:  map 100% reduce 46%
+Fed>15/07/10 18:51:16 INFO mapreduce.Job:  map 100% reduce 47%
+Fed>15/07/10 18:51:31 INFO mapreduce.Job:  map 100% reduce 48%
+Fed>15/07/10 18:51:55 INFO mapreduce.Job:  map 100% reduce 49%
+Fed>15/07/10 18:52:19 INFO mapreduce.Job:  map 100% reduce 50%
+Fed>15/07/10 18:52:40 INFO mapreduce.Job:  map 100% reduce 51%
+Fed>15/07/10 18:53:04 INFO mapreduce.Job:  map 100% reduce 52%
+Fed>15/07/10 18:53:34 INFO mapreduce.Job:  map 100% reduce 53%
+Fed>15/07/10 18:54:04 INFO mapreduce.Job:  map 100% reduce 54%
+Fed>15/07/10 18:54:34 INFO mapreduce.Job:  map 100% reduce 55%
+Fed>15/07/10 18:55:01 INFO mapreduce.Job:  map 100% reduce 56%
+Fed>15/07/10 18:55:22 INFO mapreduce.Job:  map 100% reduce 57%
+Fed>15/07/10 18:55:56 INFO mapreduce.Job:  map 100% reduce 58%
+Fed>15/07/10 18:56:23 INFO mapreduce.Job:  map 100% reduce 59%
+Fed>15/07/10 18:56:52 INFO mapreduce.Job:  map 100% reduce 60%
+Fed>15/07/10 18:57:20 INFO mapreduce.Job:  map 100% reduce 61%
+Fed>15/07/10 18:57:41 INFO mapreduce.Job:  map 100% reduce 62%
+Fed>15/07/10 18:58:11 INFO mapreduce.Job:  map 100% reduce 63%
+Fed>15/07/10 18:58:38 INFO mapreduce.Job:  map 100% reduce 64%
+Fed>15/07/10 18:59:05 INFO mapreduce.Job:  map 100% reduce 65%
+Fed>15/07/10 18:59:32 INFO mapreduce.Job:  map 100% reduce 66%
+Fed>15/07/10 18:59:59 INFO mapreduce.Job:  map 100% reduce 67%
+Fed>15/07/10 19:00:38 INFO mapreduce.Job:  map 100% reduce 68%
+Fed>15/07/10 19:01:23 INFO mapreduce.Job:  map 100% reduce 69%
+Fed>15/07/10 19:02:05 INFO mapreduce.Job:  map 100% reduce 70%
+Fed>15/07/10 19:02:59 INFO mapreduce.Job:  map 100% reduce 71%
+Fed>15/07/10 19:03:48 INFO mapreduce.Job:  map 100% reduce 72%
+Fed>15/07/10 19:04:33 INFO mapreduce.Job:  map 100% reduce 73%
+Fed>15/07/10 19:05:15 INFO mapreduce.Job:  map 100% reduce 74%
+Fed>15/07/10 19:05:54 INFO mapreduce.Job:  map 100% reduce 75%
+Fed>15/07/10 19:06:45 INFO mapreduce.Job:  map 100% reduce 76%
+Fed>15/07/10 19:07:27 INFO mapreduce.Job:  map 100% reduce 77%
+Fed>15/07/10 19:08:09 INFO mapreduce.Job:  map 100% reduce 78%
+Fed>15/07/10 19:08:48 INFO mapreduce.Job:  map 100% reduce 79%
+Fed>15/07/10 19:09:24 INFO mapreduce.Job:  map 100% reduce 80%
+Fed>15/07/10 19:10:13 INFO mapreduce.Job:  map 100% reduce 81%
+Fed>15/07/10 19:10:49 INFO mapreduce.Job:  map 100% reduce 82%
+Fed>15/07/10 19:11:28 INFO mapreduce.Job:  map 100% reduce 83%
+Fed>15/07/10 19:12:04 INFO mapreduce.Job:  map 100% reduce 84%
+Fed>15/07/10 19:12:40 INFO mapreduce.Job:  map 100% reduce 85%
+Fed>15/07/10 19:13:25 INFO mapreduce.Job:  map 100% reduce 86%
+Fed>15/07/10 19:13:55 INFO mapreduce.Job:  map 100% reduce 87%
+Fed>15/07/10 19:14:37 INFO mapreduce.Job:  map 100% reduce 88%
+Fed>15/07/10 19:15:35 INFO mapreduce.Job:  map 100% reduce 89%
+Fed>15/07/10 19:16:16 INFO mapreduce.Job:  map 100% reduce 90%
+Fed>15/07/10 19:17:04 INFO mapreduce.Job:  map 100% reduce 91%
+Fed>15/07/10 19:17:43 INFO mapreduce.Job:  map 100% reduce 92%
+Fed>15/07/10 19:18:19 INFO mapreduce.Job:  map 100% reduce 93%
+Fed>15/07/10 19:19:01 INFO mapreduce.Job:  map 100% reduce 94%
+Fed>15/07/10 19:19:46 INFO mapreduce.Job:  map 100% reduce 95%
+Fed>15/07/10 19:20:22 INFO mapreduce.Job:  map 100% reduce 96%
+Fed>15/07/10 19:21:07 INFO mapreduce.Job:  map 100% reduce 97%
+Fed>15/07/10 19:21:44 INFO mapreduce.Job:  map 100% reduce 98%
+Fed>15/07/10 19:22:20 INFO mapreduce.Job:  map 100% reduce 99%
+Fed>15/07/10 19:23:02 INFO mapreduce.Job:  map 100% reduce 100%
+Fed>15/07/10 19:23:25 INFO mapreduce.Job: Job job_1436273655163_0029 completed successfully
+Fed>15/07/10 19:23:25 INFO mapreduce.Job: Counters: 50
+Fed>----------------------------------
+Fed>TopCloudEnd() = 1436527405358
+Fed>----------------------------------
+Fed>Top Cloud Report : RegionCloud Work Time = 12689652(ms)
+Fed>	File System Counters
+Fed>		FILE: Number of bytes read=305817756092
+Fed>		FILE: Number of bytes written=381654789101
+Fed>		FILE: Number of read operations=0
+Fed>		FILE: Number of large read operations=0
+Fed>		FILE: Number of write operations=0
+Fed>		HDFS: Number of bytes read=78410451999
+Fed>		HDFS: Number of bytes written=62437800093
+Fed>		HDFS: Number of read operations=1761
+Fed>		HDFS: Number of large read operations=0
+Fed>		HDFS: Number of write operations=2
+Fed>	Job Counters 
+Fed>		Launched map tasks=586
+Fed>		Launched reduce tasks=1
+Fed>		Data-local map tasks=387
+Fed>		Rack-local map tasks=199
+Fed>		Total time spent by all maps in occupied slots (ms)=5678519
+Fed>		Total time spent by all reduces in occupied slots (ms)=4910358
+Fed>		Total time spent by all map tasks (ms)=5678519
+Fed>		Total time spent by all reduce tasks (ms)=4910358
+Fed>		Total vcore-seconds taken by all map tasks=5678519
+Fed>		Total vcore-seconds taken by all reduce tasks=4910358
+Fed>		Total megabyte-seconds taken by all map tasks=23259213824
+Fed>		Total megabyte-seconds taken by all reduce tasks=40225652736
+Fed>	Map-Reduce Framework
+Fed>		Map input records=1009688624
+Fed>		Map output records=2762731314
+Fed>		Map output bytes=128741291011
+Fed>		Map output materialized bytes=75195692780
+Fed>		Input split bytes=83212
+Fed>		Combine input records=3703000264
+Fed>		Combine output records=1949903380
+Fed>		Reduce input groups=811248802
+Fed>		Reduce shuffle bytes=75195692780
+Fed>		Reduce input records=1009634430
+Fed>		Reduce output records=811248802
+Fed>		Spilled Records=5134367633
+Fed>		Shuffled Maps =586
+Fed>		Failed Shuffles=0
+Fed>		Merged Map outputs=586
+Fed>		GC time elapsed (ms)=80129
+Fed>		CPU time spent (ms)=8614970
+Fed>		Physical memory (bytes) snapshot=290277658624
+Fed>		Virtual memory (bytes) snapshot=2996317057024
+Fed>		Total committed heap usage (bytes)=348500000768
+Fed>	Shuffle Errors
+Fed>		BAD_ID=0
+Fed>		CONNECTION=0
+Fed>		IO_ERROR=0
+Fed>		WRONG_LENGTH=0
+Fed>		WRONG_MAP=0
+Fed>		WRONG_REDUCE=0
+Fed>	File Input Format Counters 
+Fed>		Bytes Read=78410368787
+Fed>	File Output Format Counters 
+Fed>		Bytes Written=62437800093
+Fed>Top Cloud Report : Top Cloud Work Time = 5674551(ms)
+Fed>Top Cloud Report : Global Aggregation Time Details : 
+Fed>mIP 10.3.1.19 Intermediate data Aggregation Time = 326788(ms)
+Fed>mIP 10.3.1.7 Intermediate data Aggregation Time = 186168(ms)
+Fed>mIP 10.3.1.2 Intermediate data Aggregation Time = 3001(ms)
+Fed>mIP 10.3.1.13 Intermediate data Aggregation Time = 257735(ms)
+Fed>Top Cloud Report : Total Global Aggregation Time = 773692(ms)
+Fed>actual Aggregation Time = 9683539(ms)
+Fed>total time = 2.8047742E7 (ms), 28047.742(s)
+FedMR-Process exitValue: 0
+globalFileName : 400Gfwc_out_0710
+globalFileName : 400Gfwc_out_0710
+host and path : c02:/user/hpds/400Gfwc_out_0710

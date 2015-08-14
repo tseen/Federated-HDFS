@@ -1,0 +1,79 @@
+use default value : 1.0
+globalFile : amazon400G
+Physical Input Path : 
+c19:/user/hpds/amazon160G
+c07:/user/hpds/amazon80G
+c02:/user/hpds/amazon40G
+c13:/user/hpds/amazon120G
+JAR : hadoop-mapreduce-examples-2.5.0.jar
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.2:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.19:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.7:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+scp hadoop-mapreduce-examples-2.5.0.jar hpds@10.3.1.13:/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1
+JarCopy-Process exitValue: 0
+JarCopy-Process exitValue: 0
+JarCopy-Process exitValue: 0
+JarCopy-Process exitValue: 0
+Start running RegionCloud Jobs
+Wait For RegionCloud Jobs
+ssh hpds@10.3.1.7 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon80G 400Gwc_out_0709 
+ssh hpds@10.3.1.2 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon40G 400Gwc_out_0709 
+ssh hpds@10.3.1.19 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon160G 400Gwc_out_0709 
+ssh hpds@10.3.1.13 /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/bin/hadoop jar /home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/hadoop-mapreduce-examples-2.5.0.jar wordcount /user/hpds/amazon120G 400Gwc_out_0709 
+c19-10.3.1.19>15/07/09 23:06:21 INFO client.RMProxy: Connecting to ResourceManager at c19/10.3.1.19:40832
+c19-10.3.1.19>15/07/09 23:06:21 INFO input.FileInputFormat: Total input paths to process : 36
+c19-10.3.1.19>15/07/09 23:06:21 INFO mapreduce.JobSubmitter: number of splits:1325
+c19-10.3.1.19>15/07/09 23:06:21 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273844725_0022
+c19-10.3.1.19>15/07/09 23:06:22 INFO impl.YarnClientImpl: Submitted application application_1436273844725_0022
+c19-10.3.1.19>15/07/09 23:06:22 INFO mapreduce.Job: The url to track the job: http://c19:40888/proxy/application_1436273844725_0022/
+c19-10.3.1.19>15/07/09 23:06:22 INFO mapreduce.Job: Running job: job_1436273844725_0022
+c07-10.3.1.7>15/07/09 23:06:19 INFO client.RMProxy: Connecting to ResourceManager at c07/10.3.1.7:40832
+c02-10.3.1.2>15/07/09 23:06:26 INFO client.RMProxy: Connecting to ResourceManager at c02/10.3.1.2:40832
+c13-10.3.1.13>15/07/09 23:06:17 INFO client.RMProxy: Connecting to ResourceManager at c13/10.3.1.13:40832
+c07-10.3.1.7>15/07/09 23:06:19 INFO input.FileInputFormat: Total input paths to process : 17
+c02-10.3.1.2>15/07/09 23:06:27 INFO input.FileInputFormat: Total input paths to process : 8
+c13-10.3.1.13>15/07/09 23:06:18 INFO input.FileInputFormat: Total input paths to process : 27
+c07-10.3.1.7>15/07/09 23:06:20 INFO mapreduce.JobSubmitter: number of splits:627
+c02-10.3.1.2>15/07/09 23:06:27 INFO mapreduce.JobSubmitter: number of splits:294
+c13-10.3.1.13>15/07/09 23:06:18 INFO mapreduce.JobSubmitter: number of splits:987
+c02-10.3.1.2>15/07/09 23:06:27 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273655163_0024
+c07-10.3.1.7>15/07/09 23:06:20 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273621930_0027
+c07-10.3.1.7>15/07/09 23:06:20 INFO impl.YarnClientImpl: Submitted application application_1436273621930_0027
+c02-10.3.1.2>15/07/09 23:06:27 INFO impl.YarnClientImpl: Submitted application application_1436273655163_0024
+c07-10.3.1.7>15/07/09 23:06:20 INFO mapreduce.Job: The url to track the job: http://c07:40888/proxy/application_1436273621930_0027/
+c07-10.3.1.7>15/07/09 23:06:20 INFO mapreduce.Job: Running job: job_1436273621930_0027
+c02-10.3.1.2>15/07/09 23:06:27 INFO mapreduce.Job: The url to track the job: http://c02:40888/proxy/application_1436273655163_0024/
+c02-10.3.1.2>15/07/09 23:06:27 INFO mapreduce.Job: Running job: job_1436273655163_0024
+c13-10.3.1.13>15/07/09 23:06:18 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1436273680176_0038
+c13-10.3.1.13>15/07/09 23:06:19 INFO impl.YarnClientImpl: Submitted application application_1436273680176_0038
+c13-10.3.1.13>15/07/09 23:06:19 INFO mapreduce.Job: The url to track the job: http://c13:40888/proxy/application_1436273680176_0038/
+c13-10.3.1.13>15/07/09 23:06:19 INFO mapreduce.Job: Running job: job_1436273680176_0038
+c19-10.3.1.19>15/07/09 23:06:26 INFO mapreduce.Job: Job job_1436273844725_0022 running in uber mode : false
+c19-10.3.1.19>15/07/09 23:06:26 INFO mapreduce.Job:  map 0% reduce 0%
+c02-10.3.1.2>15/07/09 23:06:31 INFO mapreduce.Job: Job job_1436273655163_0024 running in uber mode : false
+c02-10.3.1.2>15/07/09 23:06:31 INFO mapreduce.Job:  map 0% reduce 0%
+c07-10.3.1.7>15/07/09 23:06:24 INFO mapreduce.Job: Job job_1436273621930_0027 running in uber mode : false
+c07-10.3.1.7>15/07/09 23:06:24 INFO mapreduce.Job:  map 0% reduce 0%
+c13-10.3.1.13>15/07/09 23:06:23 INFO mapreduce.Job: Job job_1436273680176_0038 running in uber mode : false
+c13-10.3.1.13>15/07/09 23:06:23 INFO mapreduce.Job:  map 0% reduce 0%
+c02-10.3.1.2>15/07/09 23:06:40 INFO mapreduce.Job:  map 1% reduce 0%
+c07-10.3.1.7>15/07/09 23:06:39 INFO mapreduce.Job:  map 1% reduce 0%
+c02-10.3.1.2>15/07/09 23:06:53 INFO mapreduce.Job:  map 2% reduce 0%
+c19-10.3.1.19>15/07/09 23:06:51 INFO mapreduce.Job:  map 1% reduce 0%
+c13-10.3.1.13>15/07/09 23:06:47 INFO mapreduce.Job:  map 1% reduce 0%
+c02-10.3.1.2>15/07/09 23:06:58 INFO mapreduce.Job:  map 3% reduce 0%
+c02-10.3.1.2>15/07/09 23:07:09 INFO mapreduce.Job:  map 4% reduce 0%
+c07-10.3.1.7>15/07/09 23:07:02 INFO mapreduce.Job:  map 2% reduce 0%
+c02-10.3.1.2>15/07/09 23:07:20 INFO mapreduce.Job:  map 5% reduce 0%
+c13-10.3.1.13>15/07/09 23:07:17 INFO mapreduce.Job:  map 2% reduce 0%
+c07-10.3.1.7>15/07/09 23:07:20 INFO mapreduce.Job:  map 3% reduce 0%
+c02-10.3.1.2>15/07/09 23:07:33 INFO mapreduce.Job:  map 6% reduce 0%
+c02-10.3.1.2>15/07/09 23:07:38 INFO mapreduce.Job:  map 7% reduce 0%
+c19-10.3.1.19>15/07/09 23:07:35 INFO mapreduce.Job:  map 2% reduce 0%
+c02-10.3.1.2>15/07/09 23:07:49 INFO mapreduce.Job:  map 8% reduce 0%
+c07-10.3.1.7>15/07/09 23:07:43 INFO mapreduce.Job:  map 4% reduce 0%
+FedMR-Process exitValue: 129
+FedMR-Process exitValue: 129
+FedMR-Process exitValue: 129
+FedMR-Process exitValue: 129
+RegionCloud Jobs all finished
