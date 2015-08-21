@@ -1,0 +1,70 @@
+Build instructions for Hadoop FedHDFS
+
+----------------------------------------------------------------------------------
+Requirements:
+
+* Unix System
+* JDK 1.6+
+* Maven 3.0 or later
+
+----------------------------------------------------------------------------------
+Maven main modules:
+
+  Independent-FedHDFS-src           (Main FedHDFS project)
+         - hadoop-fedhdfs           (Hadoop FedHDFS)
+
+----------------------------------------------------------------------------------
+Github (HTTPS clone URL):
+
+  Create your code repository/folder at first and Copy the FedHDFS <repo> from github.
+  
+  $ git clone https://github.com/HPDS/fbicloud-platforms.git  
+  
+----------------------------------------------------------------------------------
+Where to run Maven from?
+
+  It can be run from any module. The only catch is that if not run from utrunk
+  all modules that are not part of the build run must be installed in the local
+  Maven cache or available in a Maven repository.
+
+----------------------------------------------------------------------------------
+Maven build goals:
+
+ Build :
+  
+  The pom.xml will in 
+
+  [CodeRepository] > [fbicloud-platforms] > [tseenliu] > [Independent-FedHdfs-src] > [hadoop-fedhdfs]
+
+  $ mvn clean install
+  $ cd target
+
+  By convention Maven puts the .jar file in the target directory we can take a look at what is inside:
+
+  hadoop-fedhdfs-1.0.0-SNAPSHOT.jar
+----------------------------------------------------------------------------------
+Importing projects to eclipse
+
+  $ cd [CodeRepository] > [fbicloud-platforms] > [tseenliu] > [Independent-FedHdfs-src] > [hadoop-fedhdfs]
+
+Then, generate eclipse project files.
+
+  $ mvn eclipse:eclipse -DskipTests
+
+At last, import to eclipse by specifying the root directory of the project via
+[File] > [Import] > [Git] > [Projects from Git] > [Existing local repository].
+
+----------------------------------------------------------------------------------
+
+Building on OS/X
+
+----------------------------------------------------------------------------------
+
+A one-time manual step is required to enable building Hadoop OS X with Java 7
+every time the JDK is updated.
+see: https://issues.apache.org/jira/browse/HADOOP-9350
+
+$ sudo mkdir `/usr/libexec/java_home`/Classes
+$ sudo ln -s `/usr/libexec/java_home`/lib/tools.jar `/usr/libexec/java_home`/Classes/classes.jar
+
+

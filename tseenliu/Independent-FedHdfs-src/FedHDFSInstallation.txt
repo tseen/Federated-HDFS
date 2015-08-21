@@ -1,0 +1,51 @@
+FedHDFS Installation Tutorial
+
+----------------------------------------------------------------------------------
+OS and Hadoop release used:
+
+* Operating System: Ubuntu server 14.04 LTS
+* Hadoop YARN release: 2.4.1 (stable release)
+
+----------------------------------------------------------------------------------
+1. Download Hadoop YARN release and Install
+
+2. Set up script for FedHDFS
+   $ cp hadoop-daemon.sh {HODOOP_HOME}/sbin
+   $ cp hdfs {HODOOP_HOME}/bin
+
+3. Configuration
+   $ cp fedhadoop-clusters.xml {HODOOP_HOME}/etc/hadoop 
+   $ cd {HODOOP_HOME}/etc/hadoop
+   $ vim fedhadoop-clusters.xml 
+
+
+  <FedHadoopClusters>
+    
+        <SuperNamenode>
+                <SuperNamenodeAddress>10.3.1.34</SuperNamenodeAddress>
+                <FedUserConstructGNPort>8765</FedUserConstructGNPort>
+                <GlobalNamespaceServerPort>8764</GlobalNamespaceServerPort>
+                <GNQueryServerPort>8763</GNQueryServerPort>
+        </SuperNamenode>
+
+        <Cluster>
+                <HostName> </HostName>
+                <fs.default.name> </fs.default.name>
+                <hadoop-home.dir> </hadoop-home.dir>
+        </Cluster>
+       
+        <Fed>
+                <JarPath> </JarPath>
+                <MainClass> </MainClass>
+                <Input> </Input>
+                <OtherArgs> </OtherArgs>
+                <Arg0> </Arg0>
+                <Arg1> </Arg1>
+                <Arg2> </Arg2>
+                     ...
+        </Fed>
+
+  <FedHadoopClusters>
+
+----------------------------------------------------------------------------------
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FedHadoopClusters>
+	
+	<SuperNamenode>
+		<SuperNamenodeAddress>10.3.1.34</SuperNamenodeAddress>
+		<FedUserConstructGNPort>8765</FedUserConstructGNPort>
+		<GlobalNamespaceServerPort>8764</GlobalNamespaceServerPort>
+		<GNQueryServerPort>8763</GNQueryServerPort>
+	</SuperNamenode>
+
+	<Cluster>
+		<HostName>c02</HostName>
+		<fs.default.name>10.3.1.2:39100</fs.default.name>
+		<hadoop-home.dir>/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1</hadoop-home.dir>
+	</Cluster>
+
+	<Cluster>
+                <HostName>c07</HostName>
+                <fs.default.name>10.3.1.7:39100</fs.default.name>
+                <hadoop-home.dir>/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1</hadoop-home.dir>
+        </Cluster>
+
+	<Cluster>
+                <HostName>c09</HostName>
+                <fs.default.name>10.3.1.9:49000</fs.default.name>
+                <hadoop-home.dir>/home/hpds/min/hadoop-2.4.1</hadoop-home.dir>
+        </Cluster>
+
+	<Cluster>
+                <HostName>c13</HostName>
+                <fs.default.name>10.3.1.13:39100</fs.default.name>
+		<hadoop-home.dir>/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1</hadoop-home.dir>
+        </Cluster> 
+
+	<Cluster>
+                <HostName>c19</HostName>
+                <fs.default.name>10.3.1.19:39100</fs.default.name>
+                <hadoop-home.dir>/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1</hadoop-home.dir>
+        </Cluster>
+
+	<Cluster>
+                <HostName>c34</HostName>
+                <fs.default.name>10.3.1.34:9000</fs.default.name>
+                <hadoop-home.dir>/opt/hadoop-2.5.0</hadoop-home.dir>
+        </Cluster>
+	
+	<Fed>
+		<JarPath>/home/hpds/zien/FedMR-hadoop-2.4.1-time/hadoop-2.4.1/BlockSearch.jar</JarPath>
+		<MainClass>BlockSearch</MainClass>
+		<Input>Alex</Input>
+		<OtherArgs> </OtherArgs>
+		<Arg0>TseEn/README.txt</Arg0>
+		<Arg1>out</Arg1>
+		<Arg2>href</Arg2>
+	</Fed>
+
+</FedHadoopClusters>
