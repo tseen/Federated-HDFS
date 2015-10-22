@@ -77,6 +77,7 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " "; 
         cmd = cmd + " -DregionCloudOutput=" + mConf.getHDFSOutputPath() + " ";
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";
+        cmd = cmd + " -DregionCloudInput="+ mConf.getHDFSInputPath() + " ";
         cmd = cmd + mConf.getOtherArgs() + " ";
         for ( int i = 0 ; i < 10 ; i++ ) {
             String arg = mConf.getArgs(i);

@@ -39,6 +39,7 @@ public class FedJobConf extends AbstractFedJobConf{
     private String mTopCloudOutputPath ="";
     private String mTopCloudHadoopHome ="";
     private int mRegionCloudServerListenPort = FedHadoopConf.DEFAULT_REGION_CLOUD_SERVER_LISTEN_PORT_I;
+    private String mRegionCloudInputPath = "";
     private String mRegionCloudOutputPath = "";
     private String mRegionCloudHadoopHome = "";
     private Path [] mRegionCloudOutputPaths = null;
@@ -82,6 +83,7 @@ public class FedJobConf extends AbstractFedJobConf{
                 e.printStackTrace();
                 mRegionCloudServerListenPort = FedHadoopConf.DEFAULT_REGION_CLOUD_SERVER_LISTEN_PORT_I;
             }
+            setRegionCloudInputPath(mJobConf.get("regionCloudInput",""));
             mRegionCloudOutputPath = mJobConf.get("regionCloudOutput","");
             mRegionCloudHadoopHome = mJobConf.get("regionCloudHadoopHome","");
         }
@@ -172,5 +174,11 @@ public class FedJobConf extends AbstractFedJobConf{
 	public FedTopCloudJob getTopCloudJob() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public String getRegionCloudInputPath() {
+		return mRegionCloudInputPath;
+	}
+	public void setRegionCloudInputPath(String mRegionCloudInputPath) {
+		this.mRegionCloudInputPath = mRegionCloudInputPath;
 	}  
 }

@@ -33,6 +33,8 @@ public abstract class AbstractFedJobConf {
 	    public abstract String getRegionCloudOutputPath() ;
 	    public abstract String getRegionCloudHadoopHome() ;
 	    public abstract Path[] getRegionCloudOutputPaths() ;
+	    public abstract String getRegionCloudInputPath() ;
+
 		public abstract FedTopCloudJob getTopCloudJob() ;
 		public abstract boolean isTopCloud() ;
 		public abstract String getTopCloudInputPath() ;

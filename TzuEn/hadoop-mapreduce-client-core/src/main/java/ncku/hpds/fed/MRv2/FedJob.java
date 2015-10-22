@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 public class FedJob{
     /*
      * FedJob 
@@ -198,6 +200,12 @@ public class FedJob{
                 mServer = new FedCloudMonitorServer( mFedJobConf.getRegionCloudServerListenPort() ); 
                 mServer.start();
                 mFedStat.setRegionCloudsStart();
+                
+                Path[] inputPath = new Path[1];
+                inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
+                FileInputFormat.setInputPaths( mJob, inputPath );
+
+                
                 Path outputPath = new Path( mFedJobConf.getRegionCloudOutputPath() );
                 FileOutputFormat.setOutputPath( mJob, outputPath );
             }
@@ -206,7 +214,7 @@ public class FedJob{
 
         } 
     }
-    public void stopFedJob() {
+    public void stopFedJob() throws UnknownHostException {
         //TODO print statistic values
     	if( mFedJobConf.isFedMR()){
     		// print global aggregation time from its client, to get correct answers.
@@ -260,27 +268,37 @@ public class FedJob{
             
         }
         if ( mFedJobConf.isRegionCloud() ) {
-            //execute Distcp from Region Cloud
-            mFedStat.setRegionCloudsEnd();
-            mFedStat.setGlobalAggregationStart();
-            mServer.sendMapPRFinished();
-            mServer.sendMigrateData("");
-            try {
-                FedRegionCloudJobDistcp distcp = new 
-                    FedRegionCloudJobDistcp( mFedJobConf, mJobConf ); 
-                distcp.start(); 
-                distcp.join();
-                // distcp copy from region cloud hdfs to top cloud hdfs
-                System.out.println("Server To Join");
-            } catch ( Exception e ) {
-                e.printStackTrace();
-            }
-            mServer.sendMigrateDataFinished("");
-	    System.out.println("Stop Server");
-            mServer.stopServer();
-            mFedStat.setGlobalAggregationEnd();
-            System.out.println("Region Cloud Report : RegionCloudsTime = " + mFedStat.getRegionCloudsTime() +"(ms)");	
-            System.out.println("Region Cloud Report : GlobalAggregationTime = " + mFedStat.getGlobalAggregationTime() + "(ms)");
+        	String[] preIP = mFedJobConf.getTopCloudHDFSURL().split("/");
+        	String[] IP = preIP[2].split(":");
+        	System.out.println("1:::::"+IP[0]);
+        	System.out.println("2:::::"+Inet4Address.getLocalHost().getHostAddress());
+        	
+            //TODO if same machine but different hdfs
+        	if(!IP[0].equals(Inet4Address.getLocalHost().getHostAddress())){
+	
+	            //execute Distcp from Region Cloud
+	            mFedStat.setRegionCloudsEnd();
+	            mFedStat.setGlobalAggregationStart();
+	            mServer.sendMapPRFinished();
+	            mServer.sendMigrateData("");
+	            try {
+	            	
+	                FedRegionCloudJobDistcp distcp = new 
+	                    FedRegionCloudJobDistcp( mFedJobConf, mJobConf ); 
+	                distcp.start(); 
+	                distcp.join();
+	                // distcp copy from region cloud hdfs to top cloud hdfs
+	                System.out.println("Server To Join");
+	            } catch ( Exception e ) {
+	                e.printStackTrace();
+	            }
+	            mServer.sendMigrateDataFinished("");
+		    System.out.println("Stop Server");
+	            mServer.stopServer();
+	            mFedStat.setGlobalAggregationEnd();
+	            System.out.println("Region Cloud Report : RegionCloudsTime = " + mFedStat.getRegionCloudsTime() +"(ms)");	
+	            System.out.println("Region Cloud Report : GlobalAggregationTime = " + mFedStat.getGlobalAggregationTime() + "(ms)");
+	        }
         }
     }
 }

@@ -46,8 +46,8 @@ public class JarCopyJob extends Thread {
     }
     //--------------------------------------------
     private String makeRegionCloudCmd() {
-        System.out.println("make region cloud command");
-        if ( mTopConf == null || mRegConf == null ) {
+        System.out.println("make jcj cloud command");
+       /* if ( mTopConf == null || mRegConf == null ) {
             System.out.println("Null FedHadoopConf");
             return "";
         }
@@ -62,7 +62,7 @@ public class JarCopyJob extends Thread {
         if ( mTopConf.getJarPath().equals( FedJobConfParser.INVALID_VALUE ) ) {
             System.out.println("Invalid MapReduce JAR Path of FedHadoopConf");
             return "";
-        } 
+        }*/
         mRunFlag = true;
         //ssh hpds@140.116.164.101 ls
         //list HOME Directory of hpds

@@ -69,6 +69,7 @@ public class FedHdfsConfParser {
                     fedHadoopConf.setAddress(fs[0]);
                     fedHadoopConf.setHadoopHome(
                             getTagValue("hadoop-home.dir", clusterElement ,INVALID_VALUE));
+                    // for now, its just setting its own hdfs url
                     fedHadoopConf.setTopCloudHDFSURL(
                     		getTagValue("fs.default.name", clusterElement,INVALID_VALUE) );
                     mRegionCloudServerListenPort = 
