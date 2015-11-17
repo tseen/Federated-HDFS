@@ -20,7 +20,9 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
     private String mHadoopHome = "";
     private String mDefaultCoworkingConf = DEFAULT_COWORKING_CONF ;
     
-    private FedTopCloudJob mTopCloudJob = null;
+    
+   // private FedTopCloudJob mTopCloudJob = null;
+    private List<FedTopCloudJob> mTopJobList = new ArrayList<FedTopCloudJob>();
     private List<FedRegionCloudJob> mRegionJobList = null;
     private List<FedRegionCloudJobDistcp> mRegionJobDistcpList = null;
     private List<JarCopyJob> mJarCopyJobList = null;
@@ -91,7 +93,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				e.printStackTrace();
 			}
 			
-			System.out.println("Top Cloud of FedMR:" + realTop);
+		//	System.out.println("Top Cloud of FedMR:" + realTop);
 	       
 	       
 	        
@@ -187,28 +189,46 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	                System.out.println("make FedTopCloudJob");
 	                //top cloud
 	              //  FedHadoopConf topConf = mParser.getTopCloudConf();
+	                
 	                JobConf jobconf = new JobConf(mJobConf);   
+	                for ( FedHadoopConf topConf : mParser.getTopCloudConfList() ) {
                     
-                    FedHadoopConf topConf = new FedHadoopConf(FedHadoopConf.ROLE.TopCloud);
-                    for ( int j = 0 ; j < 10 ; j++ ) {
-                    	topConf.setArgs(j, arg[j]);
-                    }
-                    topConf.setName(realTop);
-                    topConf.setAddress(topAddress);
-                    topConf.setHadoopHome(topHome);
-                    String topInputPath = mRegionCloudOutputPaths[0].toString();
-                    for(int i =1; i< mRegionCloudOutputPaths.length; i++){
-                    	topInputPath += ","+mRegionCloudOutputPaths[i].toString();
-                    }
-                    String remoteJarPath = topConf.getHadoopHome();
-                    remoteJarPath = remoteJarPath +"/fed_task/" + regJarFileName;
-                    topConf.setJarPath( remoteJarPath );
-                    topConf.setMainClass(main);
-                    topConf.setHDFSInputPath(topInputPath);
-	                topConf.setHDFSOutputPath( FileOutputFormat.getOutputPath(jobconf).toString());
-                    FedTopCloudJob topJob = new FedTopCloudJob(topConf);
+	                    topConf.setRole(FedHadoopConf.ROLE.TopCloud);
+	                    for ( int j = 0 ; j < 10 ; j++ ) {
+	                    	topConf.setArgs(j, arg[j]);
+	                    }
+	                    //topConf.setName(realTop);
+	                    //topConf.setAddress(topAddress);
+	                    //topConf.setHadoopHome(topHome);
+	                   // String srcHDFS = mJobConf.get(FS_DEFAULT_NAME_KEY,"");
+	                    String topInputPath = "";
+	                    System.out.println("asasas: "+mRegionCloudOutputPaths[0].toString().split("_")[0]);
+	                    System.out.println("asassSSas: "+topConf.getName());
 
-	                mTopCloudJob = topJob;
+                    	if(mRegionCloudOutputPaths[0].toString().split("_")[0].equals(topConf.getName())){
+                    		topInputPath = mRegionCloudOutputPaths[0].toString()+ TopCloudHasher.getFileName(topConf.getTopCloudHDFSURL());
+                    	}
+                    	else{
+                    		topInputPath = mRegionCloudOutputPaths[0].toString();
+                    	}
+	                    for(int i =1; i< mRegionCloudOutputPaths.length; i++){
+	                    	if(mRegionCloudOutputPaths[i].toString().split("_")[0].equals(topConf.getName())){
+	                    		topInputPath += ","+mRegionCloudOutputPaths[i].toString() + TopCloudHasher.getFileName(topConf.getTopCloudHDFSURL());
+	                    	}
+	                    	else{
+	                    		topInputPath += ","+mRegionCloudOutputPaths[i].toString();
+	                    	}
+	                    }
+	                    String remoteJarPath = topConf.getHadoopHome();
+	                    remoteJarPath = remoteJarPath +"/fed_task/" + regJarFileName;
+	                    topConf.setJarPath( remoteJarPath );
+	                    topConf.setMainClass(main);
+	                    topConf.setHDFSInputPath(topInputPath);
+		                topConf.setHDFSOutputPath( FileOutputFormat.getOutputPath(jobconf).toString());
+	                    FedTopCloudJob topJob = new FedTopCloudJob(topConf);
+	
+	                    mTopJobList.add(topJob) ;
+	                }
 
 	                /*
 	                 * move to the region cloud 
@@ -285,8 +305,8 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		}
 
 	
-		public FedTopCloudJob getTopCloudJob() {
-			return mTopCloudJob;
+		public List<FedTopCloudJob> getTopCloudJobList() {
+			return mTopJobList;
 		}
 
 		public String getTopCloudInputPath() {
@@ -302,6 +322,18 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 
 		@Override
 		public String getRegionCloudInputPath() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public FedTopCloudJob getTopCloudJob() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<String> getTopCloudHDFSURLs() {
 			// TODO Auto-generated method stub
 			return null;
 		}  

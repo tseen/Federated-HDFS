@@ -1,5 +1,8 @@
 package ncku.hpds.fed.MRv2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Region Cloud Configraution
 public class FedHadoopConf{
     public enum ROLE {
@@ -20,6 +23,7 @@ public class FedHadoopConf{
     private String mHDFSOutputPath="";
     private String mOtherArgs="";
     private String mTopCloudHDFSURL ="";
+    private List<String> mTopCloudHDFSURLs = new ArrayList<String>();
     private String mArg[] = new String[10];
     private String mRegionCloudServerListenPort= DEFAULT_REGION_CLOUD_SERVER_LISTEN_PORT; 
 
@@ -31,6 +35,7 @@ public class FedHadoopConf{
     }
     //----------------------------------------------------------
     // setter
+    public void setRole(ROLE role){ this.mRole = role; };
     public void setName(String s){ this.mName = s; }
     public void setAddress(String s){ this.mAddress = s; }
     public void setHadoopHome(String s){ this.mHadoopHome= s; }
@@ -41,6 +46,9 @@ public class FedHadoopConf{
     public void setHDFSOutputPath(String s){ this.mHDFSOutputPath = s; }
     public void setOtherArgs(String s){ this.mOtherArgs = s; }
     public void setTopCloudHDFSURL(String s) { this.mTopCloudHDFSURL = s; }
+    public void setTopCloudHDFSURLs(List<String> s) { this.mTopCloudHDFSURLs = s; }
+    
+    public void addTopCloudHDFSURL(String s){ this.mTopCloudHDFSURLs.add(s);}
     public void setRegionCloudServerListenPort(String s) { mRegionCloudServerListenPort =s ; }
     public void setArgs(int i, String s) { 
         if ( i >= 0 && i <= 9 ) {
@@ -60,6 +68,8 @@ public class FedHadoopConf{
     public String getHDFSOutputPath(){ return this.mHDFSOutputPath; }
     public String getOtherArgs(){ return this.mOtherArgs; }
     public String getTopCloudHDFSURL() { return this.mTopCloudHDFSURL; }
+    public List<String> getTopCloudHDFSURLs() { return this.mTopCloudHDFSURLs; }
+
     public ROLE getRole() { return this.mRole; }  
     public String getRegionCloudServerListenPort() { return mRegionCloudServerListenPort; }
     public String getArgs(int i) {

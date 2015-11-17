@@ -5,6 +5,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -33,7 +34,9 @@ public class FedJobConf extends AbstractFedJobConf{
     private ProxySelector mSelector;
     private String mCoworkingConf = "";
     private String mTopCloudHDFSURL ="";
+    private List<String> mTopCloudHDFSURLs = new ArrayList<String>();
     private Configuration mJobConf = null;
+    private String[] topCloudHDFSString = null;
     private Job mJob = null;
     private String mTopCloudInputPath ="";
     private String mTopCloudOutputPath ="";
@@ -74,7 +77,21 @@ public class FedJobConf extends AbstractFedJobConf{
              regionCloud.toLowerCase().equals("true") ) 
         {
             mRegionCloudFlag = true;
-            mTopCloudHDFSURL = mJobConf.get("topCloudHDFS","");
+            mTopCloudHDFSURL = mJobConf.get("topCloudHDFSs","");
+
+            
+            topCloudHDFSString = mTopCloudHDFSURL.split(",");
+            for(int i = 0; i< topCloudHDFSString.length; i++){
+            	mTopCloudHDFSURLs.add(topCloudHDFSString[i]);
+            }
+            
+            TopCloudHasher.topURLs = mTopCloudHDFSURLs;
+            TopCloudHasher.topCounts = topCloudHDFSString.length;
+           System.out.println(":::::::"+mTopCloudHDFSURLs);
+           System.out.println("-------"+topCloudHDFSString.length);
+
+
+            
             String port = mJobConf.get("regionCloudServerPort",
                     FedHadoopConf.DEFAULT_REGION_CLOUD_SERVER_LISTEN_PORT);
             try { 
@@ -101,6 +118,7 @@ public class FedJobConf extends AbstractFedJobConf{
         }
         
         mSelector = new ProxySelector(mJobConf, mJob);
+        
     }
     public boolean isFedMR() { return mFedFlag; }
     public boolean isTopCloud() { return mTopCloudFlag; }
@@ -117,7 +135,7 @@ public class FedJobConf extends AbstractFedJobConf{
             mJob.setOutputKeyClass ( Text.class );
             mJob.setOutputValueClass ( Text.class );
             Class outputFormat = mJob.getOutputFormatClass(); 
-	    mJob.setOutputFormatClass(TextOutputFormat.class);
+            mJob.setOutputFormatClass(TextOutputFormat.class);
         } catch (Exception e) {
         }
     }
@@ -161,6 +179,7 @@ public class FedJobConf extends AbstractFedJobConf{
     }
     public Configuration getHadoopJobConf() { return mJobConf; } 
     public String getTopCloudHDFSURL() { return mTopCloudHDFSURL; } 
+    public List<String> getTopCloudHDFSURLs() { return mTopCloudHDFSURLs; } 
     public String getTopCloudInputPath() { return mTopCloudInputPath; }
     public String getTopCloudOutputPath() { return mTopCloudOutputPath; }
 
@@ -180,5 +199,11 @@ public class FedJobConf extends AbstractFedJobConf{
 	}
 	public void setRegionCloudInputPath(String mRegionCloudInputPath) {
 		this.mRegionCloudInputPath = mRegionCloudInputPath;
+	}
+	
+	@Override
+	public List<FedTopCloudJob> getTopCloudJobList() {
+		// TODO Auto-generated method stub
+		return null;
 	}  
 }

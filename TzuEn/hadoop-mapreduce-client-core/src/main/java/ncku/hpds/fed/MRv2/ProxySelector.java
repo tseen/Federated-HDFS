@@ -32,7 +32,7 @@ public class ProxySelector {
         mJobConf = conf;
         mJob = job;
         proxyMapMapping.clear();
-	proxyMapMappingSeq.clear();
+        proxyMapMappingSeq.clear();
         proxyReduceMapping.clear();
         init();
     }
@@ -60,6 +60,7 @@ public class ProxySelector {
     public Class< ? extends Reducer> getProxyReducerClass(Class keyClz, Class valueClz) {
         Map<String, Class<? extends Reducer>> valueMap = proxyReduceMapping.get(keyClz.getCanonicalName()) ;
         Class<? extends Reducer> clz = valueMap.get(valueClz.getCanonicalName());
+        
         System.out.println("Select ProxyReducer : " + clz.getCanonicalName() );
         return clz;
     }
@@ -737,7 +738,7 @@ public class ProxySelector {
 		public ProxyMapperVLongVLongSeq() throws Exception { super(VLongWritable.class,VLongWritable.class); }
 	}
     //----------------------------------------------------------------------- 
-	// Proxy Reducer Dummay Classes 
+	// Proxy Reducer Dummy Classes 
 
 	// Proxy Reducer DoubleWritable
 	public static class ProxyReducerDoubleDouble extends GenericProxyReducer <DoubleWritable, DoubleWritable>{

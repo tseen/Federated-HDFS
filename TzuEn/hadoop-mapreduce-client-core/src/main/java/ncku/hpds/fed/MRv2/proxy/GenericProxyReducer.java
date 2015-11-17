@@ -1,14 +1,22 @@
 package ncku.hpds.fed.MRv2.proxy;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import ncku.hpds.fed.MRv2.TopCloudHasher;
 
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.conf.Configuration;
+
+
+
 
 public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 
@@ -20,6 +28,15 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 	private int MAX_COUNT = 999;
     private String mSeperator = "||";
     
+    private String generateFileName(Text mKey2) {
+    	
+    	return TopCloudHasher.generateFileName(mKey2);
+    	}
+    	  
+    	
+    private MultipleOutputs mos;
+  //  private TachyonFileSystem tfs;
+    
     private void __reset() {
 	    sb.setLength(0);  // clean up the String buffer
         count = 0;
@@ -29,18 +46,43 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     private Class<T2> mValueClz;
     private String mKeyClzName ;
     private String mValueClzName ; 
-
+ //   private String tachyonOutDir;
+    
     public GenericProxyReducer(Class<T1> keyClz, Class<T2> valueClz) throws Exception {
         mKeyClz = keyClz;
         mValueClz = valueClz;
         mKeyClzName = mKeyClz.getCanonicalName();
         mValueClzName = mValueClz.getCanonicalName();
     }
+    
+
+  
+    
+ /*   public void setTachyonOutDir(String dir){
+    	tachyonOutDir = dir;
+    	}
+   */ 
+  //  private List<FileOutStream> outList;
+   // private List<String> outPath;
+  //  private Map<String, FileOutStream>  outMap = new HashMap<String, FileOutStream>();
 
     @Override
 	public void setup(Context context){
         System.out.println("Start Proxy Reducer");
+        
 		Configuration conf = context.getConfiguration();
+		
+		if(conf.get("topCounts")!=null){
+			TopCloudHasher.topCounts = Integer.parseInt(conf.get("topCounts"));
+		}
+		System.out.println("topCOUNT:"+TopCloudHasher.topCounts );
+		
+	//	tfs = TachyonFileSystemFactory.get();
+		
+//		tachyonOutDir = "/" + FileOutputFormat.getOutputPath(context).getName().toString()+"/";
+		
+		mos = new MultipleOutputs(context);
+		
 		if(conf.get("max_token")!=null) {
             MAX_COUNT = 999;
             try {
@@ -58,6 +100,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 		}
         __reset();
 	}
+
     @Override	
 	public void reduce(T1 key, Iterable<T2> values, Context context) 
         throws IOException,InterruptedException{
@@ -99,6 +142,9 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
             mKey.set(String.valueOf(tKey.get()));
         }
         System.out.println("mKey.toString : " + mKey.toString());
+    	
+ //       FileOutStream out = null;
+  //  	TachyonURI path = null;
         while(it.hasNext()) {	
             T2 value = it.next();
             //sb.append(value).append(mSeperator);   
@@ -146,15 +192,104 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
             }
             //----------------------------------------------------------
             count++;
+            
             if ( count == MAX_COUNT ) {
-                context.write(mKey, mValue);
+   /*         	path = new TachyonURI(tachyonOutDir+generateFileName(mKey));
+            	if(!outMap.containsKey(path.toString())){
+            		try {
+						out = tfs.getOutStream(path);
+					} catch (FileAlreadyExistsException e) {
+						e.printStackTrace();
+					} catch (InvalidPathException e) {
+						e.printStackTrace();
+					} catch (TachyonException e) {
+						e.printStackTrace();
+					}
+            		outMap.put(path.toString(), out);
+            	}
+            	else{
+            		out = outMap.get(path.toString());
+            	}*/
+            	
+            	/*
+            	try {
+    				out = tfs.getOutStream(path);
+    			} catch (FileAlreadyExistsException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			} catch (InvalidPathException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			} catch (TachyonException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    			*/
+        //    	out.write("\n".getBytes());
+    //        	out.write(mKey.getBytes());
+  //          	out.write("\t".getBytes());
+//            	out.write(mValue.getBytes());
+
+
+            	mos.write(mKey, mValue, generateFileName(mKey));
+               // context.write(mKey, mValue);
                 __reset();
             }
         }
         if ( sb.length() > 0 ) {
+
             mValue.set(sb.toString());
-            context.write(mKey, mValue);
+        	mos.write(mKey, mValue, generateFileName(mKey));
+   /*     	
+        	path = new TachyonURI(tachyonOutDir+generateFileName(mKey));
+        	if(!outMap.containsKey(path.toString())){
+        		try {
+					out = tfs.getOutStream(path);
+				} catch (FileAlreadyExistsException e) {
+					e.printStackTrace();
+				} catch (InvalidPathException e) {
+					e.printStackTrace();
+				} catch (TachyonException e) {
+					e.printStackTrace();
+				}
+        		outMap.put(path.toString(), out);
+        	}
+        	else{
+        		out = outMap.get(path.toString());
+        		System.out.println("out.toString:"+ out.toString());
+        	}*/
+        /*	path = new TachyonURI(tachyonOutDir+generateFileName(mKey));
+        	try {
+				out = tfs.getOutStream(path);
+			} catch (FileAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidPathException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TachyonException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	*/
+      //  	out.write("\n".getBytes());
+        //	out.write(mKey.getBytes());
+       // 	out.write("\t".getBytes());
+       // 	out.write(mValue.getBytes());
+
+
+          //  context.write(mKey, mValue);
             __reset();
         }
+      //  out.close();
 	}
+    protected void cleanup(Context context) throws IOException, InterruptedException {
+  /*  		System.out.println("Map Count:" + outMap.size());
+    		
+    		for(Map.Entry<String, FileOutStream> entry : outMap.entrySet()){
+    			entry.getValue().close();
+    		}*/
+    	   mos.close();
+    //	   out.close();
+    	 }
 }
