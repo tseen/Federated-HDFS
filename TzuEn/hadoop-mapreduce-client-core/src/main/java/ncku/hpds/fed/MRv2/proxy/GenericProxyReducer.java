@@ -1,12 +1,14 @@
 package ncku.hpds.fed.MRv2.proxy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ncku.hpds.fed.MRv2.HdfsWriter;
 import ncku.hpds.fed.MRv2.TopCloudHasher;
 
 import org.apache.hadoop.mapreduce.Reducer;
@@ -46,6 +48,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     private Class<T2> mValueClz;
     private String mKeyClzName ;
     private String mValueClzName ; 
+    private List<HdfsWriter> mHdfsWriter = new ArrayList<HdfsWriter>();
  //   private String tachyonOutDir;
     
     public GenericProxyReducer(Class<T1> keyClz, Class<T2> valueClz) throws Exception {
@@ -75,8 +78,28 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 		if(conf.get("topCounts")!=null){
 			TopCloudHasher.topCounts = Integer.parseInt(conf.get("topCounts"));
 		}
+		
 		System.out.println("topCOUNT:"+TopCloudHasher.topCounts );
 		
+		List<String> mTopCloudHDFSURLs = new ArrayList<String>();
+		String topCloudHdfs[] = conf.get("topCloudHDFSs").split(",");
+		for (int i = 0; i < topCloudHdfs.length; i++) {
+			mTopCloudHDFSURLs.add(topCloudHdfs[i]);
+		}
+		TopCloudHasher.topURLs = mTopCloudHDFSURLs;
+		
+		
+		for(String url: mTopCloudHDFSURLs){
+			HdfsWriter HW = new HdfsWriter(url, "hpds");
+			HW.setFileName("/user/" + System.getProperty("user.name") +"/"+ conf.get("regionCloudOutput", "")+TopCloudHasher.hashToTop(url+"/"));
+						
+			mHdfsWriter.add(HW);
+			System.out.println("ADDDDDDDDDDDDDD");
+		}
+		
+		for(HdfsWriter HW : mHdfsWriter){
+			HW.init();
+		}
 	//	tfs = TachyonFileSystemFactory.get();
 		
 //		tachyonOutDir = "/" + FileOutputFormat.getOutputPath(context).getName().toString()+"/";
@@ -230,8 +253,14 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
   //          	out.write("\t".getBytes());
 //            	out.write(mValue.getBytes());
 
+            	HdfsWriter HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+            	 HW.writeByte(mKey.getBytes());
+                 HW.writeByte("\t".getBytes());
+                 HW.writeByte(mValue.getBytes());
+                 HW.writeByte("\n".getBytes());
 
-            	mos.write(mKey, mValue, generateFileName(mKey));
+
+            	//mos.write(mKey, mValue, generateFileName(mKey));
                // context.write(mKey, mValue);
                 __reset();
             }
@@ -239,7 +268,19 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
         if ( sb.length() > 0 ) {
 
             mValue.set(sb.toString());
-        	mos.write(mKey, mValue, generateFileName(mKey));
+            HdfsWriter HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+            HW.writeByte(mKey.getBytes());
+            HW.writeByte("\t".getBytes());
+            HW.writeByte(mValue.getBytes());
+            HW.writeByte("\n".getBytes());
+
+        /*    
+        	HW.writeUTF(mKey.toString());
+        	HW.writeUTF("\t");
+        	HW.writeUTF(mValue.toString());
+        	HW.writeUTF("\n");
+        	*/
+        	//mos.write(mKey, mValue, generateFileName(mKey));
    /*     	
         	path = new TachyonURI(tachyonOutDir+generateFileName(mKey));
         	if(!outMap.containsKey(path.toString())){
@@ -289,7 +330,11 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     		for(Map.Entry<String, FileOutStream> entry : outMap.entrySet()){
     			entry.getValue().close();
     		}*/
-    	   mos.close();
+    	for(HdfsWriter HW : mHdfsWriter){
+			HW.out.close();
+			HW.client.close();
+    	}
+    //	   mos.close();
     //	   out.close();
     	 }
 }

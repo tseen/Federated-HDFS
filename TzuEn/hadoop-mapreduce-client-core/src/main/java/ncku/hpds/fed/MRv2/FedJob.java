@@ -72,7 +72,7 @@ public class FedJob{
     	try {
     	 
 	
-		Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
+    	Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
 		if(mInputPaths.length > 0){
 			mFileName = mInputPaths[0].getName();
 		}
@@ -81,7 +81,7 @@ public class FedJob{
 		 mFedJobConf= new FedJobConfHdfs(mJobConf, mJob, mFileName);
 		 System.out.println("End FedJobConfHdfs");
 
-		 //get top jpb
+		 //get top job
 	     List<FedTopCloudJob> tList = mFedJobConf.getTopCloudJobList();
 		 //get region job
 	     List<FedRegionCloudJob> rList = mFedJobConf.getRegionCloudJobList();
@@ -175,12 +175,13 @@ public class FedJob{
         	
         		
         	mFedJobConf= new FedJobConf(mJobConf, mJob);
-        	System.out.println("oooooooooo"+TopCloudHasher.topURLs);
+        	System.out.println("TopCloudURLs: "+TopCloudHasher.topURLs);
 				
-        	
+        	/*
             if ( mFedJobConf.isFedTest() ) {
                 FedRegionCloudJobDistcp.test(mJobConf);
             }
+            */
             //Fed-MR , Top Cloud Mode
             if ( mFedJobConf.isTopCloud() ) {
                 System.out.println("Run AS Top Cloud");
@@ -214,7 +215,7 @@ public class FedJob{
                 System.out.println("----------------------------------");
 
             } else if ( mFedJobConf.isRegionCloud() ) {
-                //TODO do region cloud things
+                // do region cloud things
                 System.out.println("Run AS Region Cloud");
                 System.out.println("----------------------------------");
                 System.out.println("|        RegionCloud Mode        |");
@@ -301,7 +302,7 @@ public class FedJob{
 	            mFedStat.setGlobalAggregationStart();
 	            mServer.sendMapPRFinished();
 	            mServer.sendMigrateData("");
-	            List<FedRegionCloudJobDistcp> distCpList = new ArrayList<FedRegionCloudJobDistcp>();
+	    /*        List<FedRegionCloudJobDistcp> distCpList = new ArrayList<FedRegionCloudJobDistcp>();
 	            try {
 	            	List<String> TopCloudHDFSURLs = mFedJobConf.getTopCloudHDFSURLs();
 	            	for(String topHDFSURL: TopCloudHDFSURLs){
@@ -327,6 +328,7 @@ public class FedJob{
 	            } catch ( Exception e ) {
 	                e.printStackTrace();
 	            }
+	            */
 	            mServer.sendMigrateDataFinished("");
 		    System.out.println("Stop Server");
 	            mServer.stopServer();

@@ -53,13 +53,9 @@ public class FedHdfsConfParser {
             return ;
         }
         try {
-            String addr = "";
-            String regJarFileName = INVALID_VALUE;
             mDoc.getDocumentElement().normalize();
            
             NodeList clusterList = mDoc.getElementsByTagName("Cluster");
-            String sArgPrefix = "Arg";
-            String paths = "";
             for ( int i = 0 ; i < clusterList.getLength(); i++ ) {
                 Node cluster = clusterList.item(i);
                 if ( cluster.getNodeType() == Node.ELEMENT_NODE ) {
@@ -81,6 +77,7 @@ public class FedHdfsConfParser {
                     fedHadoopConfTop.setHadoopHome(
                             getTagValue("hadoop-home.dir", clusterElement ,INVALID_VALUE));
                     // for now, its just setting its own hdfs url
+                    // TODO: change the TOPCloudHDFSURL name to a more proper one
                     fedHadoopConf.setTopCloudHDFSURL(
                     		getTagValue("fs.default.name", clusterElement,INVALID_VALUE) );
                     fedHadoopConfTop.setTopCloudHDFSURL(

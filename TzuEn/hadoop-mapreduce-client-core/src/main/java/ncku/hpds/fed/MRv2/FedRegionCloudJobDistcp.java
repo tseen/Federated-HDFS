@@ -104,9 +104,7 @@ public class FedRegionCloudJobDistcp extends Thread {
         // nn1 to nn2
         // bash$ hadoop distcp hdfs://nn1:8020/foo/bar hdfs://nn2:8020/bar/foo
         String cmd = hadoop_home + "/bin/hadoop distcp "; 
-        //cmd = cmd + " -libjars "+ hadoop_home + "/tachyon-client-0.9.0-SNAPSHOT-jar-with-dependencies.jar ";
-       // cmd = cmd + " tachyon://"+host +":19998"+ "/" + outputPath + " "  + dstHDFS +"user/" + userName + "/" ;
-        //cmd = cmd  + outputPath + " "  + dstHDFS +"user/" + userName + "/" ;
+    
         TopCloudHasher tch = new TopCloudHasher();
         String fileName = tch.hashToTop(mDistUrl);
         cmd = cmd + srcHDFS + "user/"+ userName + "/" + outputPath + fileName + " "  + mDistUrl +"user/" + userName + "/" + outputPath+"/"+fileName ;
