@@ -1,6 +1,8 @@
 package ncku.hpds.fed.MRv2.proxy;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ncku.hpds.fed.MRv2.FedJobServerClient;
 import ncku.hpds.fed.MRv2.HdfsWriter;
 import ncku.hpds.fed.MRv2.TopCloudHasher;
 
@@ -21,6 +24,8 @@ import org.apache.hadoop.conf.Configuration;
 
 
 public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
+	
+	public FedJobServerClient client;
 
 	private StringBuffer sb = new StringBuffer();
     private Text mKey = new Text();
@@ -29,6 +34,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 	private int count =0;
 	private int MAX_COUNT = 999;
     private String mSeperator = "||";
+    private String namenode = "";
     
     private String generateFileName(Text mKey2) {
     	
@@ -70,10 +76,16 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
   //  private Map<String, FileOutStream>  outMap = new HashMap<String, FileOutStream>();
 
     @Override
-	public void setup(Context context){
+	public void setup(Context context) throws UnknownHostException{
         System.out.println("Start Proxy Reducer");
         
 		Configuration conf = context.getConfiguration();
+		namenode = conf.get("fs.default.name");
+		String ip = conf.get("fedCloudHDFS").split(":")[1].split("/")[2];
+		
+		InetAddress address = InetAddress.getByName(ip);
+		client = new FedJobServerClient(address.getHostAddress(),8769);
+		client.start();
 		
 		if(conf.get("topCounts")!=null){
 			TopCloudHasher.topCounts = Integer.parseInt(conf.get("topCounts"));
@@ -127,7 +139,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     @Override	
 	public void reduce(T1 key, Iterable<T2> values, Context context) 
         throws IOException,InterruptedException{
-
+    	client.sendRegionMapFinished(namenode.split("/")[2]);
         Iterator<T2> it = values.iterator();
         __reset();
         //----------------------------------------------------------
@@ -253,11 +265,12 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
   //          	out.write("\t".getBytes());
 //            	out.write(mValue.getBytes());
 
-            	HdfsWriter HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
-            	 HW.writeByte(mKey.getBytes());
-                 HW.writeByte("\t".getBytes());
-                 HW.writeByte(mValue.getBytes());
-                 HW.writeByte("\n".getBytes());
+            	HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+            	HW.write(mKey, mValue);
+            //	HW.writeByte(mKey.getBytes());
+            //	HW.writeByte("\t".getBytes());
+               // HW.writeByte(mValue.getBytes());
+              //  HW.writeByte("\n".getBytes());
 
 
             	//mos.write(mKey, mValue, generateFileName(mKey));
@@ -268,12 +281,13 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
         if ( sb.length() > 0 ) {
 
             mValue.set(sb.toString());
-            HdfsWriter HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
-            HW.writeByte(mKey.getBytes());
+            HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+        	HW.write(mKey, mValue);
+          /*  HW.writeByte(mKey.getBytes());
             HW.writeByte("\t".getBytes());
             HW.writeByte(mValue.getBytes());
             HW.writeByte("\n".getBytes());
-
+*/
         /*    
         	HW.writeUTF(mKey.toString());
         	HW.writeUTF("\t");
@@ -334,6 +348,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 			HW.out.close();
 			HW.client.close();
     	}
+    	client.stopClientProbe();
     //	   mos.close();
     //	   out.close();
     	 }

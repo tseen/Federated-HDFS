@@ -95,6 +95,7 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " "; 
         cmd = cmd + " -DregionCloudOutput="+mConf.getHDFSOutputPath();
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";
+		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
         cmd = cmd + " -DregionCloudInput="+ mConf.getHDFSInputPath() + " ";
         cmd = cmd + " -DtopCounts="+ Integer.toString(TopCloudHasher.topCounts);
         cmd = cmd + mConf.getOtherArgs() + " ";
@@ -158,6 +159,7 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -DregionCloud=on ";
         //cmd = cmd + " -D topCloudHDFS=\"" + mConf.getTopCloudHDFSURL() +"\" ";
         cmd = cmd + " -DtopCloudHDFS=" + mConf.getTopCloudHDFSURL() + " "; 
+		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
         cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " "; 
         cmd = cmd + " -DregionCloudOutput=tachyon://"+mConf.getAddress()+":19998/user/"+userName+"/" + mConf.getHDFSOutputPath() + " ";
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";

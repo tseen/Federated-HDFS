@@ -264,4 +264,11 @@ public class FedJobConf extends AbstractFedJobConf {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void configIter(String name, int a) {
+		// TODO Auto-generated method stub
+		
+	}
 }

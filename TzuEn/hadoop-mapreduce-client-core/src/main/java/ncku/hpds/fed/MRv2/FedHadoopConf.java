@@ -26,6 +26,7 @@ public class FedHadoopConf{
     private List<String> mTopCloudHDFSURLs = new ArrayList<String>();
     private String mArg[] = new String[10];
     private String mRegionCloudServerListenPort= DEFAULT_REGION_CLOUD_SERVER_LISTEN_PORT; 
+    private long mInputSize;
 
     public FedHadoopConf(ROLE role ) {
         mRole = role;
@@ -45,6 +46,7 @@ public class FedHadoopConf{
     public void setHDFSInputPath(String s){ this.mHDFSInputPath = s; }
     public void setHDFSOutputPath(String s){ this.mHDFSOutputPath = s; }
     public void setOtherArgs(String s){ this.mOtherArgs = s; }
+    public void setInputSize(long s){ this.mInputSize = s; }
     public void setTopCloudHDFSURL(String s) { this.mTopCloudHDFSURL = s; }
     public void setTopCloudHDFSURLs(List<String> s) { this.mTopCloudHDFSURLs = s; }
     
@@ -69,7 +71,7 @@ public class FedHadoopConf{
     public String getOtherArgs(){ return this.mOtherArgs; }
     public String getTopCloudHDFSURL() { return this.mTopCloudHDFSURL; }
     public List<String> getTopCloudHDFSURLs() { return this.mTopCloudHDFSURLs; }
-
+    public long getInputSize(){ return this.mInputSize; }
     public ROLE getRole() { return this.mRole; }  
     public String getRegionCloudServerListenPort() { return mRegionCloudServerListenPort; }
     public String getArgs(int i) {

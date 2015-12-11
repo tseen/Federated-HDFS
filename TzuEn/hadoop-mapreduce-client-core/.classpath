@@ -88,5 +88,6 @@
 	<classpathentry kind="var" path="M2_REPO/org/glassfish/javax.servlet/3.1/javax.servlet-3.1.jar" sourcepath="M2_REPO/org/glassfish/javax.servlet/3.1/javax.servlet-3.1-sources.jar"/>
 	<classpathentry kind="src" path="/hadoop-fedhdfs"/>
 	<classpathentry kind="lib" path="/Users/tzuen/Desktop/tachyon-client-0.9.0-SNAPSHOT.jar"/>
+	<classpathentry kind="src" path="/hadoop-yarn-client"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

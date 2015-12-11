@@ -18,6 +18,9 @@ public class FedCloudProtocol {
     public static final String RES_OK = "OK";
     public static final String REQ_BYE = "BYE";
     public static final String RES_BYE = "GoodBYE";
+    public static final String REQ_REGION_MAP_FINISHED = "Region-Map-Finished";
+    public static final String RES_REGION_MAP_FINISHED = "OK";
+
     public enum FedSocketState {
         NONE, ACCEPTING, ACCEPTED, CONNECTING, CONNECTED, DISCONNECTED
     };

@@ -3,6 +3,7 @@ package ncku.hpds.fed.MRv2;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -15,6 +16,7 @@ public abstract class AbstractFedJobConf {
 	    public AbstractFedJobConf() {
 	       
 	    }
+	    public abstract void configIter(String name, int a);
 	    public abstract boolean isFedMR();
 	    public abstract boolean isRegionCloud() ;
 	    public abstract boolean isFedLoop() ;
@@ -42,6 +44,10 @@ public abstract class AbstractFedJobConf {
 		public abstract boolean isTopCloud() ;
 		public abstract String getTopCloudInputPath() ;
 	    public abstract String getTopCloudOutputPath() ;
+		public Map<String, FedCloudInfo> getFedCloudInfos() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 		
 	}

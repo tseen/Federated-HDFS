@@ -38,7 +38,9 @@ import org.apache.hadoop.mapreduce.protocol.ClientProtocol;
 import org.apache.hadoop.mapreduce.task.JobContextImpl;
 import org.apache.hadoop.mapreduce.util.ConfigUtil;
 import org.apache.hadoop.util.StringUtils;
+
 import ncku.hpds.fed.MRv2.FedJob;
+import ncku.hpds.fed.MRv2.FedWANClient;
 
 /**
  * The job submitter's view of the Job.
@@ -1303,7 +1305,8 @@ public class Job extends JobContextImpl implements JobContext {
     FedJob fedJob = new FedJob(this);
     if (state == JobState.DEFINE) {
       if ( fedJob.isFedJob() == true && fedJob.isFedHdfsJob() == false) {
-    	  
+    	  FedWANClient wanClient = new FedWANClient();
+    	  wanClient.start();
           fedJob.startFedJob();
           submit();
       }
