@@ -18,6 +18,7 @@ import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 
 public class FedJobConfHdfs extends AbstractFedJobConf {
 	private static String DEFAULT_COWORKING_CONF = "/conf/coworking.xml";
@@ -32,7 +33,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	private List<JarCopyJob> mJarCopyJobList = null;
 	private List<FedCloudMonitorClient> mFedCloudMonitorClientList = null;
 	private List<String> mTopCloudHDFSURLs = null;
-	private Map< String,FedCloudInfo> mFedCloudInfos = new HashMap<String, FedCloudInfo>();
+	private Map<String, FedCloudInfo> mFedCloudInfos = new HashMap<String, FedCloudInfo>();
 
 	private FedHdfsConfParser mParser;
 	private boolean mTopCloudFlag = false;
@@ -85,24 +86,34 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		String globalfileInput = "";
 		// Select top cloud
 		Path[] Inputs = FileInputFormat.getInputPaths((JobConf) mJobConf);
+		String multiMapper = mJobConf.get(MultipleInputs.DIR_MAPPERS);
+		String multiFormat = mJobConf.get(MultipleInputs.DIR_FORMATS);
+
+		boolean multiInput = true;
+		if (multiMapper == null) {
+			multiInput = false;
+		}
+		multiMapper = multiMapper.replace(';', '=');
+		multiMapper = multiMapper.replace('$', '+');
+
+		multiFormat = multiFormat.replace(';', '=');
+		System.out.println("MultipleFormats:" + multiFormat);
+		System.out.println("MultipleInputs:" + multiMapper);
 		if (Inputs.length > 0) {
 			String p[] = Inputs[0].toString().split("/");
 			globalfileInput = p[p.length - 1];
 			System.out.println("Global File Name:" + globalfileInput);
 		}
-		TopcloudSelector top;
-		String realTop = "";
+
 		HdfsInfoCollector thisCluster = new HdfsInfoCollector();
-		try {
-			top = new TopcloudSelector(globalfileInput, false);
-			top.show();
-			realTop = top.getTopCloud();
-
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		/*
+		 * TopcloudSelector top; String realTop = ""; try { top = new
+		 * TopcloudSelector(globalfileInput, false); top.show(); realTop =
+		 * top.getTopCloud();
+		 * 
+		 * } catch (Throwable e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
 		// System.out.println("Top Cloud of FedMR:" + realTop);
 
 		// check coworking configuration existed or not,
@@ -136,17 +147,18 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				// make RegionCloudJob
 				mRegionJobList = new ArrayList<FedRegionCloudJob>();
 				// get some top cloud configuration from region cloud
-			
-				
-				/*for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
-					if (conf.getName().equalsIgnoreCase(mJobConf.get(FS_DEFAULT_NAME_KEY,""))) {
-					
-						mTopCloudHDFSURL = "hdfs://"
-								+ conf.getTopCloudHDFSURL() + "/";
-					}
-				}*/
-				
-				mTopCloudHDFSURL = mJobConf.get(FS_DEFAULT_NAME_KEY,"");
+
+				/*
+				 * for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
+				 * if
+				 * (conf.getName().equalsIgnoreCase(mJobConf.get(FS_DEFAULT_NAME_KEY
+				 * ,""))) {
+				 * 
+				 * mTopCloudHDFSURL = "hdfs://" + conf.getTopCloudHDFSURL() +
+				 * "/"; } }
+				 */
+
+				mTopCloudHDFSURL = mJobConf.get(FS_DEFAULT_NAME_KEY, "");
 				// -----
 				String submitJarPath = mJob.getJar();
 				int lastSlash = submitJarPath.lastIndexOf("/"); // in unix/linux
@@ -167,13 +179,16 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				GetRegionPath fedHdfsInputGetter = new GetRegionPath();
 				for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 					mTopCloudHDFSURLs = conf.getTopCloudHDFSURLs();
-					FedCloudInfo fedinfo = new FedCloudInfo(conf.getTopCloudHDFSURL());
-					long dataSize = thisCluster.getDataSize(globalfileInput, conf.getName());
-					//System.out.println("DATASIZE:"+conf.getName()+" "+dataSize);
-					//conf.setInputSize(dataSize);
+					FedCloudInfo fedinfo = new FedCloudInfo(
+							conf.getTopCloudHDFSURL());
+					long dataSize = thisCluster.getDataSize(globalfileInput,
+							conf.getName());
+					// System.out.println("DATASIZE:"+conf.getName()+" "+dataSize);
+					// conf.setInputSize(dataSize);
 					fedinfo.setInputSize(dataSize);
-					mFedCloudInfos.put(conf.getTopCloudHDFSURL() , fedinfo);
-					
+					mFedCloudInfos.put(conf.getTopCloudHDFSURL(), fedinfo);
+					conf.setMultiFormat(multiFormat);
+					conf.setMultiMapper(multiMapper);
 					conf.setRegionCloudServerListenPort(mParser
 							.getRegionCloudServerListenPort());
 					conf.setTopCloudHDFSURL(mTopCloudHDFSURL);
@@ -184,14 +199,14 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					conf.setJarPath(remoteJarPath);
 					conf.setMainClass(main);
 					// TODO configure the input of region cloud ( fedHdfs)
-					String inputpath = fedHdfsInputGetter.getRegionPath(
-							conf.getName(), "AirDrive/" + globalfileInput)
-							.toString();
-					//FileStatus fileStatus = FS.getFileStatus(inputpath);
-
-					System.out.println("set" + conf.getName() + "Input Path:"
-							+ inputpath);
-					conf.setHDFSInputPath(inputpath);
+					if (!multiInput) {
+						String inputpath = fedHdfsInputGetter.getRegionPath(
+								conf.getName(), "AirDrive/" + globalfileInput)
+								.toString();
+						System.out.println("set" + conf.getName()
+								+ "Input Path:" + inputpath);
+						conf.setHDFSInputPath(inputpath);
+					}
 					// --
 					conf.setHDFSOutputPath(conf.getName() + "_"
 							+ conf.getMainClass() + "_OUT_"
@@ -233,14 +248,12 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					// topConf.setHadoopHome(topHome);
 					// String srcHDFS = mJobConf.get(FS_DEFAULT_NAME_KEY,"");
 					String topInputPath = "";
-					
 
-					
 					topInputPath = mRegionCloudOutputPaths[0].toString();
-					
+
 					for (int i = 1; i < mRegionCloudOutputPaths.length; i++) {
-							topInputPath += ","
-									+ mRegionCloudOutputPaths[i].toString();
+						topInputPath += ","
+								+ mRegionCloudOutputPaths[i].toString();
 					}
 					String remoteJarPath = topConf.getHadoopHome();
 					remoteJarPath = remoteJarPath + "/fed_task/"
@@ -251,8 +264,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					topConf.setHDFSInputPath(topInputPath);
 					topConf.setHDFSOutputPath(FileOutputFormat.getOutputPath(
 							jobconf).toString());
-					topConf.setJobName("ITER_"
-							+ mParser.getSubmittedTime());
+					topConf.setJobName("ITER_" + mParser.getSubmittedTime());
 					FedTopCloudJob topJob = new FedTopCloudJob(topConf);
 
 					mTopJobList.add(topJob);
@@ -272,7 +284,8 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				// make Region Cloud Monitor Job
 				for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 					FedCloudMonitorClient client = new FedCloudMonitorClient(
-							conf.getAddress(), Integer.valueOf(conf.getRegionCloudServerListenPort()));
+							conf.getAddress(), Integer.valueOf(conf
+									.getRegionCloudServerListenPort()));
 					mFedCloudMonitorClientList.add(client);
 				}
 				// make Job Copy List
@@ -397,11 +410,13 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public Map<String,FedCloudInfo> getFedCloudInfos() {
+	public Map<String, FedCloudInfo> getFedCloudInfos() {
 		// TODO Auto-generated method stub
 		return mFedCloudInfos;
 	}
+
 	@Override
 	public List<String> getTopCloudHDFSURLs() {
 		// TODO Auto-generated method stub
@@ -415,34 +430,35 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		mFedCloudMonitorClientList.clear();
 		for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 			conf.setHDFSInputPath(filename);
-			
-			conf.setHDFSOutputPath(conf.getName() + "_"
-					+ conf.getMainClass() + "_OUT_"
-					+ mParser.getSubmittedTime()
-					+"_"+ Integer.toString(currentIter));
+
+			conf.setHDFSOutputPath(conf.getName() + "_" + conf.getMainClass()
+					+ "_OUT_" + mParser.getSubmittedTime() + "_"
+					+ Integer.toString(currentIter));
 			FedRegionCloudJob regionJob = new FedRegionCloudJob(conf);
 			mRegionJobList.add(regionJob);
 		}
 		for (FedHadoopConf topConf : mParser.getTopCloudConfList()) {
-			
-			String topInputPath = mRegionCloudOutputPaths[0].toString()+"_"+ Integer.toString(currentIter);
-			
+
+			String topInputPath = mRegionCloudOutputPaths[0].toString() + "_"
+					+ Integer.toString(currentIter);
+
 			for (int i = 1; i < mRegionCloudOutputPaths.length; i++) {
-					topInputPath += ","
-							+ mRegionCloudOutputPaths[i].toString()+"_"+ Integer.toString(currentIter);
+				topInputPath += "," + mRegionCloudOutputPaths[i].toString()
+						+ "_" + Integer.toString(currentIter);
 			}
-			
+
 			topConf.setHDFSInputPath(topInputPath);
 			FedTopCloudJob topJob = new FedTopCloudJob(topConf);
 			mTopJobList.add(topJob);
 		}
-		
+
 		for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 			FedCloudMonitorClient client = new FedCloudMonitorClient(
-					conf.getAddress(), Integer.valueOf(conf.getRegionCloudServerListenPort()));
+					conf.getAddress(), Integer.valueOf(conf
+							.getRegionCloudServerListenPort()));
 			mFedCloudMonitorClientList.add(client);
 		}
-		
+
 	}
 
 }

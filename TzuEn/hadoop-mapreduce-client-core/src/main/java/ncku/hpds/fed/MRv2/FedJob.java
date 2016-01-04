@@ -3,8 +3,11 @@ package ncku.hpds.fed.MRv2;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hdfs.tools.DFSAdmin;
+import org.apache.hadoop.mapreduce.InputFormat;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.io.File;
 import java.net.Inet4Address;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.net.UnknownHostException;
 
 public class FedJob {
@@ -82,7 +87,6 @@ public class FedJob {
 		int currentIter = 1;
 		try {
 			FedWANServer wanServer = new FedWANServer();
-			wanServer.start();
 			FedJobServer jobServer = new FedJobServer(8769);
 			jobServer.start();
 			Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
@@ -95,7 +99,8 @@ public class FedJob {
 			System.out.println("End FedJobConfHdfs");
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
 			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf.getFedCloudInfos();
-			
+			wanServer.setFedCloudInfos(fedCloudInfos);
+			wanServer.start();
 			jobServer.setFedCloudInfos(fedCloudInfos);
 			if (jcjList.size() > 0) {
 				System.out.println("Start Jar copy jobs");
@@ -230,6 +235,7 @@ public class FedJob {
 			}
 			jobServer.stopServer();
 			wanServer.stopServer();
+			wanServer.join();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -295,10 +301,31 @@ public class FedJob {
 						mFedJobConf.getRegionCloudServerListenPort());
 				mServer.start();
 				mFedStat.setRegionCloudsStart();
-
-				Path[] inputPath = new Path[1];
-				inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
-				FileInputFormat.setInputPaths(mJob, inputPath);
+				
+				String multiMapper = mJobConf.get("multiMapper");
+				String multiFormat = mJobConf.get("multiFormat");
+				System.out.println(multiMapper);
+				String[] mapper = multiMapper.split(",");
+				String[] format = multiFormat.split(",");
+				
+				for(int i = 0; i < mapper.length ; i++){
+					System.out.println(mapper[i].split("=")[0]);
+					System.out.println(mapper[i].split("=")[1]);
+					File root = new File(mJobConf.get("classpath"));					
+					URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
+					//Class<?> cls = Class.forName(generatedClassName, true, classLoader);
+				 
+					Class <? extends InputFormat>  fclazz
+				    = Class.forName (format[i].split("=")[1]).asSubclass (InputFormat.class);
+					Class <? extends Mapper>  mclazz
+				    = Class.forName (mapper[i].split("=")[1].replace('+','$'), true, classLoader).asSubclass (Mapper.class);
+					
+					MultipleInputs.addInputPath(mJob,new Path(mapper[i].split("=")[0]), fclazz, mclazz);
+				}
+				//MultipleInputs.addInputPath(job, path, inputFormatClass, mapperClass);
+			//	Path[] inputPath = new Path[1];
+			//	inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
+			//	FileInputFormat.setInputPaths(mJob, inputPath);
 
 				LazyOutputFormat.setOutputFormatClass(mJob,
 						TextOutputFormat.class);

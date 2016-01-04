@@ -88,11 +88,13 @@ public class FedRegionCloudJob extends Thread {
            ) {
             cmd = cmd + " " + mConf.getMainClass();
         }
-        //TODO add tachyon configuration in XML
+        cmd = cmd + " -Dclasspath="+ mConf.getJarPath(); 
         cmd = cmd + " -DregionCloud=on ";
         //cmd = cmd + " -D topCloudHDFS=\"" + mConf.getTopCloudHDFSURL() +"\" ";
         cmd = cmd + " -DtopCloudHDFSs=" + topCloudHDFS + " "; 
-        cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " "; 
+        cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " ";
+        cmd = cmd + " -DmultiMapper=" + mConf.getMultiMapper();
+		cmd = cmd + " -DmultiFormat=" + mConf.getMultiFormat();
         cmd = cmd + " -DregionCloudOutput="+mConf.getHDFSOutputPath();
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
@@ -155,11 +157,13 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -libjars "+mConf.getHadoopHome()+ "/tachyon-client-0.9.0-SNAPSHOT-jar-with-dependencies.jar";
         cmd = cmd + " -Dtachyon.user.file.understoragetype.default=SYNC_PERSIST";
         cmd = cmd + " -Dtachyon=on ";
-
+        
         cmd = cmd + " -DregionCloud=on ";
         //cmd = cmd + " -D topCloudHDFS=\"" + mConf.getTopCloudHDFSURL() +"\" ";
         cmd = cmd + " -DtopCloudHDFS=" + mConf.getTopCloudHDFSURL() + " "; 
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
+		cmd = cmd + " -DmultiMapper=" + mConf.getMultiMapper();
+		cmd = cmd + " -DmultiFormat=" + mConf.getMultiFormat();
         cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " "; 
         cmd = cmd + " -DregionCloudOutput=tachyon://"+mConf.getAddress()+":19998/user/"+userName+"/" + mConf.getHDFSOutputPath() + " ";
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";

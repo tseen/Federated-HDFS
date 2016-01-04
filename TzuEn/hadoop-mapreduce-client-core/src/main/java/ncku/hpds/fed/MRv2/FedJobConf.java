@@ -1,9 +1,15 @@
 package ncku.hpds.fed.MRv2;
 
+import ncku.hpds.fed.MRv2.proxy.GenericProxyMapper;
+import ncku.hpds.fed.MRv2.proxy.GenericProxyReducer;
+
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.VIntWritable;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
@@ -38,7 +44,7 @@ public class FedJobConf extends AbstractFedJobConf {
 	private List<String> mTopCloudHDFSURLs = new ArrayList<String>();
 	private Configuration mJobConf = null;
 	private String[] topCloudHDFSString = null;
-	private Job mJob = null;
+	private  Job mJob = null;
 	private String mTopCloudInputPath = "";
 	private String mTopCloudOutputPath = "";
 	private String mTopCloudHadoopHome = "";
@@ -137,19 +143,59 @@ public class FedJobConf extends AbstractFedJobConf {
 		return mFedTestFlag;
 	}
 
+	// final Class kClz = mJob.getMapOutputKeyClass();
+	// final Class vClz = mJob.getMapOutputValueClass();
+	/*
+	 * public class proxyReduce extends GenericProxyReducer {
+	 * 
+	 * @SuppressWarnings("unchecked") public proxyReduce() throws Exception {
+	 * super(mJob.getMapOutputKeyClass(),mJob.getMapOutputValueClass()); } }
+	 */
+	private static boolean userDefine = false;
+
+/*	public static void setKeyValueReduceClass(Class<?> keyClz,
+			Class<?> valueClz, Class<? extends Reducer> reducer) {
+		mJob.setReducerClass(reducer);
+		mJob.setMapOutputKeyClass(keyClz);
+		mJob.setMapOutputValueClass(valueClz);
+		mJob.setOutputKeyClass(Text.class);
+		mJob.setOutputValueClass(Text.class);
+		mJob.setOutputFormatClass(TextOutputFormat.class);
+		userDefine = true;
+
+	}
+*/
 	public void selectProxyReduce() {
-		try {
-			Class keyClz = mJob.getMapOutputKeyClass();
-			Class valueClz = mJob.getMapOutputValueClass();
-			mJob.setReducerClass(mSelector.getProxyReducerClass(keyClz,
-					valueClz));
-			mJob.setMapOutputKeyClass(keyClz);
-			mJob.setMapOutputValueClass(valueClz);
-			mJob.setOutputKeyClass(Text.class);
-			mJob.setOutputValueClass(Text.class);
-			Class outputFormat = mJob.getOutputFormatClass();
-			mJob.setOutputFormatClass(TextOutputFormat.class);
-		} catch (Exception e) {
+		if (!userDefine) {
+			try {
+				System.out.println("E04");
+				Class keyClz = mJob.getMapOutputKeyClass();
+				Class valueClz = mJob.getMapOutputValueClass();
+				// Class<? extends Reducer> testR = new
+				// GenericProxyReducer(keyClz, valueClz);
+
+				System.out.println("MOK:"
+						+ mJob.getMapOutputKeyClass().getName());
+				System.out.println("MOV:"
+						+ mJob.getMapOutputValueClass().getName());
+				try{
+					mJob.setReducerClass(mSelector.getProxyReducerClass(keyClz,
+						valueClz));
+				}catch (NullPointerException e) {
+					System.out.println("USER DEFINED");
+				}
+
+				// System.out.println("CLASS:"+mSelector.getProxyReducerClass(keyClz,
+				// valueClz).getName());
+				mJob.setMapOutputKeyClass(keyClz);
+				mJob.setMapOutputValueClass(valueClz);
+				mJob.setOutputKeyClass(Text.class);
+				mJob.setOutputValueClass(Text.class);
+				Class outputFormat = mJob.getOutputFormatClass();
+				mJob.setOutputFormatClass(TextOutputFormat.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -175,7 +221,12 @@ public class FedJobConf extends AbstractFedJobConf {
 			 * valueClz )); } else { mJob.setMapperClass (
 			 * mSelector.getProxyMapperClass( keyClz, valueClz )); }
 			 */
-			mJob.setMapperClass(mSelector.getProxyMapperClass(keyClz, valueClz));
+			try{
+				mJob.setMapperClass(mSelector.getProxyMapperClass(keyClz, valueClz));
+			}catch (NullPointerException e) {
+				System.out.println("USER DEFINED");
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -265,10 +316,9 @@ public class FedJobConf extends AbstractFedJobConf {
 		return null;
 	}
 
-
 	@Override
 	public void configIter(String name, int a) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

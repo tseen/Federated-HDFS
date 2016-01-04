@@ -7,9 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 
 public class FedWANServer extends Thread {
 	boolean listeningSocket = true;
+	private Map<String, FedCloudInfo> mFedCloudInfos;
 	public void run() {
 		
 		ServerSocket serverSocket = null;
@@ -28,6 +30,7 @@ public class FedWANServer extends Thread {
 			try {
 				socket = serverSocket.accept();
 				MiniWANServer mini = new MiniWANServer(socket);
+				mini.setFedCloudInfos(mFedCloudInfos);
 				mini.start();
 			} catch (IOException ex) {
 				System.out.println("Can't accept client connection. ");
@@ -43,6 +46,9 @@ public class FedWANServer extends Thread {
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
+	}
+	public void setFedCloudInfos(Map<String,FedCloudInfo> mFedCloudInfos) {
+		this.mFedCloudInfos = mFedCloudInfos;
 	}
 
 }

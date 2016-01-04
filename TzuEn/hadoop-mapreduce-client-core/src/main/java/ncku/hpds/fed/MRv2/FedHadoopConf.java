@@ -27,6 +27,10 @@ public class FedHadoopConf{
     private String mArg[] = new String[10];
     private String mRegionCloudServerListenPort= DEFAULT_REGION_CLOUD_SERVER_LISTEN_PORT; 
     private long mInputSize;
+    private String multiMapper = "";
+    private String multiFormat = "";
+
+    
 
     public FedHadoopConf(ROLE role ) {
         mRole = role;
@@ -80,4 +84,16 @@ public class FedHadoopConf{
         }
         return null;
     }
+	public String getMultiMapper() {
+		return multiMapper;
+	}
+	public void setMultiMapper(String multiMapper) {
+		this.multiMapper = multiMapper;
+	}
+	public String getMultiFormat() {
+		return multiFormat;
+	}
+	public void setMultiFormat(String multiFormat) {
+		this.multiFormat = multiFormat;
+	}
 }

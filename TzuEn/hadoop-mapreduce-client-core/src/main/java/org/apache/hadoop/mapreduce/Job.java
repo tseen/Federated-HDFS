@@ -21,6 +21,8 @@ package org.apache.hadoop.mapreduce;
 import java.io.IOException;
 import java.net.URI;
 import java.security.PrivilegedExceptionAction;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,8 +34,10 @@ import org.apache.hadoop.conf.Configuration.IntegerRanges;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.RawComparator;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.filecache.DistributedCache;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.protocol.ClientProtocol;
 import org.apache.hadoop.mapreduce.task.JobContextImpl;
 import org.apache.hadoop.mapreduce.util.ConfigUtil;
@@ -1306,7 +1310,9 @@ public class Job extends JobContextImpl implements JobContext {
     if (state == JobState.DEFINE) {
       if ( fedJob.isFedJob() == true && fedJob.isFedHdfsJob() == false) {
     	  FedWANClient wanClient = new FedWANClient();
+    	  wanClient.setHost(this.getConfiguration().get("fs.default.name").split("/")[2]);
     	  wanClient.start();
+
           fedJob.startFedJob();
           submit();
       }
@@ -1337,6 +1343,23 @@ public class Job extends JobContextImpl implements JobContext {
         fedJob.stopFedJob();
     }
     return isSuccessful();
+  }
+  
+  public void setKeyValueReduceClass(Class<?> keyClz,
+			Class<?> valueClz, Class<? extends Reducer> reducer) {
+	    //Map<String, Class <? extends Reducer>> valueMap = new HashMap<String, Class <? extends Reducer>>();
+		this.setReducerClass(reducer);
+		this.setMapOutputKeyClass(keyClz);
+		this.setMapOutputValueClass(valueClz);
+		this.setOutputKeyClass(Text.class);
+		this.setOutputValueClass(Text.class);
+		this.setOutputFormatClass(TextOutputFormat.class);
+		//userDefine = true;
+
+	}
+  public void setKeyValueMapClass(Class<?> keyClz,
+			Class<?> valueClz, Class<? extends Mapper> mapper) {
+	  	this.setMapperClass(mapper);
   }
   
   /**

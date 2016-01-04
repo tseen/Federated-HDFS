@@ -5,6 +5,7 @@ public class FedCloudInfo {
 	private String cloudName = "";
 	private int regionMapTime;
 	private int regionMapStartTime;
+	private float wanSpeed;
 
 	public FedCloudInfo(String Name){
 		cloudName = Name;
@@ -39,4 +40,14 @@ public class FedCloudInfo {
 		System.out.println(this.cloudName+" time:"+this.regionMapTime+"-"+this.regionMapStartTime+" size:"+this.inputSize);
 		System.out.println(this.cloudName+" speed:"+(float)((float)this.inputSize/((float)this.regionMapTime-(float)this.regionMapStartTime)));
 	}
+
+	public float getWanSpeed() {
+		return wanSpeed;
+	}
+
+	public void setWanSpeed(float wanSpeed) {
+		this.wanSpeed = wanSpeed;
+		System.out.println(this.cloudName+" WAN speed:"+ this.wanSpeed);
+	}
+
 }

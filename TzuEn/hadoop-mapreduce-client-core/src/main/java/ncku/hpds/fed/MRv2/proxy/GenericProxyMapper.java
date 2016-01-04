@@ -82,6 +82,9 @@ public class GenericProxyMapper<T3,T4> extends Mapper<LongWritable, Text, T3, T4
 				VLongWritable tKey = (VLongWritable) mKey;
 				tKey.set(Long.valueOf(keyPart));
 			}
+			else{
+				
+			}
 			//----------------------------------------------------------
 
 			StringTokenizer itr = new StringTokenizer( valuePart, mSeperator );  

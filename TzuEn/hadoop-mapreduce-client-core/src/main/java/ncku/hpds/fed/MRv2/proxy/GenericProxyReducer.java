@@ -42,7 +42,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     	}
     	  
     	
-    private MultipleOutputs mos;
+  //  private MultipleOutputs mos;
   //  private TachyonFileSystem tfs;
     
     private void __reset() {
@@ -112,11 +112,8 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 		for(HdfsWriter HW : mHdfsWriter){
 			HW.init();
 		}
-	//	tfs = TachyonFileSystemFactory.get();
-		
-//		tachyonOutDir = "/" + FileOutputFormat.getOutputPath(context).getName().toString()+"/";
-		
-		mos = new MultipleOutputs(context);
+	
+//		mos = new MultipleOutputs(context);
 		
 		if(conf.get("max_token")!=null) {
             MAX_COUNT = 999;
@@ -175,6 +172,8 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
         } else if ( mKeyClzName.contains("VLongWritable") ) {
             VLongWritable tKey = (VLongWritable) key;
             mKey.set(String.valueOf(tKey.get()));
+        } else{
+        	mKey.set(key.toString());
         }
         System.out.println("mKey.toString : " + mKey.toString());
     	
@@ -224,6 +223,10 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
                 VLongWritable tValue = (VLongWritable) value;
                 sb.append(String.valueOf(tValue.get())).append(mSeperator);
                 System.out.println("VLongWritable : " + tValue.get());
+            } else{
+            	T1 tValue = (T1) value;
+            	sb.append(tValue.toString()).append(mSeperator);
+
             }
             //----------------------------------------------------------
             count++;
@@ -261,7 +264,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     			}
     			*/
         //    	out.write("\n".getBytes());
-    //        	out.write(mKey.getBytes());
+    //		    	out.write(mKey.getBytes());
   //          	out.write("\t".getBytes());
 //            	out.write(mValue.getBytes());
 
