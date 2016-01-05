@@ -9,6 +9,7 @@ import org.apache.hadoop.io.VIntWritable;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
@@ -153,22 +154,23 @@ public class FedJobConf extends AbstractFedJobConf {
 	 */
 	private static boolean userDefine = false;
 
-/*	public static void setKeyValueReduceClass(Class<?> keyClz,
-			Class<?> valueClz, Class<? extends Reducer> reducer) {
+
+	public void selectProxyReduce(Class<?> keyClz, Class<?> valueClz, Class<? extends Reducer> reducer) {
 		mJob.setReducerClass(reducer);
 		mJob.setMapOutputKeyClass(keyClz);
 		mJob.setMapOutputValueClass(valueClz);
 		mJob.setOutputKeyClass(Text.class);
 		mJob.setOutputValueClass(Text.class);
+		try {
+			Class outputFormat = mJob.getOutputFormatClass();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		mJob.setOutputFormatClass(TextOutputFormat.class);
-		userDefine = true;
-
 	}
-*/
 	public void selectProxyReduce() {
 		if (!userDefine) {
 			try {
-				System.out.println("E04");
 				Class keyClz = mJob.getMapOutputKeyClass();
 				Class valueClz = mJob.getMapOutputValueClass();
 				// Class<? extends Reducer> testR = new
@@ -182,7 +184,7 @@ public class FedJobConf extends AbstractFedJobConf {
 					mJob.setReducerClass(mSelector.getProxyReducerClass(keyClz,
 						valueClz));
 				}catch (NullPointerException e) {
-					System.out.println("USER DEFINED");
+					System.out.println("USER DEFINED REDUCER");
 				}
 
 				// System.out.println("CLASS:"+mSelector.getProxyReducerClass(keyClz,
@@ -198,7 +200,9 @@ public class FedJobConf extends AbstractFedJobConf {
 			}
 		}
 	}
-
+	public void selectProxyMap(Class<?> keyClz, Class<?> valueClz, Class<? extends Mapper> mapper) {
+		mJob.setMapperClass(mapper);
+	}
 	public void selectProxyMap() {
 		// TODO in TopCloud
 		try {
@@ -224,7 +228,7 @@ public class FedJobConf extends AbstractFedJobConf {
 			try{
 				mJob.setMapperClass(mSelector.getProxyMapperClass(keyClz, valueClz));
 			}catch (NullPointerException e) {
-				System.out.println("USER DEFINED");
+				System.out.println("USER DEFINED MAPPER");
 			}
 			
 

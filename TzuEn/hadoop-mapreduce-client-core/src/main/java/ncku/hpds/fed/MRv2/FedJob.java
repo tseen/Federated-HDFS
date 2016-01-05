@@ -6,8 +6,10 @@ import org.apache.hadoop.hdfs.tools.DFSAdmin;
 import org.apache.hadoop.mapreduce.InputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
@@ -243,7 +245,17 @@ public class FedJob {
 		
 
 	}
+	  private Class<?> mKeyClz;
+	  private Class<?> mValueClz;
+	  private Class<? extends Reducer> mReducer;
+	  private Class<? extends Mapper> mMapper;
 
+	public void setUserDefine(Class<?> keyClz, Class<?> valueClz, Class<? extends Mapper> mapper, Class<? extends Reducer> reducer){
+		mKeyClz = keyClz;
+		mValueClz = valueClz;
+		mReducer = reducer;
+		mMapper = mapper;
+	}
 	public void startFedJob() {
 		try {
 
@@ -257,8 +269,15 @@ public class FedJob {
 			// Fed-MR , Top Cloud Mode
 			if (mFedJobConf.isTopCloud()) {
 				System.out.println("Run AS Top Cloud");
-				mFedJobConf.selectProxyMap();
-
+				mJob.setInputFormatClass(TextInputFormat.class);
+				if(mMapper != null){
+					System.out.println("PROMAP:"+mMapper.getName());
+					mFedJobConf.selectProxyMap(mKeyClz, mValueClz, mMapper);
+			
+				}
+				else{
+					mFedJobConf.selectProxyMap();
+				}
 				// set input path
 				String inputPathsString = mFedJobConf.getTopCloudInputPath();
 				System.out.println("TOP CLOUD IN =" + inputPathsString);
@@ -271,7 +290,9 @@ public class FedJob {
 				for (Path inputPath : inputPaths) {
 					System.out.println("INPUT PATH:" + inputPath.toString());
 				}
-
+				
+				
+				
 				FileInputFormat.setInputPaths(mJob, inputPaths);
 
 				Path outputPath = new Path(mFedJobConf.getTopCloudOutputPath());
@@ -296,7 +317,13 @@ public class FedJob {
 				Thread.sleep(10000);
 				client.sendRegionMapFinished();
 				client.stopClientProbe();*/
-				mFedJobConf.selectProxyReduce();
+				if(mReducer != null){
+					System.out.println("PRORED:"+mReducer.getName());
+					mFedJobConf.selectProxyReduce(mKeyClz, mValueClz, mReducer);
+				}
+				else{
+					mFedJobConf.selectProxyReduce();
+				}
 				mServer = new FedCloudMonitorServer(
 						mFedJobConf.getRegionCloudServerListenPort());
 				mServer.start();
@@ -313,16 +340,15 @@ public class FedJob {
 					System.out.println(mapper[i].split("=")[1]);
 					File root = new File(mJobConf.get("classpath"));					
 					URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
-					//Class<?> cls = Class.forName(generatedClassName, true, classLoader);
 				 
 					Class <? extends InputFormat>  fclazz
 				    = Class.forName (format[i].split("=")[1]).asSubclass (InputFormat.class);
 					Class <? extends Mapper>  mclazz
 				    = Class.forName (mapper[i].split("=")[1].replace('+','$'), true, classLoader).asSubclass (Mapper.class);
-					
 					MultipleInputs.addInputPath(mJob,new Path(mapper[i].split("=")[0]), fclazz, mclazz);
+					System.out.println("add Mapper:"+mapper[i].split("=")[0]+"||"+fclazz.getName()+"||"+mclazz.getName());
+
 				}
-				//MultipleInputs.addInputPath(job, path, inputFormatClass, mapperClass);
 			//	Path[] inputPath = new Path[1];
 			//	inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
 			//	FileInputFormat.setInputPaths(mJob, inputPath);

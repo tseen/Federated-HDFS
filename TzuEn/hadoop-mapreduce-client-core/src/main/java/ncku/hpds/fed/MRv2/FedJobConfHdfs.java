@@ -4,8 +4,10 @@ import java.io.File;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import ncku.hpds.hadoop.fedhdfs.HdfsInfoCollector;
 import ncku.hpds.hadoop.fedhdfs.TopcloudSelector;
@@ -18,6 +20,8 @@ import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 
 public class FedJobConfHdfs extends AbstractFedJobConf {
@@ -53,6 +57,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	private String mRegionCloudHadoopHome = "";
 	private Path[] mRegionCloudOutputPaths = null;
 	private String mTopHost = "";
+	private Map<String, String> userConfig = new HashMap<String,String>();
 
 	public FedJobConfHdfs(Configuration jobConf, Job job, String inputName)
 			throws Throwable {
@@ -65,6 +70,35 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		}
 
 		mJobConf = jobConf;
+		Iterator<Entry<String, String>> confIter = mJobConf.iterator();
+		while(confIter.hasNext()){
+			Entry<String, String> e = confIter.next();
+			if(e.getKey().contains("mapreduce.")||
+					e.getKey().contains("yarn.")||
+					e.getKey().contains("ipc.")||
+					e.getKey().contains("dfs.")||
+					e.getKey().contains("fs.")||
+					e.getKey().contains("hadoop.")||
+					e.getKey().contains("io.")||
+					e.getKey().contains("net.")||
+					e.getKey().contains("s3native.")||
+					e.getKey().contains("tachyon")||
+					e.getKey().contains("ha.")||
+					e.getKey().contains("file.")||
+					e.getKey().contains("ftp.")||
+					e.getKey().contains("rpc.")||
+					e.getKey().contains("Arg")||
+					e.getKey().contains("s3.")||
+					e.getKey().contains("mapred.")||
+					e.getKey().contains("main")||
+					e.getKey().contains("fed")||
+					e.getKey().contains("map."))
+			{}
+			else{
+				userConfig.put(e.getKey(), e.getValue());
+			System.out.println("confIter:"+e.toString());
+			}
+		}
 		try {
 			Class outputFormat = mJob.getOutputFormatClass();
 			// mJob.setMapperClass ( mSelector.getProxyMapperClass( keyClz,
@@ -214,6 +248,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					for (int j = 0; j < 10; j++) {
 						conf.setArgs(j, arg[j]);
 					}
+					conf.setUserConfig(userConfig);
 					FedRegionCloudJob regionJob = new FedRegionCloudJob(conf);
 					mRegionJobList.add(regionJob);
 				}
@@ -265,6 +300,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					topConf.setHDFSOutputPath(FileOutputFormat.getOutputPath(
 							jobconf).toString());
 					topConf.setJobName("ITER_" + mParser.getSubmittedTime());
+					topConf.setUserConfig(userConfig);
 					FedTopCloudJob topJob = new FedTopCloudJob(topConf);
 
 					mTopJobList.add(topJob);
@@ -459,6 +495,20 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 			mFedCloudMonitorClientList.add(client);
 		}
 
+	}
+
+	@Override
+	public void selectProxyMap(Class<?> keyClz, Class<?> valueClz,
+			Class<? extends Mapper> mapper) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void selectProxyReduce(Class<?> keyClz, Class<?> valueClz,
+			Class<? extends Reducer> mapper) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

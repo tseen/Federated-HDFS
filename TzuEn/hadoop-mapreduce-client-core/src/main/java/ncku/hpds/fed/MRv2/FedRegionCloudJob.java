@@ -1,7 +1,10 @@
 package ncku.hpds.fed.MRv2 ;
 
 import java.net.*;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.io.*;
 
 public class FedRegionCloudJob extends Thread {
@@ -100,6 +103,11 @@ public class FedRegionCloudJob extends Thread {
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
         cmd = cmd + " -DregionCloudInput="+ mConf.getHDFSInputPath() + " ";
         cmd = cmd + " -DtopCounts="+ Integer.toString(TopCloudHasher.topCounts);
+        
+		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
+        	//Entry<String, String> e = confIter.next();
+        	cmd = cmd +" -D"+e.getKey()+"="+e.getValue()+" ";
+        }
         cmd = cmd + mConf.getOtherArgs() + " ";
         for ( int i = 0 ; i < 10 ; i++ ) {
             String arg = mConf.getArgs(i);

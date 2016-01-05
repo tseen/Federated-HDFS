@@ -1,7 +1,10 @@
 package ncku.hpds.fed.MRv2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 // Region Cloud Configraution
 public class FedHadoopConf{
@@ -29,6 +32,7 @@ public class FedHadoopConf{
     private long mInputSize;
     private String multiMapper = "";
     private String multiFormat = "";
+	private Map<String, String> userConfig = new HashMap<String,String>();
 
     
 
@@ -96,4 +100,11 @@ public class FedHadoopConf{
 	public void setMultiFormat(String multiFormat) {
 		this.multiFormat = multiFormat;
 	}
+	public Map<String, String> getUserConfig() {
+		return userConfig;
+	}
+	public void setUserConfig(Map<String, String> userConfig) {
+		this.userConfig = userConfig;
+	}
+	
 }

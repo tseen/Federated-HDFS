@@ -106,7 +106,6 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 			HW.setFileName("/user/" + System.getProperty("user.name") +"/"+ conf.get("regionCloudOutput", "")+TopCloudHasher.hashToTop(url+"/"));
 						
 			mHdfsWriter.add(HW);
-			System.out.println("ADDDDDDDDDDDDDD");
 		}
 		
 		for(HdfsWriter HW : mHdfsWriter){
@@ -267,7 +266,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
     //		    	out.write(mKey.getBytes());
   //          	out.write("\t".getBytes());
 //            	out.write(mValue.getBytes());
-
+                mValue.set(sb.toString());
             	HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
             	HW.write(mKey, mValue);
             //	HW.writeByte(mKey.getBytes());

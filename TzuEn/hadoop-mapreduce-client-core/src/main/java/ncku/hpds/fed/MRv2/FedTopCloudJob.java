@@ -1,5 +1,9 @@
 package ncku.hpds.fed.MRv2;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class FedTopCloudJob extends Thread {
 	private FedHadoopConf mConf;
 	private ShellMonitor mOutputMonitor;
@@ -98,6 +102,10 @@ public class FedTopCloudJob extends Thread {
 		cmd = cmd + " -DtopCloudOutput=" + out + " ";
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
 		cmd = cmd + " -DtopCloudHadoopHome=" + mConf.getHadoopHome() + " ";
+		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
+        	//Entry<String, String> e = confIter.next();
+        	cmd = cmd +" -D"+e.getKey()+"="+e.getValue()+" ";
+        }
 		cmd = cmd + mConf.getOtherArgs() + " ";
 		for (int i = 0; i < 10; i++) {
 			String arg = mConf.getArgs(i);

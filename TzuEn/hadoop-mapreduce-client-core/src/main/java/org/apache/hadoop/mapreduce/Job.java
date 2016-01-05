@@ -1296,6 +1296,8 @@ public class Job extends JobContextImpl implements JobContext {
     LOG.info("The url to track the job: " + getTrackingURL());
    }
   
+  public static enum FedState {MAP, REDUCE};
+  
   /**
    * Submit the job to the cluster and wait for it to finish.
    * @param verbose print the progress to the user
@@ -1309,10 +1311,12 @@ public class Job extends JobContextImpl implements JobContext {
     FedJob fedJob = new FedJob(this);
     if (state == JobState.DEFINE) {
       if ( fedJob.isFedJob() == true && fedJob.isFedHdfsJob() == false) {
+		//	this.setInputFormatClass(InputFormat.class);
+
     	  FedWANClient wanClient = new FedWANClient();
     	  wanClient.setHost(this.getConfiguration().get("fs.default.name").split("/")[2]);
     	  wanClient.start();
-
+    	  fedJob.setUserDefine(mKeyClz, mValueClz, mMapper, mReducer);
           fedJob.startFedJob();
           submit();
       }
@@ -1344,22 +1348,23 @@ public class Job extends JobContextImpl implements JobContext {
     }
     return isSuccessful();
   }
-  
+  private Class<?> mKeyClz;
+  private Class<?> mValueClz;
+  private Class<? extends Reducer> mReducer;
+  private Class<? extends Mapper> mMapper;
+
   public void setKeyValueReduceClass(Class<?> keyClz,
 			Class<?> valueClz, Class<? extends Reducer> reducer) {
-	    //Map<String, Class <? extends Reducer>> valueMap = new HashMap<String, Class <? extends Reducer>>();
-		this.setReducerClass(reducer);
-		this.setMapOutputKeyClass(keyClz);
-		this.setMapOutputValueClass(valueClz);
-		this.setOutputKeyClass(Text.class);
-		this.setOutputValueClass(Text.class);
-		this.setOutputFormatClass(TextOutputFormat.class);
-		//userDefine = true;
-
+	  
+		mKeyClz = keyClz;
+		mValueClz = valueClz;
+		mReducer = reducer;
 	}
   public void setKeyValueMapClass(Class<?> keyClz,
 			Class<?> valueClz, Class<? extends Mapper> mapper) {
-	  	this.setMapperClass(mapper);
+	  	mKeyClz = keyClz;
+		mValueClz = valueClz;
+		mMapper = mapper;
   }
   
   /**

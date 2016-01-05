@@ -7,7 +7,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.conf.Configuration;
 
-public class GenericProxyMapper<T3,T4> extends Mapper<LongWritable, Text, T3, T4>{
+public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 
     private T3 mKey ;
 	private T4 mValue ;
@@ -24,6 +24,10 @@ public class GenericProxyMapper<T3,T4> extends Mapper<LongWritable, Text, T3, T4
         mKeyClzName = mKeyClz.getCanonicalName();
         mValueClzName = mValueClz.getCanonicalName();
     }
+  
+    public void stringToKey(String in, T3 key){
+ 
+    }
     /*
      * 
      * */
@@ -39,12 +43,13 @@ public class GenericProxyMapper<T3,T4> extends Mapper<LongWritable, Text, T3, T4
 		}
 	}
     @Override
-	public void map(LongWritable key, Text value, Context context ) throws IOException,InterruptedException{
+	public void map(Object key, Text value, Context context ) throws IOException,InterruptedException{
 
 		try {
 			// get key
 			String valueStr = value.toString();
-			int firstTabPos = valueStr.indexOf("\t");
+			System.out.println("valueStr:"+valueStr);
+			int firstTabPos = valueStr.indexOf("=");
 			String keyPart = valueStr.substring(0, firstTabPos);
 			String valuePart = valueStr.substring(firstTabPos+1);
 
@@ -83,7 +88,7 @@ public class GenericProxyMapper<T3,T4> extends Mapper<LongWritable, Text, T3, T4
 				tKey.set(Long.valueOf(keyPart));
 			}
 			else{
-				
+				stringToKey(keyPart, mKey);				
 			}
 			//----------------------------------------------------------
 
@@ -132,7 +137,8 @@ public class GenericProxyMapper<T3,T4> extends Mapper<LongWritable, Text, T3, T4
 			}
 
 		} catch ( Exception e ) {
-			System.out.println("meet error skip it"); 
+			e.printStackTrace();
+			//System.out.println("meet error skip it"); 
 		}
 	}
 }

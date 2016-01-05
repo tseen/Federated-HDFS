@@ -9,6 +9,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 public abstract class AbstractFedJobConf {
@@ -22,6 +24,9 @@ public abstract class AbstractFedJobConf {
 	    public abstract boolean isFedLoop() ;
 	    public abstract boolean isFedTest();
 	    public abstract void selectProxyReduce() ;
+		public abstract void selectProxyMap(Class<?> keyClz, Class<?> valueClz, Class<? extends Mapper> mapper);
+		public abstract void selectProxyReduce(Class<?> keyClz, Class<?> valueClz, Class<? extends Reducer> mapper);
+
 	    public abstract void selectProxyMap();
 	    public abstract String getCoworkingConf() ;
 	    public abstract FedHadoopConf getTopCloudConf() ;
