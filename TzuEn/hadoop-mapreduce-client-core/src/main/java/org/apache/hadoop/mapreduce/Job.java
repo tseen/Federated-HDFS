@@ -898,10 +898,14 @@ public class Job extends JobContextImpl implements JobContext {
    */
   public void setPartitionerClass(Class<? extends Partitioner> cls
                                   ) throws IllegalStateException {
+	pcls = cls;
     ensureState(JobState.DEFINE);
     conf.setClass(PARTITIONER_CLASS_ATTR, cls, 
                   Partitioner.class);
   }
+  private Class<? extends Partitioner> pcls;
+ 
+  
 
   /**
    * Set the key class for the map output data. This allows the user to
@@ -979,9 +983,11 @@ public class Job extends JobContextImpl implements JobContext {
    */
   public void setSortComparatorClass(Class<? extends RawComparator> cls
                                      ) throws IllegalStateException {
+	  scls = cls;
     ensureState(JobState.DEFINE);
     conf.setOutputKeyComparatorClass(cls);
   }
+  private Class<? extends RawComparator> scls;
 
   /**
    * Define the comparator that controls which keys are grouped together
@@ -994,9 +1000,11 @@ public class Job extends JobContextImpl implements JobContext {
    */
   public void setGroupingComparatorClass(Class<? extends RawComparator> cls
                                          ) throws IllegalStateException {
+	  gcls = cls;
     ensureState(JobState.DEFINE);
     conf.setOutputValueGroupingComparator(cls);
   }
+  private Class<? extends RawComparator> gcls;
 
   /**
    * Set the user-specified job name.
@@ -1317,7 +1325,8 @@ public class Job extends JobContextImpl implements JobContext {
     	  wanClient.setHost(this.getConfiguration().get("fs.default.name").split("/")[2]);
     	  wanClient.start();
     	  fedJob.setUserDefine(mKeyClz, mValueClz, mMapper, mReducer);
-          fedJob.startFedJob();
+    	  fedJob.setSortGroupPartitionClass(scls, gcls, pcls);
+    	  fedJob.startFedJob();
           submit();
       }
       else if( fedJob.isFedJob() == true && fedJob.isFedHdfsJob() == true){

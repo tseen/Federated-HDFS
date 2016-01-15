@@ -96,8 +96,10 @@ public class FedRegionCloudJob extends Thread {
         //cmd = cmd + " -D topCloudHDFS=\"" + mConf.getTopCloudHDFSURL() +"\" ";
         cmd = cmd + " -DtopCloudHDFSs=" + topCloudHDFS + " "; 
         cmd = cmd + " -DregionCloudServerPort=" + mConf.getRegionCloudServerListenPort() + " ";
-        cmd = cmd + " -DmultiMapper=" + mConf.getMultiMapper();
-		cmd = cmd + " -DmultiFormat=" + mConf.getMultiFormat();
+        if(mConf.getMultiMapper() != ""){
+	        cmd = cmd + " -DmultiMapper=" + mConf.getMultiMapper();
+			cmd = cmd + " -DmultiFormat=" + mConf.getMultiFormat();
+        }
         cmd = cmd + " -DregionCloudOutput="+mConf.getHDFSOutputPath();
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();

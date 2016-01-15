@@ -122,17 +122,18 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		Path[] Inputs = FileInputFormat.getInputPaths((JobConf) mJobConf);
 		String multiMapper = mJobConf.get(MultipleInputs.DIR_MAPPERS);
 		String multiFormat = mJobConf.get(MultipleInputs.DIR_FORMATS);
-
 		boolean multiInput = true;
 		if (multiMapper == null) {
 			multiInput = false;
 		}
-		multiMapper = multiMapper.replace(';', '=');
-		multiMapper = multiMapper.replace('$', '+');
-
-		multiFormat = multiFormat.replace(';', '=');
-		System.out.println("MultipleFormats:" + multiFormat);
-		System.out.println("MultipleInputs:" + multiMapper);
+		if(multiInput){
+			multiMapper = multiMapper.replace(';', '=');
+			multiMapper = multiMapper.replace('$', '+');
+	
+			multiFormat = multiFormat.replace(';', '=');
+			System.out.println("MultipleFormats:" + multiFormat);
+			System.out.println("MultipleInputs:" + multiMapper);
+		}
 		if (Inputs.length > 0) {
 			String p[] = Inputs[0].toString().split("/");
 			globalfileInput = p[p.length - 1];
@@ -221,8 +222,10 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					// conf.setInputSize(dataSize);
 					fedinfo.setInputSize(dataSize);
 					mFedCloudInfos.put(conf.getTopCloudHDFSURL(), fedinfo);
-					conf.setMultiFormat(multiFormat);
-					conf.setMultiMapper(multiMapper);
+					if(multiInput){
+						conf.setMultiFormat(multiFormat);
+						conf.setMultiMapper(multiMapper);
+					}
 					conf.setRegionCloudServerListenPort(mParser
 							.getRegionCloudServerListenPort());
 					conf.setTopCloudHDFSURL(mTopCloudHDFSURL);

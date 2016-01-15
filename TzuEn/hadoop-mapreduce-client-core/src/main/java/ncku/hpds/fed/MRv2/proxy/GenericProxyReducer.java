@@ -29,7 +29,9 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 
 	private StringBuffer sb = new StringBuffer();
     private Text mKey = new Text();
-	private Text mValue = new Text();   
+	private Text mValue = new Text();
+    private Text mCheckKey = new Text();
+
 
 	private int count =0;
 	private int MAX_COUNT = 999;
@@ -140,6 +142,7 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
         __reset();
         //----------------------------------------------------------
         // Partial Generic Mapper Keypart 
+       
         if ( mKeyClzName.contains("DoubleWritable") ) {
             DoubleWritable tKey = (DoubleWritable) key;
             mKey.set(String.valueOf(tKey.get()));
@@ -175,110 +178,193 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
         	mKey.set(key.toString());
         }
         System.out.println("mKey.toString : " + mKey.toString());
-    	
+   
  //       FileOutStream out = null;
   //  	TachyonURI path = null;
         while(it.hasNext()) {	
             T2 value = it.next();
-            //sb.append(value).append(mSeperator);   
-            //----------------------------------------------------------
-            // Partial Generic Mapper Value Part
-            if ( mValueClzName.contains("DoubleWritable") ) {
-                DoubleWritable tValue = (DoubleWritable) value;
-                sb.append(String.valueOf(tValue.get())).append(mSeperator);
-                System.out.println("DoubleWritable : " + tValue.get());
+        	mCheckKey.set(key.toString());
+        	if(mCheckKey.toString().equals(mKey.toString())){
+	          	//HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+	            //----------------------------------------------------------
+	            // Partial Generic Mapper Value Part
+	            if ( mValueClzName.contains("DoubleWritable") ) {
+	                DoubleWritable tValue = (DoubleWritable) value;
+	                sb.append(String.valueOf(tValue.get())).append(mSeperator);
+	                System.out.println("DoubleWritable : " + tValue.get());
+	
+	            } else if ( mValueClzName.contains("FloatWritable") ) {
+	                FloatWritable tValue = (FloatWritable) value;
+	                sb.append(String.valueOf(tValue.get())).append(mSeperator);
+	                System.out.println("FloatWritable : " + tValue.get());
+	
+	            } else if ( mValueClzName.contains("IntWritable") ) {
+	                IntWritable tValue = (IntWritable) value;
+	                sb.append(String.valueOf(tValue.get())).append(mSeperator);
+	                System.out.println("IntWritable : " + tValue.get());
+	
+	            } else if ( mValueClzName.contains("LongWritable") ) {
+	                LongWritable tValue = (LongWritable) value;
+	                sb.append(String.valueOf(tValue.get())).append(mSeperator);
+	                System.out.println("LongWritable : " + tValue.get());
+	
+	            } else if ( mValueClzName.contains("Text") ) {
+	                Text tValue = (Text) value;
+	                sb.append(tValue.toString()).append(mSeperator);
+	               // mValue.set(tValue.toString());
+	              	//HW.write(mKey, mValue);
+	                System.out.println("Text : " + tValue.toString());
+	
+	            } else if ( mValueClzName.contains("UTF8") ) {
+	                UTF8 tValue = (UTF8) value;
+	                sb.append(tValue.toString()).append(mSeperator);
+	                System.out.println("UTF8 : " + tValue.toString());
+	
+	            } else if ( mValueClzName.contains("VIntWritable") ) {
+	                VIntWritable tValue = (VIntWritable) value;
+	                sb.append(String.valueOf(tValue.get())).append(mSeperator);
+	                System.out.println("VIntWritable : " + tValue.get());
+	
+	            } else if ( mValueClzName.contains("VLongWritable") ) {
+	                VLongWritable tValue = (VLongWritable) value;
+	                sb.append(String.valueOf(tValue.get())).append(mSeperator);
+	                System.out.println("VLongWritable : " + tValue.get());
+	            } else{
+	            	T1 tValue = (T1) value;
+	            	sb.append(tValue.toString()).append(mSeperator);
+	
+	            }
+	            //----------------------------------------------------------
+	            count++;
+	            
+	            if ( count == MAX_COUNT ) {
+	   /*         	path = new TachyonURI(tachyonOutDir+generateFileName(mKey));
+	            	if(!outMap.containsKey(path.toString())){
+	            		try {
+							out = tfs.getOutStream(path);
+						} catch (FileAlreadyExistsException e) {
+							e.printStackTrace();
+						} catch (InvalidPathException e) {
+							e.printStackTrace();
+						} catch (TachyonException e) {
+							e.printStackTrace();
+						}
+	            		outMap.put(path.toString(), out);
+	            	}
+	            	else{
+	            		out = outMap.get(path.toString());
+	            	}*/
+	            	
+	            	/*
+	            	try {
+	    				out = tfs.getOutStream(path);
+	    			} catch (FileAlreadyExistsException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			} catch (InvalidPathException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			} catch (TachyonException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}
+	    			*/
+	        //    	out.write("\n".getBytes());
+	    //		    	out.write(mKey.getBytes());
+	  //          	out.write("\t".getBytes());
+	//            	out.write(mValue.getBytes());
+	            	
+	                mValue.set(sb.toString());
+	            	HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+	            	HW.write(mKey, mValue);
+	            	
+	            //	HW.writeByte(mKey.getBytes());
+	            //	HW.writeByte("\t".getBytes());
+	               // HW.writeByte(mValue.getBytes());
+	              //  HW.writeByte("\n".getBytes());
+	
+	
+	            	//mos.write(mKey, mValue, generateFileName(mKey));
+	               // context.write(mKey, mValue);
+	                __reset();
+	            }
+	        }
+        	else{
+ 	            HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mCheckKey)));
 
-            } else if ( mValueClzName.contains("FloatWritable") ) {
-                FloatWritable tValue = (FloatWritable) value;
-                sb.append(String.valueOf(tValue.get())).append(mSeperator);
-                System.out.println("FloatWritable : " + tValue.get());
-
-            } else if ( mValueClzName.contains("IntWritable") ) {
-                IntWritable tValue = (IntWritable) value;
-                sb.append(String.valueOf(tValue.get())).append(mSeperator);
-                System.out.println("IntWritable : " + tValue.get());
-
-            } else if ( mValueClzName.contains("LongWritable") ) {
-                LongWritable tValue = (LongWritable) value;
-                sb.append(String.valueOf(tValue.get())).append(mSeperator);
-                System.out.println("LongWritable : " + tValue.get());
-
-            } else if ( mValueClzName.contains("Text") ) {
-                Text tValue = (Text) value;
-                sb.append(tValue.toString()).append(mSeperator);
-                System.out.println("Text : " + tValue.toString());
-
-            } else if ( mValueClzName.contains("UTF8") ) {
-                UTF8 tValue = (UTF8) value;
-                sb.append(tValue.toString()).append(mSeperator);
-                System.out.println("UTF8 : " + tValue.toString());
-
-            } else if ( mValueClzName.contains("VIntWritable") ) {
-                VIntWritable tValue = (VIntWritable) value;
-                sb.append(String.valueOf(tValue.get())).append(mSeperator);
-                System.out.println("VIntWritable : " + tValue.get());
-
-            } else if ( mValueClzName.contains("VLongWritable") ) {
-                VLongWritable tValue = (VLongWritable) value;
-                sb.append(String.valueOf(tValue.get())).append(mSeperator);
-                System.out.println("VLongWritable : " + tValue.get());
-            } else{
-            	T1 tValue = (T1) value;
-            	sb.append(tValue.toString()).append(mSeperator);
-
-            }
-            //----------------------------------------------------------
-            count++;
-            
-            if ( count == MAX_COUNT ) {
-   /*         	path = new TachyonURI(tachyonOutDir+generateFileName(mKey));
-            	if(!outMap.containsKey(path.toString())){
-            		try {
-						out = tfs.getOutStream(path);
-					} catch (FileAlreadyExistsException e) {
-						e.printStackTrace();
-					} catch (InvalidPathException e) {
-						e.printStackTrace();
-					} catch (TachyonException e) {
-						e.printStackTrace();
-					}
-            		outMap.put(path.toString(), out);
-            	}
-            	else{
-            		out = outMap.get(path.toString());
-            	}*/
-            	
-            	/*
-            	try {
-    				out = tfs.getOutStream(path);
-    			} catch (FileAlreadyExistsException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			} catch (InvalidPathException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			} catch (TachyonException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-    			*/
-        //    	out.write("\n".getBytes());
-    //		    	out.write(mKey.getBytes());
-  //          	out.write("\t".getBytes());
-//            	out.write(mValue.getBytes());
-                mValue.set(sb.toString());
-            	HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
-            	HW.write(mKey, mValue);
-            //	HW.writeByte(mKey.getBytes());
-            //	HW.writeByte("\t".getBytes());
-               // HW.writeByte(mValue.getBytes());
-              //  HW.writeByte("\n".getBytes());
-
-
-            	//mos.write(mKey, mValue, generateFileName(mKey));
-               // context.write(mKey, mValue);
-                __reset();
-            }
+        		 if ( mValueClzName.contains("DoubleWritable") ) {
+ 	                DoubleWritable tValue = (DoubleWritable) value;
+ 	                //sb.append(String.valueOf(tValue.get())).append(mSeperator);
+ 	                mValue.set(String.valueOf(tValue.get()));
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("DoubleWritable : " + tValue.get());
+ 	
+ 	            } else if ( mValueClzName.contains("FloatWritable") ) {
+ 	                FloatWritable tValue = (FloatWritable) value;
+ 	                //sb.append(String.valueOf(tValue.get())).append(mSeperator);
+ 	                mValue.set(String.valueOf(tValue.get()));
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("FloatWritable : " + tValue.get());
+ 	
+ 	            } else if ( mValueClzName.contains("IntWritable") ) {
+ 	                IntWritable tValue = (IntWritable) value;
+ 	                //sb.append(String.valueOf(tValue.get())).append(mSeperator);
+ 	                mValue.set(String.valueOf(tValue.get()));
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("IntWritable : " + tValue.get());
+ 	
+ 	            } else if ( mValueClzName.contains("LongWritable") ) {
+ 	                LongWritable tValue = (LongWritable) value;
+ 	               // sb.append(String.valueOf(tValue.get())).append(mSeperator);
+ 	                mValue.set(String.valueOf(tValue.get()));
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("LongWritable : " + tValue.get());
+ 	
+ 	            } else if ( mValueClzName.contains("Text") ) {
+ 	                Text tValue = (Text) value;
+ 	               // sb.append(tValue.toString()).append(mSeperator);
+ 	                mValue.set(tValue.toString());
+ 	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("Text : " + tValue.toString());
+ 	
+ 	            } else if ( mValueClzName.contains("UTF8") ) {
+ 	                UTF8 tValue = (UTF8) value;
+ 	                //sb.append(tValue.toString()).append(mSeperator);
+ 	                mValue.set(tValue.toString());
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("UTF8 : " + tValue.toString());
+ 	
+ 	            } else if ( mValueClzName.contains("VIntWritable") ) {
+ 	                VIntWritable tValue = (VIntWritable) value;
+ 	                //sb.append(String.valueOf(tValue.get())).append(mSeperator);
+ 	                mValue.set(String.valueOf(tValue.get()));
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("VIntWritable : " + tValue.get());
+ 	
+ 	            } else if ( mValueClzName.contains("VLongWritable") ) {
+ 	                VLongWritable tValue = (VLongWritable) value;
+ 	                //sb.append(String.valueOf(tValue.get())).append(mSeperator);
+ 	                mValue.set(String.valueOf(tValue.get()));
+	              	HW.write(mCheckKey, mValue);
+ 	                System.out.println("VLongWritable : " + tValue.get());
+ 	            } else{
+ 	            	T1 tValue = (T1) value;
+ 	            	//sb.append(tValue.toString()).append(mSeperator);
+ 	            	mValue.set(tValue.toString());
+ 	              	HW.write(mCheckKey, mValue);
+ 	
+ 	            }
+ 	            //----------------------------------------------------------
+ 	            count++;
+ 	            
+ 	            if ( count == MAX_COUNT ) {
+ 	           //   mValue.set(sb.toString());
+ 	            //	HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
+ 	            //	HW.write(mKey, mValue);
+ 	                __reset();
+ 	            }
+        		
+        	}
         }
         if ( sb.length() > 0 ) {
 

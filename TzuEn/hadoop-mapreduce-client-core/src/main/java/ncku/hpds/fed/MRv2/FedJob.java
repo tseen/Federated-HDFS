@@ -3,9 +3,11 @@ package ncku.hpds.fed.MRv2;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hdfs.tools.DFSAdmin;
+import org.apache.hadoop.io.RawComparator;
 import org.apache.hadoop.mapreduce.InputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
@@ -66,7 +68,7 @@ public class FedJob {
 		String fedIter = mJobConf.get("fedIteration", "1");
 		if (Integer.parseInt(fedIter) > 1) {
 			System.out.println("-------Fed Iteration------");
-			System.out.println("Iterations:"+Integer.parseInt(fedIter));
+			System.out.println("Iterations:" + Integer.parseInt(fedIter));
 			bIsFedIteration = true;
 			iterations = Integer.parseInt(fedIter);
 		}
@@ -84,6 +86,9 @@ public class FedJob {
 	public boolean isFedJob() {
 		return bIsFed;
 	}
+	public boolean isFedIteration(){
+		return bIsFedIteration;
+	}
 
 	public void scheduleAndStartFedJob() {
 		int currentIter = 1;
@@ -95,12 +100,13 @@ public class FedJob {
 			if (mInputPaths.length > 0) {
 				mFileName = mInputPaths[0].getName();
 			}
-			
+
 			System.out.println("Start FedJobConfHdfs");
 			mFedJobConf = new FedJobConfHdfs(mJobConf, mJob, mFileName);
 			System.out.println("End FedJobConfHdfs");
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
-			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf.getFedCloudInfos();
+			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf
+					.getFedCloudInfos();
 			wanServer.setFedCloudInfos(fedCloudInfos);
 			wanServer.start();
 			jobServer.setFedCloudInfos(fedCloudInfos);
@@ -115,20 +121,20 @@ public class FedJob {
 				}
 				System.out.println("Jar copy Jobs finished");
 			}
-			
-			
+
 			for (int i = 0; i < iterations; i++) {
 				if (bIsFedIteration && currentIter > 1
 						&& currentIter <= iterations) {
 					Path mOutpuPath = FileOutputFormat.getOutputPath(mJob);
 					String input[] = mOutpuPath.toString().split("/");
-					//mFedJobConf.configIter("/"+input[3]+"/"+input[4]+"/"+input[5],currentIter);
-					/* 
-					 * User-defined the iterative input file, if not defined, using the output file of
-					 * the last iteration.
+					// mFedJobConf.configIter("/"+input[3]+"/"+input[4]+"/"+input[5],currentIter);
+					/*
+					 * User-defined the iterative input file, if not defined,
+					 * using the output file of the last iteration.
 					 */
-					String iterInput = mJobConf.get("iterInput", "/"+input[3]+"/"+input[4]+"/"+input[5]);
-					mFedJobConf.configIter(iterInput,currentIter);
+					String iterInput = mJobConf.get("iterInput", "/" + input[3]
+							+ "/" + input[4] + "/" + input[5]);
+					mFedJobConf.configIter(iterInput, currentIter);
 
 				}
 				// get top job
@@ -142,29 +148,34 @@ public class FedJob {
 
 				mFedStat.setRegionCloudsStart();
 				TopCloudHasher.topCounts = rList.size();
-				System.out.println("TopCloud Report : RegionCloud Start Time = "
+				System.out
+						.println("TopCloud Report : RegionCloud Start Time = "
 								+ mFedStat.getRegionCloudsStart() + "(ms)");
 				System.out.println("Start FedRegionCloudJobs");
-				
-				
-				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos.entrySet())
-				{
-					info.getValue().setRegionMapStartTime((int) System.currentTimeMillis());
+
+				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+						.entrySet()) {
+					info.getValue().setRegionMapStartTime(
+							(int) System.currentTimeMillis());
 				}
-				
-				//int regionMapStartTime = (int) System.currentTimeMillis();
+
+				// int regionMapStartTime = (int) System.currentTimeMillis();
 				for (FedRegionCloudJob job : rList) {
 					if (bIsFedTachyon) {
 						job.setTachyonFlag();
 					}
+					System.out.println("REGION START");
 					job.start();
 				}
-				
-				for ( FedCloudMonitorClient job : cList ) { job.start(); } 
+
+				for (FedCloudMonitorClient job : cList) {
+					job.start();
+				}
 
 				System.out.println("Wait For FedRegionCloudJob Join");
 				for (FedRegionCloudJob job : rList) {
 					job.join();
+					System.out.println("REGION JOIN");
 				}
 				System.out.println("FedRegionCloudJob All Joined");
 				mFedStat.setRegionCloudsEnd();
@@ -222,17 +233,16 @@ public class FedJob {
 				System.out.println("----------------------------------");
 				System.out.println("TOP END ...");
 				System.out.println("----------------------------------");
-				
+
 				HdfsFileSender sender = new HdfsFileSender();
 				List<String> topCloudHDFSs = mFedJobConf.getTopCloudHDFSURLs();
-				for(String t:topCloudHDFSs){
-					System.out.println("*****"+t+"*****");
+				for (String t : topCloudHDFSs) {
+					System.out.println("*****" + t + "*****");
 				}
-		        sender.send((ArrayList) topCloudHDFSs, "/user/hpds/zzz");
-		       // String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
-		        
-				
-				currentIter ++;
+				sender.send((ArrayList) topCloudHDFSs, "/user/hpds/zzz");
+				// String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
+
+				currentIter++;
 
 			}
 			jobServer.stopServer();
@@ -242,20 +252,33 @@ public class FedJob {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
-	  private Class<?> mKeyClz;
-	  private Class<?> mValueClz;
-	  private Class<? extends Reducer> mReducer;
-	  private Class<? extends Mapper> mMapper;
 
-	public void setUserDefine(Class<?> keyClz, Class<?> valueClz, Class<? extends Mapper> mapper, Class<? extends Reducer> reducer){
+	private Class<?> mKeyClz;
+	private Class<?> mValueClz;
+	private Class<? extends Reducer> mReducer;
+	private Class<? extends Mapper> mMapper;
+
+	public void setUserDefine(Class<?> keyClz, Class<?> valueClz,
+			Class<? extends Mapper> mapper, Class<? extends Reducer> reducer) {
 		mKeyClz = keyClz;
 		mValueClz = valueClz;
 		mReducer = reducer;
 		mMapper = mapper;
 	}
+	private Class<? extends RawComparator> gcls;
+	private Class<? extends RawComparator> scls;
+	private Class<? extends Partitioner> pcls;
+	
+	public void setSortGroupPartitionClass(Class<? extends RawComparator> Scls,	
+										Class<? extends RawComparator> Gcls,
+										Class<? extends Partitioner> Pcls){
+		scls = Scls;
+		gcls = Gcls;
+		pcls = Pcls;
+	}
+
 	public void startFedJob() {
 		try {
 
@@ -270,12 +293,11 @@ public class FedJob {
 			if (mFedJobConf.isTopCloud()) {
 				System.out.println("Run AS Top Cloud");
 				mJob.setInputFormatClass(TextInputFormat.class);
-				if(mMapper != null){
-					System.out.println("PROMAP:"+mMapper.getName());
+				if (mMapper != null) {
+					System.out.println("PROMAP:" + mMapper.getName());
 					mFedJobConf.selectProxyMap(mKeyClz, mValueClz, mMapper);
-			
-				}
-				else{
+
+				} else {
 					mFedJobConf.selectProxyMap();
 				}
 				// set input path
@@ -290,9 +312,9 @@ public class FedJob {
 				for (Path inputPath : inputPaths) {
 					System.out.println("INPUT PATH:" + inputPath.toString());
 				}
-				
-				
-				
+				mJob.setPartitionerClass(pcls) ;
+				mJob.setSortComparatorClass(scls) ;
+				mJob.setGroupingComparatorClass(gcls) ;
 				FileInputFormat.setInputPaths(mJob, inputPaths);
 
 				Path outputPath = new Path(mFedJobConf.getTopCloudOutputPath());
@@ -312,47 +334,56 @@ public class FedJob {
 				System.out.println("----------------------------------");
 				System.out.println("|        RegionCloud Mode        |");
 				System.out.println("----------------------------------");
-			/*	FedJobServerClient client = new FedJobServerClient("10.3.1.2",8769);
-				client.start();
-				Thread.sleep(10000);
-				client.sendRegionMapFinished();
-				client.stopClientProbe();*/
-				if(mReducer != null){
-					System.out.println("PRORED:"+mReducer.getName());
+				/*
+				 * FedJobServerClient client = new
+				 * FedJobServerClient("10.3.1.2",8769); client.start();
+				 * Thread.sleep(10000); client.sendRegionMapFinished();
+				 * client.stopClientProbe();
+				 */
+				if (mReducer != null) {
+					System.out.println("PRORED:" + mReducer.getName());
 					mFedJobConf.selectProxyReduce(mKeyClz, mValueClz, mReducer);
-				}
-				else{
+				} else {
 					mFedJobConf.selectProxyReduce();
 				}
 				mServer = new FedCloudMonitorServer(
 						mFedJobConf.getRegionCloudServerListenPort());
 				mServer.start();
 				mFedStat.setRegionCloudsStart();
-				
-				String multiMapper = mJobConf.get("multiMapper");
-				String multiFormat = mJobConf.get("multiFormat");
-				System.out.println(multiMapper);
-				String[] mapper = multiMapper.split(",");
-				String[] format = multiFormat.split(",");
-				
-				for(int i = 0; i < mapper.length ; i++){
-					System.out.println(mapper[i].split("=")[0]);
-					System.out.println(mapper[i].split("=")[1]);
-					File root = new File(mJobConf.get("classpath"));					
-					URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
-				 
-					Class <? extends InputFormat>  fclazz
-				    = Class.forName (format[i].split("=")[1]).asSubclass (InputFormat.class);
-					Class <? extends Mapper>  mclazz
-				    = Class.forName (mapper[i].split("=")[1].replace('+','$'), true, classLoader).asSubclass (Mapper.class);
-					MultipleInputs.addInputPath(mJob,new Path(mapper[i].split("=")[0]), fclazz, mclazz);
-					System.out.println("add Mapper:"+mapper[i].split("=")[0]+"||"+fclazz.getName()+"||"+mclazz.getName());
 
+				String multiMapper = mJobConf.get("multiMapper", "false");
+				String multiFormat = mJobConf.get("multiFormat", "false");
+				if (!multiMapper.equals("false")) {
+					System.out.println(multiMapper);
+					String[] mapper = multiMapper.split(",");
+					String[] format = multiFormat.split(",");
+
+					for (int i = 0; i < mapper.length; i++) {
+						System.out.println(mapper[i].split("=")[0]);
+						System.out.println(mapper[i].split("=")[1]);
+						File root = new File(mJobConf.get("classpath"));
+						URLClassLoader classLoader = URLClassLoader
+								.newInstance(new URL[] { root.toURI().toURL() });
+
+						Class<? extends InputFormat> fclazz = Class.forName(
+								format[i].split("=")[1]).asSubclass(
+								InputFormat.class);
+						Class<? extends Mapper> mclazz = Class.forName(
+								mapper[i].split("=")[1].replace('+', '$'),
+								true, classLoader).asSubclass(Mapper.class);
+						MultipleInputs.addInputPath(mJob,
+								new Path(mapper[i].split("=")[0]), fclazz,
+								mclazz);
+						System.out.println("add Mapper:"
+								+ mapper[i].split("=")[0] + "||"
+								+ fclazz.getName() + "||" + mclazz.getName());
+					}
 				}
-			//	Path[] inputPath = new Path[1];
-			//	inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
-			//	FileInputFormat.setInputPaths(mJob, inputPath);
-
+				else{
+					Path[] inputPath = new Path[1];
+					inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
+					FileInputFormat.setInputPaths(mJob, inputPath);
+				}
 				LazyOutputFormat.setOutputFormatClass(mJob,
 						TextOutputFormat.class);
 				Path outputPath = new Path(
@@ -435,9 +466,9 @@ public class FedJob {
 
 			// execute Distcp from Region Cloud
 			mFedStat.setRegionCloudsEnd();
-			//mFedStat.setGlobalAggregationStart();
+			// mFedStat.setGlobalAggregationStart();
 			mServer.sendMapPRFinished();
-			//mServer.sendMigrateData("");
+			// mServer.sendMigrateData("");
 			/*
 			 * List<FedRegionCloudJobDistcp> distCpList = new
 			 * ArrayList<FedRegionCloudJobDistcp>(); try { List<String>
@@ -454,14 +485,14 @@ public class FedJob {
 			 * System.out.println("Server To Join"); } catch ( Exception e ) {
 			 * e.printStackTrace(); }
 			 */
-			//mServer.sendMigrateDataFinished("");
+			// mServer.sendMigrateDataFinished("");
 			System.out.println("Stop Server");
 			mServer.stopServer();
-			//mFedStat.setGlobalAggregationEnd();
+			// mFedStat.setGlobalAggregationEnd();
 			System.out.println("Region Cloud Report : RegionCloudsTime = "
 					+ mFedStat.getRegionCloudsTime() + "(ms)");
-			//System.out.println("Region Cloud Report : GlobalAggregationTime = "
-			//		+ mFedStat.getGlobalAggregationTime() + "(ms)");
+			// System.out.println("Region Cloud Report : GlobalAggregationTime = "
+			// + mFedStat.getGlobalAggregationTime() + "(ms)");
 
 		}
 	}
