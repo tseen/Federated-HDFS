@@ -355,14 +355,14 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
  	
  	            }
  	            //----------------------------------------------------------
- 	            count++;
+ 	          //  count++;
  	            
- 	            if ( count == MAX_COUNT ) {
+ 	         //   if ( count == MAX_COUNT ) {
  	           //   mValue.set(sb.toString());
  	            //	HdfsWriter<Text, Text> HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mKey)));
  	            //	HW.write(mKey, mValue);
- 	                __reset();
- 	            }
+ 	           //     __reset();
+ 	         //   }
         		
         	}
         }
