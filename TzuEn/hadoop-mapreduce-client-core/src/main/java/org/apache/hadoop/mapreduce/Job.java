@@ -1325,7 +1325,7 @@ public class Job extends JobContextImpl implements JobContext {
     	  wanClient.setHost(this.getConfiguration().get("fs.default.name").split("/")[2]);
     	  wanClient.start();
     	  fedJob.setUserDefine(mKeyClz, mValueClz, mMapper, mReducer);
-    	  fedJob.setSortGroupPartitionClass(scls, gcls, pcls);
+    //	  fedJob.setSortGroupPartitionClass(scls, gcls, pcls);
     	  fedJob.startFedJob();
           submit();
       }

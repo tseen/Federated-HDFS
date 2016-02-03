@@ -133,7 +133,6 @@ public class GenericProxyReducer<T1,T2> extends Reducer<T1,T2,Text,Text> {
 		}
         __reset();
 	}
-
     @Override	
 	public void reduce(T1 key, Iterable<T2> values, Context context) 
         throws IOException,InterruptedException{

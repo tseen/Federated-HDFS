@@ -1,6 +1,7 @@
 package ncku.hpds.fed.MRv2;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hdfs.tools.DFSAdmin;
 import org.apache.hadoop.io.RawComparator;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.io.File;
 import java.net.Inet4Address;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.UnknownHostException;
@@ -86,12 +88,18 @@ public class FedJob {
 	public boolean isFedJob() {
 		return bIsFed;
 	}
-	public boolean isFedIteration(){
+
+	public boolean isFedIteration() {
 		return bIsFedIteration;
 	}
 
 	public void scheduleAndStartFedJob() {
 		int currentIter = 1;
+		boolean mapOnly = false;
+		System.out.println("REDUCE TASK:" + mJob.getNumReduceTasks());
+		if (mJob.getNumReduceTasks() == 0) {
+			mapOnly = true;
+		}
 		try {
 			FedWANServer wanServer = new FedWANServer();
 			FedJobServer jobServer = new FedJobServer(8769);
@@ -184,66 +192,69 @@ public class FedJob {
 				System.out
 						.println("TopCloud Report : RegionCloud Total Time = "
 								+ mFedStat.getRegionCloudsTime() + "(ms)");
-				System.out.println("----------------------------------");
-				System.out.println("Map-ProxyReduce Phrase Finished");
-				System.out.println("----------------------------------\n");
-				/*
-				 * startFedJob() --> stopFedJob() job finished Region Cloud
-				 * Notify Top Cloud Top Cloud notify Region Cloud start to
-				 * upload result to Top Cloud Record Aggregation Time When all
-				 * data is collected then do something Proxy-Map Reducer Phrase
-				 */
+				if (!mapOnly) {
+					System.out.println("----------------------------------");
+					System.out.println("Map-ProxyReduce Phrase Finished");
+					System.out.println("----------------------------------\n");
+					/*
+					 * startFedJob() --> stopFedJob() job finished Region Cloud
+					 * Notify Top Cloud Top Cloud notify Region Cloud start to
+					 * upload result to Top Cloud Record Aggregation Time When
+					 * all data is collected then do something Proxy-Map Reducer
+					 * Phrase
+					 */
 
-				System.out.println("----------------------------------");
-				System.out.println("Global Aggregation Start ...");
-				System.out.println("----------------------------------");
+					System.out.println("----------------------------------");
+					System.out.println("Global Aggregation Start ...");
+					System.out.println("----------------------------------");
 
-				// distcp copy from region cloud hdfs to top cloud hdfs
-				System.out.println("Wait For FedCouldMonitorClient Join");
-				for (FedCloudMonitorClient job : cList) {
-					job.join();
-				}
-				System.out.println("FedCouldMonitorClient All Joined");
-
-				System.out
-						.println("Top Cloud Report : Global Aggregation Consuming Time :");
-				for (FedCloudMonitorClient job : cList) {
-					job.printAggregationTime();
-				}
-				System.out.println("----------------------------------");
-				System.out.println("Global Aggregation End ...");
-				System.out.println("----------------------------------");
-
-				System.out.println("----------------------------------");
-				System.out.println("TOP START ...");
-				System.out.println("----------------------------------");
-				mFedStat.setTopCloudStart();
-				// topJob.start();
-				// topJob.join();
-				for (FedTopCloudJob job : tList) {
-					if (bIsFedIteration) {
-						job.setIterFlag(currentIter);
+					// distcp copy from region cloud hdfs to top cloud hdfs
+					System.out.println("Wait For FedCouldMonitorClient Join");
+					for (FedCloudMonitorClient job : cList) {
+						job.join();
 					}
-					job.start();
-				}
-				for (FedTopCloudJob job : tList) {
-					job.join();
-				}
-				mFedStat.setTopCloudEnd();
-				System.out.println("----------------------------------");
-				System.out.println("TOP END ...");
-				System.out.println("----------------------------------");
+					System.out.println("FedCouldMonitorClient All Joined");
 
-				HdfsFileSender sender = new HdfsFileSender();
-				List<String> topCloudHDFSs = mFedJobConf.getTopCloudHDFSURLs();
-				for (String t : topCloudHDFSs) {
-					System.out.println("*****" + t + "*****");
+					System.out
+							.println("Top Cloud Report : Global Aggregation Consuming Time :");
+					for (FedCloudMonitorClient job : cList) {
+						job.printAggregationTime();
+					}
+					System.out.println("----------------------------------");
+					System.out.println("Global Aggregation End ...");
+					System.out.println("----------------------------------");
+					 FileSystem hdfs =FileSystem.get(new Configuration());
+					 hdfs.delete(new Path("/user/hpds/zzz"), false);
+					System.out.println("----------------------------------");
+					System.out.println("TOP START ...");
+					System.out.println("----------------------------------");
+					mFedStat.setTopCloudStart();
+
+					for (FedTopCloudJob job : tList) {
+						if (bIsFedIteration) {
+							job.setIterFlag(currentIter);
+						}
+						job.start();
+					}
+					for (FedTopCloudJob job : tList) {
+						job.join();
+					}
+					mFedStat.setTopCloudEnd();
+					System.out.println("----------------------------------");
+					System.out.println("TOP END ...");
+					System.out.println("----------------------------------");
+
+					HdfsFileSender sender = new HdfsFileSender();
+					List<String> topCloudHDFSs = mFedJobConf
+							.getTopCloudHDFSURLs();
+					for (String t : topCloudHDFSs) {
+						System.out.println("*****" + t + "*****");
+					}
+					sender.send((ArrayList) topCloudHDFSs, "/user/hpds/zzz");
+					// String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
+
+					currentIter++;
 				}
-				sender.send((ArrayList) topCloudHDFSs, "/user/hpds/zzz");
-				// String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
-
-				currentIter++;
-
 			}
 			jobServer.stopServer();
 			wanServer.stopServer();
@@ -267,13 +278,14 @@ public class FedJob {
 		mReducer = reducer;
 		mMapper = mapper;
 	}
+
 	private Class<? extends RawComparator> gcls;
 	private Class<? extends RawComparator> scls;
 	private Class<? extends Partitioner> pcls;
-	
-	public void setSortGroupPartitionClass(Class<? extends RawComparator> Scls,	
-										Class<? extends RawComparator> Gcls,
-										Class<? extends Partitioner> Pcls){
+
+	public void setSortGroupPartitionClass(Class<? extends RawComparator> Scls,
+			Class<? extends RawComparator> Gcls,
+			Class<? extends Partitioner> Pcls) {
 		scls = Scls;
 		gcls = Gcls;
 		pcls = Pcls;
@@ -281,7 +293,10 @@ public class FedJob {
 
 	public void startFedJob() {
 		try {
-
+			boolean mapOnly = false;
+			if (mJob.getNumReduceTasks() == 0) {
+				mapOnly = true;
+			}
 			mFedJobConf = new FedJobConf(mJobConf, mJob);
 			System.out.println("TopCloudURLs: " + TopCloudHasher.topURLs);
 
@@ -312,9 +327,9 @@ public class FedJob {
 				for (Path inputPath : inputPaths) {
 					System.out.println("INPUT PATH:" + inputPath.toString());
 				}
-				mJob.setPartitionerClass(pcls) ;
-				mJob.setSortComparatorClass(scls) ;
-				mJob.setGroupingComparatorClass(gcls) ;
+				// mJob.setPartitionerClass(pcls) ;
+				// mJob.setSortComparatorClass(scls) ;
+				// mJob.setGroupingComparatorClass(gcls) ;
 				FileInputFormat.setInputPaths(mJob, inputPaths);
 
 				Path outputPath = new Path(mFedJobConf.getTopCloudOutputPath());
@@ -340,11 +355,14 @@ public class FedJob {
 				 * Thread.sleep(10000); client.sendRegionMapFinished();
 				 * client.stopClientProbe();
 				 */
-				if (mReducer != null) {
-					System.out.println("PRORED:" + mReducer.getName());
-					mFedJobConf.selectProxyReduce(mKeyClz, mValueClz, mReducer);
-				} else {
-					mFedJobConf.selectProxyReduce();
+				if (!mapOnly) {
+					if (mReducer != null) {
+						System.out.println("PRORED:" + mReducer.getName());
+						mFedJobConf.selectProxyReduce(mKeyClz, mValueClz,
+								mReducer);
+					} else {
+						mFedJobConf.selectProxyReduce();
+					}
 				}
 				mServer = new FedCloudMonitorServer(
 						mFedJobConf.getRegionCloudServerListenPort());
@@ -378,17 +396,19 @@ public class FedJob {
 								+ mapper[i].split("=")[0] + "||"
 								+ fclazz.getName() + "||" + mclazz.getName());
 					}
-				}
-				else{
+				} else {
 					Path[] inputPath = new Path[1];
-					inputPath[0] = new Path(mFedJobConf.getRegionCloudInputPath());
+					inputPath[0] = new Path(
+							mFedJobConf.getRegionCloudInputPath());
 					FileInputFormat.setInputPaths(mJob, inputPath);
 				}
-				LazyOutputFormat.setOutputFormatClass(mJob,
-						TextOutputFormat.class);
-				Path outputPath = new Path(
-						mFedJobConf.getRegionCloudOutputPath());
-				FileOutputFormat.setOutputPath(mJob, outputPath);
+				if (!mapOnly) {
+					LazyOutputFormat.setOutputFormatClass(mJob,
+							TextOutputFormat.class);
+					Path outputPath = new Path(
+							mFedJobConf.getRegionCloudOutputPath());
+					FileOutputFormat.setOutputPath(mJob, outputPath);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -73,7 +73,11 @@ public class HdfsFileSender {
 			} catch (org.apache.hadoop.fs.FileAlreadyExistsException e) {
 				OUT.add(new BufferedOutputStream(dfs.append(fileName, 4096,
 						null, null)));
+			} catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e1){
+				OUT.add(new BufferedOutputStream(dfs.append(fileName, 4096,
+						null, null)));
 			}
+			
 
 		}
 		send(DFS, OUT, fileName);

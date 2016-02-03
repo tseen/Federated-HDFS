@@ -133,6 +133,14 @@ public class HdfsWriter<K, V> {
 	        
 		
 	}
+	public void delete(String filename){
+		try {
+			client.delete(filename, false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void init() {
 		try {
 			Configuration conf = new Configuration();
@@ -147,7 +155,6 @@ public class HdfsWriter<K, V> {
 			catch(org.apache.hadoop.fs.FileAlreadyExistsException e){
 				out = new BufferedOutputStream(client.append(fileName, 4096, null, null));
 			}
-			
 			
 			/*
 			 * ugi.doAs(new PrivilegedExceptionAction<Void>(){ public Void run()

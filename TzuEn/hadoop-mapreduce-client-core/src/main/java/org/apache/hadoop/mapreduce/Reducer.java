@@ -241,7 +241,11 @@ public class Reducer<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
 						//+ conf.get("iterName", "ITER"));
 				
 				fedJobCloud.init();
+				//fedJobCloud.delete("/user/"
+				//		+ System.getProperty("user.name") 
+				//		+ "/" +"zzz");
 				fedJobCloud.initCache();
+				
 				
 				//HdfsWriter<KEYOUT, VALUEOUT> fedJobCloud = setupIter(context);
 				while (context.nextKey()) {
