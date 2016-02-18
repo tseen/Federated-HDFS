@@ -58,6 +58,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	private Path[] mRegionCloudOutputPaths = null;
 	private String mTopHost = "";
 	private Map<String, String> userConfig = new HashMap<String,String>();
+	private String mTopTaskNumbers = "";
 
 	public FedJobConfHdfs(Configuration jobConf, Job job, String inputName)
 			throws Throwable {
@@ -205,6 +206,8 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				String main = mJobConf.get("main", "");
 				System.out.println("main class name:" + main);
 				// -----
+				mTopTaskNumbers = mJobConf.get("topNumbers", Integer.toString(mParser.getRegionCloudConfList().size()));
+				// -----
 				String[] arg = new String[10];
 				for (int j = 0; j < 10; j++) {
 					String argTag = "Arg" + String.valueOf(j);
@@ -235,6 +238,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 							+ regJarFileName;
 					conf.setJarPath(remoteJarPath);
 					conf.setMainClass(main);
+					conf.setTopTaskNumbers(mTopTaskNumbers);
 					// TODO configure the input of region cloud ( fedHdfs)
 					if (!multiInput) {
 						String inputpath = fedHdfsInputGetter.getRegionPath(

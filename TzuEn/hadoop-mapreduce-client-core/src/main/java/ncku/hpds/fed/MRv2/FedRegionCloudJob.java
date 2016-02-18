@@ -105,6 +105,7 @@ public class FedRegionCloudJob extends Thread {
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
         cmd = cmd + " -DregionCloudInput="+ mConf.getHDFSInputPath() + " ";
         cmd = cmd + " -DtopCounts="+ Integer.toString(TopCloudHasher.topCounts);
+        cmd = cmd + " -DtopNumbers=" + mConf.getTopTaskNumbers() + " ";
         
 		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
         	//Entry<String, String> e = confIter.next();
@@ -178,6 +179,7 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -DregionCloudOutput=tachyon://"+mConf.getAddress()+":19998/user/"+userName+"/" + mConf.getHDFSOutputPath() + " ";
         cmd = cmd + " -DregionCloudHadoopHome=" + mConf.getHadoopHome() + " ";
         cmd = cmd + " -DregionCloudInput="+ mConf.getHDFSInputPath() + " ";
+        cmd = cmd + " -DtopNumbers=" + mConf.getTopTaskNumbers() + " ";
         cmd = cmd + mConf.getOtherArgs() + " ";
         for ( int i = 0 ; i < 10 ; i++ ) {
             String arg = mConf.getArgs(i);

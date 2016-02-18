@@ -13,13 +13,20 @@ public final class TopCloudHasher {
 	public TopCloudHasher(){
 	}
 	
-	public static String generateFileName(Text key){
+	public static String generateFileName(Text key, int topNumbers){
 		int hash = 0 ;
 	    //	for(int i =0; i< mKey2.toString().length(); i++){
 	    	//	hash = hash*31 + mKey2.toString().charAt(i);
 	    	//}
-		System.out.println("TOPCOUNTS:"+topCounts);
-	    hash = key.toString().charAt(0)%topCounts;
+		
+		
+		if(topNumbers < topCounts){
+			hash = (key.hashCode() & Integer.MAX_VALUE) % topNumbers;
+		}
+		else{
+			hash = (key.hashCode() & Integer.MAX_VALUE) % topCounts;
+		}
+	   //hash = key.toString().charAt(0)%topCounts;
 	    return Integer.toString(hash);
 		
 	}

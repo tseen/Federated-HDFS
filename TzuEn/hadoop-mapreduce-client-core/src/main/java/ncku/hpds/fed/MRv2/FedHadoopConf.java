@@ -33,6 +33,7 @@ public class FedHadoopConf{
     private String multiMapper = "";
     private String multiFormat = "";
 	private Map<String, String> userConfig = new HashMap<String,String>();
+	private String mTopTaskNumbers = "";
 
     
 
@@ -105,6 +106,12 @@ public class FedHadoopConf{
 	}
 	public void setUserConfig(Map<String, String> userConfig) {
 		this.userConfig = userConfig;
+	}
+	public String getTopTaskNumbers() {
+		return mTopTaskNumbers;
+	}
+	public void setTopTaskNumbers(String mTopTaskNumbers) {
+		this.mTopTaskNumbers = mTopTaskNumbers;
 	}
 	
 }

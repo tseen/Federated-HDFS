@@ -104,6 +104,8 @@ public class ProxySelector {
 		addProxyMapperMapping( DoubleWritable.class, UTF8.class, ProxyMapperDoubleUTF8.class );
 		addProxyMapperMapping( DoubleWritable.class, VIntWritable.class, ProxyMapperDoubleVInt.class );
 		addProxyMapperMapping( DoubleWritable.class, VLongWritable.class, ProxyMapperDoubleVLong.class );
+		addProxyMapperMapping( DoubleWritable.class, NullWritable.class, ProxyMapperDoubleNull.class );
+
 		addProxyMapperMapping( FloatWritable.class, DoubleWritable.class, ProxyMapperFloatDouble.class );
 		addProxyMapperMapping( FloatWritable.class, FloatWritable.class, ProxyMapperFloatFloat.class );
 		addProxyMapperMapping( FloatWritable.class, IntWritable.class, ProxyMapperFloatInt.class );
@@ -112,6 +114,8 @@ public class ProxySelector {
 		addProxyMapperMapping( FloatWritable.class, UTF8.class, ProxyMapperFloatUTF8.class );
 		addProxyMapperMapping( FloatWritable.class, VIntWritable.class, ProxyMapperFloatVInt.class );
 		addProxyMapperMapping( FloatWritable.class, VLongWritable.class, ProxyMapperFloatVLong.class );
+		addProxyMapperMapping( FloatWritable.class, NullWritable.class, ProxyMapperFloatNull.class );
+
 		addProxyMapperMapping( IntWritable.class, DoubleWritable.class, ProxyMapperIntDouble.class );
 		addProxyMapperMapping( IntWritable.class, FloatWritable.class, ProxyMapperIntFloat.class );
 		addProxyMapperMapping( IntWritable.class, IntWritable.class, ProxyMapperIntInt.class );
@@ -120,6 +124,8 @@ public class ProxySelector {
 		addProxyMapperMapping( IntWritable.class, UTF8.class, ProxyMapperIntUTF8.class );
 		addProxyMapperMapping( IntWritable.class, VIntWritable.class, ProxyMapperIntVInt.class );
 		addProxyMapperMapping( IntWritable.class, VLongWritable.class, ProxyMapperIntVLong.class );
+		addProxyMapperMapping( IntWritable.class, NullWritable.class, ProxyMapperIntNull.class );
+
 		addProxyMapperMapping( LongWritable.class, DoubleWritable.class, ProxyMapperLongDouble.class );
 		addProxyMapperMapping( LongWritable.class, FloatWritable.class, ProxyMapperLongFloat.class );
 		addProxyMapperMapping( LongWritable.class, IntWritable.class, ProxyMapperLongInt.class );
@@ -128,6 +134,8 @@ public class ProxySelector {
 		addProxyMapperMapping( LongWritable.class, UTF8.class, ProxyMapperLongUTF8.class );
 		addProxyMapperMapping( LongWritable.class, VIntWritable.class, ProxyMapperLongVInt.class );
 		addProxyMapperMapping( LongWritable.class, VLongWritable.class, ProxyMapperLongVLong.class );
+		addProxyMapperMapping( LongWritable.class, NullWritable.class, ProxyMapperLongNull.class );
+
 		addProxyMapperMapping( Text.class, DoubleWritable.class, ProxyMapperTextDouble.class );
 		addProxyMapperMapping( Text.class, FloatWritable.class, ProxyMapperTextFloat.class );
 		addProxyMapperMapping( Text.class, IntWritable.class, ProxyMapperTextInt.class );
@@ -136,6 +144,8 @@ public class ProxySelector {
 		addProxyMapperMapping( Text.class, UTF8.class, ProxyMapperTextUTF8.class );
 		addProxyMapperMapping( Text.class, VIntWritable.class, ProxyMapperTextVInt.class );
 		addProxyMapperMapping( Text.class, VLongWritable.class, ProxyMapperTextVLong.class );
+		addProxyMapperMapping( Text.class, NullWritable.class, ProxyMapperTextNull.class );
+
 		addProxyMapperMapping( UTF8.class, DoubleWritable.class, ProxyMapperUTF8Double.class );
 		addProxyMapperMapping( UTF8.class, FloatWritable.class, ProxyMapperUTF8Float.class );
 		addProxyMapperMapping( UTF8.class, IntWritable.class, ProxyMapperUTF8Int.class );
@@ -144,6 +154,8 @@ public class ProxySelector {
 		addProxyMapperMapping( UTF8.class, UTF8.class, ProxyMapperUTF8UTF8.class );
 		addProxyMapperMapping( UTF8.class, VIntWritable.class, ProxyMapperUTF8VInt.class );
 		addProxyMapperMapping( UTF8.class, VLongWritable.class, ProxyMapperUTF8VLong.class );
+		addProxyMapperMapping( UTF8.class, NullWritable.class, ProxyMapperUTF8Null.class );
+
 		addProxyMapperMapping( VIntWritable.class, DoubleWritable.class, ProxyMapperVIntDouble.class );
 		addProxyMapperMapping( VIntWritable.class, FloatWritable.class, ProxyMapperVIntFloat.class );
 		addProxyMapperMapping( VIntWritable.class, IntWritable.class, ProxyMapperVIntInt.class );
@@ -152,6 +164,8 @@ public class ProxySelector {
 		addProxyMapperMapping( VIntWritable.class, UTF8.class, ProxyMapperVIntUTF8.class );
 		addProxyMapperMapping( VIntWritable.class, VIntWritable.class, ProxyMapperVIntVInt.class );
 		addProxyMapperMapping( VIntWritable.class, VLongWritable.class, ProxyMapperVIntVLong.class );
+		addProxyMapperMapping( VIntWritable.class, NullWritable.class, ProxyMapperVIntNull.class );
+
 		addProxyMapperMapping( VLongWritable.class, DoubleWritable.class, ProxyMapperVLongDouble.class );
 		addProxyMapperMapping( VLongWritable.class, FloatWritable.class, ProxyMapperVLongFloat.class );
 		addProxyMapperMapping( VLongWritable.class, IntWritable.class, ProxyMapperVLongInt.class );
@@ -160,6 +174,8 @@ public class ProxySelector {
 		addProxyMapperMapping( VLongWritable.class, UTF8.class, ProxyMapperVLongUTF8.class );
 		addProxyMapperMapping( VLongWritable.class, VIntWritable.class, ProxyMapperVLongVInt.class );
 		addProxyMapperMapping( VLongWritable.class, VLongWritable.class, ProxyMapperVLongVLong.class );
+		addProxyMapperMapping( VLongWritable.class, NullWritable.class, ProxyMapperVLongNull.class );
+
 
 		addProxyMapperMappingSeq( DoubleWritable.class, DoubleWritable.class, ProxyMapperDoubleDoubleSeq.class );
 		addProxyMapperMappingSeq( DoubleWritable.class, FloatWritable.class, ProxyMapperDoubleFloatSeq.class );
@@ -236,6 +252,8 @@ public class ProxySelector {
 		addProxyReducerMapping( DoubleWritable.class, UTF8.class, ProxyReducerDoubleUTF8.class );
 		addProxyReducerMapping( DoubleWritable.class, VIntWritable.class, ProxyReducerDoubleVInt.class );
 		addProxyReducerMapping( DoubleWritable.class, VLongWritable.class, ProxyReducerDoubleVLong.class );
+		addProxyReducerMapping( DoubleWritable.class, NullWritable.class, ProxyReducerDoubleNull.class );
+
 		addProxyReducerMapping( FloatWritable.class, DoubleWritable.class, ProxyReducerFloatDouble.class );
 		addProxyReducerMapping( FloatWritable.class, FloatWritable.class, ProxyReducerFloatFloat.class );
 		addProxyReducerMapping( FloatWritable.class, IntWritable.class, ProxyReducerFloatInt.class );
@@ -244,6 +262,8 @@ public class ProxySelector {
 		addProxyReducerMapping( FloatWritable.class, UTF8.class, ProxyReducerFloatUTF8.class );
 		addProxyReducerMapping( FloatWritable.class, VIntWritable.class, ProxyReducerFloatVInt.class );
 		addProxyReducerMapping( FloatWritable.class, VLongWritable.class, ProxyReducerFloatVLong.class );
+		addProxyReducerMapping( FloatWritable.class, NullWritable.class, ProxyReducerFloatNull.class );
+
 		addProxyReducerMapping( IntWritable.class, DoubleWritable.class, ProxyReducerIntDouble.class );
 		addProxyReducerMapping( IntWritable.class, FloatWritable.class, ProxyReducerIntFloat.class );
 		addProxyReducerMapping( IntWritable.class, IntWritable.class, ProxyReducerIntInt.class );
@@ -252,6 +272,8 @@ public class ProxySelector {
 		addProxyReducerMapping( IntWritable.class, UTF8.class, ProxyReducerIntUTF8.class );
 		addProxyReducerMapping( IntWritable.class, VIntWritable.class, ProxyReducerIntVInt.class );
 		addProxyReducerMapping( IntWritable.class, VLongWritable.class, ProxyReducerIntVLong.class );
+		addProxyReducerMapping( IntWritable.class, NullWritable.class, ProxyReducerIntNull.class );
+
 		addProxyReducerMapping( LongWritable.class, DoubleWritable.class, ProxyReducerLongDouble.class );
 		addProxyReducerMapping( LongWritable.class, FloatWritable.class, ProxyReducerLongFloat.class );
 		addProxyReducerMapping( LongWritable.class, IntWritable.class, ProxyReducerLongInt.class );
@@ -260,6 +282,8 @@ public class ProxySelector {
 		addProxyReducerMapping( LongWritable.class, UTF8.class, ProxyReducerLongUTF8.class );
 		addProxyReducerMapping( LongWritable.class, VIntWritable.class, ProxyReducerLongVInt.class );
 		addProxyReducerMapping( LongWritable.class, VLongWritable.class, ProxyReducerLongVLong.class );
+		addProxyReducerMapping( LongWritable.class, NullWritable.class, ProxyReducerLongNull.class );
+
 		addProxyReducerMapping( Text.class, DoubleWritable.class, ProxyReducerTextDouble.class );
 		addProxyReducerMapping( Text.class, FloatWritable.class, ProxyReducerTextFloat.class );
 		addProxyReducerMapping( Text.class, IntWritable.class, ProxyReducerTextInt.class );
@@ -268,6 +292,8 @@ public class ProxySelector {
 		addProxyReducerMapping( Text.class, UTF8.class, ProxyReducerTextUTF8.class );
 		addProxyReducerMapping( Text.class, VIntWritable.class, ProxyReducerTextVInt.class );
 		addProxyReducerMapping( Text.class, VLongWritable.class, ProxyReducerTextVLong.class );
+		addProxyReducerMapping( Text.class, NullWritable.class, ProxyReducerTextNull.class );
+
 		addProxyReducerMapping( UTF8.class, DoubleWritable.class, ProxyReducerUTF8Double.class );
 		addProxyReducerMapping( UTF8.class, FloatWritable.class, ProxyReducerUTF8Float.class );
 		addProxyReducerMapping( UTF8.class, IntWritable.class, ProxyReducerUTF8Int.class );
@@ -276,6 +302,8 @@ public class ProxySelector {
 		addProxyReducerMapping( UTF8.class, UTF8.class, ProxyReducerUTF8UTF8.class );
 		addProxyReducerMapping( UTF8.class, VIntWritable.class, ProxyReducerUTF8VInt.class );
 		addProxyReducerMapping( UTF8.class, VLongWritable.class, ProxyReducerUTF8VLong.class );
+		addProxyReducerMapping( UTF8.class, NullWritable.class, ProxyReducerUTF8Null.class );
+
 		addProxyReducerMapping( VIntWritable.class, DoubleWritable.class, ProxyReducerVIntDouble.class );
 		addProxyReducerMapping( VIntWritable.class, FloatWritable.class, ProxyReducerVIntFloat.class );
 		addProxyReducerMapping( VIntWritable.class, IntWritable.class, ProxyReducerVIntInt.class );
@@ -284,6 +312,8 @@ public class ProxySelector {
 		addProxyReducerMapping( VIntWritable.class, UTF8.class, ProxyReducerVIntUTF8.class );
 		addProxyReducerMapping( VIntWritable.class, VIntWritable.class, ProxyReducerVIntVInt.class );
 		addProxyReducerMapping( VIntWritable.class, VLongWritable.class, ProxyReducerVIntVLong.class );
+		addProxyReducerMapping( VIntWritable.class, NullWritable.class, ProxyReducerVIntNull.class );
+
 		addProxyReducerMapping( VLongWritable.class, DoubleWritable.class, ProxyReducerVLongDouble.class );
 		addProxyReducerMapping( VLongWritable.class, FloatWritable.class, ProxyReducerVLongFloat.class );
 		addProxyReducerMapping( VLongWritable.class, IntWritable.class, ProxyReducerVLongInt.class );
@@ -292,6 +322,8 @@ public class ProxySelector {
 		addProxyReducerMapping( VLongWritable.class, UTF8.class, ProxyReducerVLongUTF8.class );
 		addProxyReducerMapping( VLongWritable.class, VIntWritable.class, ProxyReducerVLongVInt.class );
 		addProxyReducerMapping( VLongWritable.class, VLongWritable.class, ProxyReducerVLongVLong.class );
+		addProxyReducerMapping( VLongWritable.class, NullWritable.class, ProxyReducerVLongNull.class );
+
 	}
     //----------------------------------------------------------------------- 
     public void addProxyMapperMapping( Class keyClz, Class valueClz, Class<? extends Mapper> pmClz ) {
@@ -346,6 +378,9 @@ public class ProxySelector {
 	public static class ProxyMapperDoubleVLong extends GenericProxyMapper <DoubleWritable,VLongWritable>{
 		public ProxyMapperDoubleVLong() throws Exception { super(DoubleWritable.class,VLongWritable.class); }
 	}
+	public static class ProxyMapperDoubleNull extends GenericProxyMapper <DoubleWritable,NullWritable>{
+		public ProxyMapperDoubleNull() throws Exception { super(DoubleWritable.class,NullWritable.class); }
+	}
 
 	// Proxy Mapper FloatWritable
 	public static class ProxyMapperFloatDouble extends GenericProxyMapper <FloatWritable,DoubleWritable>{
@@ -371,6 +406,9 @@ public class ProxySelector {
 	}
 	public static class ProxyMapperFloatVLong extends GenericProxyMapper <FloatWritable,VLongWritable>{
 		public ProxyMapperFloatVLong() throws Exception { super(FloatWritable.class,VLongWritable.class); }
+	}
+	public static class ProxyMapperFloatNull extends GenericProxyMapper <FloatWritable,NullWritable>{
+		public ProxyMapperFloatNull() throws Exception { super(FloatWritable.class,NullWritable.class); }
 	}
 
 	// Proxy Mapper IntWritable
@@ -398,6 +436,9 @@ public class ProxySelector {
 	public static class ProxyMapperIntVLong extends GenericProxyMapper <IntWritable,VLongWritable>{
 		public ProxyMapperIntVLong() throws Exception { super(IntWritable.class,VLongWritable.class); }
 	}
+	public static class ProxyMapperIntNull extends GenericProxyMapper <IntWritable,NullWritable>{
+		public ProxyMapperIntNull() throws Exception { super(IntWritable.class,NullWritable.class); }
+	}
 
 	// Proxy Mapper LongWritable
 	public static class ProxyMapperLongDouble extends GenericProxyMapper <LongWritable,DoubleWritable>{
@@ -423,6 +464,9 @@ public class ProxySelector {
 	}
 	public static class ProxyMapperLongVLong extends GenericProxyMapper <LongWritable,VLongWritable>{
 		public ProxyMapperLongVLong() throws Exception { super(LongWritable.class,VLongWritable.class); }
+	}
+	public static class ProxyMapperLongNull extends GenericProxyMapper <LongWritable,NullWritable>{
+		public ProxyMapperLongNull() throws Exception { super(LongWritable.class,NullWritable.class); }
 	}
 
 	// Proxy Mapper Text
@@ -450,6 +494,9 @@ public class ProxySelector {
 	public static class ProxyMapperTextVLong extends GenericProxyMapper <Text,VLongWritable>{
 		public ProxyMapperTextVLong() throws Exception { super(Text.class,VLongWritable.class); }
 	}
+	public static class ProxyMapperTextNull extends GenericProxyMapper <Text,NullWritable>{
+		public ProxyMapperTextNull() throws Exception { super(Text.class,NullWritable.class); }
+	}
 
 	// Proxy Mapper UTF8
 	public static class ProxyMapperUTF8Double extends GenericProxyMapper <UTF8,DoubleWritable>{
@@ -475,6 +522,9 @@ public class ProxySelector {
 	}
 	public static class ProxyMapperUTF8VLong extends GenericProxyMapper <UTF8,VLongWritable>{
 		public ProxyMapperUTF8VLong() throws Exception { super(UTF8.class,VLongWritable.class); }
+	}
+	public static class ProxyMapperUTF8Null extends GenericProxyMapper <UTF8,NullWritable>{
+		public ProxyMapperUTF8Null() throws Exception { super(UTF8.class,NullWritable.class); }
 	}
 
 	// Proxy Mapper VIntWritable
@@ -502,6 +552,9 @@ public class ProxySelector {
 	public static class ProxyMapperVIntVLong extends GenericProxyMapper <VIntWritable,VLongWritable>{
 		public ProxyMapperVIntVLong() throws Exception { super(VIntWritable.class,VLongWritable.class); }
 	}
+	public static class ProxyMapperVIntNull extends GenericProxyMapper <VIntWritable,NullWritable>{
+		public ProxyMapperVIntNull() throws Exception { super(VIntWritable.class,NullWritable.class); }
+	}
 
 	// Proxy Mapper VLongWritable
 	public static class ProxyMapperVLongDouble extends GenericProxyMapper <VLongWritable,DoubleWritable>{
@@ -527,6 +580,9 @@ public class ProxySelector {
 	}
 	public static class ProxyMapperVLongVLong extends GenericProxyMapper <VLongWritable,VLongWritable>{
 		public ProxyMapperVLongVLong() throws Exception { super(VLongWritable.class,VLongWritable.class); }
+	}
+	public static class ProxyMapperVLongNull extends GenericProxyMapper <VLongWritable,NullWritable>{
+		public ProxyMapperVLongNull() throws Exception { super(VLongWritable.class,NullWritable.class); }
 	}
     //--------------------------------------------------------------------------------------------------------
     // proxy mapper for sequencefile
@@ -765,7 +821,9 @@ public class ProxySelector {
 	public static class ProxyReducerDoubleVLong extends GenericProxyReducer <DoubleWritable, VLongWritable>{
         public ProxyReducerDoubleVLong() throws Exception { super(DoubleWritable.class, VLongWritable.class); }
     }
-
+	public static class ProxyReducerDoubleNull extends GenericProxyReducer <DoubleWritable, NullWritable>{
+        public ProxyReducerDoubleNull() throws Exception { super(DoubleWritable.class, NullWritable.class); }
+    }
 	// Proxy Reducer FloatWritable
 	public static class ProxyReducerFloatDouble extends GenericProxyReducer <FloatWritable, DoubleWritable>{
         public ProxyReducerFloatDouble() throws Exception { super(FloatWritable.class, DoubleWritable.class); }
@@ -791,7 +849,9 @@ public class ProxySelector {
 	public static class ProxyReducerFloatVLong extends GenericProxyReducer <FloatWritable, VLongWritable>{
         public ProxyReducerFloatVLong() throws Exception { super(FloatWritable.class, VLongWritable.class); }
     }
-
+	public static class ProxyReducerFloatNull extends GenericProxyReducer <FloatWritable, NullWritable>{
+        public ProxyReducerFloatNull() throws Exception { super(FloatWritable.class, NullWritable.class); }
+    }
 	// Proxy Reducer IntWritable
 	public static class ProxyReducerIntDouble extends GenericProxyReducer <IntWritable, DoubleWritable>{
         public ProxyReducerIntDouble() throws Exception { super(IntWritable.class, DoubleWritable.class); }
@@ -816,6 +876,9 @@ public class ProxySelector {
     }
 	public static class ProxyReducerIntVLong extends GenericProxyReducer <IntWritable, VLongWritable>{
         public ProxyReducerIntVLong() throws Exception { super(IntWritable.class, VLongWritable.class); }
+    }
+	public static class ProxyReducerIntNull extends GenericProxyReducer <IntWritable, NullWritable>{
+        public ProxyReducerIntNull() throws Exception { super(IntWritable.class, NullWritable.class); }
     }
 
 	// Proxy Reducer LongWritable
@@ -843,6 +906,9 @@ public class ProxySelector {
 	public static class ProxyReducerLongVLong extends GenericProxyReducer <LongWritable, VLongWritable>{
         public ProxyReducerLongVLong() throws Exception { super(LongWritable.class, VLongWritable.class); }
     }
+	public static class ProxyReducerLongNull extends GenericProxyReducer <LongWritable, NullWritable>{
+        public ProxyReducerLongNull() throws Exception { super(LongWritable.class, NullWritable.class); }
+    }
 
 	// Proxy Reducer Text
 	public static class ProxyReducerTextDouble extends GenericProxyReducer <Text, DoubleWritable>{
@@ -869,7 +935,10 @@ public class ProxySelector {
 	public static class ProxyReducerTextVLong extends GenericProxyReducer <Text, VLongWritable>{
         public ProxyReducerTextVLong() throws Exception { super(Text.class, VLongWritable.class); }
     }
-
+	public static class ProxyReducerTextNull extends GenericProxyReducer <Text, NullWritable>{
+        public ProxyReducerTextNull() throws Exception { super(Text.class, NullWritable.class); }
+    }
+	
 	// Proxy Reducer UTF8
 	public static class ProxyReducerUTF8Double extends GenericProxyReducer <UTF8, DoubleWritable>{
         public ProxyReducerUTF8Double() throws Exception { super(UTF8.class, DoubleWritable.class); }
@@ -894,6 +963,9 @@ public class ProxySelector {
     }
 	public static class ProxyReducerUTF8VLong extends GenericProxyReducer <UTF8, VLongWritable>{
         public ProxyReducerUTF8VLong() throws Exception { super(UTF8.class, VLongWritable.class); }
+    }
+	public static class ProxyReducerUTF8Null extends GenericProxyReducer <UTF8, NullWritable>{
+        public ProxyReducerUTF8Null() throws Exception { super(UTF8.class, NullWritable.class); }
     }
 
 	// Proxy Reducer VIntWritable
@@ -921,6 +993,9 @@ public class ProxySelector {
 	public static class ProxyReducerVIntVLong extends GenericProxyReducer <VIntWritable, VLongWritable>{
         public ProxyReducerVIntVLong() throws Exception { super(VIntWritable.class, VLongWritable.class); }
     }
+	public static class ProxyReducerVIntNull extends GenericProxyReducer <VIntWritable, NullWritable>{
+        public ProxyReducerVIntNull() throws Exception { super(VIntWritable.class, NullWritable.class); }
+    }
 
 	// Proxy Reducer VLongWritable
 	public static class ProxyReducerVLongDouble extends GenericProxyReducer <VLongWritable, DoubleWritable>{
@@ -946,6 +1021,9 @@ public class ProxySelector {
     }
 	public static class ProxyReducerVLongVLong extends GenericProxyReducer <VLongWritable, VLongWritable>{
         public ProxyReducerVLongVLong () throws Exception { super(VLongWritable.class, VLongWritable.class); }
+    }
+	public static class ProxyReducerVLongNull extends GenericProxyReducer <VLongWritable, NullWritable>{
+        public ProxyReducerVLongNull () throws Exception { super(VLongWritable.class, NullWritable.class); }
     }
 
     //==============================================================================================

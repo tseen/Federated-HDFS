@@ -1,6 +1,7 @@
 package ncku.hpds.fed.MRv2.proxy;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.StringTokenizer;
 
 import org.apache.hadoop.io.*;
@@ -9,20 +10,33 @@ import org.apache.hadoop.conf.Configuration;
 
 public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 
-    private T3 mKey ;
+	private T3 mKey ;
 	private T4 mValue ;
-    private Class<T3> mKeyClz ;
-    private Class<T4> mValueClz;
+	private Class<T3> mKeyClz ;
+	private Class<T4> mValueClz;
     private String mSeperator = "||";
     private String mKeyClzName ;
     private String mValueClzName ; 
+    private boolean mIsNullWritable = false;
     public GenericProxyMapper(Class<T3> keyClz, Class<T4> valueClz) throws Exception {
         mKeyClz = keyClz;
         mValueClz = valueClz;
         mKey = mKeyClz.newInstance();
-        mValue = mValueClz.newInstance();
+        if(mValueClz.equals(NullWritable.class)){
+        	mIsNullWritable = true;
+        //	mValue = mValueClz.newInstance();
+        	
+        	Constructor<NullWritable> constructor 
+        		= NullWritable.class.getDeclaredConstructor(new Class[0]);
+        	constructor.setAccessible(true);
+        	mValue = (T4) constructor.newInstance(new Object[0]);
+        	mValueClzName = "NullWritable";
+        }
+        else{
+        	mValue = mValueClz.newInstance();
+            mValueClzName = mValueClz.getCanonicalName();
+        }
         mKeyClzName = mKeyClz.getCanonicalName();
-        mValueClzName = mValueClz.getCanonicalName();
     }
   
     public void stringToKey(String in, T3 key){
@@ -49,9 +63,9 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 			// get key
 			String valueStr = value.toString();
 			System.out.println("valueStr:"+valueStr);
-			int firstTabPos = valueStr.indexOf("=");
-			String keyPart = valueStr.substring(0, firstTabPos);
-			String valuePart = valueStr.substring(firstTabPos+1);
+			int firstSeperatePos = valueStr.indexOf("=");
+			String keyPart = valueStr.substring(0, firstSeperatePos);
+			String valuePart = valueStr.substring(firstSeperatePos+1);
 
 			//----------------------------------------------------------
 			// Partial Generic Mapper Keypart 
@@ -62,7 +76,7 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 			} else if ( mKeyClzName.contains("FloatWritable") ) {
 				FloatWritable tKey = (FloatWritable) mKey;
 				tKey.set(Float.valueOf(keyPart));
-
+				
 			} else if ( mKeyClzName.contains("IntWritable") ) {
 				IntWritable tKey = (IntWritable) mKey;
 				tKey.set(Integer.valueOf(keyPart));
@@ -90,7 +104,6 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 			else{
 				stringToKey(keyPart, mKey);				
 			}
-			//----------------------------------------------------------
 
 			StringTokenizer itr = new StringTokenizer( valuePart, mSeperator );  
 			String nextToken = "";
@@ -98,7 +111,6 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 			while (itr.hasMoreTokens()) {
 				nextToken = itr.nextToken() ;
 
-				//----------------------------------------------------------
 				// Partial Generic Mapper Value Part
 				if ( mValueClzName.contains("DoubleWritable") ) {
 					DoubleWritable tValue = (DoubleWritable) mValue;
@@ -131,14 +143,20 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 				} else if ( mValueClzName.contains("VLongWritable") ) {
 					VLongWritable tValue = (VLongWritable) mValue;
 					tValue.set(Long.valueOf(nextToken));
+					
 				}
+				//else if ( mIsNullWritable ) {
+					//mValue = (T4) NullWritable.get() ;
+				//	context.write( mKey, mValue );
+			//	}
 				//----------------------------------------------------------
+				System.out.println("KEY:"+mKey.toString()+" VALUE:"+mValue.toString());
 				context.write( mKey, mValue );
 			}
 
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			//System.out.println("meet error skip it"); 
+			System.out.println("meet error skip it"); 
 		}
 	}
 }
