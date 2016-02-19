@@ -17,13 +17,11 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
     private String mSeperator = "||";
     private String mKeyClzName ;
     private String mValueClzName ; 
-    private boolean mIsNullWritable = false;
     public GenericProxyMapper(Class<T3> keyClz, Class<T4> valueClz) throws Exception {
         mKeyClz = keyClz;
         mValueClz = valueClz;
-        mKey = mKeyClz.newInstance();
+       // mKey = mKeyClz.newInstance();
         if(mValueClz.equals(NullWritable.class)){
-        	mIsNullWritable = true;
         //	mValue = mValueClz.newInstance();
         	
         	Constructor<NullWritable> constructor 
@@ -36,7 +34,20 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
         	mValue = mValueClz.newInstance();
             mValueClzName = mValueClz.getCanonicalName();
         }
-        mKeyClzName = mKeyClz.getCanonicalName();
+        if(mKeyClz.equals(NullWritable.class)){
+        //	mValue = mValueClz.newInstance();
+        	
+        	Constructor<NullWritable> constructor 
+        		= NullWritable.class.getDeclaredConstructor(new Class[0]);
+        	constructor.setAccessible(true);
+        	mKey = (T3) constructor.newInstance(new Object[0]);
+        	mKeyClzName = "NullWritable";
+        }
+        else{
+        	mKey = mKeyClz.newInstance();
+        	mKeyClzName = mKeyClz.getCanonicalName();
+        }
+        //mKeyClzName = mKeyClz.getCanonicalName();
     }
   
     public void stringToKey(String in, T3 key){
@@ -100,6 +111,7 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 			} else if ( mKeyClzName.contains("VLongWritable") ) {
 				VLongWritable tKey = (VLongWritable) mKey;
 				tKey.set(Long.valueOf(keyPart));
+			} else if ( mKeyClzName.contains("NullWritable") ) {
 			}
 			else{
 				stringToKey(keyPart, mKey);				

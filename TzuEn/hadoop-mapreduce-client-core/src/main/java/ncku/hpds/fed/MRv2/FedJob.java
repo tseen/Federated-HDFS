@@ -100,9 +100,9 @@ public class FedJob {
 		if (mJob.getNumReduceTasks() == 0) {
 			mapOnly = true;
 		}
-		else if(mJob.getNumReduceTasks() == 1){
-			mJobConf.set("topNumbers", "1");
-		}
+		//else if(mJob.getNumReduceTasks() == 1){
+		//	mJobConf.set("topNumbers", "1");
+		//}
 		try {
 			FedWANServer wanServer = new FedWANServer();
 			FedJobServer jobServer = new FedJobServer(8769);
