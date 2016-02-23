@@ -48,7 +48,7 @@ public final class TopCloudHasher {
 		for(int i = 0 ; i< topURLs.size(); i++){
 			System.out.println("TopCloudHasher:"+topURLs.get(i)+" "+topUrl);
 			if((topURLs.get(i)+"/").equalsIgnoreCase(topUrl))
-				return "/" + Integer.toString(i) + "-r-00000";
+				return "/" + Integer.toString(i) ;
 		}
 		return "";
 	}

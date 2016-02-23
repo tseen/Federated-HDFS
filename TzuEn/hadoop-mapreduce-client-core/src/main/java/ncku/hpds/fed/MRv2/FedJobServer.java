@@ -123,8 +123,8 @@ public class FedJobServer extends Thread{
 								break;
 							}
 						} catch (Exception e) {
-							e.printStackTrace();
-							System.out.println("sockettimeout exeception occurs");
+							//e.printStackTrace();
+							//System.out.println("sockettimeout exeception occurs");
 						}
 					}
 					Thread.sleep(500); // 500ms 

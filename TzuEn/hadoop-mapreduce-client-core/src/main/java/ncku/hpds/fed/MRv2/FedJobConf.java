@@ -107,6 +107,10 @@ public class FedJobConf extends AbstractFedJobConf {
 			setRegionCloudInputPath(mJobConf.get("regionCloudInput", ""));
 			mRegionCloudOutputPath = mJobConf.get("regionCloudOutput", "");
 			mRegionCloudHadoopHome = mJobConf.get("regionCloudHadoopHome", "");
+			//mJob.setPartitionerClass(ncku.hpds.fed.MRv2.Null.NullPartitioner.class);
+			//mJob.setSortComparatorClass("");
+			//mJob.setGroupingComparatorClass("");
+			
 		}
 		String topCloud = mJobConf.get("topCloud", "off");
 		// if top cloud mode

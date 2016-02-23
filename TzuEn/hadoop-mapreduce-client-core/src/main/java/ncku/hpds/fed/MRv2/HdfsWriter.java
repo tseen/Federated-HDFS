@@ -141,20 +141,52 @@ public class HdfsWriter<K, V> {
 			e.printStackTrace();
 		}
 	}
+	String newFileName(String fn){
+		int i = Integer.parseInt(fn.substring(fn.length() - 1));
+		i += 3;
+		fn = fn.substring(0,fn.length()-1) + Integer.toString(i);
+		return fn;
+	}
 	public void init() {
 		try {
 			Configuration conf = new Configuration();
 			conf.set("fs.defaultFS", remoteHdfs);
 			client = new DFSClient(new URI(remoteHdfs), conf);
-			try{
-				out = new BufferedOutputStream(client.create(fileName, false));
-				
-				//DistributedFileSystem dfs = getDFS(conf);
+			boolean existFile = false;
+			do{
+				try{
+					
+					existFile = false;
+					out = new BufferedOutputStream(client.create(fileName, false));
+					//DistributedFileSystem dfs = getDFS(conf);
 		     
+				}
+				catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e){
+					fileName = newFileName(fileName);
+					existFile = true;
+				}
+				catch(org.apache.hadoop.ipc.RemoteException e){
+					fileName = newFileName(fileName);
+					existFile = true;
+				}
+				catch(org.apache.hadoop.fs.FileAlreadyExistsException e){
+					fileName = newFileName(fileName);
+					existFile = true;
+				}
+			}while(existFile);
+			/*catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e){
+				fileName = newFileName(fileName);
+				out = new BufferedOutputStream(client.create(fileName, false));
+				//out = new BufferedOutputStream(client.append(fileName, 4096, null, null));
+			}
+			catch(org.apache.hadoop.ipc.RemoteException e){
+				fileName = newFileName(fileName);
+				out = new BufferedOutputStream(client.create(fileName, false));
 			}
 			catch(org.apache.hadoop.fs.FileAlreadyExistsException e){
-				out = new BufferedOutputStream(client.append(fileName, 4096, null, null));
-			}
+				fileName = newFileName(fileName);
+				out = new BufferedOutputStream(client.create(fileName, false));
+			}*/
 			
 			/*
 			 * ugi.doAs(new PrivilegedExceptionAction<Void>(){ public Void run()

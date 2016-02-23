@@ -221,8 +221,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 							conf.getTopCloudHDFSURL());
 					long dataSize = thisCluster.getDataSize(globalfileInput,
 							conf.getName());
-					// System.out.println("DATASIZE:"+conf.getName()+" "+dataSize);
-					// conf.setInputSize(dataSize);
+					
 					fedinfo.setInputSize(dataSize);
 					mFedCloudInfos.put(conf.getTopCloudHDFSURL(), fedinfo);
 					if(multiInput){
@@ -241,11 +240,16 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					conf.setTopTaskNumbers(mTopTaskNumbers);
 					// TODO configure the input of region cloud ( fedHdfs)
 					if (!multiInput) {
-						String inputpath = fedHdfsInputGetter.getRegionPath(
+						String inputpath = "";
+						try{
+							inputpath = fedHdfsInputGetter.getRegionPath(
 								conf.getName(), "AirDrive/" + globalfileInput)
 								.toString();
-						System.out.println("set" + conf.getName()
-								+ "Input Path:" + inputpath);
+							System.out.println("set" + conf.getName()
+									+ "Input Path:" + inputpath);
+							}catch (NullPointerException e) {
+							inputpath = globalfileInput;
+							}
 						conf.setHDFSInputPath(inputpath);
 					}
 					// --

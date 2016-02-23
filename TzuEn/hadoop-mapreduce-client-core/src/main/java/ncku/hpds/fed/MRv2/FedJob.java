@@ -7,6 +7,7 @@ import org.apache.hadoop.hdfs.tools.DFSAdmin;
 import org.apache.hadoop.io.RawComparator;
 import org.apache.hadoop.mapreduce.InputFormat;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.JobContext;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -98,7 +99,7 @@ public class FedJob {
 		boolean mapOnly = false;
 		System.out.println("REDUCE TASK:" + mJob.getNumReduceTasks());
 		if (mJob.getNumReduceTasks() == 0) {
-			mapOnly = true;
+		//	mapOnly = true;
 		}
 		//else if(mJob.getNumReduceTasks() == 1){
 		//	mJobConf.set("topNumbers", "1");
@@ -412,6 +413,10 @@ public class FedJob {
 							mFedJobConf.getRegionCloudOutputPath());
 					FileOutputFormat.setOutputPath(mJob, outputPath);
 				}
+				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
+				//directly sent to top cloud
+				mJob.setOutputFormatClass(RemoteOutputFormat.class);
+				mJob.setNumReduceTasks(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -344,7 +344,6 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 					ssb+=tValue.toString()+mSeperator;
 
 				}
-				System.out.println("keyMap.put:"+ mCheckKey +"||"+ssb);
 				keyMap.put(mCheckKey, ssb);
 
 			}
