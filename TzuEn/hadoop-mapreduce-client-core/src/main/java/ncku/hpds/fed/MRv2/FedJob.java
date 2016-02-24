@@ -43,6 +43,7 @@ public class FedJob {
 	private boolean bIsFedHdfs = false;
 	private boolean bIsFedTachyon = false;
 	private boolean bIsFedIteration = false;
+	private boolean bIsProxyReduce = false;
 	private AbstractFedJobConf mFedJobConf;
 	private int iterations = 1;
 
@@ -79,6 +80,11 @@ public class FedJob {
 		if (fedTachyon.toLowerCase().equals("on")
 				|| fedTachyon.toLowerCase().equals("true")) {
 			bIsFedTachyon = true;
+		}
+		String proxyReduce = mJobConf.get("proxyReduce", "off");
+		if (proxyReduce.toLowerCase().equals("on")
+				|| proxyReduce.toLowerCase().equals("true")) {
+			bIsProxyReduce = true;
 		}
 	}
 
@@ -415,8 +421,10 @@ public class FedJob {
 				}
 				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
 				//directly sent to top cloud
-				mJob.setOutputFormatClass(RemoteOutputFormat.class);
-				mJob.setNumReduceTasks(0);
+				if(!bIsProxyReduce){
+					mJob.setOutputFormatClass(RemoteOutputFormat.class);
+					mJob.setNumReduceTasks(0);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
