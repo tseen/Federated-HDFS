@@ -89,5 +89,6 @@
 	<classpathentry kind="src" path="/hadoop-fedhdfs"/>
 	<classpathentry kind="lib" path="/Users/tzuen/Desktop/tachyon-client-0.9.0-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="/hadoop-yarn-client"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2;
 
 import java.io.BufferedOutputStream;
@@ -10,6 +13,10 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.BufferOverflowException;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.WritableByteChannel;
 import java.security.PrivilegedExceptionAction;
 import java.util.EnumSet;
 
@@ -75,7 +82,31 @@ public class HdfsWriter<K, V> {
 			out.write(o.toString().getBytes(utf8));
 		}
 	}
-
+	//private byte[] buffer = new byte[3*1024];
+	private ByteBuffer buffer = ByteBuffer.allocate(10*1024);
+	private void writeBuffer(Object o) throws IOException{
+		System.out.println("Ob Size: "+ o.toString().getBytes().length);
+		try {
+			if (o instanceof Text) {
+				Text to = (Text) o;
+				buffer.put(to.getBytes(), 0, to.getLength());
+			} else {
+				buffer.put(o.toString().getBytes(utf8));
+			}
+		}
+		catch(BufferOverflowException e){
+			WritableByteChannel channel = Channels.newChannel(out);
+			channel.write(buffer);
+			out.flush();
+			buffer.clear();
+			if (o instanceof Text) {
+				Text to = (Text) o;
+				buffer.put(to.getBytes(), 0, to.getLength());
+			} else {
+				buffer.put(o.toString().getBytes(utf8));
+			}
+		}
+	}
 	public synchronized void write(K key, V value) throws IOException {
 
 		boolean nullKey = key == null || key instanceof NullWritable;
@@ -94,7 +125,6 @@ public class HdfsWriter<K, V> {
 		}
 		out.write(newline);
 	}
-
 	public void writeByte(byte[] in) {
 		try {
 			out.write(in);
@@ -142,9 +172,9 @@ public class HdfsWriter<K, V> {
 		}
 	}
 	String newFileName(String fn){
-		int i = Integer.parseInt(fn.substring(fn.length() - 1));
+		int i = Integer.parseInt(fn.split("/")[fn.split("/").length-1]);
 		i += 3;
-		fn = fn.substring(0,fn.length()-1) + Integer.toString(i);
+		fn = fn.substring(0, fn.lastIndexOf("/"))+"/"+ Integer.toString(i);
 		return fn;
 	}
 	public void init() {

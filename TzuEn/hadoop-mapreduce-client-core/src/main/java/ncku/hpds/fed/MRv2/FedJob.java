@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2;
 
 import org.apache.hadoop.conf.Configuration;
@@ -81,11 +84,7 @@ public class FedJob {
 				|| fedTachyon.toLowerCase().equals("true")) {
 			bIsFedTachyon = true;
 		}
-		String proxyReduce = mJobConf.get("proxyReduce", "off");
-		if (proxyReduce.toLowerCase().equals("on")
-				|| proxyReduce.toLowerCase().equals("true")) {
-			bIsProxyReduce = true;
-		}
+	
 	}
 
 	public boolean isFedHdfsJob() {
@@ -105,15 +104,17 @@ public class FedJob {
 		boolean mapOnly = false;
 		System.out.println("REDUCE TASK:" + mJob.getNumReduceTasks());
 		if (mJob.getNumReduceTasks() == 0) {
-		//	mapOnly = true;
+			mapOnly = true;
 		}
 		//else if(mJob.getNumReduceTasks() == 1){
 		//	mJobConf.set("topNumbers", "1");
 		//}
 		try {
+			//Start servers
 			FedWANServer wanServer = new FedWANServer();
 			FedJobServer jobServer = new FedJobServer(8769);
 			jobServer.start();
+			//Get input path
 			Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
 			if (mInputPaths.length > 0) {
 				mFileName = mInputPaths[0].getName();
@@ -122,6 +123,7 @@ public class FedJob {
 			System.out.println("Start FedJobConfHdfs");
 			mFedJobConf = new FedJobConfHdfs(mJobConf, mJob, mFileName);
 			System.out.println("End FedJobConfHdfs");
+			
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
 			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf
 					.getFedCloudInfos();
@@ -421,6 +423,11 @@ public class FedJob {
 				}
 				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
 				//directly sent to top cloud
+				String proxyReduce = mJobConf.get("proxyReduce", "off");
+				if (proxyReduce.toLowerCase().equals("on")
+						|| proxyReduce.toLowerCase().equals("true")) {
+					bIsProxyReduce = true;
+				}
 				if(!bIsProxyReduce){
 					mJob.setOutputFormatClass(RemoteOutputFormat.class);
 					mJob.setNumReduceTasks(0);

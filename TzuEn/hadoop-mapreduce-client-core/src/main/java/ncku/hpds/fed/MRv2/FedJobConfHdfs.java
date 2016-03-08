@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2;
 
 import java.io.File;
@@ -171,10 +174,6 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				// }
 				// }
 				mParser = new FedHdfsConfParser(mCoworkingConf);
-				// TODO:
-				// remove parsing XML file of fedMR, instead using XML of
-				// fedHdfs
-				// DONE
 				// parse xml file
 
 				mParser.parse();
@@ -238,6 +237,8 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					conf.setJarPath(remoteJarPath);
 					conf.setMainClass(main);
 					conf.setTopTaskNumbers(mTopTaskNumbers);
+					String proxyReduce = mJobConf.get("proxyReduce", "off");
+					conf.setProxyReduce(proxyReduce);
 					// TODO configure the input of region cloud ( fedHdfs)
 					if (!multiInput) {
 						String inputpath = "";

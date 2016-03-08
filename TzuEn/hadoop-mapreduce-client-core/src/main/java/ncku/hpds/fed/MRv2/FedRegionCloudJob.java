@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2 ;
 
 import java.net.*;
@@ -106,6 +109,8 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -DregionCloudInput="+ mConf.getHDFSInputPath() + " ";
         cmd = cmd + " -DtopCounts="+ Integer.toString(TopCloudHasher.topCounts);
         cmd = cmd + " -DtopNumbers=" + mConf.getTopTaskNumbers() + " ";
+        cmd = cmd + " -DproxyReduce=" + mConf.getProxyReduce() + " ";
+
         
 		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
         	//Entry<String, String> e = confIter.next();

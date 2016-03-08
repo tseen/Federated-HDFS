@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2 ;
 
 import ncku.hpds.fed.MRv2.proxy.*;

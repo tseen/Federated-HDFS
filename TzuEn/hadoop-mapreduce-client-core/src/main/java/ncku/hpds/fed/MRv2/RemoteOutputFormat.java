@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2;
 
 import java.io.DataOutputStream;
@@ -121,30 +124,30 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			//Gen<K> g = new Gen<K>(mClazz);
 		   // K mCheckKey = g.get();
 			//System.out.println("prev3: "+ prev.toString());
-
+			
 			if (keyMap.containsKey(keyout)) {
 				System.out.println("Contains key: " + keyout.toString());
-				System.out.println("hash: " + hash(keyout.hashCode()));
-				System.out.println("hash1: " + keyout.hashCode());
+			//	System.out.println("hash: " + hash(keyout.hashCode()));
+			//	System.out.println("hash1: " + keyout.hashCode());
 				String ssb = keyMap.get(keyout);
 				ssb += value.toString()+mSeperator;
 				keyMap.put(keyout, ssb);
 			}
 			else{
-				System.out.println("prev: "+ prev.toString());
-				System.out.println("kout: "+ keyout.toString());
-				System.out.println("equals: "+ prev.equals(keyout));
+			//	System.out.println("prev: "+ prev.toString());
+			//	System.out.println("kout: "+ keyout.toString());
+			//	System.out.println("equals: "+ prev.equals(keyout));
 				System.out.println("Not Contains key: " + keyout.toString());
-				System.out.println("Hash : " + hash(keyout.hashCode())+ " Hash1 : " + keyout.hashCode());
-				System.out.println("Hashp: " + hash(prev.hashCode())+ " Hash1p: " + prev.hashCode());
+			//	System.out.println("Hash : " + hash(keyout.hashCode())+ " Hash1 : " + keyout.hashCode());
+			//	System.out.println("Hashp: " + hash(prev.hashCode())+ " Hash1p: " + prev.hashCode());
 
 				String ssb = new String();
 				ssb+=value.toString()+mSeperator;
 				keyMap.put(keyout, ssb);
 			}
-			System.out.print("prev: "+ prev.toString());
-			ReflectionUtils.copy(mConf, key, prev);
-			System.out.println(" --> "+ prev.toString());
+			//System.out.print("prev: "+ prev.toString());
+			//ReflectionUtils.copy(mConf, key, prev);
+			//System.out.println(" --> "+ prev.toString());
 
 			//HdfsWriter<K, String> hw = (HdfsWriter<K, String>) mHdfsWriter.get(Integer.parseInt(generateFileName(key,topNumbers)));
 			//hw.write(key, value);
@@ -168,6 +171,7 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			}
 			keyMap.clear();
 			for (HdfsWriter HW : mHdfsWriter) {
+				HW.out.flush();
 				HW.out.close();
 				HW.client.close();
 			}

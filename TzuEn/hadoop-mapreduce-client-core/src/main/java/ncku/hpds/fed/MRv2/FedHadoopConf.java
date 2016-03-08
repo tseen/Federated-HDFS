@@ -1,3 +1,6 @@
+/*******************************************************
+ * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
+ *******************************************************/
 package ncku.hpds.fed.MRv2;
 
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ public class FedHadoopConf{
     private String multiFormat = "";
 	private Map<String, String> userConfig = new HashMap<String,String>();
 	private String mTopTaskNumbers = "";
+	private String mProxyReduce = "";
 
     
 
@@ -112,6 +116,12 @@ public class FedHadoopConf{
 	}
 	public void setTopTaskNumbers(String mTopTaskNumbers) {
 		this.mTopTaskNumbers = mTopTaskNumbers;
+	}
+	public String getProxyReduce() {
+		return mProxyReduce;
+	}
+	public void setProxyReduce(String mProxyReduce) {
+		this.mProxyReduce = mProxyReduce;
 	}
 	
 }
