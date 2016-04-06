@@ -8,42 +8,68 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.hadoop.conf.Configuration;
+
 public class FedWANServer extends Thread {
+	private Configuration mJobConf;
+	
 	boolean listeningSocket = true;
 	private Map<String, FedCloudInfo> mFedCloudInfos;
+	private int port;
+	public FedJobServerClient client;
+
 	public void run() {
+		String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
+		InetAddress address;
+		try {
+			address = InetAddress.getByName(ip);
+			client = new FedJobServerClient(address.getHostAddress(), 8713);
+			client.start();
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
 		
 		ServerSocket serverSocket = null;
 
 		try {
-			serverSocket = new ServerSocket(4444);
+			serverSocket = new ServerSocket(port);
 		} catch (IOException ex) {
 			System.out.println("Can't setup server on this port number. ");
 		}
 
 		Socket socket = null;
-		InputStream in = null;
-		OutputStream out = null;
+		
 		while (listeningSocket) {
 
 			try {
 				socket = serverSocket.accept();
-				MiniWANServer mini = new MiniWANServer(socket);
-				mini.setFedCloudInfos(mFedCloudInfos);
+				MiniWANServer mini = new MiniWANServer(socket, mJobConf, client);
+				//mini.setFedCloudInfos(mFedCloudInfos);
 				mini.start();
 			} catch (IOException ex) {
 				System.out.println("Can't accept client connection. ");
 			}
+		}
+		try {
+			socket.close();
+			serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}
 	public void stopServer() {
 		try { 
 			Thread.sleep(5000);
+			client.stopClientProbe();
 			listeningSocket = false;
 			this.join();
 		} catch ( Exception e ) {
@@ -52,6 +78,18 @@ public class FedWANServer extends Thread {
 	}
 	public void setFedCloudInfos(Map<String,FedCloudInfo> mFedCloudInfos) {
 		this.mFedCloudInfos = mFedCloudInfos;
+	}
+	public int getPort() {
+		return port;
+	}
+	public void setPort(int port) {
+		this.port = port;
+	}
+	public Configuration getJobConf() {
+		return mJobConf;
+	}
+	public void setJobConf(Configuration mJobConf) {
+		this.mJobConf = mJobConf;
 	}
 
 }

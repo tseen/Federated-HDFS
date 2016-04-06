@@ -1321,9 +1321,9 @@ public class Job extends JobContextImpl implements JobContext {
       if ( fedJob.isFedJob() == true && fedJob.isFedHdfsJob() == false) {
 		//	this.setInputFormatClass(InputFormat.class);
 
-    	  FedWANClient wanClient = new FedWANClient();
+    	/*  FedWANClient wanClient = new FedWANClient();
     	  wanClient.setHost(this.getConfiguration().get("fs.default.name").split("/")[2]);
-    	  wanClient.start();
+    	  wanClient.start();*/
     	  fedJob.setUserDefine(mKeyClz, mValueClz, mMapper, mReducer);
     //	  fedJob.setSortGroupPartitionClass(scls, gcls, pcls);
     	  fedJob.startFedJob();

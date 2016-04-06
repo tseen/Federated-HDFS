@@ -23,6 +23,13 @@ public class FedCloudProtocol {
     public static final String RES_BYE = "GoodBYE";
     public static final String REQ_REGION_MAP_FINISHED = "Region-Map-Finished";
     public static final String RES_REGION_MAP_FINISHED = "OK";
+    public static final String REQ_REGION_WAN = "Region-WAN";
+    public static final String RES_REGION_WAN = "WOK";
+	public static final String REQ_WAN_SPEED = "req-WAN-Speed";
+	public static final String RES_WAN_SPEED = "res-WAN-Speed";
+
+
+
 
     public enum FedSocketState {
         NONE, ACCEPTING, ACCEPTED, CONNECTING, CONNECTED, DISCONNECTED

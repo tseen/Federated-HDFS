@@ -3,12 +3,16 @@
  *******************************************************/
 package ncku.hpds.fed.MRv2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FedCloudInfo {
 	private long inputSize;
 	private String cloudName = "";
 	private int regionMapTime;
 	private int regionMapStartTime;
 	private float wanSpeed;
+	private Map<String, Float> wanSpeedMap = new HashMap<String, Float>();
 
 	public FedCloudInfo(String Name){
 		cloudName = Name;
@@ -51,6 +55,18 @@ public class FedCloudInfo {
 	public void setWanSpeed(float wanSpeed) {
 		this.wanSpeed = wanSpeed;
 		System.out.println(this.cloudName+" WAN speed:"+ this.wanSpeed);
+	}
+
+	public Map<String, Float> getWanSpeedMap() {
+		return wanSpeedMap;
+	}
+
+	public void setWanSpeedMap(Map<String, Float> wanSpeedMap) {
+		this.wanSpeedMap = wanSpeedMap;
+	}
+	public void setWanSpeed(String dest, float speed){
+		System.out.println("WAN speed:"+cloudName+"->"+dest+":"+speed);
+		wanSpeedMap.put(dest, speed);
 	}
 
 }

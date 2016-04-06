@@ -86,7 +86,7 @@ public class GenericProxyReduceBackup<T1, T2> extends Reducer<T1, T2, Text, Text
 		String ip = conf.get("fedCloudHDFS").split(":")[1].split("/")[2];
 
 		InetAddress address = InetAddress.getByName(ip);
-		client = new FedJobServerClient(address.getHostAddress(), 8769);
+		client = new FedJobServerClient(address.getHostAddress(), 8713);
 		client.start();
 
 		topNumbers = Integer.parseInt(conf.get("topNumbers"));

@@ -70,7 +70,7 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			InetAddress address;
 			try {
 				address = InetAddress.getByName(ip);
-				client = new FedJobServerClient(address.getHostAddress(), 8769);
+				client = new FedJobServerClient(address.getHostAddress(), 8713);
 				client.start();
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block

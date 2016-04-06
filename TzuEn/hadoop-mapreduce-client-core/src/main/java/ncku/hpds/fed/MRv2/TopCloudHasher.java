@@ -43,10 +43,10 @@ public final class TopCloudHasher {
 		String ipHDFS = Name +"/";
     	System.out.println("C0 -->10.3.1."+ ipHDFS);
     	
-    	return hashToTop(ipHDFS);
+    	return setFileNameOrder(ipHDFS);
 		
 	}
-	public static String hashToTop(String topUrl){
+	public static String setFileNameOrder(String topUrl){
 		
 		for(int i = 0 ; i< topURLs.size(); i++){
 			System.out.println("TopCloudHasher:"+topURLs.get(i)+" "+topUrl);

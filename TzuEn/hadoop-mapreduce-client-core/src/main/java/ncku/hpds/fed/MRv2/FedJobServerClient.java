@@ -74,7 +74,7 @@ public class FedJobServerClient extends Thread {
 				}
 				Thread.sleep(500); // 500ms
 			} catch (Exception e) {
-				System.out.println("Server End abnormal\n");
+				System.out.println("Can't Ping\n");
                 mRunFlag = false; 
 
 				//mRunFlag = false;
@@ -109,6 +109,9 @@ public class FedJobServerClient extends Thread {
         }
         return res;
     }
+	public String sendBye(){
+		return sendMessage(FedCloudProtocol.REQ_BYE);
+	}
 	public String send5MBfile(){
 		String res = "";
         try {
@@ -137,6 +140,13 @@ public class FedJobServerClient extends Thread {
 	public String sendRegionMapFinished(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_REGION_MAP_FINISHED +" "+ fs );
 	}
+	public String sendReqWAN(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_WAN_SPEED +" "+ fs );
+	}
+	public String sendRegionWAN(String from, String dest, float speed) { 
+		return sendMessage( FedCloudProtocol.REQ_REGION_WAN +" "+from+">"+ dest+">"+Float.toString(speed) );
+	}
+	
 	public void stopClientProbe() {
         try { 
             sendMessage( FedCloudProtocol.REQ_BYE ); 

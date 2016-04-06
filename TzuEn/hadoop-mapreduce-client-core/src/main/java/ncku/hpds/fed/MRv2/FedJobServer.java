@@ -4,6 +4,7 @@
 package ncku.hpds.fed.MRv2;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -71,10 +72,8 @@ public class FedJobServer extends Thread{
 		}
 		int i = 0;
 		while ( mRunFlag ) {
-			try {
-				BufferedReader clientInput = null;
-				PrintWriter clientOutput = null;
-				String line = null;
+			
+				
 				synchronized ( mLock ) { 
 					mState = FedCloudProtocol.FedSocketState.ACCEPTING;
 				}
@@ -82,80 +81,38 @@ public class FedJobServer extends Thread{
 					System.out.println("FedJobManager no incoming connection, break out");
 					break;
 				}
-				Socket s = mServer.accept();
-				if ( s == null ) {
-					i ++;
-					continue;
-				}
-				mAcceptFedSocket = new FedClientSocket(s); 
-				//something incoming
-				clientInput = mAcceptFedSocket.getInputReader();
-				clientOutput = mAcceptFedSocket.getOutputWriter();
-				synchronized ( mLock ) { 
-					mState = FedCloudProtocol.FedSocketState.ACCEPTED;
-				}
-				while ( mRunFlag ) {
-					synchronized ( mLock ) { 
-						try {
-							line = clientInput.readLine(); 
-							//System.out.println("Recv : " + line );
-							if ( line.contains( FedCloudProtocol.REQ_PING ) ) {
-								//System.out.println("PINGGGG");
-								clientOutput.println( FedCloudProtocol.RES_PONG );
-								clientOutput.flush();
-							}
-							if ( line.contains( FedCloudProtocol.REQ_BYE ) ) {
-								clientOutput.println( FedCloudProtocol.RES_BYE );
-								clientOutput.flush();
-								System.out.println("Region Cloud Recvied Bye");
-								mRunFlag = false;
-								break;
-							}
-							if ( line.contains( FedCloudProtocol.REQ_REGION_MAP_FINISHED ) ) {
-								String namdenode = line.substring(20);
-								clientOutput.println( FedCloudProtocol.RES_REGION_MAP_FINISHED );
-								clientOutput.flush();
-								System.out.println("-----------------------------");
-								System.out.println("get region map stop time"+s.getInetAddress().toString());
-								System.out.println("-----------------------------");
-								System.out.println(namdenode);
-								System.out.println(mFedCloudInfos.toString());
-								mFedCloudInfos.get(namdenode).setRegionMapTime((int) System.currentTimeMillis());
-								//TODO set region map finished time;
-								//mRunFlag = false;
-								break;
-							}
-						} catch (Exception e) {
-							//e.printStackTrace();
-							//System.out.println("sockettimeout exeception occurs");
-						}
+				Socket s;
+				try {
+					s = mServer.accept();
+					System.out.println("ACCEPTED");
+					jobServer js = new jobServer(s, mFedCloudInfos);
+					
+					js.start();
+					if ( s == null ) {
+						i ++;
+						continue;
 					}
-					Thread.sleep(500); // 500ms 
+					//mAcceptFedSocket = new FedClientSocket(s); 
+					//something incoming
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch ( Exception e ) { 
-				i++;
-				e.printStackTrace();
-				//System.out.println("accept error continue wait");
-			} finally {
-				synchronized ( mLock ) { 
-					if ( mAcceptFedSocket != null ) {
-						mAcceptFedSocket.close();
-						mAcceptFedSocket = null;
-					}
-					mState = FedCloudProtocol.FedSocketState.DISCONNECTED;
-				}
-			}
 		} // while
 		try {
 			if ( mServer != null ) {
-				mServer.close();
-				System.out.println("Fed Cloud Server Closed");
+					mServer.close();
+					System.out.println("Fed Cloud sub Server Closed");
 			} else {
-				System.out.println("mServer == null");
+					System.out.println("mServer == null");
 			}
 		} catch ( Exception e ) {
-			e.printStackTrace();
+				e.printStackTrace();
 		}
+			
 	}
 	public void stopServer() {
 		try { 
@@ -174,4 +131,146 @@ public class FedJobServer extends Thread{
 	public void setFedCloudInfos(Map<String,FedCloudInfo> mFedCloudInfos) {
 		this.mFedCloudInfos = mFedCloudInfos;
 	}
+	class jobServer extends Thread{
+		//private ServerSocket mServer;
+		//private int mListenPort = 0;
+		private FedClientSocket nAcceptFedSocket = null;
+		private boolean nRunFlag = false;
+		private Object nLock = new Object();
+		private FedCloudProtocol.FedSocketState nState = 
+				FedCloudProtocol.FedSocketState.NONE;
+		private Map<String,FedCloudInfo> nFedCloudInfos = new HashMap<String, FedCloudInfo>();
+		private Socket nSocket = null;
+		
+		public jobServer(Socket s, Map<String, FedCloudInfo> nFedCloudInfos2){
+			super("jobServer");
+			this.nSocket = s;
+			this.nFedCloudInfos = nFedCloudInfos2;
+		}
+
+		public void run() { 
+			nRunFlag  = true;
+			//int i = 0;
+			while ( nRunFlag ) {
+				try {
+					int getNumber = 0;
+					BufferedReader clientInput = null;
+					PrintWriter clientOutput = null;
+					String line = null;
+					
+					
+					nAcceptFedSocket = new FedClientSocket(nSocket); 
+					//something incoming
+					clientInput = nAcceptFedSocket.getInputReader();
+					clientOutput = nAcceptFedSocket.getOutputWriter();
+					synchronized ( nLock ) { 
+						nState = FedCloudProtocol.FedSocketState.ACCEPTED;
+					}
+					while ( nRunFlag ) {
+						synchronized ( nLock ) { 
+							try {
+								line = clientInput.readLine(); 
+								//System.out.println("Recv : " + line );
+								if ( line.contains( FedCloudProtocol.REQ_PING ) ) {
+									//System.out.println("PINGGGG");
+									//clientOutput.println( FedCloudProtocol.RES_PONG );
+									//clientOutput.flush();
+								}
+								else{
+									System.out.println("SERVER GET:"+line);
+								}
+								if ( line.contains( FedCloudProtocol.REQ_BYE ) ) {
+									clientOutput.println( FedCloudProtocol.RES_BYE );
+									clientOutput.flush();
+									System.out.println("Region Cloud Recvied Bye");
+									nRunFlag = false;
+									break;
+								}
+								if ( line.contains( FedCloudProtocol.REQ_REGION_MAP_FINISHED ) ) {
+									String namdenode = line.substring(20);
+									clientOutput.println( FedCloudProtocol.RES_REGION_MAP_FINISHED );
+									clientOutput.flush();
+									System.out.println("-----------------------------");
+									System.out.println("get region map stop time"+nSocket.getInetAddress().toString());
+									System.out.println("-----------------------------");
+									//System.out.println(namdenode);
+									//System.out.println(nFedCloudInfos.toString());
+									nFedCloudInfos.get(namdenode).setRegionMapTime((int) System.currentTimeMillis());
+									nRunFlag = false;
+									clientInput.close();
+									clientOutput.close();
+									break;
+								}
+								if ( line.contains( FedCloudProtocol.REQ_WAN_SPEED ) ) {
+									String namdenode = line.substring(14);
+									
+									System.out.println("-----------------------------");
+									System.out.println("get WAN speed"+nSocket.getInetAddress().toString());
+									System.out.println("-----------------------------");
+									//Map<String, Float> wanMap = nFedCloudInfos.get(namdenode).getWanSpeedMap();
+									String res = "";
+									for (Map.Entry<String, FedCloudInfo> entry : nFedCloudInfos.entrySet())
+									{
+										for (Map.Entry<String, Float> entry1 : entry.getValue().getWanSpeedMap().entrySet())
+										{
+											res += entry.getValue().getCloudName()+">"+entry1.getKey() +"="+ Float.toString(entry1.getValue())+",";
+										}									
+									}
+									
+									clientOutput.println( FedCloudProtocol.RES_WAN_SPEED+" "+res );
+									clientOutput.flush();
+									
+								}
+								if ( line.contains( FedCloudProtocol.REQ_REGION_WAN ) ) {
+									String infos = line.substring(11);
+									String[] info = infos.split(">");
+									clientOutput.println( FedCloudProtocol.RES_REGION_WAN );
+									clientOutput.flush();
+									System.out.println("-----------------------------");
+									System.out.println("get region map WAN"+nSocket.getInetAddress().toString()+ "|"+ infos );
+									System.out.println("-----------------------------");
+									nFedCloudInfos.get(info[0]).setWanSpeed(info[1], Float.parseFloat(info[2]));
+									getNumber++;
+									if(getNumber == nFedCloudInfos.size()){
+										nRunFlag = false;
+										clientInput.close();
+										clientOutput.close();
+									}
+									
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								//System.out.println("sockettimeout exeception occurs");
+							}
+						}
+						Thread.sleep(500); // 500ms 
+					}
+				} catch ( Exception e ) { 
+					//i++;
+					e.printStackTrace();
+					//System.out.println("accept error continue wait");
+				} finally {
+					synchronized ( nLock ) { 
+						if ( nAcceptFedSocket != null ) {
+							nAcceptFedSocket.close();
+							nAcceptFedSocket = null;
+						}
+						nState = FedCloudProtocol.FedSocketState.DISCONNECTED;
+					}
+				}
+			} 
+			try {
+				nSocket.close();
+				this.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
 }
+	
+

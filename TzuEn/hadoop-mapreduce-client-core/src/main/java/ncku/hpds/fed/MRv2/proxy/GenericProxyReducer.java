@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ncku.hpds.fed.MRv2.FedCloudProtocol;
 import ncku.hpds.fed.MRv2.FedJobServerClient;
 import ncku.hpds.fed.MRv2.HdfsWriter;
 import ncku.hpds.fed.MRv2.TopCloudHasher;
@@ -106,9 +107,10 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 
 		InetAddress address = InetAddress.getByName(ip);
 		
-		client = new FedJobServerClient(address.getHostAddress(), 8769);
+		client = new FedJobServerClient(address.getHostAddress(), 8713);
 		client.start();
 
+		
 		topNumbers = Integer.parseInt(conf.get("topNumbers"));
 
 		if (conf.get("topCounts") != null) {
@@ -128,7 +130,7 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 			HdfsWriter HW = new HdfsWriter(url, "hpds");
 			HW.setFileName("/user/" + System.getProperty("user.name") + "/"
 					+ conf.get("regionCloudOutput", "")
-					+ TopCloudHasher.hashToTop(url + "/"));
+					+ TopCloudHasher.setFileNameOrder(url + "/"));
 
 			mHdfsWriter.add(HW);
 		}
@@ -154,6 +156,11 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 				mSeperator = "||";
 			}
 		}
+		String res = client.sendReqWAN(namenode.split("/")[2]);
+		if(res.contains(FedCloudProtocol.RES_WAN_SPEED)){
+			System.out.println(res);
+		}
+
 		__reset();
 	}
 

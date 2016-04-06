@@ -111,8 +111,8 @@ public class FedJob {
 		//}
 		try {
 			//Start servers
-			FedWANServer wanServer = new FedWANServer();
-			FedJobServer jobServer = new FedJobServer(8769);
+			//FedWANServer wanServer = new FedWANServer();
+			FedJobServer jobServer = new FedJobServer(8713);
 			jobServer.start();
 			//Get input path
 			Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
@@ -127,8 +127,8 @@ public class FedJob {
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
 			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf
 					.getFedCloudInfos();
-			wanServer.setFedCloudInfos(fedCloudInfos);
-			wanServer.start();
+			//wanServer.setFedCloudInfos(fedCloudInfos);
+			//wanServer.start();
 			jobServer.setFedCloudInfos(fedCloudInfos);
 			if (jcjList.size() > 0) {
 				System.out.println("Start Jar copy jobs");
@@ -188,9 +188,9 @@ public class FedJob {
 					job.start();
 				}
 
-				for (FedCloudMonitorClient job : cList) {
-					job.start();
-				}
+				//for (FedCloudMonitorClient job : cList) {
+				//	job.start();
+				//}
 
 				System.out.println("Wait For FedRegionCloudJob Join");
 				for (FedRegionCloudJob job : rList) {
@@ -221,10 +221,10 @@ public class FedJob {
 					System.out.println("----------------------------------");
 
 					// distcp copy from region cloud hdfs to top cloud hdfs
-					System.out.println("Wait For FedCouldMonitorClient Join");
-					for (FedCloudMonitorClient job : cList) {
-						job.join();
-					}
+				//	System.out.println("Wait For FedCouldMonitorClient Join");
+				//	for (FedCloudMonitorClient job : cList) {
+				//		job.join();
+				//	}
 					System.out.println("FedCouldMonitorClient All Joined");
 
 					System.out
@@ -259,9 +259,6 @@ public class FedJob {
 					HdfsFileSender sender = new HdfsFileSender();
 					List<String> topCloudHDFSs = mFedJobConf
 							.getTopCloudHDFSURLs();
-					for (String t : topCloudHDFSs) {
-						System.out.println("*****" + t + "*****");
-					}
 					sender.send((ArrayList) topCloudHDFSs, "/user/hpds/zzz");
 					// String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
 
@@ -269,8 +266,9 @@ public class FedJob {
 				}
 			}
 			jobServer.stopServer();
-			wanServer.stopServer();
-			wanServer.join();
+			jobServer.join();
+			//wanServer.stopServer();
+			//wanServer.join();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -302,9 +300,14 @@ public class FedJob {
 		gcls = Gcls;
 		pcls = Pcls;
 	}
-
+	FedWANServer wanServer = new FedWANServer();
 	public void startFedJob() {
 		try {
+			
+		//	FedWANClient wanClient = new FedWANClient();
+		//	wanClient.setHost(mJob.getConfiguration().get("fs.default.name").split("/")[2]);
+	    //	wanClient.start();
+	    //	wanClient.join();
 			boolean mapOnly = false;
 			if (mJob.getNumReduceTasks() == 0) {
 				mapOnly = true;
@@ -356,6 +359,25 @@ public class FedJob {
 				System.out.println("----------------------------------");
 
 			} else if (mFedJobConf.isRegionCloud()) {
+				wanServer.setPort(mJobConf.get("regionCloudOutput").split("_")[0].hashCode()%10000);
+				wanServer.setJobConf(mJobConf);
+				wanServer.start();
+				String[] HDFSs = mJobConf.get("topCloudHDFSs").split(",");
+				List<FedWANClient> wlist = new ArrayList<FedWANClient>();
+				for(String HDFS: HDFSs){
+					String ip = HDFS.split("//")[1].split(":")[0];
+					FedWANClient wanClient = new FedWANClient();
+					wanClient.setIp(ip);
+					wanClient.setHost(mJob.getConfiguration().get("fs.default.name").split("/")[2]);
+					wlist.add(wanClient);
+				}
+				for(FedWANClient c :wlist){
+					c.start();
+				}
+				for(FedWANClient c :wlist){
+					c.join();
+				}
+				System.out.println(mJobConf.get("wanSpeed", "noSpeed"));
 				// do region cloud things
 				System.out.println("Run AS Region Cloud");
 				System.out.println("----------------------------------");
@@ -376,9 +398,9 @@ public class FedJob {
 						mFedJobConf.selectProxyReduce();
 					}
 				}
-				mServer = new FedCloudMonitorServer(
-						mFedJobConf.getRegionCloudServerListenPort());
-				mServer.start();
+			//	mServer = new FedCloudMonitorServer(
+			//			mFedJobConf.getRegionCloudServerListenPort());
+			//	mServer.start();
 				mFedStat.setRegionCloudsStart();
 
 				String multiMapper = mJobConf.get("multiMapper", "false");
@@ -498,6 +520,15 @@ public class FedJob {
 
 		}
 		if (mFedJobConf.isRegionCloud()) {
+			System.out.println("stopFED");
+			//wanServer.stopServer();
+		/*	try {
+				wanServer.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
 			/*
 			 * String[] preIP = mFedJobConf.getTopCloudHDFSURL().split("/");
 			 * String[] IP = preIP[2].split(":");
@@ -510,7 +541,7 @@ public class FedJob {
 			// execute Distcp from Region Cloud
 			mFedStat.setRegionCloudsEnd();
 			// mFedStat.setGlobalAggregationStart();
-			mServer.sendMapPRFinished();
+		//	mServer.sendMapPRFinished();
 			// mServer.sendMigrateData("");
 			/*
 			 * List<FedRegionCloudJobDistcp> distCpList = new
@@ -530,7 +561,7 @@ public class FedJob {
 			 */
 			// mServer.sendMigrateDataFinished("");
 			System.out.println("Stop Server");
-			mServer.stopServer();
+		//	mServer.stopServer();
 			// mFedStat.setGlobalAggregationEnd();
 			System.out.println("Region Cloud Report : RegionCloudsTime = "
 					+ mFedStat.getRegionCloudsTime() + "(ms)");

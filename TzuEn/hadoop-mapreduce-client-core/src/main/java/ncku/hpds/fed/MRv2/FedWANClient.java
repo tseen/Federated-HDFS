@@ -17,38 +17,76 @@ import java.util.Arrays;
 public class FedWANClient extends Thread {
 	private PrintWriter mOutput = null;
 	private String namenode = "";
+    private String ip ="";
+    private boolean mRunFlag = true;
+    private Object mLock = new Object();
 
 	
 	public void run() {
 		Socket socket = null;
-		String host = "10.3.1.2";
+		String host = ip;
+		synchronized(mLock) {
+            do {
+				try {
+					socket = new Socket(host, ip.hashCode()%10000);
+					if(socket.isConnected())
+						mRunFlag = false;
+				} catch (UnknownHostException e) {
+					mRunFlag = true;
+                    try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 
-		try {
-			socket = new Socket(host, 4444);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				} catch (IOException e) {
+					mRunFlag = true;
+                    try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+
+				}
+            }while(mRunFlag == true );
 		}
 
 		
-		byte[] bytes = new byte[20 * 1024 * 1024];
-		Arrays.fill( bytes, (byte) 1 );
-		InputStream in = new ByteArrayInputStream(bytes);
-		OutputStream out;
+		byte[] bytes = new byte[6 * 1024 * 1024];
+		//Arrays.fill( bytes, (byte) 1 );
+		//InputStream in = new ByteArrayInputStream(bytes);
+		InputStream in = null;
+		OutputStream out = null;
 		try {
-			mOutput = new PrintWriter(socket.getOutputStream());
+			out = socket.getOutputStream();
+			in = socket.getInputStream();
+			mOutput = new PrintWriter(out);
 			mOutput.println("STOP "+namenode);
             mOutput.flush();
-			out = socket.getOutputStream();
-
-			int count;
-			while ((count = in.read(bytes)) > 0) {
-				out.write(bytes, 0, count);
-			}
 			
+			
+			long total = 0;
+			long startTime = System.currentTimeMillis();
+			float speed = 0;
+			
+			int count = 0;
+			while ((count = in.read(bytes)) > 0) {
+				total += count;
+				if(total >5210000)
+					break;
+			}
+			long endTime = System.currentTimeMillis();
+			speed = total/(endTime-startTime)/1000;
+			System.out.println(ip +"->"+ namenode +": read "+total+" bytes, speed:"+speed+" MB");
+
+	//		int count;
+	//		while ((count = in.read(bytes)) > 0) {
+	//			out.write(bytes, 0, count);
+	//		}
+			mOutput.println("SPEED "+speed);
+            mOutput.flush();
+
+
 			
             mOutput.close();
 			out.close();
@@ -59,10 +97,19 @@ public class FedWANClient extends Thread {
 			e.printStackTrace();
 		}
 	}
+
 	public String getHost() {
 		return namenode;
 	}
 	public void setHost(String namenode) {
 		this.namenode = namenode;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 }
