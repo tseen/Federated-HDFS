@@ -211,7 +211,7 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			HdfsWriter HW = new HdfsWriter(url, "hpds");
 			HW.setFileName("/user/" + System.getProperty("user.name") + "/"
 					+ conf.get("regionCloudOutput", "")
-					+ TopCloudHasher.hashToTop(url + "/"));
+					+ TopCloudHasher.setFileNameOrder(url + "/"));
 
 			mHdfsWriterList.add(HW);
 		}

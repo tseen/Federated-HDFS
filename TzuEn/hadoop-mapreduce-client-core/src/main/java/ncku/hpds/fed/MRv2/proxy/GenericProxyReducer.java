@@ -48,10 +48,25 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 	private String generateFileName(Text mKey2, int topNumbers) {
 		return TopCloudHasher.generateFileName(mKey2, topNumbers);
 	}
+	private void getOptimizedPartition(){
+		
+		double prev = 0;
+		for(int j = 0 ; j < mDownSpeed.size(); j++){
+			double curr = mDownSpeed.get(j)+ prev;
+			mDownSpeed.set(j, curr);
+			prev = mDownSpeed.get(j);
+		}
+		for(double speed: mDownSpeed){
+			System.out.println("t"+speed);
+		}
+		return;
+	}
+	
 	private String generateFileName(T1 key, int topNumbers){
 		int hash = 0 ;	   
 		//hash = (key.hashCode() & Integer.MAX_VALUE) % topNumbers;
-		hash = mPartitioner.getPartition(key, null, topNumbers);
+		hash = mPartitioner.getPartition(key, null, 1000);
+		
 	    return Integer.toString(hash);
 	}
 
@@ -70,6 +85,8 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 	private List<HdfsWriter> mHdfsWriter = new ArrayList<HdfsWriter>();
 	private T1 mLastKey;
 	private String mOutBuffer;
+	//private Map<String, Double> nDownSpeed = new HashMap<String, Double>();
+	private List<Double> mDownSpeed = new ArrayList<Double>();
 
 	// private String tachyonOutDir;
 
@@ -157,9 +174,35 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 			}
 		}
 		String res = client.sendReqWAN(namenode.split("/")[2]);
+		System.out.println(res);
+
 		if(res.contains(FedCloudProtocol.RES_WAN_SPEED)){
 			System.out.println(res);
+			String[] nodes = res.substring(14).split(",");
+			for(int i = 0; i<nodes.length; i++){
+				mDownSpeed.add(-1d);
+			}
+			
+			for(int i = 0; i<nodes.length; i++){
+				mDownSpeed.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split("=")[0]+"/"), Double.parseDouble(nodes[i].split("=")[1]));
+				//nDownSpeed.put(nodes[i].split("=")[0], Double.parseDouble(nodes[i].split("=")[1]));
+			}
+			System.out.println(res);
 		}
+		Double total = 0d;
+		for(Double speed: mDownSpeed){
+			total += speed;
+		}
+		for(int j = 0; j<mDownSpeed.size(); j++){
+			
+			mDownSpeed.set(j, (mDownSpeed.get(j)/total)*1000);
+		}
+		int s = 0;
+		for(Double speed: mDownSpeed){
+			System.out.println(s+"="+speed);
+			s++;
+		}
+		getOptimizedPartition();
 
 		__reset();
 	}

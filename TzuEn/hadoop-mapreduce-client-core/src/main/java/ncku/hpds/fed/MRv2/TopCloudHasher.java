@@ -55,4 +55,13 @@ public final class TopCloudHasher {
 		}
 		return "";
 	}
+	public static int setFileNameOrderInt(String topUrl){
+		
+		for(int i = 0 ; i< topURLs.size(); i++){
+			System.out.println("TopCloudHasherINT:"+topURLs.get(i)+" "+topUrl);
+			if((topURLs.get(i)+"/").equalsIgnoreCase(topUrl))
+				return i ;
+		}
+		return -1;
+	}
 }

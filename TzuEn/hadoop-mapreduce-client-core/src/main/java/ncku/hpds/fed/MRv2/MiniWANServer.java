@@ -90,21 +90,21 @@ public class MiniWANServer extends Thread {
 							//mRunFlag = false;
 						}
 						else if (line.contains("SPEED")) {
-							float speed =Float.parseFloat( line.substring(6));
+							double speed = Double.parseDouble( line.substring(6));
 							//mFedCloudInfos
 							//.get(namenode)
 							//.setWanSpeed(speed);
 							String s = mJobConf.get("wanSpeed") == null ? " ": mJobConf.get("wanSpeed");
-							s += namenode +"|"+Float.toString(speed)+",";
+							s += namenode +"|"+Double.toString(speed)+",";
 							mJobConf.set("wanSpeed", s);
 							String res = mClient.sendRegionWAN(mJobConf.get("fs.default.name").split("/")[2], namenode, speed);
-							System.out.println("-->"+namenode+"WAN SPEED: "+speed+"MB");
+							//System.out.println("-->"+namenode+"WAN SPEED: "+speed+"MB");
 							System.out.println("-->"+namenode+"WAN SPEED: "+speed+"MB RESP:"+res);
 							//mClient.sendBye();
 							mRunFlag = false;
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 				}
 			}

@@ -28,6 +28,7 @@ public class FedJobServer extends Thread{
 	private FedCloudProtocol.FedSocketState mState = 
 			FedCloudProtocol.FedSocketState.NONE;
 	private Map<String,FedCloudInfo> mFedCloudInfos = new HashMap<String, FedCloudInfo>();
+	private Map<String,Double> mDownSpeed = new HashMap<String, Double>();
 
 	class FedClientSocket {
 		public Socket mClientSocket = null;
@@ -85,7 +86,7 @@ public class FedJobServer extends Thread{
 				try {
 					s = mServer.accept();
 					System.out.println("ACCEPTED");
-					jobServer js = new jobServer(s, mFedCloudInfos);
+					jobServer js = new jobServer(s, mFedCloudInfos, mDownSpeed);
 					
 					js.start();
 					if ( s == null ) {
@@ -131,6 +132,13 @@ public class FedJobServer extends Thread{
 	public void setFedCloudInfos(Map<String,FedCloudInfo> mFedCloudInfos) {
 		this.mFedCloudInfos = mFedCloudInfos;
 	}
+	public Map<String,Double> getDownSpeed() {
+		return mDownSpeed;
+	}
+
+	public void setDownSpeed(Map<String,Double> mDownSpeed) {
+		this.mDownSpeed = mDownSpeed;
+	}
 	class jobServer extends Thread{
 		//private ServerSocket mServer;
 		//private int mListenPort = 0;
@@ -141,11 +149,14 @@ public class FedJobServer extends Thread{
 				FedCloudProtocol.FedSocketState.NONE;
 		private Map<String,FedCloudInfo> nFedCloudInfos = new HashMap<String, FedCloudInfo>();
 		private Socket nSocket = null;
+		private Map<String,Double> nDownSpeed = new HashMap<String, Double>();
+
 		
-		public jobServer(Socket s, Map<String, FedCloudInfo> nFedCloudInfos2){
+		public jobServer(Socket s, Map<String, FedCloudInfo> nFedCloudInfos2, Map<String,Double> nDownSpeed2){
 			super("jobServer");
 			this.nSocket = s;
 			this.nFedCloudInfos = nFedCloudInfos2;
+			this.nDownSpeed = nDownSpeed2;
 		}
 
 		public void run() { 
@@ -207,16 +218,20 @@ public class FedJobServer extends Thread{
 									System.out.println("-----------------------------");
 									System.out.println("get WAN speed"+nSocket.getInetAddress().toString());
 									System.out.println("-----------------------------");
-									//Map<String, Float> wanMap = nFedCloudInfos.get(namdenode).getWanSpeedMap();
 									String res = "";
-									for (Map.Entry<String, FedCloudInfo> entry : nFedCloudInfos.entrySet())
+									for (Map.Entry<String, Double> entry : nDownSpeed.entrySet())
 									{
-										for (Map.Entry<String, Float> entry1 : entry.getValue().getWanSpeedMap().entrySet())
+										res += entry.getKey()+"="+entry.getValue()+",";
+									}
+								/*	for (Map.Entry<String, FedCloudInfo> entry : nFedCloudInfos.entrySet())
+									{
+										for (Map.Entry<String, Double> entry1 : entry.getValue().getWanSpeedMap().entrySet())
 										{
-											res += entry.getValue().getCloudName()+">"+entry1.getKey() +"="+ Float.toString(entry1.getValue())+",";
+											res += entry.getValue().getCloudName()+">"+entry1.getKey() +"="+ Double.toString(entry1.getValue())+",";
 										}									
 									}
-									
+									*/
+									System.out.println(res);
 									clientOutput.println( FedCloudProtocol.RES_WAN_SPEED+" "+res );
 									clientOutput.flush();
 									
@@ -229,7 +244,7 @@ public class FedJobServer extends Thread{
 									System.out.println("-----------------------------");
 									System.out.println("get region map WAN"+nSocket.getInetAddress().toString()+ "|"+ infos );
 									System.out.println("-----------------------------");
-									nFedCloudInfos.get(info[0]).setWanSpeed(info[1], Float.parseFloat(info[2]));
+									nFedCloudInfos.get(info[0]).setWanSpeed(info[1], Double.parseDouble(info[2]));
 									getNumber++;
 									if(getNumber == nFedCloudInfos.size()){
 										nRunFlag = false;
@@ -239,7 +254,7 @@ public class FedJobServer extends Thread{
 									
 								}
 							} catch (Exception e) {
-								e.printStackTrace();
+								//e.printStackTrace();
 								//System.out.println("sockettimeout exeception occurs");
 							}
 						}

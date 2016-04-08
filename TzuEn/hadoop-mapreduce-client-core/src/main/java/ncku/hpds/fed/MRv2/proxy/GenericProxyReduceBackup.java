@@ -108,7 +108,7 @@ public class GenericProxyReduceBackup<T1, T2> extends Reducer<T1, T2, Text, Text
 			HdfsWriter HW = new HdfsWriter(url, "hpds");
 			HW.setFileName("/user/" + System.getProperty("user.name") + "/"
 					+ conf.get("regionCloudOutput", "")
-					+ TopCloudHasher.hashToTop(url + "/"));
+					+ TopCloudHasher.setFileNameOrder(url + "/"));
 
 			mHdfsWriter.add(HW);
 		}

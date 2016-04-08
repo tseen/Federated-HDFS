@@ -10,7 +10,6 @@ import org.apache.hadoop.hdfs.tools.DFSAdmin;
 import org.apache.hadoop.io.RawComparator;
 import org.apache.hadoop.mapreduce.InputFormat;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.JobContext;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -21,14 +20,11 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.io.File;
-import java.net.Inet4Address;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.UnknownHostException;
@@ -98,7 +94,7 @@ public class FedJob {
 	public boolean isFedIteration() {
 		return bIsFedIteration;
 	}
-
+    
 	public void scheduleAndStartFedJob() {
 		int currentIter = 1;
 		boolean mapOnly = false;
@@ -123,7 +119,9 @@ public class FedJob {
 			System.out.println("Start FedJobConfHdfs");
 			mFedJobConf = new FedJobConfHdfs(mJobConf, mJob, mFileName);
 			System.out.println("End FedJobConfHdfs");
-			
+			System.out.println("VCORES:"+mJobConf.get("yarn.nodemanager.resource.cpu-vcores", "78"));
+			System.out.println("MEMORY:"+mJobConf.get("yarn.nodemanager.resource.memory-mb", "78"));
+
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
 			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf
 					.getFedCloudInfos();
@@ -187,12 +185,38 @@ public class FedJob {
 					System.out.println("REGION START");
 					job.start();
 				}
+				System.out.println("Wait For FedRegionCloudJob Join");
+
+			/*	boolean collectAll = false;
+				while(!collectAll){
+					collectAll = true;
+					for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+							.entrySet()) {
+						if(info.getValue().getWanSpeedCount() == 3){
+							collectAll &= true;
+						}else{
+							collectAll = false;
+						}		
+					}
+				}
+				Map<String, Double> downSpeed = new HashMap<String, Double>();
+				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+						.entrySet()) {
+					info.getValue().printWanSpeed(downSpeed);
+				}
+				for (Map.Entry<String, Double> info : downSpeed
+						.entrySet()) {
+					System.out.println("DOWNSPEED:"+info.getKey()+"="+info.getValue());
+				}
+				*/
+				Map<String, Double> downSpeed = getDownSpeed(fedCloudInfos);
+				jobServer.setDownSpeed(downSpeed);
+				
 
 				//for (FedCloudMonitorClient job : cList) {
 				//	job.start();
 				//}
 
-				System.out.println("Wait For FedRegionCloudJob Join");
 				for (FedRegionCloudJob job : rList) {
 					job.join();
 					System.out.println("REGION JOIN");
@@ -274,6 +298,30 @@ public class FedJob {
 			e.printStackTrace();
 		}
 
+	}
+	private Map<String, Double> getDownSpeed(Map<String, FedCloudInfo>  fedCloudInfos){
+		boolean collectAll = false;
+		while(!collectAll){
+			collectAll = true;
+			for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+					.entrySet()) {
+				if(info.getValue().getWanSpeedCount() == 3){
+					collectAll &= true;
+				}else{
+					collectAll = false;
+				}		
+			}
+		}
+		Map<String, Double> downSpeed = new HashMap<String, Double>();
+		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+				.entrySet()) {
+			info.getValue().printWanSpeed(downSpeed);
+		}
+		for (Map.Entry<String, Double> info : downSpeed
+				.entrySet()) {
+			System.out.println("DOWNSPEED:"+info.getKey()+"="+info.getValue());
+		}
+		return downSpeed;
 	}
 
 	private Class<?> mKeyClz;

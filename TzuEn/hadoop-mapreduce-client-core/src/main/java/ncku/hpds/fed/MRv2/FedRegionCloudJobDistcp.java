@@ -109,7 +109,7 @@ public class FedRegionCloudJobDistcp extends Thread {
         String cmd = hadoop_home + "/bin/hadoop distcp "; 
     
         TopCloudHasher tch = new TopCloudHasher();
-        String fileName = tch.hashToTop(mDistUrl);
+        String fileName = tch.setFileNameOrder(mDistUrl);
         cmd = cmd + srcHDFS + "user/"+ userName + "/" + outputPath + fileName + " "  + mDistUrl +"user/" + userName + "/" + outputPath+"/"+fileName ;
         System.out.println("RegionCloud Distcp [" + cmd + "]" ); 
         return cmd;

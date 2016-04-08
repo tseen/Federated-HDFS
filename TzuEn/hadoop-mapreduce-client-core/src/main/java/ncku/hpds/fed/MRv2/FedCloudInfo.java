@@ -11,8 +11,9 @@ public class FedCloudInfo {
 	private String cloudName = "";
 	private int regionMapTime;
 	private int regionMapStartTime;
-	private float wanSpeed;
-	private Map<String, Float> wanSpeedMap = new HashMap<String, Float>();
+	private int wanSpeedCount = 0;
+	private double wanSpeed;
+	private Map<String, Double> wanSpeedMap = new HashMap<String, Double>();
 
 	public FedCloudInfo(String Name){
 		cloudName = Name;
@@ -45,10 +46,10 @@ public class FedCloudInfo {
 	public void setRegionMapTime(int regionMapTime) {
 		this.regionMapTime = regionMapTime;
 		System.out.println(this.cloudName+" time:"+this.regionMapTime+"-"+this.regionMapStartTime+" size:"+this.inputSize);
-		System.out.println(this.cloudName+" speed:"+(float)((float)this.inputSize/((float)this.regionMapTime-(float)this.regionMapStartTime)));
+		System.out.println(this.cloudName+" speed:"+(double)((double)this.inputSize/((double)this.regionMapTime-(double)this.regionMapStartTime)));
 	}
 
-	public float getWanSpeed() {
+	public double getWanSpeed() {
 		return wanSpeed;
 	}
 
@@ -57,16 +58,34 @@ public class FedCloudInfo {
 		System.out.println(this.cloudName+" WAN speed:"+ this.wanSpeed);
 	}
 
-	public Map<String, Float> getWanSpeedMap() {
+	public Map<String, Double> getWanSpeedMap() {
 		return wanSpeedMap;
 	}
 
-	public void setWanSpeedMap(Map<String, Float> wanSpeedMap) {
+	public void setWanSpeedMap(Map<String, Double> wanSpeedMap) {
 		this.wanSpeedMap = wanSpeedMap;
 	}
-	public void setWanSpeed(String dest, float speed){
-		System.out.println("WAN speed:"+cloudName+"->"+dest+":"+speed);
+	public void setWanSpeed(String dest, double speed){
+		//System.out.println("WAN speed:"+cloudName+"->"+dest+":"+speed);
 		wanSpeedMap.put(dest, speed);
+		wanSpeedCount++;
+	}
+	
+	public void printWanSpeed(Map<String, Double> downSpeed){
+		for (Map.Entry<String, Double> wan : wanSpeedMap
+				.entrySet()) {
+			System.out.println("CollectAllWAN:"+cloudName+">"+wan.getKey()+"="+wan.getValue());
+			if(!cloudName.equals(wan.getKey())){
+				Double previousValue =  downSpeed.get(wan.getKey());
+				if(previousValue == null) 
+					previousValue =  0d ;
+				downSpeed.put(wan.getKey(), previousValue + wan.getValue());
+			}
+		}
+	}
+
+	public int getWanSpeedCount() {
+		return wanSpeedCount;
 	}
 
 }

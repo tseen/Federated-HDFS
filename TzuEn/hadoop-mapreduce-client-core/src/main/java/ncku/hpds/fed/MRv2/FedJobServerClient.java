@@ -143,8 +143,8 @@ public class FedJobServerClient extends Thread {
 	public String sendReqWAN(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_WAN_SPEED +" "+ fs );
 	}
-	public String sendRegionWAN(String from, String dest, float speed) { 
-		return sendMessage( FedCloudProtocol.REQ_REGION_WAN +" "+from+">"+ dest+">"+Float.toString(speed) );
+	public String sendRegionWAN(String from, String dest, double speed) { 
+		return sendMessage( FedCloudProtocol.REQ_REGION_WAN +" "+from+">"+ dest+">"+ Double.toString(speed) );
 	}
 	
 	public void stopClientProbe() {

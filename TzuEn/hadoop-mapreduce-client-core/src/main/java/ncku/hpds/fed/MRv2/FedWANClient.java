@@ -67,7 +67,7 @@ public class FedWANClient extends Thread {
 			
 			long total = 0;
 			long startTime = System.currentTimeMillis();
-			float speed = 0;
+			//float speed = 0;
 			
 			int count = 0;
 			while ((count = in.read(bytes)) > 0) {
@@ -76,7 +76,7 @@ public class FedWANClient extends Thread {
 					break;
 			}
 			long endTime = System.currentTimeMillis();
-			speed = total/(endTime-startTime)/1000;
+			double speed = (double)total/(double)(endTime-startTime)/1000d;
 			System.out.println(ip +"->"+ namenode +": read "+total+" bytes, speed:"+speed+" MB");
 
 	//		int count;
