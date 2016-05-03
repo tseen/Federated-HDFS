@@ -130,8 +130,8 @@ public class FedJob {
 			System.out.println("Start FedJobConfHdfs");
 			mFedJobConf = new FedJobConfHdfs(mJobConf, mJob, mFileName);
 			System.out.println("End FedJobConfHdfs");
-			System.out.println("VCORES:"+mJobConf.get("yarn.nodemanager.resource.cpu-vcores", "78"));
-			System.out.println("MEMORY:"+mJobConf.get("yarn.nodemanager.resource.memory-mb", "78"));
+			//System.out.println("VCORES:"+mJobConf.get("yarn.nodemanager.resource.cpu-vcores", "78"));
+			//System.out.println("MEMORY:"+mJobConf.get("yarn.nodemanager.resource.memory-mb", "78"));
 
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
 			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf
@@ -176,7 +176,6 @@ public class FedJob {
 				List<FedCloudMonitorClient> cList = mFedJobConf
 						.getFedCloudMonitorClientList();
 
-				mFedStat.setRegionCloudsStart();
 				TopCloudHasher.topCounts = rList.size();
 				System.out
 						.println("TopCloud Report : RegionCloud Start Time = "
@@ -188,6 +187,7 @@ public class FedJob {
 					info.getValue().setRegionMapStartTime(
 							(int) System.currentTimeMillis());
 				}
+				mFedStat.setRegionCloudsStart();
 
 				// int regionMapStartTime = (int) System.currentTimeMillis();
 				for (FedRegionCloudJob job : rList) {
@@ -201,6 +201,7 @@ public class FedJob {
 
 				if(mJobConf.get("wanOpt","off").equals("true")){
 					Map<String, Double> downSpeed = getDownSpeed(fedCloudInfos);
+					normalizeInfo(fedCloudInfos);
 					jobServer.setDownSpeed(downSpeed);
 				}
 
@@ -282,6 +283,11 @@ public class FedJob {
 			}
 			jobServer.stopServer();
 			jobServer.join();
+
+			for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+					.entrySet()) {
+				info.getValue().printTime();
+			}
 			//wanServer.stopServer();
 			//wanServer.join();
 		} catch (Throwable e) {
@@ -310,14 +316,49 @@ public class FedJob {
 		Map<String, Double> downSpeed = new HashMap<String, Double>();
 		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
 				.entrySet()) {
+			System.out.println("fedCloudInfos Key:"+info.getKey());
 			info.getValue().collectWanSpeedandGetPartitionStrategy(downSpeed);
 		}
+		
 		for (Map.Entry<String, Double> info : downSpeed
 				.entrySet()) {
+			fedCloudInfos.get(info.getKey()).setMinWanSpeed(info.getValue());
 			System.out.println("DOWNSPEED:"+info.getKey()+"="+info.getValue());
 		}
 		return downSpeed;
 	}
+	private void normalizeInfo(Map<String, FedCloudInfo>  fedCloudInfos){
+		long minInputsize = Long.MAX_VALUE;
+		double minWan = Double.MAX_VALUE;
+		int minCore = Integer.MAX_VALUE;
+		int minMB = Integer.MAX_VALUE;
+		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+				.entrySet()) {
+			FedCloudInfo fedInfo = info.getValue();
+			if( fedInfo.getAvailableMB() < minMB){
+				minMB = fedInfo.getAvailableMB();
+			}
+			if( fedInfo.getAvailableVcores() < minCore){
+				minCore = fedInfo.getAvailableVcores();
+			}
+			//if( fedInfo.getInputSize() < minInputsize){
+			//	minInputsize = fedInfo.getInputSize();
+			//}
+			if( fedInfo.getMinWanSpeed() < minWan){
+				minWan = fedInfo.getMinWanSpeed();
+			}
+		}
+		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+				.entrySet()) {
+			FedCloudInfo fedInfo = info.getValue();
+			fedInfo.setAvailableMB_normalized((double)fedInfo.getAvailableMB() /(double) minMB);
+			fedInfo.setAvailableVcores_normalized((double)fedInfo.getAvailableVcores() /(double) minCore);
+			//fedInfo.setInputSize_normalized((double)fedInfo.getInputSize() /(double) minInputsize);
+			fedInfo.setMinWanSpeed_normalized( fedInfo.getMinWanSpeed() /  minWan);
+
+		}
+	}
+	
 
 	private Class<?> mKeyClz;
 	private Class<?> mValueClz;
@@ -394,7 +435,18 @@ public class FedJob {
 				System.out.println("TOP CLOUD OUT ="
 						+ mFedJobConf.getTopCloudOutputPath());
 				FileOutputFormat.setOutputPath(mJob, outputPath);
-
+				FedJobServerClient jclient = null;
+				String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
+				InetAddress address;
+				try {
+					address = InetAddress.getByName(ip);
+					jclient = new FedJobServerClient(address.getHostAddress(), 8713);
+					jclient.start();
+				} catch (UnknownHostException e1) {
+					e1.printStackTrace();
+				}
+				String namenode = mJobConf.get("fs.default.name");
+				jclient.sendTopStartTime(namenode.split("/")[2]);
 				mFedStat.setTopCloudStart();
 				System.out.println("----------------------------------");
 				System.out.println("TopCloud Start Time = "
@@ -420,8 +472,6 @@ public class FedJob {
 				for(FedWANClient c :wlist){
 					c.join();
 				}
-				System.out.println(mJobConf.get("wanSpeed", "noSpeed"));
-				
 				FedJobServerClient jclient = null;
 				String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
 				InetAddress address;
@@ -432,32 +482,49 @@ public class FedJob {
 				} catch (UnknownHostException e1) {
 					e1.printStackTrace();
 				}
-				String webapp = mJobConf.get("yarn.resourcemanager.webapp.address");
-				URLConnection connection = new URL("http://"+webapp+"/ws/v1/cluster/metrics").openConnection();
-				InputStream response = connection.getInputStream();
-				String res = IOUtils.toString(response, "UTF-8");
+				String namenode = mJobConf.get("fs.default.name");
+				jclient.sendRegionMapStartTime(namenode.split("/")[2]);
 
-				res = res.replaceAll("}", "");
-				System.out.println("RAPI:"+res);
-				String[] metrics = res.split(",");
-				String availableMB = "";
-				String availableVcores = "";
-				String activeNodes = "";
-				for(int i = 0; i<metrics.length; i++){
-					if(metrics[i].contains("activeNodes")){
-						activeNodes = metrics[i].substring(14);
+				System.out.println(mJobConf.get("wanSpeed", "noSpeed"));
+				if (mJobConf.get("wanOpt").equals("true")) {
+					
+
+					String webapp = mJobConf
+							.get("yarn.resourcemanager.webapp.address");
+					URLConnection connection = new URL("http://" + webapp
+							+ "/ws/v1/cluster/metrics").openConnection();
+					InputStream response = connection.getInputStream();
+					String res = IOUtils.toString(response, "UTF-8");
+
+					res = res.replaceAll("}", "");
+					System.out.println("RAPI:" + res);
+					String[] metrics = res.split(",");
+					String availableMB = "";
+					String availableVcores = "";
+					String activeNodes = "";
+					for (int i = 0; i < metrics.length; i++) {
+						if (metrics[i].contains("activeNodes")) {
+							activeNodes = metrics[i].substring(14);
+						} else if (metrics[i].contains("availableVirtualCores")) {
+							availableVcores = metrics[i].substring(24);
+						} else if (metrics[i].contains("availableMB")) {
+							availableMB = metrics[i].substring(14);
+						}
 					}
-					else if(metrics[i].contains("availableVirtualCores")){
-						availableVcores = metrics[i].substring(24);
-					}
-					else if(metrics[i].contains("availableMB")){
-						availableMB = metrics[i].substring(14);
+					
+					jclient.sendRegionResource(namenode.split("/")[2] + ","
+							+ activeNodes + "," + availableMB + ","
+							+ availableVcores);
+					// jclient.stopClientProbe();
+					// mWanOpt = true;
+					String resWAN = jclient.sendReqInfo(namenode.split("/")[2]);
+					if (resWAN.contains(FedCloudProtocol.RES_INFO)) {
+						String info = resWAN.substring(14);
+						System.out.println("INFO in FEDJob:"+ info);
+						mJobConf.set("fedInfos", info);
 					}
 				}
-				
-			    jclient.sendRegionResource(mJobConf.get("fs.default.name").split("/")[2]+","+activeNodes+","+availableMB+","+availableVcores);
-			    jclient.stopClientProbe();
-                
+
 				// do region cloud things
 				System.out.println("Run AS Region Cloud");
 				System.out.println("----------------------------------");
@@ -587,6 +654,19 @@ public class FedJob {
 
 		}
 		if (mFedJobConf.isTopCloud()) {
+			FedJobServerClient jclient = null;
+			String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
+			InetAddress address;
+			try {
+				address = InetAddress.getByName(ip);
+				jclient = new FedJobServerClient(address.getHostAddress(), 8713);
+				jclient.start();
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			}
+			String namenode = mJobConf.get("fs.default.name");
+			jclient.sendTopStopTime(namenode.split("/")[2]);
+			//jclient.stopClientProbe();
 			mFedStat.setTopCloudEnd();
 			System.out.println("----------------------------------");
 			System.out.println("TopCloudEnd() = " + mFedStat.getTopCloudEnd());
@@ -601,6 +681,18 @@ public class FedJob {
 		}
 		if (mFedJobConf.isRegionCloud()) {
 			System.out.println("stopFED");
+			FedJobServerClient jclient = null;
+			String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
+			InetAddress address;
+			try {
+				address = InetAddress.getByName(ip);
+				jclient = new FedJobServerClient(address.getHostAddress(), 8713);
+				jclient.start();
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			}
+			String namenode = mJobConf.get("fs.default.name");
+			jclient.sendRegionInterTransferStopTime(namenode.split("/")[2]);
 			//wanServer.stopServer();
 		/*	try {
 				wanServer.join();

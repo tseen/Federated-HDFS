@@ -27,8 +27,8 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.conf.Configuration;
 
 public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
-
 	public FedJobServerClient client;
+
 
 	private StringBuffer sb = new StringBuffer();
 
@@ -42,11 +42,11 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 	private int topNumbers;
 	private boolean firstInput = true;
 	private static int PARTITION_GRAIN_NUMBERS = 1000;
-	private static double NODES_FACTOR;
-	private static double MB_FACTOR;
-	private static double VCORES_FACTOR;
-	private static double WAN_FACTOR;
-
+	private static double NODES_FACTOR = 0d;
+	private static double MB_FACTOR = 0.5d;
+	private static double VCORES_FACTOR = 0.5d;
+	private static double WAN_FACTOR = 1d;
+	private static double MAP_INPUTSIZE_FACTOR = 0d;
 
 
 
@@ -135,8 +135,7 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 
 		InetAddress address = InetAddress.getByName(ip);
 		
-		client = new FedJobServerClient(address.getHostAddress(), 8713);
-		client.start();
+		
 
 		
 		topNumbers = Integer.parseInt(conf.get("topNumbers"));
@@ -184,27 +183,58 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 				mSeperator = "||";
 			}
 		}
+		client = new FedJobServerClient(address.getHostAddress(), 8713);
+		client.start();
 		if(conf.get("wanOpt").equals("true")){
+			
 			mWanOpt = true;
-			String res = client.sendReqWAN(namenode.split("/")[2]);
-			if(res.contains(FedCloudProtocol.RES_WAN_SPEED)){
-				System.out.println(res);
-				String[] nodes = res.substring(14).split(",");
-				for(int i = 0; i<nodes.length/2; i++){
-					mClusterWeight.add(-1d);
-				}
-				for(int i = 0; i<nodes.length; i++){
-					if(i < nodes.length / 2)
-						mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split("=")[0]+"/"), Double.parseDouble(nodes[i].split("=")[1]));
-					else{
-						double currentWeight = mClusterWeight.get(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split("=")[0]+"/"));
-						String resources[] = nodes[i].split("=")[1].split("|");
-						currentWeight = WAN_FACTOR * currentWeight + NODES_FACTOR * Double.parseDouble(resources[0]) + MB_FACTOR * Double.parseDouble(resources[2])+ VCORES_FACTOR * Double.parseDouble(resources[2]); 
-						mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split("=")[0]+"/"), currentWeight);
-					}
-						
+			
+			
+			System.out.println(conf.get("fedInfos"));
+			String[] nodes = conf.get("fedInfos").split(",");
+			for(int i = 0; i<nodes.length; i++){
+				mClusterWeight.add(-1d);
+			}
+			for(int i = 0; i<nodes.length; i++){
+					double infoGain = 0d;
+					String[] resources = nodes[i].split("=")[1].split(";");
+					System.out.println("Fomula " + nodes[i].split("=")[0] +"= " + resources[0] + "+" + resources[1] + "+" + resources[2]);
+					infoGain = WAN_FACTOR * Double.parseDouble(resources[0]) 
+							        //+ NODES_FACTOR * Double.parseDouble(resources[0])
+							        + MB_FACTOR * Double.parseDouble(resources[1])
+							        + VCORES_FACTOR * Double.parseDouble(resources[2]);
+							        //+ MAP_INPUTSIZE_FACTOR * Double.parseDouble(resources[3]); 
+					mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split("=")[0]+"/"), infoGain);
+									
+			}
+		/*	
+		    boolean barrier = true;
+			while(barrier){
+				String res = client.sendWaitBarrier(namenode.split("/")[2]);
+				if(res.contains(FedCloudProtocol.RES_TRUE_BARRIER))
+					barrier = true;
+				else if(res.contains(FedCloudProtocol.RES_FALSE_BARRIER))
+					barrier = false;
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
+			
+			String res = client.sendReqInterInfo(namenode.split("/")[2]);
+			if(res.contains(FedCloudProtocol.RES_INTER_INFO)){
+				String[] infonodes = res.substring(15).split(",");
+				for(int i = 0; i< infonodes.length; i++){
+					String interSize = infonodes[i].split("=")[1];
+					double currentGain = mClusterWeight.get(TopCloudHasher.setFileNameOrderInt("hdfs://"+infonodes[i].split("=")[0]+"/"));
+					currentGain += MAP_INPUTSIZE_FACTOR * Double.parseDouble(interSize); 
+					mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+infonodes[i].split("=")[0]+"/"), currentGain);
+					System.out.println("Fomula " + nodes[i].split("=")[0] +" += " +interSize);
+
+				}
+			}
+		*/
 			Double total = 0d;
 			for(Double speed: mClusterWeight){
 				total += speed;
@@ -213,13 +243,13 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 				mClusterWeight.set(j , (mClusterWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);
 			}
 			int s = 0;
-			for(Double speed: mClusterWeight){
-				System.out.println(s+"="+speed);
+			for(Double clusterWeight: mClusterWeight){
+				System.out.println(s+"="+clusterWeight);
 				s++;
 			}
 			setUpSections();
 		}
-
+		client.sendRegionInterTransferStartTime(namenode.split("/")[2]);
 		__reset();
 	}
 	private void setUpSections(){	
@@ -467,7 +497,7 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 			HW.out.close();
 			HW.client.close();
 		}
-		client.stopClientProbe();
+	
 
 	}
 }

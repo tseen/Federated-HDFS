@@ -24,6 +24,8 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
+import ncku.hpds.fed.MRv2.FedJobServerClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -948,6 +952,8 @@ public class MapTask extends Task {
     private MapOutputFile mapOutputFile;
     private Progress sortPhase;
     private Counters.Counter spilledRecordsCounter;
+    
+    private FedJobServerClient jclient;
 
     public MapOutputBuffer() {
     }
@@ -956,6 +962,17 @@ public class MapTask extends Task {
     public void init(MapOutputCollector.Context context
                     ) throws IOException, ClassNotFoundException {
       job = context.getJobConf();
+      String ip = job.get("fedCloudHDFS").split(":")[1].split("/")[2];
+  	  InetAddress address;
+      if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+	      try {
+	  		address = InetAddress.getByName(ip);
+	  		jclient = new FedJobServerClient(address.getHostAddress(), 8713);
+	  		jclient.start();
+	  	  } catch (UnknownHostException e1) {
+	  		e1.printStackTrace();
+	  	  }
+      }
       reporter = context.getReporter();
       mapTask = context.getMapTask();
       mapOutputFile = mapTask.getMapOutputFile();
@@ -1823,6 +1840,10 @@ public class MapTask extends Task {
           indexCacheList.get(0).writeToFile(
             mapOutputFile.getOutputIndexFileForWriteInVolume(filename[0]), job);
         }
+        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+        	String namenode = job.get("fs.default.name");
+        	jclient.sendInterDataSize(namenode.split("/")[2] + "," +Long.toString(finalOutFileSize));
+        }
         sortPhase.complete();
         return;
       }
@@ -1864,6 +1885,10 @@ public class MapTask extends Task {
           sr.writeToFile(finalIndexFile, job);
         } finally {
           finalOut.close();
+        }
+        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+        	String namenode = job.get("fs.default.name");
+        	jclient.sendInterDataSize(namenode.split("/")[2] + "," +Long.toString(finalOutFileSize));
         }
         sortPhase.complete();
         return;
@@ -1917,6 +1942,11 @@ public class MapTask extends Task {
             combineCollector.setWriter(writer);
             combinerRunner.combine(kvIter, combineCollector);
           }
+          
+          if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+          	String namenode = job.get("fs.default.name");
+          	jclient.sendInterDataSize(namenode.split("/")[2] + "," +Long.toString(finalOutFileSize));
+          }
 
           //close
           writer.close();
@@ -1931,6 +1961,9 @@ public class MapTask extends Task {
         }
         spillRec.writeToFile(finalIndexFile, job);
         finalOut.close();
+        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+        	jclient.stopClientProbe();
+        }
         for(int i = 0; i < numSpills; i++) {
           rfs.delete(filename[i],true);
         }

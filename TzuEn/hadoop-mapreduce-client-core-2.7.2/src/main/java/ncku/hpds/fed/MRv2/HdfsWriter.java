@@ -22,6 +22,7 @@ import java.util.EnumSet;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.CacheFlag;
+import org.apache.hadoop.fs.CreateFlag;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -182,6 +183,14 @@ public class HdfsWriter<K, V> {
 		try {
 			Configuration conf = new Configuration();
 			conf.set("fs.defaultFS", remoteHdfs);
+			/*try 
+			 FileSystem targetFS; 
+			 FSDataOutputStream out = targetFS.create(targetPath, permission,
+			          EnumSet.of(CreateFlag.CREATE, CreateFlag.OVERWRITE),
+			          BUFFER_SIZE, repl, blockSize, context,
+			          getChecksumOpt(fileAttributes, sourceChecksum));
+			      outStream = new BufferedOutputStream(out);
+			    */
 			client = new DFSClient(new URI(remoteHdfs), conf);
 			boolean existFile = false;
 			do{

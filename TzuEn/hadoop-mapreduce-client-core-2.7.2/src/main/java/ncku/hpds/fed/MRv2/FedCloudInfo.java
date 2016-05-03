@@ -7,7 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FedCloudInfo {
-	private long inputSize;
+	private long regionStartTime = 0;
+	private long interStartTime = 0;
+	private long interStopTime = 0;
+	private long topStartTime = 0;
+	private long topStopTime = 0;
+	boolean interStart = false;
+
+	
+	private long inputSize = 0;
+	private double inputSize_normalized = 0;
+
 	private String cloudName = "";
 	private int regionMapTime;
 	private int regionMapStartTime;
@@ -15,6 +25,8 @@ public class FedCloudInfo {
 	private double wanSpeed;
 	private int availableMB = 0;
 	private int activeNodes = 0;
+	private double availableMB_normalized = 0;
+	private double availableVcores_normalized = 0;
 	private int availableVcores = 0;
 	private boolean isMBset = false;
 	private boolean isNodesset = false;
@@ -22,7 +34,9 @@ public class FedCloudInfo {
 
 	
 	private Map<String, Double> wanSpeedMap = new HashMap<String, Double>();
-
+	private double minWanSpeed = 0d;
+	private double minWanSpeed_normalized = 0d;
+	
 	public FedCloudInfo(String Name){
 		cloudName = Name;
 	}
@@ -31,8 +45,8 @@ public class FedCloudInfo {
 		return inputSize;
 	}
 
-	public void setInputSize(long inputSize) {
-		this.inputSize = inputSize;
+	public synchronized void setInputSize(long inputSize) {
+		this.inputSize += inputSize;
 	}
 
 	public String getCloudName() {
@@ -152,6 +166,109 @@ public class FedCloudInfo {
 
 	public void setVcoresset(boolean isVcoresset) {
 		this.isVcoresset = isVcoresset;
+	}
+
+
+	public double getInputSize_normalized() {
+		return inputSize_normalized;
+	}
+
+	public void setInputSize_normalized(double inputSize_normalized) {
+		this.inputSize_normalized = inputSize_normalized;
+	}
+
+	public double getAvailableMB_normalized() {
+		return availableMB_normalized;
+	}
+
+	public void setAvailableMB_normalized(double availableMB_normalized) {
+		this.availableMB_normalized = availableMB_normalized;
+	}
+
+
+	public double getAvailableVcores_normalized() {
+		return availableVcores_normalized;
+	}
+
+	public void setAvailableVcores_normalized(double availableVcores_normalized) {
+		this.availableVcores_normalized = availableVcores_normalized;
+	}
+
+	public double getMinWanSpeed() {
+		return minWanSpeed;
+	}
+
+	public void setMinWanSpeed(double minWanSpeed) {
+		this.minWanSpeed = minWanSpeed;
+	}
+
+	public double getMinWanSpeed_normalized() {
+		return minWanSpeed_normalized;
+	}
+
+	public void setMinWanSpeed_normalized(double minWanSpeed_normalized) {
+		this.minWanSpeed_normalized = minWanSpeed_normalized;
+	}
+
+	public long getRegionStartTime() {
+		return regionStartTime;
+	}
+
+	public void setRegionStartTime() {
+		this.regionStartTime = System.currentTimeMillis();
+	//	System.out.println(this.cloudName + "regionStartTime"+regionStartTime);
+	}
+
+	public long getInterStartTime() {
+		return interStartTime;
+	}
+
+	public void setInterStartTime() {
+		if(! interStart){
+			this.interStartTime = System.currentTimeMillis();
+		//	System.out.println(this.cloudName + "interStartTime"+interStartTime);
+			interStart = true;
+		}
+	}
+
+	public long getInterStopTime() {
+		return interStopTime;
+	}
+
+	public void setInterStopTime() {
+		this.interStopTime = System.currentTimeMillis();
+		//System.out.println(this.cloudName + "interStopTime"+interStopTime);
+
+	}
+
+	public long getTopStartTime() {
+		return topStartTime;
+	}
+
+	public void setTopStartTime() {
+		this.topStartTime = System.currentTimeMillis();
+		//System.out.println(this.cloudName + "topStartTime"+topStartTime);
+
+	}
+
+	public long getTopStopTime() {
+		return topStopTime;
+	}
+
+	public void setTopStopTime() {
+		this.topStopTime = System.currentTimeMillis();
+		//System.out.println(this.cloudName + "topStopTime"+topStopTime);
+
+	}
+	
+	public void printTime(){
+		long regionMap = this.interStartTime - this.regionStartTime;
+		long inter = this.interStopTime - this.interStartTime;
+		long top = this.topStopTime - this.topStartTime;
+		System.out.println(this.cloudName + " Region Map Time = "+ regionMap/1000+"(s)");
+		System.out.println(this.cloudName + " Inter Transfer Time = "+ inter/1000+"(s)");
+		System.out.println(this.cloudName + " Top Time = "+ top/1000+"(s)");
+
 	}
 
 }

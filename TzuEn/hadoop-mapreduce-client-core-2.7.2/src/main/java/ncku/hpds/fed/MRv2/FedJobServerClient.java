@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class FedJobServerClient extends Thread {
 	private String mIP = "";
@@ -41,11 +42,11 @@ public class FedJobServerClient extends Thread {
 					mSocket.setKeepAlive(true);
 					mSocket.connect(new InetSocketAddress(mIP, mPort), 300000);
 					if (mSocket.isConnected()) {
-						mRunFlag = true;
 						mInput = new BufferedReader(new InputStreamReader(
 								mSocket.getInputStream()));
 						mOutput = new PrintWriter(mSocket.getOutputStream());
 						mState = FedCloudProtocol.FedSocketState.CONNECTED;
+						mRunFlag = true;
 						break;
 					}
 				} catch (Exception e) {
@@ -93,6 +94,8 @@ public class FedJobServerClient extends Thread {
 		}
 	} // end of run
 	private String sendMessage(String m) {
+		while( ! (mSocket != null) ){
+		}
         String res = "";
         try {
             synchronized ( mLock ) {
@@ -140,8 +143,11 @@ public class FedJobServerClient extends Thread {
 	public String sendRegionMapFinished(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_REGION_MAP_FINISHED +" "+ fs );
 	}
-	public String sendReqWAN(String fs) { 
-		return sendMessage( FedCloudProtocol.REQ_WAN_SPEED +" "+ fs );
+	public String sendReqInfo(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_INFO +" "+ fs );
+	}
+	public String sendReqInterInfo(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_INTER_INFO +" "+ fs );
 	}
 	public String sendRegionResource(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_REGION_RESOURCE+" "+ fs );
@@ -149,10 +155,31 @@ public class FedJobServerClient extends Thread {
 	public String sendRegionWAN(String from, String dest, double speed) { 
 		return sendMessage( FedCloudProtocol.REQ_REGION_WAN +" "+from+">"+ dest+">"+ Double.toString(speed) );
 	}
+	public String sendInterDataSize(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_INTER_SIZE+" "+ fs );
+	}
+	public String sendWaitBarrier(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_WAIT_BARRIER+" "+ fs );
+	}
+	public String sendRegionMapStartTime(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_RM_START+" "+fs);
+	}
+	public String sendRegionInterTransferStartTime(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_INTER_START+" "+fs);
+	}
+	public String sendRegionInterTransferStopTime(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_INTER_STOP+" "+fs);
+	}
+	public String sendTopStartTime(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_TOP_START+" "+fs);
+	}
+	public String sendTopStopTime(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_TOP_STOP+" "+fs);
+	}
 	
 	public void stopClientProbe() {
         try { 
-            sendMessage( FedCloudProtocol.REQ_BYE ); 
+           // sendMessage( FedCloudProtocol.REQ_BYE ); 
             mRunFlag = false;
             this.join();
         } catch ( Exception e ) {

@@ -22,9 +22,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,6 +36,8 @@ import java.util.Set;
 
 import javax.crypto.SecretKey;
 import javax.net.ssl.HttpsURLConnection;
+
+import ncku.hpds.fed.MRv2.FedJobServerClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,6 +108,7 @@ class Fetcher<K,V> extends Thread {
   private static boolean sslShuffle;
   private static SSLFactory sslFactory;
 
+
   public Fetcher(JobConf job, TaskAttemptID reduceId, 
                  ShuffleSchedulerImpl<K,V> scheduler, MergeManager<K,V> merger,
                  Reporter reporter, ShuffleClientMetrics metrics,
@@ -118,6 +123,7 @@ class Fetcher<K,V> extends Thread {
                  Reporter reporter, ShuffleClientMetrics metrics,
                  ExceptionReporter exceptionReporter, SecretKey shuffleKey,
                  int id) {
+	 
     this.jobConf = job;
     this.reporter = reporter;
     this.scheduler = scheduler;
@@ -465,6 +471,7 @@ class Fetcher<K,V> extends Thread {
   }
   
   private static TaskAttemptID[] EMPTY_ATTEMPT_ID_ARRAY = new TaskAttemptID[0];
+
   
   private TaskAttemptID[] copyMapOutput(MapHost host,
                                 DataInputStream input,
@@ -509,6 +516,7 @@ class Fetcher<K,V> extends Thread {
             ", decomp len: " + decompressedLength);
       }
       
+      
       // Get the location for the map output - either in-memory or on-disk
       try {
         mapOutput = merger.reserve(mapId, decompressedLength, id);
@@ -536,6 +544,7 @@ class Fetcher<K,V> extends Thread {
             + " len: " + compressedLength + " to " + mapOutput.getDescription());
         mapOutput.shuffle(host, is, compressedLength, decompressedLength,
             metrics, reporter);
+        
       } catch (java.lang.InternalError e) {
         LOG.warn("Failed to shuffle for fetcher#"+id, e);
         throw new IOException(e);

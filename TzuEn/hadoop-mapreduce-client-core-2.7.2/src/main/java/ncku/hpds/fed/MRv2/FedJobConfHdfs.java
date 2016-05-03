@@ -4,7 +4,9 @@
 package ncku.hpds.fed.MRv2;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,8 +18,12 @@ import java.util.Map.Entry;
 //import ncku.hpds.hadoop.fedhdfs.TopcloudSelector;
 //import ncku.hpds.hadoop.fedhdfs.shell.GetRegionPath;
 
+
+
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
@@ -221,7 +227,12 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 			//		long dataSize = thisCluster.getDataSize(globalfileInput,
 			//				conf.getName());
 					
-			//		fedinfo.setInputSize(dataSize);
+					//Configuration tmpconf = new Configuration();
+					//tmpconf.set("fs.defaultFS", "hdfs://" + conf.getTopCloudHDFSURL());
+					//recursivelySumOfLen(globalfileInput, tmpconf );
+					//long dataSize = getSumOfLen();
+					//System.out.println(fedinfo.getCloudName() +",file:"+ globalfileInput +",size:" + dataSize);
+					//fedinfo.setInputSize(dataSize);
 					mFedCloudInfos.put(conf.getTopCloudHDFSURL(), fedinfo);
 					if(multiInput){
 						conf.setMultiFormat(multiFormat);
@@ -531,6 +542,41 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 			Class<? extends Reducer> mapper) {
 		// TODO Auto-generated method stub
 		
+	}
+	private ArrayList<Long> tmpFsLenElement = new ArrayList<Long>();
+
+	public void recursivelySumOfLen(String Uri, Configuration conf) throws IOException {
+		
+		try {
+
+			FileSystem FS = FileSystem.get(URI.create(Uri), conf);
+			FileStatus[] status = FS.listStatus(new Path(Uri));
+
+			for (int i = 0; i < status.length; i++) {
+				if (status[i].isDirectory()) {
+					recursivelySumOfLen(status[i].getPath().toString(), conf);
+
+				} else {
+					try {
+						FileStatus fileStatus = FS.getFileStatus(new Path(status[i].getPath().toString()));
+						tmpFsLenElement.add(fileStatus.getLen());
+					} catch (Exception e) {
+						System.err.println(e.toString());
+					}
+				}
+			}
+		} catch (IOException e) {
+			
+		}
+	}
+	public long getSumOfLen(){
+		
+		long sumOfLen = 0;
+		for (int i = 0; i < tmpFsLenElement.size(); i++) {
+			sumOfLen +=  tmpFsLenElement.get(i);
+		}
+		tmpFsLenElement = new  ArrayList<Long>();
+		return sumOfLen;
 	}
 
 }
