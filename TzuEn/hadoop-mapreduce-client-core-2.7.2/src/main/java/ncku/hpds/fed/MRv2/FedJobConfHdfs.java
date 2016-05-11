@@ -223,17 +223,17 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 					mTopCloudHDFSURLs = conf.getTopCloudHDFSURLs();
 					FedCloudInfo fedinfo = new FedCloudInfo(
-							conf.getTopCloudHDFSURL());
+							conf.getHDFSUrl());
 			//		long dataSize = thisCluster.getDataSize(globalfileInput,
 			//				conf.getName());
 					
-					//Configuration tmpconf = new Configuration();
-					//tmpconf.set("fs.defaultFS", "hdfs://" + conf.getTopCloudHDFSURL());
-					//recursivelySumOfLen(globalfileInput, tmpconf );
-					//long dataSize = getSumOfLen();
-					//System.out.println(fedinfo.getCloudName() +",file:"+ globalfileInput +",size:" + dataSize);
-					//fedinfo.setInputSize(dataSize);
-					mFedCloudInfos.put(conf.getTopCloudHDFSURL(), fedinfo);
+					Configuration tmpconf = new Configuration();
+					tmpconf.set("fs.defaultFS", "hdfs://" + conf.getHDFSUrl());
+					recursivelySumOfLen(globalfileInput, tmpconf );
+					long dataSize = getSumOfLen();
+					System.out.println(fedinfo.getCloudName() +",file:"+ globalfileInput +",size:" + dataSize);
+					fedinfo.setMapInputSize(dataSize);
+					mFedCloudInfos.put(conf.getHDFSUrl(), fedinfo);
 					if(multiInput){
 						conf.setMultiFormat(multiFormat);
 						conf.setMultiMapper(multiMapper);
@@ -494,8 +494,35 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		mFedCloudMonitorClientList.clear();
 		for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 			if(currentIter>1){
+				
+				FedCloudInfo fedInfo = mFedCloudInfos.get(conf.getHDFSUrl());
+				Configuration tmpconf = new Configuration();
+				tmpconf.set("fs.defaultFS", "hdfs://" + conf.getHDFSUrl());
+				try {
+					recursivelySumOfLen(filename+ "_"
+							+ Integer.toString(currentIter - 1 ), tmpconf );
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				long dataSize = getSumOfLen();
+				//System.out.println(fedInfo.getCloudName() +",file:"+ filename+ "_"
+				//		+ Integer.toString(currentIter - 1 ) +",size:" + dataSize);
+				for (int i =0; i < mRegionCloudOutputPaths.length; i++) {
+					try {
+						recursivelySumOfLen(mRegionCloudOutputPaths[i].toString() + "_" + Integer.toString(currentIter-1), tmpconf );
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				long prevReduceInputSize = getSumOfLen();
+				
+				fedInfo.setReduceInputSize(prevReduceInputSize);
+				fedInfo.setReduceSpeed();
+				fedInfo.setMapInputSize(dataSize);
+				fedInfo.setInterSize_iter();
 				conf.setHDFSInputPath(filename+ "_"
 						+ Integer.toString(currentIter - 1 ));
+				conf.setIteration("true");
 			}
 
 			conf.setHDFSOutputPath(conf.getName() + "_" + conf.getMainClass()
@@ -527,7 +554,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 							.getRegionCloudServerListenPort()));
 			mFedCloudMonitorClientList.add(client);
 		}
-
+		
 	}
 
 	@Override

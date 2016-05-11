@@ -119,7 +119,7 @@ public class HdfsWriter<K, V> {
 			writeObject(key);
 		}
 		if (!(nullKey || nullValue)) {
-			out.write("=".getBytes());
+			out.write("#=".getBytes());
 		}
 		if (!nullValue) {
 			writeObject(value);

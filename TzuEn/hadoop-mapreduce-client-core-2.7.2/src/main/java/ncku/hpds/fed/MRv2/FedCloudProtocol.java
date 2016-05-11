@@ -26,6 +26,8 @@ public class FedCloudProtocol {
     public static final String REQ_REGION_WAN = "Region-WAN";
     public static final String RES_REGION_WAN = "WOK";
 	public static final String REQ_INFO = "req-WAN-Infos";
+	public static final String REQ_INFO_2 = "req-realValue";
+
 	public static final String RES_INFO = "res-WAN-Infos";
 	public static final String REQ_REGION_RESOURCE = "req-reg-resrc";
 	public static final String RES_REGION_RESOURCE = "res-reg-resrc";
@@ -41,6 +43,7 @@ public class FedCloudProtocol {
 	public static final String REQ_INTER_STOP = "inter---stop";
 	public static final String REQ_TOP_START = "top-start";
 	public static final String REQ_TOP_STOP = "top--stop";
+	public static final String REQ_RM_STOP = "region--stop";
 
 
 

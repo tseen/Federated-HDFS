@@ -37,7 +37,7 @@ public final class TopCloudHasher {
 	public static String setFileNameOrder(String topUrl){
 		
 		for(int i = 0 ; i< topURLs.size(); i++){
-			System.out.println("TopCloudHasher:"+topURLs.get(i)+" "+topUrl);
+			//System.out.println("TopCloudHasher:"+topURLs.get(i)+" "+topUrl);
 			if((topURLs.get(i)+"/").equalsIgnoreCase(topUrl))
 				return "/" + Integer.toString(i) ;
 		}
@@ -46,7 +46,7 @@ public final class TopCloudHasher {
 	public static int setFileNameOrderInt(String topUrl){
 		
 		for(int i = 0 ; i< topURLs.size(); i++){
-			System.out.println("TopCloudHasherINT:"+topURLs.get(i)+" "+topUrl);
+			//System.out.println("TopCloudHasherINT:"+topURLs.get(i)+" "+topUrl);
 			if((topURLs.get(i)+"/").equalsIgnoreCase(topUrl))
 				return i ;
 		}

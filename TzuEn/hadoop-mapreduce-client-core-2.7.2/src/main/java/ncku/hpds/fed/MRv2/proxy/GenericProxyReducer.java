@@ -43,10 +43,10 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 	private boolean firstInput = true;
 	private static int PARTITION_GRAIN_NUMBERS = 1000;
 	private static double NODES_FACTOR = 0d;
-	private static double MB_FACTOR = 0.5d;
-	private static double VCORES_FACTOR = 0.5d;
-	private static double WAN_FACTOR = 1d;
-	private static double MAP_INPUTSIZE_FACTOR = 0d;
+	private static double MB_FACTOR = 0.17d;
+	private static double VCORES_FACTOR = 0.16d;
+	private static double WAN_FACTOR = 0.33d;
+	private static double MAP_INPUTSIZE_FACTOR = 0.33d;
 
 
 
@@ -185,29 +185,38 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 		}
 		client = new FedJobServerClient(address.getHostAddress(), 8713);
 		client.start();
-		if(conf.get("wanOpt").equals("true")){
-			
+		client.sendRegionMapStopTime(namenode.split("/")[2]);
+		if(conf.get("wanOpt").equals("true") && !conf.get("preciseIter").equals("true")){
+			HashMap<String, Double> interSizeMap = new HashMap<String, Double>();
 			mWanOpt = true;
 			
-			
-			System.out.println(conf.get("fedInfos"));
+			//c03:39100>>c02:39100=100||c04:39100=3||;1.0;1.0,
+			System.out.println("FEDINFO	" + conf.get("fedInfos"));
 			String[] nodes = conf.get("fedInfos").split(",");
 			for(int i = 0; i<nodes.length; i++){
 				mClusterWeight.add(-1d);
 			}
 			for(int i = 0; i<nodes.length; i++){
 					double infoGain = 0d;
-					String[] resources = nodes[i].split("=")[1].split(";");
-					System.out.println("Fomula " + nodes[i].split("=")[0] +"= " + resources[0] + "+" + resources[1] + "+" + resources[2]);
-					infoGain = WAN_FACTOR * Double.parseDouble(resources[0]) 
+					String[] resources = nodes[i].split(">>")[1].split(";");
+					String wan[] = resources[0].split("/");
+					double minWAN = Double.MAX_VALUE;
+					for(String Wan : wan){
+						double w = Double.parseDouble(Wan.split("=")[1]);
+						if(w < minWAN)
+							minWAN = w;
+					}
+					System.out.println("Fomula " + nodes[i].split(">>")[0] +"= " + minWAN + "+" + resources[1] + "+" + resources[2]);
+
+					infoGain = WAN_FACTOR * minWAN 
 							        //+ NODES_FACTOR * Double.parseDouble(resources[0])
 							        + MB_FACTOR * Double.parseDouble(resources[1])
 							        + VCORES_FACTOR * Double.parseDouble(resources[2]);
 							        //+ MAP_INPUTSIZE_FACTOR * Double.parseDouble(resources[3]); 
-					mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split("=")[0]+"/"), infoGain);
+					mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split(">>")[0]+"/"), infoGain);
 									
 			}
-		/*	
+			
 		    boolean barrier = true;
 			while(barrier){
 				String res = client.sendWaitBarrier(namenode.split("/")[2]);
@@ -226,18 +235,99 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 			if(res.contains(FedCloudProtocol.RES_INTER_INFO)){
 				String[] infonodes = res.substring(15).split(",");
 				for(int i = 0; i< infonodes.length; i++){
+					String cluster = infonodes[i].split("=")[0];
 					String interSize = infonodes[i].split("=")[1];
-					double currentGain = mClusterWeight.get(TopCloudHasher.setFileNameOrderInt("hdfs://"+infonodes[i].split("=")[0]+"/"));
-					currentGain += MAP_INPUTSIZE_FACTOR * Double.parseDouble(interSize); 
-					mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+infonodes[i].split("=")[0]+"/"), currentGain);
-					System.out.println("Fomula " + nodes[i].split("=")[0] +" += " +interSize);
-
+					interSizeMap.put(cluster, Double.parseDouble(interSize));
 				}
 			}
-		*/
+			for(int i = 0; i<nodes.length; i++){
+				String[] resources = nodes[i].split(">>")[1].split(";");
+				String wan[] = resources[0].split("/");
+			    //System.out.println("Fomula " + nodes[i].split(">>")[0] +"= " + minWAN + "+" + resources[1] + "+" + resources[2]);
+				double multiInfoGain[];
+				multiInfoGain = new double[wan.length];
+				int a = 0;
+				for(String Wan : wan){
+					String cluster = Wan.split("=")[0];
+					double w = Double.parseDouble(Wan.split("=")[1]);
+					double inter = interSizeMap.get(cluster);
+					double W = WAN_FACTOR * w;
+					double C =  MB_FACTOR * Double.parseDouble(resources[1])
+			        		  + VCORES_FACTOR * Double.parseDouble(resources[2]);
+					double I = MAP_INPUTSIZE_FACTOR * inter;
+					multiInfoGain[a] = (W * C)/((W + C) * I);
+					System.out.println("Formula "+ nodes[i].split(">>")[0] +"=" + cluster + " " + w +" /"+" "+inter +"="+ multiInfoGain[a]);
+					a++;
+				}
+				double minGain = Double.MAX_VALUE;
+				for(double gain : multiInfoGain ){
+					if(gain < minGain)
+						minGain = gain;
+				}
+				System.out.println("minGain="+minGain);
+				mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split(">>")[0]+"/"), minGain);
+			}
+			
+			
+		
 			Double total = 0d;
-			for(Double speed: mClusterWeight){
-				total += speed;
+			for(Double weight: mClusterWeight){
+				total += weight;
+			}
+			for(int j = 0; j<mClusterWeight.size(); j++){
+				mClusterWeight.set(j , (mClusterWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);
+			}
+			int s = 0;
+			for(Double clusterWeight: mClusterWeight){
+				System.out.println(s+"="+clusterWeight);
+				s++;
+			}
+			setUpSections();
+		}
+		else if(conf.get("wanOpt").equals("true") && conf.get("preciseIter").equals("true")){
+			HashMap<String, Double> interSizeMap = new HashMap<String, Double>();
+			mWanOpt = true;
+			
+			//c03:39100>>c02:39100=100||c04:39100=3||;1.0;1.0,
+			System.out.println("FEDINFO	" + conf.get("fedInfos"));
+			String[] nodes = conf.get("fedInfos").split(",");
+			for(int i = 0; i<nodes.length; i++){
+				mClusterWeight.add(-1d);
+			}
+			for(int i = 0; i<nodes.length; i++){
+				String[] resources = nodes[i].split(">>")[1].split(";");
+				String cluster = nodes[i].split(">>")[0];
+				String interSize = resources[2];
+				interSizeMap.put(cluster, Double.parseDouble(interSize));
+			}
+			for(int i = 0; i<nodes.length; i++){
+					String[] resources = nodes[i].split(">>")[1].split(";");
+					String wan[] = resources[0].split("/");
+					double multiInfoGain[];
+					multiInfoGain = new double[wan.length];
+					int a = 0;
+					for(String Wan : wan){
+						String cluster = Wan.split("=")[0];
+						double W = Double.parseDouble(Wan.split("=")[1]) * 1024 *1024;
+						double C = Double.parseDouble(resources[1]);
+						double I = interSizeMap.get(cluster);
+						multiInfoGain[a] = (W * C)/((W + C) * I);
+						System.out.println("Formula "+ nodes[i].split(">>")[0] +"=" + cluster + " " + W +" ," + C + "," + I +"="+ multiInfoGain[a]);
+						a++;
+					}
+					double minGain = Double.MAX_VALUE;
+					for(double gain : multiInfoGain ){
+						if(gain < minGain)
+							minGain = gain;
+					}
+					System.out.println("minGain="+minGain);
+					mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split(">>")[0]+"/"), minGain);
+													
+			}
+			
+			Double total = 0d;
+			for(Double weight: mClusterWeight){
+				total += weight;
 			}
 			for(int j = 0; j<mClusterWeight.size(); j++){
 				mClusterWeight.set(j , (mClusterWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);

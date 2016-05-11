@@ -79,9 +79,7 @@ public class FedHdfsConfParser {
                     fedHadoopConfTop.setAddress(fs[0]);
                     fedHadoopConfTop.setHadoopHome(
                             getTagValue("hadoop-home.dir", clusterElement ,INVALID_VALUE));
-                    // for now, its just setting its own hdfs url
-                    // TODO: change the TOPCloudHDFSURL name to a more proper one
-                    fedHadoopConf.setTopCloudHDFSURL(
+                    fedHadoopConf.setHDFSUrl(
                     		getTagValue("fs.default.name", clusterElement,INVALID_VALUE) );
                     fedHadoopConfTop.setTopCloudHDFSURL(
                     		getTagValue("fs.default.name", clusterElement,INVALID_VALUE) );

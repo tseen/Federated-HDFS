@@ -111,6 +111,8 @@ public class FedRegionCloudJob extends Thread {
         cmd = cmd + " -DtopNumbers=" + mConf.getTopTaskNumbers() + " ";
         cmd = cmd + " -DproxyReduce=" + mConf.getProxyReduce() + " ";
         cmd = cmd + " -DwanOpt=" + mConf.getWanOpt() + " ";
+        cmd = cmd + " -DpreciseIter=" + mConf.getIteration() +" ";
+
 
         
 		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){

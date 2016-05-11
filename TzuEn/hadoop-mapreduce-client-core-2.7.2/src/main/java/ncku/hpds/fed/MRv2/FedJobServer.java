@@ -32,7 +32,7 @@ public class FedJobServer extends Thread{
 	private FedCloudProtocol.FedSocketState mState = 
 			FedCloudProtocol.FedSocketState.NONE;
 	private Map<String,FedCloudInfo> mFedCloudInfos = new HashMap<String, FedCloudInfo>();
-	private Map<String,Double> mDownSpeed = new HashMap<String, Double>();
+	private Map<String,String> mDownSpeed = new HashMap<String, String>();
 	private AtomicBoolean isSet = new AtomicBoolean(false);
 	private ArrayList<String> mFedCloudName;
 
@@ -152,11 +152,15 @@ public class FedJobServer extends Thread{
 		}
 		this.mFedCloudInfos = mFedCloudInfos;
 	}
-	public Map<String,Double> getDownSpeed() {
+	public Map<String,String> getDownSpeed() {
 		return mDownSpeed;
 	}
 
-	public void setDownSpeed(Map<String,Double> mDownSpeed) {
+	/*public void setDownSpeed(Map<String,Double> mDownSpeed) {
+		this.isSet.set(true);
+		this.mDownSpeed = mDownSpeed;
+	}*/
+	public void setDownSpeed(Map<String,String> mDownSpeed) {
 		this.isSet.set(true);
 		this.mDownSpeed = mDownSpeed;
 	}
@@ -170,12 +174,12 @@ public class FedJobServer extends Thread{
 				FedCloudProtocol.FedSocketState.NONE;
 		private Map<String,FedCloudInfo> nFedCloudInfos = new HashMap<String, FedCloudInfo>();
 		private Socket nSocket = null;
-		private Map<String,Double> nDownSpeed = new HashMap<String, Double>();
+		private Map<String,String> nDownSpeed = new HashMap<String, String>();
 		private final  AtomicBoolean isSet;
 
 		
 		public jobServer(Socket s, Map<String, FedCloudInfo> nFedCloudInfos2, 
-				Map<String,Double> nDownSpeed2, AtomicBoolean isset){
+				Map<String,String> nDownSpeed2, AtomicBoolean isset){
 			super("jobServer");
 			this.nSocket = s;
 			this.nFedCloudInfos = nFedCloudInfos2;
@@ -245,17 +249,17 @@ public class FedJobServer extends Thread{
 									for (Entry<String, FedCloudInfo> info : mFedCloudInfos.entrySet())
 									{
 										FedCloudInfo fedInfo = info.getValue();
-										System.out.println("Inter size:"+fedInfo.getCloudName()+"="+fedInfo.getInputSize());
-										if( fedInfo.getInputSize() < minInputsize){
-											minInputsize = fedInfo.getInputSize();
+										System.out.println("Inter size:"+fedInfo.getCloudName()+"="+fedInfo.getInterSize());
+										if( fedInfo.getInterSize() < minInputsize){
+											minInputsize = fedInfo.getInterSize();
 										}
 									}
 									for (Entry<String, FedCloudInfo> info : mFedCloudInfos.entrySet()) 
 									{
 										FedCloudInfo fedInfo = info.getValue();
-										fedInfo.setInputSize_normalized((double)fedInfo.getInputSize() /(double) minInputsize);
+										fedInfo.setInterSize_normalized((double)fedInfo.getInterSize() /(double) minInputsize);
 										res += info.getKey()+"="
-												 +info.getValue().getInputSize_normalized()+",";
+												 +info.getValue().getInterSize_normalized()+",";
 									}
 									System.out.println(res);
 									clientOutput.println( FedCloudProtocol.RES_INTER_INFO+" "+res );
@@ -295,10 +299,46 @@ public class FedJobServer extends Thread{
 																 +entry.getValue().getAvailableVcores()+";"
 																 +entry.getValue().getInputSize()+",";
 																 */
-										res += entry.getKey()+"="
-												 +entry.getValue().getMinWanSpeed_normalized()+";"
+										res += entry.getKey()+">>"
+												 +entry.getValue().getDownLinkSpeed_normalized()+";"
 												 +entry.getValue().getAvailableMB_normalized()+";"
 												 +entry.getValue().getAvailableVcores_normalized()+",";
+												 //+entry.getValue().getInputSize_normalized()+",";
+									}
+								
+									System.out.println(res);
+									clientOutput.println( FedCloudProtocol.RES_INFO+" "+res );
+									clientOutput.flush();
+									
+									nRunFlag = false;
+									clientInput.close();
+									clientOutput.close();
+									
+								}
+								if ( line.contains( FedCloudProtocol.REQ_INFO_2 ) ) {
+									
+									System.out.println("-----------------------------");
+									System.out.println("get Info"+nSocket.getInetAddress().toString());
+									System.out.println("-----------------------------");
+									while(!isSet.get()){
+									}
+									System.out.println("START REPLY:"+nSocket.getInetAddress().toString() );
+									String res = "";
+									//for (Map.Entry<String, Double> entry : mDownSpeed.entrySet())
+									//{
+									//	res += entry.getKey()+"="+entry.getValue()+",";
+									//}
+									for (Entry<String, FedCloudInfo> entry : mFedCloudInfos.entrySet())
+									{
+										/*res += entry.getKey()+"="+entry.getValue().getActiveNodes()+";"
+																 +entry.getValue().getAvailableMB()+";"
+																 +entry.getValue().getAvailableVcores()+";"
+																 +entry.getValue().getInputSize()+",";
+																 */
+										res += entry.getKey()+">>"
+												 +entry.getValue().getDownLinkSpeed()+";"
+												 +entry.getValue().getReduceSpeed()+";"
+												 +entry.getValue().getReduceInputSize()+",";
 												 //+entry.getValue().getInputSize_normalized()+",";
 									}
 								
@@ -333,10 +373,10 @@ public class FedJobServer extends Thread{
 									String[] info = infos.split(",");
 									clientOutput.println( FedCloudProtocol.RES_INTER_SIZE );
 									clientOutput.flush();
-									System.out.println("-----------------------------");
-									System.out.println("get region inter-data size"+nSocket.getInetAddress().toString()+ "|"+ infos );
-									System.out.println("-----------------------------");
-									nFedCloudInfos.get(info[0]).setInputSize(Long.parseLong(info[1]));
+									//System.out.println("-----------------------------");
+									System.out.println("get region inter-data size: "+nSocket.getInetAddress().toString()+ " = "+ infos );
+									//System.out.println("-----------------------------");
+									nFedCloudInfos.get(info[0]).setInterSize(Long.parseLong(info[1]));
 								}
 								if ( line.contains( FedCloudProtocol.REQ_REGION_RESOURCE) ) {
 									String infos = line.substring(14);
@@ -358,6 +398,13 @@ public class FedJobServer extends Thread{
 									clientOutput.println( "ok" );
 									clientOutput.flush();
 									nFedCloudInfos.get(infos).setRegionStartTime();
+								}
+								if ( line.contains( FedCloudProtocol.REQ_RM_STOP) ) {
+									System.out.println(line);
+									String infos = line.substring(13);
+									clientOutput.println( "ok" );
+									clientOutput.flush();
+									nFedCloudInfos.get(infos).setRegionMapStopTime();
 								}
 								if ( line.contains( FedCloudProtocol.REQ_INTER_START) ) {
 									System.out.println(line);

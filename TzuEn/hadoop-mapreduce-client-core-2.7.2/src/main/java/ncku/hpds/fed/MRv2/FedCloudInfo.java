@@ -8,15 +8,25 @@ import java.util.Map;
 
 public class FedCloudInfo {
 	private long regionStartTime = 0;
+	private long regionMapStopTime = 0;
 	private long interStartTime = 0;
 	private long interStopTime = 0;
 	private long topStartTime = 0;
 	private long topStopTime = 0;
 	boolean interStart = false;
-
 	
-	private long inputSize = 0;
-	private double inputSize_normalized = 0;
+	private long mapInputSize = 0;
+	private double mapInputSize_normalized = 0;
+	
+	private long reduceInputSize = 0;
+	
+	private long interSize = 0;
+	private double mapFactor = 0;
+	private double interSize_normalized = 0;
+	
+	private double mapSpeed = 0;
+	private double tansferSpeed = 0;
+	private double reduceSpeed = 0;
 
 	private String cloudName = "";
 	private int regionMapTime;
@@ -34,6 +44,9 @@ public class FedCloudInfo {
 
 	
 	private Map<String, Double> wanSpeedMap = new HashMap<String, Double>();
+	private String downLinkSpeed = "";
+	private String downLinkSpeed_normalized = "";
+
 	private double minWanSpeed = 0d;
 	private double minWanSpeed_normalized = 0d;
 	
@@ -41,12 +54,18 @@ public class FedCloudInfo {
 		cloudName = Name;
 	}
 
-	public long getInputSize() {
-		return inputSize;
+	public long getInterSize() {
+		return interSize;
 	}
 
-	public synchronized void setInputSize(long inputSize) {
-		this.inputSize += inputSize;
+	public synchronized void setInterSize(long interSize) {
+		this.interSize += interSize;
+	}
+	
+	public void setInterSize_iter(){
+		this.interSize = (long) (this.mapInputSize * this.mapFactor);
+		System.out.println("inter size approx : " + this.interSize +"="+this.mapInputSize+"*"+this.mapFactor);
+		this.interSize = 0;
 	}
 
 	public String getCloudName() {
@@ -67,8 +86,8 @@ public class FedCloudInfo {
 	}
 	public void setRegionMapTime(int regionMapTime) {
 		this.regionMapTime = regionMapTime;
-		System.out.println(this.cloudName+" time:"+this.regionMapTime+"-"+this.regionMapStartTime+" size:"+this.inputSize);
-		System.out.println(this.cloudName+" speed:"+(double)((double)this.inputSize/((double)this.regionMapTime-(double)this.regionMapStartTime)));
+	//	System.out.println(this.cloudName+" time:"+this.regionMapTime+"-"+this.regionMapStartTime+" size:"+this.inputSize);
+	//	System.out.println(this.cloudName+" speed:"+(double)((double)this.inputSize/((double)this.regionMapTime-(double)this.regionMapStartTime)));
 	}
 
 	public double getWanSpeed() {
@@ -91,6 +110,20 @@ public class FedCloudInfo {
 		//System.out.println("WAN speed:"+cloudName+"->"+dest+":"+speed);
 		wanSpeedMap.put(dest, speed);
 		wanSpeedCount++;
+	}
+	public void collectWanSpeed(Map<String, String> downSpeed){
+		for (Map.Entry<String, Double> wan : wanSpeedMap
+				.entrySet()) {
+			System.out.println("CollectAllWAN:"+cloudName+">"+wan.getKey()+"="+wan.getValue());
+			if(!cloudName.equals(wan.getKey())){
+					String speed = downSpeed.get(wan.getKey());
+					if(speed == null)
+						downSpeed.put(wan.getKey(), this.cloudName+"="+Double.toString(wan.getValue())+"/");
+					else
+						downSpeed.put(wan.getKey(), speed + this.cloudName+"="+Double.toString(wan.getValue())+"/");
+				//downSpeed.put(wan.getKey(), currentMinimum + wan.getValue());
+			}
+		}
 	}
 	
 	public void collectWanSpeedandGetPartitionStrategy(Map<String, Double> downSpeed){
@@ -169,12 +202,12 @@ public class FedCloudInfo {
 	}
 
 
-	public double getInputSize_normalized() {
-		return inputSize_normalized;
+	public double getInterSize_normalized() {
+		return interSize_normalized;
 	}
 
-	public void setInputSize_normalized(double inputSize_normalized) {
-		this.inputSize_normalized = inputSize_normalized;
+	public void setInterSize_normalized(double interSize_normalized) {
+		this.interSize_normalized = interSize_normalized;
 	}
 
 	public double getAvailableMB_normalized() {
@@ -262,13 +295,93 @@ public class FedCloudInfo {
 	}
 	
 	public void printTime(){
-		long regionMap = this.interStartTime - this.regionStartTime;
+		long regionMap = this.regionMapStopTime - this.regionStartTime;
 		long inter = this.interStopTime - this.interStartTime;
 		long top = this.topStopTime - this.topStartTime;
 		System.out.println(this.cloudName + " Region Map Time = "+ regionMap/1000+"(s)");
 		System.out.println(this.cloudName + " Inter Transfer Time = "+ inter/1000+"(s)");
 		System.out.println(this.cloudName + " Top Time = "+ top/1000+"(s)");
+		this.setMapSpeed();
+		this.setTansferSpeed();
+		//this.setReduceSpeed();
+		System.out.println(this.cloudName + " Map Speed = "+ this.mapSpeed +"(byte/s)");
+		System.out.println(this.cloudName + " Transfer Speed = "+ this.tansferSpeed +"(byte/s)");
+		//System.out.println(this.cloudName + " Reduce Speed = "+ this.reduceSpeed +"(byte/s)");
 
 	}
 
+	public long getRegionMapStopTime() {
+		return regionMapStopTime;
+	}
+
+	public void setRegionMapStopTime() {
+		this.regionMapStopTime = System.currentTimeMillis();;
+	}
+
+	public String getDownLinkSpeed() {
+		return downLinkSpeed;
+	}
+
+	public void setDownLinkSpeed(String downLinkSpeed) {
+		this.downLinkSpeed = downLinkSpeed;
+	}
+
+	public String getDownLinkSpeed_normalized() {
+		return downLinkSpeed_normalized;
+	}
+
+	public void setDownLinkSpeed_normalized(String downLinkSpeed_normalized) {
+		this.downLinkSpeed_normalized = downLinkSpeed_normalized;
+	}
+
+	public long getMapInputSize() {
+		return mapInputSize;
+	}
+
+	public void setMapInputSize(long mapInputSize) {
+		this.mapFactor = (double) this.interSize /  (double) this.mapInputSize ; 
+		System.out.println("this.interSize / this.mapInputSize = " +this.interSize +"/"+this.mapInputSize);
+		this.mapInputSize = mapInputSize;
+	}
+
+	public double getMapInputSize_normalized() {
+		return mapInputSize_normalized;
+	}
+
+	public void setMapInputSize_normalized(double mapInputSize_normalized) {
+		this.mapInputSize_normalized = mapInputSize_normalized;
+	}
+
+	public double getMapSpeed() {
+		return mapSpeed;
+	}
+
+	public void setMapSpeed() {
+		this.mapSpeed = this.mapInputSize / (this.regionMapStopTime - this.regionStartTime);
+	}
+
+	public double getReduceSpeed() {
+		return reduceSpeed;
+	}
+
+	public void setReduceSpeed() {
+		this.reduceSpeed = this.reduceInputSize / (this.topStopTime - this.topStartTime);
+		System.out.println(this.cloudName + " Reduce Speed = "+ this.reduceInputSize +"/="+ this.reduceSpeed +"(byte/s)");
+	}
+
+	public double getTansferSpeed() {
+		return tansferSpeed;
+	}
+
+	public void setTansferSpeed() {
+		this.tansferSpeed =this.interSize /( this.interStopTime - this.interStartTime);
+	}
+
+	public long getReduceInputSize() {
+		return reduceInputSize;
+	}
+
+	public void setReduceInputSize(long reduceInputSize) {
+		this.reduceInputSize = reduceInputSize;
+	}
 }

@@ -94,6 +94,7 @@ public class FedJobServerClient extends Thread {
 		}
 	} // end of run
 	private String sendMessage(String m) {
+		
 		while( ! (mSocket != null) ){
 		}
         String res = "";
@@ -143,9 +144,13 @@ public class FedJobServerClient extends Thread {
 	public String sendRegionMapFinished(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_REGION_MAP_FINISHED +" "+ fs );
 	}
-	public String sendReqInfo(String fs) { 
+	public String sendReqInfo_normalized(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_INFO +" "+ fs );
 	}
+	public String sendReqInfo(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_INFO_2 +" "+ fs );
+	}
+
 	public String sendReqInterInfo(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_INTER_INFO +" "+ fs );
 	}
@@ -163,6 +168,9 @@ public class FedJobServerClient extends Thread {
 	}
 	public String sendRegionMapStartTime(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_RM_START+" "+fs);
+	}
+	public String sendRegionMapStopTime(String fs) { 
+		return sendMessage( FedCloudProtocol.REQ_RM_STOP+" "+fs);
 	}
 	public String sendRegionInterTransferStartTime(String fs) { 
 		return sendMessage( FedCloudProtocol.REQ_INTER_START+" "+fs);

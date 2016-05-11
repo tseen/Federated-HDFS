@@ -964,7 +964,7 @@ public class MapTask extends Task {
       job = context.getJobConf();
       String ip = job.get("fedCloudHDFS").split(":")[1].split("/")[2];
   	  InetAddress address;
-      if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+      if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")&& !job.get("preciseIter", "off").equals("true")){
 	      try {
 	  		address = InetAddress.getByName(ip);
 	  		jclient = new FedJobServerClient(address.getHostAddress(), 8713);
@@ -1840,7 +1840,7 @@ public class MapTask extends Task {
           indexCacheList.get(0).writeToFile(
             mapOutputFile.getOutputIndexFileForWriteInVolume(filename[0]), job);
         }
-        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true") && !job.get("preciseIter", "off").equals("true")){
         	String namenode = job.get("fs.default.name");
         	jclient.sendInterDataSize(namenode.split("/")[2] + "," +Long.toString(finalOutFileSize));
         }
@@ -1886,7 +1886,7 @@ public class MapTask extends Task {
         } finally {
           finalOut.close();
         }
-        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")&& !job.get("preciseIter", "off").equals("true")){
         	String namenode = job.get("fs.default.name");
         	jclient.sendInterDataSize(namenode.split("/")[2] + "," +Long.toString(finalOutFileSize));
         }
@@ -1943,7 +1943,7 @@ public class MapTask extends Task {
             combinerRunner.combine(kvIter, combineCollector);
           }
           
-          if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+          if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")&& !job.get("preciseIter", "off").equals("true")){
           	String namenode = job.get("fs.default.name");
           	jclient.sendInterDataSize(namenode.split("/")[2] + "," +Long.toString(finalOutFileSize));
           }
@@ -1961,7 +1961,7 @@ public class MapTask extends Task {
         }
         spillRec.writeToFile(finalIndexFile, job);
         finalOut.close();
-        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")){
+        if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")&& !job.get("preciseIter", "off").equals("true")){
         	jclient.stopClientProbe();
         }
         for(int i = 0; i < numSpills; i++) {

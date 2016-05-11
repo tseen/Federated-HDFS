@@ -39,6 +39,8 @@ public class FedHadoopConf{
 	private String mTopTaskNumbers = "";
 	private String mProxyReduce = "";
 	private String mWanOpt = "";
+	private String mHDFSUrl = "";
+	private String mIteration = "false";
 
 
     
@@ -130,6 +132,18 @@ public class FedHadoopConf{
 	}
 	public void setWanOpt(String mWanOpt) {
 		this.mWanOpt = mWanOpt;
+	}
+	public String getHDFSUrl() {
+		return mHDFSUrl;
+	}
+	public void setHDFSUrl(String mHDFSUrl) {
+		this.mHDFSUrl = mHDFSUrl;
+	}
+	public String getIteration() {
+		return mIteration;
+	}
+	public void setIteration(String mIteration) {
+		this.mIteration = mIteration;
 	}
 	
 }

@@ -152,6 +152,7 @@ public class FedJob {
 			}
 
 			for (int i = 0; i < iterations; i++) {
+				
 				if (bIsFedIteration && 
 						 currentIter <= iterations) {
 					Path mOutpuPath = FileOutputFormat.getOutputPath(mJob);
@@ -200,8 +201,10 @@ public class FedJob {
 				System.out.println("Wait For FedRegionCloudJob Join");
 
 				if(mJobConf.get("wanOpt","off").equals("true")){
-					Map<String, Double> downSpeed = getDownSpeed(fedCloudInfos);
-					normalizeInfo(fedCloudInfos);
+				//	Map<String, Double> downSpeed = getDownSpeed(fedCloudInfos);
+					Map<String, String> downSpeed = getDownSpeed(fedCloudInfos);
+					if(currentIter == 1 )
+						normalizeInfo(fedCloudInfos);
 					jobServer.setDownSpeed(downSpeed);
 				}
 
@@ -253,7 +256,7 @@ public class FedJob {
 					System.out.println("----------------------------------");
 //				 FileSystem hdfs =FileSystem.get(new Configuration());
 //					 hdfs.delete(new Path("/user/hpds/zzz"), false);
-//					System.out.println("----------------------------------");
+					System.out.println("----------------------------------");
 					System.out.println("TOP START ...");
 					System.out.println("----------------------------------");
 					mFedStat.setTopCloudStart();
@@ -267,8 +270,8 @@ public class FedJob {
 					for (FedTopCloudJob job : tList) {
 						job.join();
 					}
-					mFedStat.setTopCloudEnd();
 					System.out.println("----------------------------------");
+					mFedStat.setTopCloudEnd();
 					System.out.println("TOP END ...");
 					System.out.println("----------------------------------");
 
@@ -280,14 +283,15 @@ public class FedJob {
 
 					currentIter++;
 				}
+				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+						.entrySet()) {
+					info.getValue().printTime();
+				}
 			}
 			jobServer.stopServer();
 			jobServer.join();
 
-			for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
-					.entrySet()) {
-				info.getValue().printTime();
-			}
+			
 			//wanServer.stopServer();
 			//wanServer.join();
 		} catch (Throwable e) {
@@ -295,7 +299,7 @@ public class FedJob {
 		}
 
 	}
-	private Map<String, Double> getDownSpeed(Map<String, FedCloudInfo>  fedCloudInfos){
+	private Map<String, String> getDownSpeed(Map<String, FedCloudInfo>  fedCloudInfos){
 		boolean collectAll = false;
 		while(!collectAll){
 			collectAll = true;
@@ -313,19 +317,20 @@ public class FedJob {
 				}		
 			}
 		}
-		Map<String, Double> downSpeed = new HashMap<String, Double>();
+		Map<String, String> downSpeed = new HashMap<String, String>();
 		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
 				.entrySet()) {
 			System.out.println("fedCloudInfos Key:"+info.getKey());
-			info.getValue().collectWanSpeedandGetPartitionStrategy(downSpeed);
+			info.getValue().collectWanSpeed(downSpeed);
 		}
 		
-		for (Map.Entry<String, Double> info : downSpeed
+		for (Map.Entry<String, String> info : downSpeed
 				.entrySet()) {
-			fedCloudInfos.get(info.getKey()).setMinWanSpeed(info.getValue());
+			fedCloudInfos.get(info.getKey()).setDownLinkSpeed(info.getValue());
 			System.out.println("DOWNSPEED:"+info.getKey()+"="+info.getValue());
 		}
 		return downSpeed;
+
 	}
 	private void normalizeInfo(Map<String, FedCloudInfo>  fedCloudInfos){
 		long minInputsize = Long.MAX_VALUE;
@@ -344,9 +349,17 @@ public class FedJob {
 			//if( fedInfo.getInputSize() < minInputsize){
 			//	minInputsize = fedInfo.getInputSize();
 			//}
-			if( fedInfo.getMinWanSpeed() < minWan){
-				minWan = fedInfo.getMinWanSpeed();
+			System.out.println("DownLinkSpeed " + fedInfo.getDownLinkSpeed());
+			String downLinkSpeedInfo[] = fedInfo.getDownLinkSpeed().split("/");
+			for(String dLinkSpeedInfo : downLinkSpeedInfo){
+				System.out.println("DLinkSpeed " + dLinkSpeedInfo);
+				double speed = Double.parseDouble(dLinkSpeedInfo.split("=")[1]);
+				if(speed < minWan)
+					minWan = speed;
 			}
+			//if( fedInfo.getMinWanSpeed() < minWan){
+			//	minWan = fedInfo.getMinWanSpeed();
+			//}
 		}
 		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
 				.entrySet()) {
@@ -354,8 +367,16 @@ public class FedJob {
 			fedInfo.setAvailableMB_normalized((double)fedInfo.getAvailableMB() /(double) minMB);
 			fedInfo.setAvailableVcores_normalized((double)fedInfo.getAvailableVcores() /(double) minCore);
 			//fedInfo.setInputSize_normalized((double)fedInfo.getInputSize() /(double) minInputsize);
-			fedInfo.setMinWanSpeed_normalized( fedInfo.getMinWanSpeed() /  minWan);
-
+			//fedInfo.setMinWanSpeed_normalized( fedInfo.getMinWanSpeed() /  minWan);
+			String downLinkSpeedInfo[] = fedInfo.getDownLinkSpeed().split("/");
+			String n_downLinkSpeedInfo = "";
+			for(String dLinkSpeedInfo : downLinkSpeedInfo){
+				double speed = Double.parseDouble(dLinkSpeedInfo.split("=")[1]);
+				double n_speed = speed/minWan;
+				n_downLinkSpeedInfo += dLinkSpeedInfo.split("=")[0]+"="+ Double.toString(n_speed)+"/";
+			}
+			System.out.println("n_DownLinkSpeed " + n_downLinkSpeedInfo);
+			fedInfo.setDownLinkSpeed_normalized(n_downLinkSpeedInfo);
 		}
 	}
 	
@@ -468,10 +489,11 @@ public class FedJob {
 				}
 				for(FedWANClient c :wlist){
 					c.start();
-				}
-				for(FedWANClient c :wlist){
 					c.join();
 				}
+			//	for(FedWANClient c :wlist){
+			//		c.join();
+			//	}
 				FedJobServerClient jclient = null;
 				String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
 				InetAddress address;
@@ -517,7 +539,12 @@ public class FedJob {
 							+ availableVcores);
 					// jclient.stopClientProbe();
 					// mWanOpt = true;
-					String resWAN = jclient.sendReqInfo(namenode.split("/")[2]);
+					String resWAN = "";
+					if(mJobConf.get("preciseIter", "false").equals("true"))
+						resWAN = jclient.sendReqInfo(namenode.split("/")[2]);
+					else
+						resWAN = jclient.sendReqInfo_normalized(namenode.split("/")[2]);
+					
 					if (resWAN.contains(FedCloudProtocol.RES_INFO)) {
 						String info = resWAN.substring(14);
 						System.out.println("INFO in FEDJob:"+ info);

@@ -76,8 +76,8 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 		try {
 			// get key
 			String valueStr = value.toString();
-			System.out.println("valueStr:"+valueStr);
-			int firstSeperatePos = valueStr.indexOf("=");
+			//System.out.println("valueStr:"+valueStr);
+			int firstSeperatePos = valueStr.indexOf("#=") + 1;
 			String keyPart = valueStr.substring(0, firstSeperatePos);
 			String valuePart = valueStr.substring(firstSeperatePos+1);
 
@@ -165,13 +165,13 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 				//	context.write( mKey, mValue );
 			//	}
 				//----------------------------------------------------------
-				System.out.println("KEY:"+mKey.toString()+" VALUE:"+mValue.toString());
+				//System.out.println("KEY:"+mKey.toString()+" VALUE:"+mValue.toString());
 				context.write( mKey, mValue );
 			}
 
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			System.out.println("meet error skip it"); 
+			//System.out.println("meet error skip it"); 
 		}
 	}
 }
