@@ -77,7 +77,7 @@ public class GenericProxyMapper<T3,T4> extends Mapper<Object, Text, T3, T4>{
 			// get key
 			String valueStr = value.toString();
 			//System.out.println("valueStr:"+valueStr);
-			int firstSeperatePos = valueStr.indexOf("#=") + 1;
+			int firstSeperatePos = valueStr.indexOf("=");
 			String keyPart = valueStr.substring(0, firstSeperatePos);
 			String valuePart = valueStr.substring(firstSeperatePos+1);
 

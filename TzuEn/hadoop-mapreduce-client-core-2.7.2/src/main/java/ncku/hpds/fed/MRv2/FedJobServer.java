@@ -144,7 +144,13 @@ public class FedJobServer extends Thread{
 		else
 			return false;
 	}
-
+	
+	public void restoreName(Map<String,FedCloudInfo> mFedCloudInfos) {
+		mFedCloudName = new ArrayList<String>(mFedCloudInfos.size());
+		for(Entry<String, FedCloudInfo> info : mFedCloudInfos.entrySet()){
+			mFedCloudName.add(info.getKey());
+		}
+	}
 	public void setFedCloudInfos(Map<String,FedCloudInfo> mFedCloudInfos) {
 		mFedCloudName = new ArrayList<String>(mFedCloudInfos.size());
 		for(Entry<String, FedCloudInfo> info : mFedCloudInfos.entrySet()){
@@ -160,6 +166,9 @@ public class FedJobServer extends Thread{
 		this.isSet.set(true);
 		this.mDownSpeed = mDownSpeed;
 	}*/
+	public void resetGetInfo(){
+		this.isSet.set(false);
+	}
 	public void setDownSpeed(Map<String,String> mDownSpeed) {
 		this.isSet.set(true);
 		this.mDownSpeed = mDownSpeed;
@@ -225,7 +234,7 @@ public class FedJobServer extends Thread{
 									nRunFlag = false;
 									break;
 								}
-								if ( line.contains( FedCloudProtocol.REQ_REGION_MAP_FINISHED ) ) {
+						/*		if ( line.contains( FedCloudProtocol.REQ_REGION_MAP_FINISHED ) ) {
 									String namdenode = line.substring(20);
 									clientOutput.println( FedCloudProtocol.RES_REGION_MAP_FINISHED );
 									clientOutput.flush();
@@ -239,7 +248,7 @@ public class FedJobServer extends Thread{
 									clientInput.close();
 									clientOutput.close();
 									break;
-								}
+								}*/
 								if ( line.contains( FedCloudProtocol.REQ_INTER_INFO ) ) {
 									long minInputsize = Long.MAX_VALUE;
 									String res = "";
@@ -282,7 +291,7 @@ public class FedJobServer extends Thread{
 								if ( line.contains( FedCloudProtocol.REQ_INFO ) ) {
 									
 									System.out.println("-----------------------------");
-									System.out.println("get Info"+nSocket.getInetAddress().toString());
+									System.out.println("get Info 1"+nSocket.getInetAddress().toString());
 									System.out.println("-----------------------------");
 									while(!isSet.get()){
 									}
@@ -292,6 +301,8 @@ public class FedJobServer extends Thread{
 									//{
 									//	res += entry.getKey()+"="+entry.getValue()+",";
 									//}
+									long totalWanWaitingTime = 0;
+									long totalTopWaitingTime = 0;
 									for (Entry<String, FedCloudInfo> entry : mFedCloudInfos.entrySet())
 									{
 										/*res += entry.getKey()+"="+entry.getValue().getActiveNodes()+";"
@@ -299,13 +310,26 @@ public class FedJobServer extends Thread{
 																 +entry.getValue().getAvailableVcores()+";"
 																 +entry.getValue().getInputSize()+",";
 																 */
+										totalWanWaitingTime += entry.getValue().getWanWaitingTime();
+										totalTopWaitingTime += entry.getValue().getReduceWaitingTime();
 										res += entry.getKey()+">>"
 												 +entry.getValue().getDownLinkSpeed_normalized()+";"
 												 +entry.getValue().getAvailableMB_normalized()+";"
 												 +entry.getValue().getAvailableVcores_normalized()+",";
 												 //+entry.getValue().getInputSize_normalized()+",";
 									}
-								
+									System.out.println("totalWanWaitingTime:" + totalWanWaitingTime);
+									System.out.println("totalTopWaitingTime:" + totalTopWaitingTime);
+									if(totalWanWaitingTime > totalTopWaitingTime){
+										// alpha add;minus beta add;minus
+										res += "0.05;0;0;0.05,";
+									}
+									else if(totalWanWaitingTime < totalTopWaitingTime){
+										res += "0;0.05;0.05;0,";
+									}
+									else{
+										res += "0;0;0;0,";
+									}
 									System.out.println(res);
 									clientOutput.println( FedCloudProtocol.RES_INFO+" "+res );
 									clientOutput.flush();
@@ -336,10 +360,12 @@ public class FedJobServer extends Thread{
 																 +entry.getValue().getInputSize()+",";
 																 */
 										res += entry.getKey()+">>"
-												 +entry.getValue().getDownLinkSpeed()+";"
-												 +entry.getValue().getReduceSpeed()+";"
-												 +entry.getValue().getReduceInputSize()+",";
-												 //+entry.getValue().getInputSize_normalized()+",";
+												 +entry.getValue().getDownLinkSpeed_normalized()+";"
+												 +entry.getValue().getReduceSpeed_normalized()+";"
+												// +entry.getValue().getReduceInputSize()+";"
+												 +entry.getValue().getInterTime()+";"
+												 +entry.getValue().getTopTime()+";"
+												 +entry.getValue().getInterSize_normalized()+",";
 									}
 								
 									System.out.println(res);

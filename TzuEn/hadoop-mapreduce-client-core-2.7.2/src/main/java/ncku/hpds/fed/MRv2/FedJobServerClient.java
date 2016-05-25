@@ -94,15 +94,23 @@ public class FedJobServerClient extends Thread {
 		}
 	} // end of run
 	private String sendMessage(String m) {
-		
+		int i = 0;
 		while( ! (mSocket != null) ){
+			i++;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (i > 61)
+				break;
 		}
         String res = "";
         try {
+        	System.out.println("send:"+m);
             synchronized ( mLock ) {
                 if ( mState == FedCloudProtocol.FedSocketState.CONNECTED && 
                         mSocket != null ) {
-                	System.out.println("send:"+m);
                     mOutput.println(m);
                     mOutput.flush();
                     res = mInput.readLine();

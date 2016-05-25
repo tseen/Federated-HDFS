@@ -27,7 +27,7 @@ import org.apache.hadoop.util.ReflectionUtils;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.conf.Configuration;
 
-public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
+public class GenericProxyReducerSeq<T1, T2> extends Reducer<T1, T2, Text, Text> {
 	public FedJobServerClient client;
 
 
@@ -102,7 +102,7 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 
 	// private String tachyonOutDir;
 
-	public GenericProxyReducer(Class<T1> keyClz, Class<T2> valueClz)
+	public GenericProxyReducerSeq(Class<T1> keyClz, Class<T2> valueClz)
 			throws Exception {
 		mKeyClz = keyClz;
 		mValueClz = valueClz;
@@ -113,7 +113,10 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 	/*
 	 * public void setTachyonOutDir(String dir){ tachyonOutDir = dir; }
 	 */
-
+	// private List<FileOutStream> outList;
+	// private List<String> outPath;
+	// private Map<String, FileOutStream> outMap = new HashMap<String,
+	// FileOutStream>();
 
 	@Override
 	public void setup(Context context) throws UnknownHostException {
@@ -161,8 +164,8 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 		}
 
 		for (HdfsWriter HW : mHdfsWriter) {
-			//HW.creatwriter(mKeyClz, mValueClz);
-			HW.init();
+			HW.creatwriter(mKeyClz, mValueClz);
+			//HW.init();
 		}
 
 		// mos = new MultipleOutputs(context);
@@ -390,151 +393,27 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 		}*/
 		Iterator<T2> it = values.iterator();
 		__reset();
-		int iterations = 0;
+		
 		while (it.hasNext()) {
 			
 			T2 value = it.next();
-			T1 mCheckKey ;
-			mCheckKey = (T1) ReflectionUtils.newInstance(mKeyClz,context.getConfiguration());
-		    ReflectionUtils.copy(context.getConfiguration(), key, mCheckKey);
-		    //System.out.println("key: "+ key.toString()+" CheckKey: "+mCheckKey.toString());
-			iterations++;
-			
-			if(firstInput){
-				firstInput = false;
-				//System.out.println("mLastKey NULL");
-				mOutBuffer = "";
-				if ( mValueClzName.contains("NullWritable") ) {
-	                NullWritable tValue = (NullWritable) value;
-	                mOutBuffer+="n"+mSeperator;
-				}
-				else{
-					T1 tValue = (T1) value;
-					mOutBuffer+=tValue.toString()+mSeperator;
-				}
-			/*
-				if (mValueClzName.contains("DoubleWritable")) {
-					DoubleWritable tValue = (DoubleWritable) value;
-					mOutBuffer+=String.valueOf(tValue.get())+mSeperator;
-					//System.out.println("DoubleWritable : " + tValue.get());
-
-				} else if ( mValueClzName.contains("NullWritable") ) {
-	                NullWritable tValue = (NullWritable) value;
-	                mOutBuffer+="n"+mSeperator;
-	                //System.out.println("NullWritable : " + tValue.get());
-	            } else if (mValueClzName.contains("FloatWritable")) {
-					FloatWritable tValue = (FloatWritable) value;
-					mOutBuffer+=String.valueOf(tValue.get())+mSeperator;
-					//System.out.println("FloatWritable : " + tValue.get());
-
-				} else if (mValueClzName.contains("IntWritable")) {
-					IntWritable tValue = (IntWritable) value;
-					mOutBuffer+=String.valueOf(tValue.get())+mSeperator;
-					//System.out.println("IntWritable : " + tValue.get());
-
-				} else if (mValueClzName.contains("LongWritable")) {
-					LongWritable tValue = (LongWritable) value;
-					mOutBuffer+=String.valueOf(tValue.get())+mSeperator;
-					//System.out.println("LongWritable : " + tValue.get());
-
-				} else if (mValueClzName.contains("Text")) {
-					Text tValue = (Text) value;
-					mOutBuffer+=tValue.toString()+mSeperator;
-					// mValue.set(tValue.toString());
-					// HW.write(mKey, mValue);
-					//System.out.println("Text : " + tValue.toString());
-
-				} else if (mValueClzName.contains("UTF8")) {
-					UTF8 tValue = (UTF8) value;
-					mOutBuffer+=tValue.toString()+mSeperator;
-					//System.out.println("UTF8 : " + tValue.toString());
-
-				} else if (mValueClzName.contains("VIntWritable")) {
-					VIntWritable tValue = (VIntWritable) value;
-					mOutBuffer+=String.valueOf(tValue.get())+mSeperator;
-					//System.out.println("VIntWritable : " + tValue.get());
-
-				} else if (mValueClzName.contains("VLongWritable")) {
-					VLongWritable tValue = (VLongWritable) value;
-					mOutBuffer+=String.valueOf(tValue.get())+mSeperator;
-					//System.out.println("VLongWritable : " + tValue.get());
-				} else {
-					T1 tValue = (T1) value;
-					mOutBuffer+=tValue.toString()+mSeperator;
-				}
-				*/
-			    ReflectionUtils.copy(context.getConfiguration(), mCheckKey, mLastKey);
-				
-			}
-			
-			else if(mCheckKey.equals(mLastKey)){
-				if ( mValueClzName.contains("NullWritable") ) {
-	                NullWritable tValue = (NullWritable) value;
-	                mOutBuffer+="n"+mSeperator;
-				}
-				else{
-					T1 tValue = (T1) value;
-					mOutBuffer+=tValue.toString()+mSeperator;
-				}
-			    ReflectionUtils.copy(context.getConfiguration(), mCheckKey, mLastKey);
-				//mLastKey = mCheckKey;
-			}
-			
-			else{
-				HdfsWriter<T1, String> HW;
-				try {
-					HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mLastKey,topNumbers)));
-					HW.write(mLastKey, mOutBuffer);
-				}  catch (NoSectionException e) {
-					//System.out.println("no section");
-				} 
-				//System.out.println("else out:" + mLastKey.toString() + "	"+mOutBuffer);
-				mOutBuffer = "";
-			    ReflectionUtils.copy(context.getConfiguration(), mCheckKey, mLastKey);
-			    if ( mValueClzName.contains("NullWritable") ) {
-	                NullWritable tValue = (NullWritable) value;
-	                mOutBuffer+="n"+mSeperator;
-				}
-				else{
-					T1 tValue = (T1) value;
-					mOutBuffer+=tValue.toString()+mSeperator;
-				}
-				
-			}
-			if( mOutBuffer.length()  > 10000){
-				//System.out.println("buffer out");
-
-				HdfsWriter<T1, String> HW;
-				try {
-					HW = mHdfsWriter.get(Integer.parseInt(generateFileName(mLastKey,topNumbers)));
-					HW.write(mLastKey, mOutBuffer);
-				}  catch (NoSectionException e) {
-					//System.out.println("no section");
-				} 
-				mOutBuffer = "";
-			}
-			
+			HdfsWriter<T1, T2> HW;
+			try {
+				HW = mHdfsWriter.get(Integer.parseInt(generateFileName(key,topNumbers)));
+				HW.swrite(key, value);
+			}  catch (NoSectionException e) {
+				//System.out.println("no section");
+			} 
 		}
-		//System.out.println("reduce value numbers:" + iterations);
-
-		//System.out.println("keyMap size:" + keyMap.entrySet().size());
-
-		
 	}
 
 	protected void cleanup(Context context) throws IOException,
 			InterruptedException {
-		HdfsWriter<T1, String> hw;
-		try {
-			hw = mHdfsWriter.get(Integer.parseInt(generateFileName(mLastKey,topNumbers)));
-			hw.write(mLastKey, mOutBuffer);
-		} catch (NoSectionException e) {
-			//System.out.println("no section");
-		}
-		//System.out.println("clean out:" + mLastKey.toString() + "	"+mOutBuffer);
+		
 
-		for (HdfsWriter HW : mHdfsWriter) {
-			HW.out.close();
+		for (HdfsWriter<T1, T2> HW : mHdfsWriter) {
+		//	HW.out.close();
+			HW.sWriter.close();
 		//	HW.client.close();
 		}
 	

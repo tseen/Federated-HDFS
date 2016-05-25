@@ -42,7 +42,7 @@ public class FedJobConf extends AbstractFedJobConf {
 	private boolean mFedLoopFlag = false;
 	private boolean mFedTestFlag = false;
 	private boolean mRegionCloudDone = false;
-	private ProxySelector mSelector;
+	private AbstractProxySelector mSelector;
 	private String mCoworkingConf = "";
 	private String mTopCloudHDFSURL = "";
 	private List<String> mTopCloudHDFSURLs = new ArrayList<String>();
@@ -126,8 +126,12 @@ public class FedJobConf extends AbstractFedJobConf {
 			mTopCloudInputPath = mJobConf.get("topCloudInput", "");
 			mTopCloudHadoopHome = mJobConf.get("topCloudHadoopHome", "");
 		}
-
-		mSelector = new ProxySelector(mJobConf, mJob);
+		if(mJobConf.get("seqInter", "false").equals("true")){
+			mSelector = new ProxySelectorSeq(mJobConf, mJob);
+		}
+		else{	
+			mSelector = new ProxySelector(mJobConf, mJob);
+		}
 
 	}
 
@@ -166,8 +170,8 @@ public class FedJobConf extends AbstractFedJobConf {
 		mJob.setReducerClass(reducer);
 		mJob.setMapOutputKeyClass(keyClz);
 		mJob.setMapOutputValueClass(valueClz);
-		mJob.setOutputKeyClass(Text.class);
-		mJob.setOutputValueClass(Text.class);
+		//mJob.setOutputKeyClass(Text.class);
+		//mJob.setOutputValueClass(Text.class);
 		try {
 			Class outputFormat = mJob.getOutputFormatClass();
 		} catch (ClassNotFoundException e) {

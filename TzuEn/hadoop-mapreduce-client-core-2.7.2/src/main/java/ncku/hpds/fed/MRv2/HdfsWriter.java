@@ -5,6 +5,7 @@ package ncku.hpds.fed.MRv2;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,7 +34,9 @@ import org.apache.hadoop.hdfs.protocol.CacheDirectiveInfo;
 import org.apache.hadoop.hdfs.protocol.CachePoolInfo;
 import org.apache.hadoop.hdfs.tools.CacheAdmin;
 import org.apache.hadoop.io.NullWritable;
+import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.SequenceFile.CompressionType;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -46,7 +49,7 @@ public class HdfsWriter<K, V> {
 	private static CachePoolInfo poolInfo = new CachePoolInfo("FedJob");
 	UserGroupInformation ugi;
 	private String fileName;
-	public OutputStream out = null;
+	public DataOutputStream out = null;
 	public DFSClient client;
 	private static final String utf8 = "UTF-8";
 	public static String SEPERATOR = "mapreduce.output.textoutputformat.separator";
@@ -119,7 +122,7 @@ public class HdfsWriter<K, V> {
 			writeObject(key);
 		}
 		if (!(nullKey || nullValue)) {
-			out.write("#=".getBytes());
+			out.write("=".getBytes());
 		}
 		if (!nullValue) {
 			writeObject(value);
@@ -179,29 +182,58 @@ public class HdfsWriter<K, V> {
 		
 		return fn;
 	}
+	public SequenceFile.Writer sWriter;
+	public FileSystem targetFS;
+	public synchronized void swrite(K key, V value) throws IOException {
+
+		boolean nullKey = key == null || key instanceof NullWritable;
+		boolean nullValue = value == null || value instanceof NullWritable;
+		if (nullKey && nullValue) {
+			return;
+		}
+		try {
+			sWriter.append(key,value);
+		} catch ( Exception e) {
+			e.printStackTrace();
+		}
+	}
+	 
+	public void creatwriter(Class kClass, Class vClass){
+		Configuration conf = new Configuration();
+		conf.set("fs.defaultFS", remoteHdfs);
+		Path target = new Path(remoteHdfs);
+		try {
+			targetFS = target.getFileSystem(conf);
+			targetFS.createNewFile(new Path(fileName));
+			sWriter = SequenceFile.createWriter(targetFS, conf, new Path(fileName), kClass, vClass, CompressionType.BLOCK);
+		} catch (IllegalArgumentException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void init() {
 		try {
+			
 			Configuration conf = new Configuration();
 			conf.set("fs.defaultFS", remoteHdfs);
-			/*try 
-			 FileSystem targetFS; 
-			 FSDataOutputStream out = targetFS.create(targetPath, permission,
-			          EnumSet.of(CreateFlag.CREATE, CreateFlag.OVERWRITE),
-			          BUFFER_SIZE, repl, blockSize, context,
-			          getChecksumOpt(fileAttributes, sourceChecksum));
-			      outStream = new BufferedOutputStream(out);
-			    */
-			client = new DFSClient(new URI(remoteHdfs), conf);
+			Path target = new Path(remoteHdfs);
+			targetFS = target.getFileSystem(conf);
+			FSDataOutputStream fsout = targetFS.create(new Path(fileName), false);
+	//		fsout.close();
+			
+	//		client = new DFSClient(new URI(remoteHdfs), conf);
 			boolean existFile = false;
 			do{
-				try{
+//				try{
 					
 					existFile = false;
-					out = new BufferedOutputStream(client.create(fileName, false));
+				//----	
+					out = new DataOutputStream(new BufferedOutputStream(fsout));
+				//----	
+					//out =  new DataOutputStream(new BufferedOutputStream(client.create(fileName, false)));
 					//DistributedFileSystem dfs = getDFS(conf);
 		     
-				}
-				catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e){
+	//			}
+	/*			catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e){
 					fileName = newFileName(fileName);
 					existFile = true;
 				}
@@ -212,7 +244,7 @@ public class HdfsWriter<K, V> {
 				catch(org.apache.hadoop.fs.FileAlreadyExistsException e){
 					fileName = newFileName(fileName);
 					existFile = true;
-				}
+				}*/
 			}while(existFile);
 			/*catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e){
 				fileName = newFileName(fileName);
@@ -239,12 +271,12 @@ public class HdfsWriter<K, V> {
 			 * fs.createNewFile(new Path(fileName)); out = fs.append(new
 			 * Path(fileName)); System.out.println("APPEDN"); return null; } });
 			 */
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		//} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 
 	}

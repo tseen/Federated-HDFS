@@ -173,7 +173,7 @@ public class Reducer<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
 				conf.get("fedCloudHDFS", "").length() - 1);
 		
 		HdfsWriter<KEYOUT, VALUEOUT> fedJobCloud = new HdfsWriter<KEYOUT, VALUEOUT>(
-				"hdfs://c02:39100", "hpds");
+				fedCloudHdfs, "hpds");
 		fedJobCloud.setFileName("/user/"
 				+ System.getProperty("user.name") 
 				+ "/" +"ITRRR");
@@ -259,7 +259,7 @@ public class Reducer<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
 					}
 				}
 				fedJobCloud.out.close();
-				fedJobCloud.client.close();
+				//fedJobCloud.client.close();
 			} finally {
 				cleanup(context);
 			}

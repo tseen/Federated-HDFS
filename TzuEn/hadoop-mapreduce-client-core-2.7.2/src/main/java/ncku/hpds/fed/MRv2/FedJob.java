@@ -7,6 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.PathFilter;
 import org.apache.hadoop.hdfs.tools.DFSAdmin;
 import org.apache.hadoop.io.RawComparator;
 import org.apache.hadoop.mapreduce.InputFormat;
@@ -16,6 +17,7 @@ import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
@@ -124,7 +126,7 @@ public class FedJob {
 			//Get input path
 			Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
 			if (mInputPaths.length > 0) {
-				mFileName = mInputPaths[0].getName();
+				mFileName = mInputPaths[0].toString();
 			}
 
 			System.out.println("Start FedJobConfHdfs");
@@ -185,25 +187,24 @@ public class FedJob {
 
 				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
 						.entrySet()) {
+					
 					info.getValue().setRegionMapStartTime(
 							(int) System.currentTimeMillis());
+					jobServer.resetGetInfo();
+					info.getValue().clearInfo();
 				}
 				mFedStat.setRegionCloudsStart();
 
 				// int regionMapStartTime = (int) System.currentTimeMillis();
 				for (FedRegionCloudJob job : rList) {
-					if (bIsFedTachyon) {
-						job.setTachyonFlag();
-					}
 					System.out.println("REGION START");
 					job.start();
 				}
 				System.out.println("Wait For FedRegionCloudJob Join");
 
 				if(mJobConf.get("wanOpt","off").equals("true")){
-				//	Map<String, Double> downSpeed = getDownSpeed(fedCloudInfos);
 					Map<String, String> downSpeed = getDownSpeed(fedCloudInfos);
-					if(currentIter == 1 )
+				//	if(currentIter == 1 )
 						normalizeInfo(fedCloudInfos);
 					jobServer.setDownSpeed(downSpeed);
 				}
@@ -211,11 +212,13 @@ public class FedJob {
 				//for (FedCloudMonitorClient job : cList) {
 				//	job.start();
 				//}
+				System.out.println("DownSpeed Ready");
 
 				for (FedRegionCloudJob job : rList) {
 					job.join();
 					System.out.println("REGION JOIN");
 				}
+				jobServer.restoreName(fedCloudInfos);
 				System.out.println("FedRegionCloudJob All Joined");
 				mFedStat.setRegionCloudsEnd();
 				System.out.println("TopCloud Report : RegionCloud End Time = "
@@ -283,10 +286,31 @@ public class FedJob {
 
 					currentIter++;
 				}
+				long lastWanTime = 0;
+				long lastReduceTime = 0;
 				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
 						.entrySet()) {
-					info.getValue().printTime();
+					FedCloudInfo fedcloudinfo = info.getValue();
+					fedcloudinfo.printTime();
+					if(fedcloudinfo.getInterTime() > lastWanTime){
+						lastWanTime = fedcloudinfo.getInterTime();
+					}
+					if(fedcloudinfo.getTopTime() > lastReduceTime){
+						lastReduceTime = fedcloudinfo.getTopTime();
+					}
 				}
+				for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
+						.entrySet()) {
+					FedCloudInfo fedcloudinfo = info.getValue();
+					fedcloudinfo.setLastWanTime(lastWanTime);
+					fedcloudinfo.setWanWaitingTime();
+					System.out.println("WanWaitingTime: " + fedcloudinfo.getCloudName()+" = "+ fedcloudinfo.getWanWaitingTime());
+					fedcloudinfo.setLastReduceTime(lastReduceTime);
+					fedcloudinfo.setReduceWaitingTime();
+					System.out.println("TopWaitingTime: " + fedcloudinfo.getCloudName()+" = "+ fedcloudinfo.getReduceWaitingTime());
+
+				}
+				
 			}
 			jobServer.stopServer();
 			jobServer.join();
@@ -333,8 +357,9 @@ public class FedJob {
 
 	}
 	private void normalizeInfo(Map<String, FedCloudInfo>  fedCloudInfos){
-		long minInputsize = Long.MAX_VALUE;
+		long minIntersize = Long.MAX_VALUE;
 		double minWan = Double.MAX_VALUE;
+		double minReduceSpeed = Double.MAX_VALUE;
 		int minCore = Integer.MAX_VALUE;
 		int minMB = Integer.MAX_VALUE;
 		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
@@ -345,6 +370,12 @@ public class FedJob {
 			}
 			if( fedInfo.getAvailableVcores() < minCore){
 				minCore = fedInfo.getAvailableVcores();
+			}
+			if( fedInfo.getReduceSpeed() < minReduceSpeed){
+				minReduceSpeed = fedInfo.getReduceSpeed();
+			}
+			if( fedInfo.getInterSize() < minIntersize){
+				minIntersize = fedInfo.getInterSize();
 			}
 			//if( fedInfo.getInputSize() < minInputsize){
 			//	minInputsize = fedInfo.getInputSize();
@@ -366,7 +397,8 @@ public class FedJob {
 			FedCloudInfo fedInfo = info.getValue();
 			fedInfo.setAvailableMB_normalized((double)fedInfo.getAvailableMB() /(double) minMB);
 			fedInfo.setAvailableVcores_normalized((double)fedInfo.getAvailableVcores() /(double) minCore);
-			//fedInfo.setInputSize_normalized((double)fedInfo.getInputSize() /(double) minInputsize);
+			fedInfo.setReduceSpeed_normalized((double)fedInfo.getReduceSpeed() /(double) minReduceSpeed);
+			fedInfo.setInterSize_normalized((double)fedInfo.getInterSize() /(double) minIntersize);
 			//fedInfo.setMinWanSpeed_normalized( fedInfo.getMinWanSpeed() /  minWan);
 			String downLinkSpeedInfo[] = fedInfo.getDownLinkSpeed().split("/");
 			String n_downLinkSpeedInfo = "";
@@ -427,7 +459,10 @@ public class FedJob {
 			// Fed-MR , Top Cloud Mode
 			if (mFedJobConf.isTopCloud()) {
 				System.out.println("Run AS Top Cloud");
-				mJob.setInputFormatClass(TextInputFormat.class);
+				if(mJobConf.get("seqInter", "false").equals("true"))
+					mJob.setInputFormatClass(SequenceFileInputFormat.class);
+				else
+					mJob.setInputFormatClass(TextInputFormat.class);
 				if (mMapper != null) {
 					System.out.println("PROMAP:" + mMapper.getName());
 					mFedJobConf.selectProxyMap(mKeyClz, mValueClz, mMapper);
@@ -451,6 +486,7 @@ public class FedJob {
 				// mJob.setSortComparatorClass(scls) ;
 				// mJob.setGroupingComparatorClass(gcls) ;
 				FileInputFormat.setInputPaths(mJob, inputPaths);
+				FileInputFormat.setInputPathFilter(mJob, InterPathFilter.class);
 
 				Path outputPath = new Path(mFedJobConf.getTopCloudOutputPath());
 				System.out.println("TOP CLOUD OUT ="
@@ -491,9 +527,7 @@ public class FedJob {
 					c.start();
 					c.join();
 				}
-			//	for(FedWANClient c :wlist){
-			//		c.join();
-			//	}
+		
 				FedJobServerClient jclient = null;
 				String ip = mJobConf.get("fedCloudHDFS").split(":")[1].split("/")[2];
 				InetAddress address;
@@ -563,15 +597,7 @@ public class FedJob {
 				 * Thread.sleep(10000); client.sendRegionMapFinished();
 				 * client.stopClientProbe();
 				 */
-				if (!mapOnly) {
-					if (mReducer != null) {
-						System.out.println("PRORED:" + mReducer.getName());
-						mFedJobConf.selectProxyReduce(mKeyClz, mValueClz,
-								mReducer);
-					} else {
-						mFedJobConf.selectProxyReduce();
-					}
-				}
+			
 			//	mServer = new FedCloudMonitorServer(
 			//			mFedJobConf.getRegionCloudServerListenPort());
 			//	mServer.start();
@@ -616,6 +642,15 @@ public class FedJob {
 					Path outputPath = new Path(
 							mFedJobConf.getRegionCloudOutputPath());
 					FileOutputFormat.setOutputPath(mJob, outputPath);
+				}
+				if (!mapOnly) {
+					if (mReducer != null) {
+						System.out.println("PRORED:" + mReducer.getName());
+						mFedJobConf.selectProxyReduce(mKeyClz, mValueClz,
+								mReducer);
+					} else {
+						mFedJobConf.selectProxyReduce();
+					}
 				}
 				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
 				//directly sent to top cloud
@@ -768,4 +803,10 @@ public class FedJob {
 
 		}
 	}
+	 private static final PathFilter FileFilter = new PathFilter(){
+	      public boolean accept(Path p){
+	        String name = p.getName(); 
+	        return !name.startsWith("_") && !name.startsWith(".") && !name.startsWith("p"); 
+	     }
+	  }; 
 }

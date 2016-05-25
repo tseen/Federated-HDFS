@@ -101,7 +101,13 @@ public class FedTopCloudJob extends Thread {
 		// mConf.getRegionCloudServerListenPort() + " ";
 		cmd = cmd + " -DtopCloudInput=" + mConf.getHDFSInputPath() + " ";
 		String outs[] = mConf.getHDFSOutputPath().split("/");
-		String out = outs[outs.length - 1];
+		String out = "";
+		for(int i = 0; i<outs.length;i++){
+			if(i >2){
+				out += "/";
+				out += outs[i];	
+			}
+		}
 		cmd = cmd + " -DtopCloudOutput=" + out + " ";
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
 		cmd = cmd + " -DtopCloudHadoopHome=" + mConf.getHadoopHome() + " ";
@@ -159,6 +165,17 @@ public class FedTopCloudJob extends Thread {
 		String out = outs[outs.length - 1];
 		cmd = cmd + " -DtopCloudOutput=" + out + " ";
 		cmd = cmd + " -DtopCloudHadoopHome=" + mConf.getHadoopHome() + " ";
+		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
+        	//Entry<String, String> e = confIter.next();
+        	cmd = cmd +" -D"+e.getKey()+"="+e.getValue()+" ";
+        }
+		//TODO fix
+		if(mConf.getAddress().equals("c03")){
+			cmd = cmd +" -Dmapred.reduce.tasks=4 ";
+		}
+		else{
+			cmd = cmd +" -Dmapred.reduce.tasks=2 ";
+		}
 		cmd = cmd + mConf.getOtherArgs() + " ";
 		for (int i = 0; i < 10; i++) {
 			String arg = mConf.getArgs(i);

@@ -13,6 +13,14 @@ public class FedCloudInfo {
 	private long interStopTime = 0;
 	private long topStartTime = 0;
 	private long topStopTime = 0;
+	private long wanWaitingTime = 0;
+	private long reduceWaitingTime = 0;
+	private long lastWanTime = 0;
+	private long lastReduceTime = 0;
+	private long regionMap = 0;
+	private long inter = 0;
+	private long top = 0;
+	
 	boolean interStart = false;
 	
 	private long mapInputSize = 0;
@@ -27,6 +35,7 @@ public class FedCloudInfo {
 	private double mapSpeed = 0;
 	private double tansferSpeed = 0;
 	private double reduceSpeed = 0;
+	private double reduceSpeed_normalized = 0;
 
 	private String cloudName = "";
 	private int regionMapTime;
@@ -53,7 +62,30 @@ public class FedCloudInfo {
 	public FedCloudInfo(String Name){
 		cloudName = Name;
 	}
+	public void clearInfo(){
+		 
+		//  this.mapInputSize = 0;
+		//  this.mapInputSize_normalized = 0;
+		
+		  this.reduceInputSize = 0;
+		
+		 // this.interSize = 0;
+		  this.interSize_normalized = 0;
+		
+		  this.reduceSpeed_normalized = 0;
 
+		  this.wanSpeedCount = 0;
+		  this.wanSpeed = 0;
+		  this.availableMB = 0;
+		  this.activeNodes = 0;
+		  this.availableMB_normalized = 0;
+		  this.availableVcores_normalized = 0;
+		  this.availableVcores = 0;
+		 this.isMBset = false;
+		 this.isNodesset = false;
+		 this.isVcoresset = false;
+		
+	}
 	public long getInterSize() {
 		return interSize;
 	}
@@ -63,9 +95,10 @@ public class FedCloudInfo {
 	}
 	
 	public void setInterSize_iter(){
-		this.interSize = (long) (this.mapInputSize * this.mapFactor);
+	//	this.interSize = (long) (this.mapInputSize * this.mapFactor);
+		//for now inter size = map size, because it will be normalized
 		System.out.println("inter size approx : " + this.interSize +"="+this.mapInputSize+"*"+this.mapFactor);
-		this.interSize = 0;
+		this.interSize = this.mapInputSize;
 	}
 
 	public String getCloudName() {
@@ -76,18 +109,11 @@ public class FedCloudInfo {
 		this.cloudName = cloudName;
 	}
 
-	public int getRegionMapTime() {
-		return regionMapTime;
-	}
+
 	
 	public void setRegionMapStartTime(int r) {
 		this.regionMapStartTime = r;
 		//System.out.println(this.cloudName+" time:"+this.regionMapTime+" size:"+this.inputSize);
-	}
-	public void setRegionMapTime(int regionMapTime) {
-		this.regionMapTime = regionMapTime;
-	//	System.out.println(this.cloudName+" time:"+this.regionMapTime+"-"+this.regionMapStartTime+" size:"+this.inputSize);
-	//	System.out.println(this.cloudName+" speed:"+(double)((double)this.inputSize/((double)this.regionMapTime-(double)this.regionMapStartTime)));
 	}
 
 	public double getWanSpeed() {
@@ -269,6 +295,7 @@ public class FedCloudInfo {
 	}
 
 	public void setInterStopTime() {
+		interStart = false;
 		this.interStopTime = System.currentTimeMillis();
 		//System.out.println(this.cloudName + "interStopTime"+interStopTime);
 
@@ -295,9 +322,9 @@ public class FedCloudInfo {
 	}
 	
 	public void printTime(){
-		long regionMap = this.regionMapStopTime - this.regionStartTime;
-		long inter = this.interStopTime - this.interStartTime;
-		long top = this.topStopTime - this.topStartTime;
+		regionMap = this.regionMapStopTime - this.regionStartTime;
+	    inter = this.interStopTime - this.interStartTime;
+		top = this.topStopTime - this.topStartTime;
 		System.out.println(this.cloudName + " Region Map Time = "+ regionMap/1000+"(s)");
 		System.out.println(this.cloudName + " Inter Transfer Time = "+ inter/1000+"(s)");
 		System.out.println(this.cloudName + " Top Time = "+ top/1000+"(s)");
@@ -383,5 +410,69 @@ public class FedCloudInfo {
 
 	public void setReduceInputSize(long reduceInputSize) {
 		this.reduceInputSize = reduceInputSize;
+	}
+
+	public long getWanWaitingTime() {
+		return wanWaitingTime;
+	}
+
+	public void setWanWaitingTime() {
+		this.wanWaitingTime = this.lastWanTime - this.inter;
+	}
+
+	public long getReduceWaitingTime() {
+		return reduceWaitingTime;
+	}
+
+	public void setReduceWaitingTime() {
+		this.reduceWaitingTime = this.lastReduceTime - this.top;
+	}
+
+	public long getLastWanTime() {
+		return lastWanTime;
+	}
+
+	public void setLastWanTime(long lastWanTime) {
+		this.lastWanTime = lastWanTime;
+	}
+
+	public long getLastReduceTime() {
+		return lastReduceTime;
+	}
+
+	public void setLastReduceTime(long lastReduceTime) {
+		this.lastReduceTime = lastReduceTime;
+	}
+
+	public long getRegionMapTime() {
+		return regionMap;
+	}
+
+	public void setRegionMap(long regionMap) {
+		this.regionMap = regionMap;
+	}
+
+	public long getInterTime() {
+		return inter;
+	}
+
+	public void setInter(long inter) {
+		this.inter = inter;
+	}
+
+	public long getTopTime() {
+		return top;
+	}
+
+	public void setTop(long top) {
+		this.top = top;
+	}
+
+	public double getReduceSpeed_normalized() {
+		return reduceSpeed_normalized;
+	}
+
+	public void setReduceSpeed_normalized(double reduceSpeed_normalized) {
+		this.reduceSpeed_normalized = reduceSpeed_normalized;
 	}
 }

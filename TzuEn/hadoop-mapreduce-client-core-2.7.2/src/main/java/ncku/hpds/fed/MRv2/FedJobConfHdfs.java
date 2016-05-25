@@ -146,7 +146,14 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		}
 		if (Inputs.length > 0) {
 			String p[] = Inputs[0].toString().split("/");
-			globalfileInput = p[p.length - 1];
+			for(int i = 0; i<p.length;i++){
+				if(i >2){
+					globalfileInput += "/";
+					globalfileInput += p[i];	
+				}
+			}
+		//	globalfileInput = p[p.length - 1];
+			//globalfileInput = Inputs[0].toString();
 			System.out.println("Global File Name:" + globalfileInput);
 		}
 
@@ -499,8 +506,8 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				Configuration tmpconf = new Configuration();
 				tmpconf.set("fs.defaultFS", "hdfs://" + conf.getHDFSUrl());
 				try {
-					recursivelySumOfLen(filename+ "_"
-							+ Integer.toString(currentIter - 1 ), tmpconf );
+					recursivelySumOfLen(filename, tmpconf );
+					//recursivelySumOfLen(filename+ "_" + Integer.toString(currentIter - 1 ), tmpconf );
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -520,8 +527,8 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				fedInfo.setReduceSpeed();
 				fedInfo.setMapInputSize(dataSize);
 				fedInfo.setInterSize_iter();
-				conf.setHDFSInputPath(filename+ "_"
-						+ Integer.toString(currentIter - 1 ));
+				conf.setHDFSInputPath(filename);
+				//conf.setHDFSInputPath(filename+ "_" + Integer.toString(currentIter - 1 ));
 				conf.setIteration("true");
 			}
 

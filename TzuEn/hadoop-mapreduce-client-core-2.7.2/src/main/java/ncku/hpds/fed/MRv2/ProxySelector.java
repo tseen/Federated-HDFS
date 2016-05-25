@@ -1,6 +1,7 @@
 /*******************************************************
  * Copyright (C) 2016 High Performance Parallel and Distributed System Lab, National Cheng Kung University
  *******************************************************/
+
 package ncku.hpds.fed.MRv2 ;
 
 import ncku.hpds.fed.MRv2.proxy.*;
@@ -16,7 +17,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 
-public class ProxySelector {
+public class ProxySelector extends AbstractProxySelector{
     // key, value --> generic class
     private Map<String, Map<String, Class< ? extends Mapper>>> proxyMapMapping = 
         new HashMap<String, Map<String, Class< ? extends Mapper>>>(); 
@@ -69,28 +70,11 @@ public class ProxySelector {
     }
     //----------------------------------------------------------------------- 
 
-    private void init() {
+    protected void init() {
         // text, text 
         try {
             mJobInputFormatName = mJob.getInputFormatClass().getClass().getCanonicalName();
-            // add proxy mapper mapping
-            /*
-            addProxyMapperTextKeyOutMapping();
-            addProxyMapperIntKeyOutMapping();
-            addProxyMapperLongKeyOutMapping();
-            addProxyMapperFloatKeyOutMapping();
-            */
-            // add proxy reducer mapping
-            /*
-            addProxyReducerTextKeyOutMapping();
-            addProxyReducerIntKeyOutMapping();
-            addProxyReducerLongKeyOutMapping();
-            addProxyReducerFloatKeyOutMapping();
-            */
-            /*
-            if ( mCallback != null ) 
-                mCallback.addProxyMapMapping(this.proxyMapMapping);
-            */
+           
             addProxyMappers();
             addProxyReducers();
         } catch ( Exception e ) {
@@ -98,7 +82,7 @@ public class ProxySelector {
     }
     //----------------------------------------------------------------------- 
     //proxy map/reduce version2
-	private void addProxyMappers(){
+	protected void addProxyMappers(){
 		addProxyMapperMapping( DoubleWritable.class, DoubleWritable.class, ProxyMapperDoubleDouble.class );
 		addProxyMapperMapping( DoubleWritable.class, FloatWritable.class, ProxyMapperDoubleFloat.class );
 		addProxyMapperMapping( DoubleWritable.class, IntWritable.class, ProxyMapperDoubleInt.class );
@@ -190,73 +174,10 @@ public class ProxySelector {
 		addProxyMapperMapping( NullWritable.class, NullWritable.class, ProxyMapperNullNull.class );
 
 
-		addProxyMapperMappingSeq( DoubleWritable.class, DoubleWritable.class, ProxyMapperDoubleDoubleSeq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, FloatWritable.class, ProxyMapperDoubleFloatSeq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, IntWritable.class, ProxyMapperDoubleIntSeq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, LongWritable.class, ProxyMapperDoubleLongSeq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, Text.class, ProxyMapperDoubleTextSeq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, UTF8.class, ProxyMapperDoubleUTF8Seq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, VIntWritable.class, ProxyMapperDoubleVIntSeq.class );
-		addProxyMapperMappingSeq( DoubleWritable.class, VLongWritable.class, ProxyMapperDoubleVLongSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, DoubleWritable.class, ProxyMapperFloatDoubleSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, FloatWritable.class, ProxyMapperFloatFloatSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, IntWritable.class, ProxyMapperFloatIntSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, LongWritable.class, ProxyMapperFloatLongSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, Text.class, ProxyMapperFloatTextSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, UTF8.class, ProxyMapperFloatUTF8Seq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, VIntWritable.class, ProxyMapperFloatVIntSeq.class );
-		addProxyMapperMappingSeq( FloatWritable.class, VLongWritable.class, ProxyMapperFloatVLongSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, DoubleWritable.class, ProxyMapperIntDoubleSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, FloatWritable.class, ProxyMapperIntFloatSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, IntWritable.class, ProxyMapperIntIntSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, LongWritable.class, ProxyMapperIntLongSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, Text.class, ProxyMapperIntTextSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, UTF8.class, ProxyMapperIntUTF8Seq.class );
-		addProxyMapperMappingSeq( IntWritable.class, VIntWritable.class, ProxyMapperIntVIntSeq.class );
-		addProxyMapperMappingSeq( IntWritable.class, VLongWritable.class, ProxyMapperIntVLongSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, DoubleWritable.class, ProxyMapperLongDoubleSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, FloatWritable.class, ProxyMapperLongFloatSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, IntWritable.class, ProxyMapperLongIntSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, LongWritable.class, ProxyMapperLongLongSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, Text.class, ProxyMapperLongTextSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, UTF8.class, ProxyMapperLongUTF8Seq.class );
-		addProxyMapperMappingSeq( LongWritable.class, VIntWritable.class, ProxyMapperLongVIntSeq.class );
-		addProxyMapperMappingSeq( LongWritable.class, VLongWritable.class, ProxyMapperLongVLongSeq.class );
-		addProxyMapperMappingSeq( Text.class, DoubleWritable.class, ProxyMapperTextDoubleSeq.class );
-		addProxyMapperMappingSeq( Text.class, FloatWritable.class, ProxyMapperTextFloatSeq.class );
-		addProxyMapperMappingSeq( Text.class, IntWritable.class, ProxyMapperTextIntSeq.class );
-		addProxyMapperMappingSeq( Text.class, LongWritable.class, ProxyMapperTextLongSeq.class );
-		addProxyMapperMappingSeq( Text.class, Text.class, ProxyMapperTextTextSeq.class );
-		addProxyMapperMappingSeq( Text.class, UTF8.class, ProxyMapperTextUTF8Seq.class );
-		addProxyMapperMappingSeq( Text.class, VIntWritable.class, ProxyMapperTextVIntSeq.class );
-		addProxyMapperMappingSeq( Text.class, VLongWritable.class, ProxyMapperTextVLongSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, DoubleWritable.class, ProxyMapperUTF8DoubleSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, FloatWritable.class, ProxyMapperUTF8FloatSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, IntWritable.class, ProxyMapperUTF8IntSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, LongWritable.class, ProxyMapperUTF8LongSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, Text.class, ProxyMapperUTF8TextSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, UTF8.class, ProxyMapperUTF8UTF8Seq.class );
-		addProxyMapperMappingSeq( UTF8.class, VIntWritable.class, ProxyMapperUTF8VIntSeq.class );
-		addProxyMapperMappingSeq( UTF8.class, VLongWritable.class, ProxyMapperUTF8VLongSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, DoubleWritable.class, ProxyMapperVIntDoubleSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, FloatWritable.class, ProxyMapperVIntFloatSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, IntWritable.class, ProxyMapperVIntIntSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, LongWritable.class, ProxyMapperVIntLongSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, Text.class, ProxyMapperVIntTextSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, UTF8.class, ProxyMapperVIntUTF8Seq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, VIntWritable.class, ProxyMapperVIntVIntSeq.class );
-		addProxyMapperMappingSeq( VIntWritable.class, VLongWritable.class, ProxyMapperVIntVLongSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, DoubleWritable.class, ProxyMapperVLongDoubleSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, FloatWritable.class, ProxyMapperVLongFloatSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, IntWritable.class, ProxyMapperVLongIntSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, LongWritable.class, ProxyMapperVLongLongSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, Text.class, ProxyMapperVLongTextSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, UTF8.class, ProxyMapperVLongUTF8Seq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, VIntWritable.class, ProxyMapperVLongVIntSeq.class );
-		addProxyMapperMappingSeq( VLongWritable.class, VLongWritable.class, ProxyMapperVLongVLongSeq.class );
+	
 	}
 
-	private void addProxyReducers(){
+	protected void addProxyReducers(){
 		addProxyReducerMapping( DoubleWritable.class, DoubleWritable.class, ProxyReducerDoubleDouble.class );
 		addProxyReducerMapping( DoubleWritable.class, FloatWritable.class, ProxyReducerDoubleFloat.class );
 		addProxyReducerMapping( DoubleWritable.class, IntWritable.class, ProxyReducerDoubleInt.class );
@@ -610,212 +531,7 @@ public class ProxySelector {
     //--------------------------------------------------------------------------------------------------------
     // proxy mapper for sequencefile
 	// Proxy Mapper DoubleWritable
-	public static class ProxyMapperDoubleDoubleSeq extends GenericProxyMapperSeq <DoubleWritable,DoubleWritable>{
-		public ProxyMapperDoubleDoubleSeq() throws Exception { super(DoubleWritable.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperDoubleFloatSeq extends GenericProxyMapperSeq <DoubleWritable,FloatWritable>{
-		public ProxyMapperDoubleFloatSeq() throws Exception { super(DoubleWritable.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperDoubleIntSeq extends GenericProxyMapperSeq <DoubleWritable,IntWritable>{
-		public ProxyMapperDoubleIntSeq() throws Exception { super(DoubleWritable.class,IntWritable.class); }
-	}
-	public static class ProxyMapperDoubleLongSeq extends GenericProxyMapperSeq <DoubleWritable,LongWritable>{
-		public ProxyMapperDoubleLongSeq() throws Exception { super(DoubleWritable.class,LongWritable.class); }
-	}
-	public static class ProxyMapperDoubleTextSeq extends GenericProxyMapperSeq <DoubleWritable,Text>{
-		public ProxyMapperDoubleTextSeq() throws Exception { super(DoubleWritable.class,Text.class); }
-	}
-	public static class ProxyMapperDoubleUTF8Seq extends GenericProxyMapperSeq <DoubleWritable,UTF8>{
-		public ProxyMapperDoubleUTF8Seq() throws Exception { super(DoubleWritable.class,UTF8.class); }
-	}
-	public static class ProxyMapperDoubleVIntSeq extends GenericProxyMapperSeq <DoubleWritable,VIntWritable>{
-		public ProxyMapperDoubleVIntSeq() throws Exception { super(DoubleWritable.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperDoubleVLongSeq extends GenericProxyMapperSeq <DoubleWritable,VLongWritable>{
-		public ProxyMapperDoubleVLongSeq() throws Exception { super(DoubleWritable.class,VLongWritable.class); }
-	}
 
-	// Proxy Mapper FloatWritable
-	public static class ProxyMapperFloatDoubleSeq extends GenericProxyMapperSeq <FloatWritable,DoubleWritable>{
-		public ProxyMapperFloatDoubleSeq() throws Exception { super(FloatWritable.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperFloatFloatSeq extends GenericProxyMapperSeq <FloatWritable,FloatWritable>{
-		public ProxyMapperFloatFloatSeq() throws Exception { super(FloatWritable.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperFloatIntSeq extends GenericProxyMapperSeq <FloatWritable,IntWritable>{
-		public ProxyMapperFloatIntSeq() throws Exception { super(FloatWritable.class,IntWritable.class); }
-	}
-	public static class ProxyMapperFloatLongSeq extends GenericProxyMapperSeq <FloatWritable,LongWritable>{
-		public ProxyMapperFloatLongSeq() throws Exception { super(FloatWritable.class,LongWritable.class); }
-	}
-	public static class ProxyMapperFloatTextSeq extends GenericProxyMapperSeq <FloatWritable,Text>{
-		public ProxyMapperFloatTextSeq() throws Exception { super(FloatWritable.class,Text.class); }
-	}
-	public static class ProxyMapperFloatUTF8Seq extends GenericProxyMapperSeq <FloatWritable,UTF8>{
-		public ProxyMapperFloatUTF8Seq() throws Exception { super(FloatWritable.class,UTF8.class); }
-	}
-	public static class ProxyMapperFloatVIntSeq extends GenericProxyMapperSeq <FloatWritable,VIntWritable>{
-		public ProxyMapperFloatVIntSeq() throws Exception { super(FloatWritable.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperFloatVLongSeq extends GenericProxyMapperSeq <FloatWritable,VLongWritable>{
-		public ProxyMapperFloatVLongSeq() throws Exception { super(FloatWritable.class,VLongWritable.class); }
-	}
-
-	// Proxy Mapper IntWritable
-	public static class ProxyMapperIntDoubleSeq extends GenericProxyMapperSeq <IntWritable,DoubleWritable>{
-		public ProxyMapperIntDoubleSeq() throws Exception { super(IntWritable.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperIntFloatSeq extends GenericProxyMapperSeq <IntWritable,FloatWritable>{
-		public ProxyMapperIntFloatSeq() throws Exception { super(IntWritable.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperIntIntSeq extends GenericProxyMapperSeq <IntWritable,IntWritable>{
-		public ProxyMapperIntIntSeq() throws Exception { super(IntWritable.class,IntWritable.class); }
-	}
-	public static class ProxyMapperIntLongSeq extends GenericProxyMapperSeq <IntWritable,LongWritable>{
-		public ProxyMapperIntLongSeq() throws Exception { super(IntWritable.class,LongWritable.class); }
-	}
-	public static class ProxyMapperIntTextSeq extends GenericProxyMapperSeq <IntWritable,Text>{
-		public ProxyMapperIntTextSeq() throws Exception { super(IntWritable.class,Text.class); }
-	}
-	public static class ProxyMapperIntUTF8Seq extends GenericProxyMapperSeq <IntWritable,UTF8>{
-		public ProxyMapperIntUTF8Seq() throws Exception { super(IntWritable.class,UTF8.class); }
-	}
-	public static class ProxyMapperIntVIntSeq extends GenericProxyMapperSeq <IntWritable,VIntWritable>{
-		public ProxyMapperIntVIntSeq() throws Exception { super(IntWritable.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperIntVLongSeq extends GenericProxyMapperSeq <IntWritable,VLongWritable>{
-		public ProxyMapperIntVLongSeq() throws Exception { super(IntWritable.class,VLongWritable.class); }
-	}
-
-	// Proxy Mapper LongWritable
-	public static class ProxyMapperLongDoubleSeq extends GenericProxyMapperSeq <LongWritable,DoubleWritable>{
-		public ProxyMapperLongDoubleSeq() throws Exception { super(LongWritable.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperLongFloatSeq extends GenericProxyMapperSeq <LongWritable,FloatWritable>{
-		public ProxyMapperLongFloatSeq() throws Exception { super(LongWritable.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperLongIntSeq extends GenericProxyMapperSeq <LongWritable,IntWritable>{
-		public ProxyMapperLongIntSeq() throws Exception { super(LongWritable.class,IntWritable.class); }
-	}
-	public static class ProxyMapperLongLongSeq extends GenericProxyMapperSeq <LongWritable,LongWritable>{
-		public ProxyMapperLongLongSeq() throws Exception { super(LongWritable.class,LongWritable.class); }
-	}
-	public static class ProxyMapperLongTextSeq extends GenericProxyMapperSeq <LongWritable,Text>{
-		public ProxyMapperLongTextSeq() throws Exception { super(LongWritable.class,Text.class); }
-	}
-	public static class ProxyMapperLongUTF8Seq extends GenericProxyMapperSeq <LongWritable,UTF8>{
-		public ProxyMapperLongUTF8Seq() throws Exception { super(LongWritable.class,UTF8.class); }
-	}
-	public static class ProxyMapperLongVIntSeq extends GenericProxyMapperSeq <LongWritable,VIntWritable>{
-		public ProxyMapperLongVIntSeq() throws Exception { super(LongWritable.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperLongVLongSeq extends GenericProxyMapperSeq <LongWritable,VLongWritable>{
-		public ProxyMapperLongVLongSeq() throws Exception { super(LongWritable.class,VLongWritable.class); }
-	}
-
-	// Proxy Mapper Text
-	public static class ProxyMapperTextDoubleSeq extends GenericProxyMapperSeq <Text,DoubleWritable>{
-		public ProxyMapperTextDoubleSeq() throws Exception { super(Text.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperTextFloatSeq extends GenericProxyMapperSeq <Text,FloatWritable>{
-		public ProxyMapperTextFloatSeq() throws Exception { super(Text.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperTextIntSeq extends GenericProxyMapperSeq <Text,IntWritable>{
-		public ProxyMapperTextIntSeq() throws Exception { super(Text.class,IntWritable.class); }
-	}
-	public static class ProxyMapperTextLongSeq extends GenericProxyMapperSeq <Text,LongWritable>{
-		public ProxyMapperTextLongSeq() throws Exception { super(Text.class,LongWritable.class); }
-	}
-	public static class ProxyMapperTextTextSeq extends GenericProxyMapperSeq <Text,Text>{
-		public ProxyMapperTextTextSeq() throws Exception { super(Text.class,Text.class); }
-	}
-	public static class ProxyMapperTextUTF8Seq extends GenericProxyMapperSeq <Text,UTF8>{
-		public ProxyMapperTextUTF8Seq() throws Exception { super(Text.class,UTF8.class); }
-	}
-	public static class ProxyMapperTextVIntSeq extends GenericProxyMapperSeq <Text,VIntWritable>{
-		public ProxyMapperTextVIntSeq() throws Exception { super(Text.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperTextVLongSeq extends GenericProxyMapperSeq <Text,VLongWritable>{
-		public ProxyMapperTextVLongSeq() throws Exception { super(Text.class,VLongWritable.class); }
-	}
-
-	// Proxy Mapper UTF8
-	public static class ProxyMapperUTF8DoubleSeq extends GenericProxyMapperSeq <UTF8,DoubleWritable>{
-		public ProxyMapperUTF8DoubleSeq() throws Exception { super(UTF8.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperUTF8FloatSeq extends GenericProxyMapperSeq <UTF8,FloatWritable>{
-		public ProxyMapperUTF8FloatSeq() throws Exception { super(UTF8.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperUTF8IntSeq extends GenericProxyMapperSeq <UTF8,IntWritable>{
-		public ProxyMapperUTF8IntSeq() throws Exception { super(UTF8.class,IntWritable.class); }
-	}
-	public static class ProxyMapperUTF8LongSeq extends GenericProxyMapperSeq <UTF8,LongWritable>{
-		public ProxyMapperUTF8LongSeq() throws Exception { super(UTF8.class,LongWritable.class); }
-	}
-	public static class ProxyMapperUTF8TextSeq extends GenericProxyMapperSeq <UTF8,Text>{
-		public ProxyMapperUTF8TextSeq() throws Exception { super(UTF8.class,Text.class); }
-	}
-	public static class ProxyMapperUTF8UTF8Seq extends GenericProxyMapperSeq <UTF8,UTF8>{
-		public ProxyMapperUTF8UTF8Seq() throws Exception { super(UTF8.class,UTF8.class); }
-	}
-	public static class ProxyMapperUTF8VIntSeq extends GenericProxyMapperSeq <UTF8,VIntWritable>{
-		public ProxyMapperUTF8VIntSeq() throws Exception { super(UTF8.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperUTF8VLongSeq extends GenericProxyMapperSeq <UTF8,VLongWritable>{
-		public ProxyMapperUTF8VLongSeq() throws Exception { super(UTF8.class,VLongWritable.class); }
-	}
-
-	// Proxy Mapper VIntWritable
-	public static class ProxyMapperVIntDoubleSeq extends GenericProxyMapperSeq <VIntWritable,DoubleWritable>{
-		public ProxyMapperVIntDoubleSeq() throws Exception { super(VIntWritable.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperVIntFloatSeq extends GenericProxyMapperSeq <VIntWritable,FloatWritable>{
-		public ProxyMapperVIntFloatSeq() throws Exception { super(VIntWritable.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperVIntIntSeq extends GenericProxyMapperSeq <VIntWritable,IntWritable>{
-		public ProxyMapperVIntIntSeq() throws Exception { super(VIntWritable.class,IntWritable.class); }
-	}
-	public static class ProxyMapperVIntLongSeq extends GenericProxyMapperSeq <VIntWritable,LongWritable>{
-		public ProxyMapperVIntLongSeq() throws Exception { super(VIntWritable.class,LongWritable.class); }
-	}
-	public static class ProxyMapperVIntTextSeq extends GenericProxyMapperSeq <VIntWritable,Text>{
-		public ProxyMapperVIntTextSeq() throws Exception { super(VIntWritable.class,Text.class); }
-	}
-	public static class ProxyMapperVIntUTF8Seq extends GenericProxyMapperSeq <VIntWritable,UTF8>{
-		public ProxyMapperVIntUTF8Seq() throws Exception { super(VIntWritable.class,UTF8.class); }
-	}
-	public static class ProxyMapperVIntVIntSeq extends GenericProxyMapperSeq <VIntWritable,VIntWritable>{
-		public ProxyMapperVIntVIntSeq() throws Exception { super(VIntWritable.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperVIntVLongSeq extends GenericProxyMapperSeq <VIntWritable,VLongWritable>{
-		public ProxyMapperVIntVLongSeq() throws Exception { super(VIntWritable.class,VLongWritable.class); }
-	}
-
-	// Proxy Mapper VLongWritable
-	public static class ProxyMapperVLongDoubleSeq extends GenericProxyMapperSeq <VLongWritable,DoubleWritable>{
-		public ProxyMapperVLongDoubleSeq() throws Exception { super(VLongWritable.class,DoubleWritable.class); }
-	}
-	public static class ProxyMapperVLongFloatSeq extends GenericProxyMapperSeq <VLongWritable,FloatWritable>{
-		public ProxyMapperVLongFloatSeq() throws Exception { super(VLongWritable.class,FloatWritable.class); }
-	}
-	public static class ProxyMapperVLongIntSeq extends GenericProxyMapperSeq <VLongWritable,IntWritable>{
-		public ProxyMapperVLongIntSeq() throws Exception { super(VLongWritable.class,IntWritable.class); }
-	}
-	public static class ProxyMapperVLongLongSeq extends GenericProxyMapperSeq <VLongWritable,LongWritable>{
-		public ProxyMapperVLongLongSeq() throws Exception { super(VLongWritable.class,LongWritable.class); }
-	}
-	public static class ProxyMapperVLongTextSeq extends GenericProxyMapperSeq <VLongWritable,Text>{
-		public ProxyMapperVLongTextSeq() throws Exception { super(VLongWritable.class,Text.class); }
-	}
-	public static class ProxyMapperVLongUTF8Seq extends GenericProxyMapperSeq <VLongWritable,UTF8>{
-		public ProxyMapperVLongUTF8Seq() throws Exception { super(VLongWritable.class,UTF8.class); }
-	}
-	public static class ProxyMapperVLongVIntSeq extends GenericProxyMapperSeq <VLongWritable,VIntWritable>{
-		public ProxyMapperVLongVIntSeq() throws Exception { super(VLongWritable.class,VIntWritable.class); }
-	}
-	public static class ProxyMapperVLongVLongSeq extends GenericProxyMapperSeq <VLongWritable,VLongWritable>{
-		public ProxyMapperVLongVLongSeq() throws Exception { super(VLongWritable.class,VLongWritable.class); }
-	}
 	// Proxy Mapper NullWritable
 		public static class ProxyMapperNullDouble extends GenericProxyMapper <NullWritable,DoubleWritable>{
 			public ProxyMapperNullDouble() throws Exception { super(NullWritable.class,DoubleWritable.class); }
@@ -1221,128 +937,5 @@ public class ProxySelector {
         proxyMapMapping.put(FloatWritable.class.getCanonicalName(), valueMap); 
 
     }
-    // add proxy mapper end
-    //==============================================================================================
-    //----------------------------------------------------------------------- 
-    // version 1
-    // proxy reducer
-    // Key : Text
-    private void addProxyReducerTextKeyOutMapping() throws Exception {
-        Map<String, Class <? extends Reducer>> valueMap = new HashMap<String, Class <? extends Reducer>>();
-
-        // Text, Long
-        GenericProxyReducer<Text,LongWritable> gMapTextLong = 
-            new  GenericProxyReducer<Text,LongWritable>(Text.class, LongWritable.class);
-        valueMap.put( LongWritable.class.getCanonicalName(), gMapTextLong.getClass());
-
-        // Text, Int
-        GenericProxyReducer<Text,IntWritable> gMapTextInt = 
-            new  GenericProxyReducer<Text,IntWritable>(Text.class, IntWritable.class);
-        valueMap.put( IntWritable.class.getCanonicalName(), gMapTextInt.getClass());
-
-        // Text, Float
-        GenericProxyReducer<Text,FloatWritable> gMapTextFloat = 
-            new  GenericProxyReducer<Text,FloatWritable>(Text.class, FloatWritable.class);
-        valueMap.put( FloatWritable.class.getCanonicalName(), gMapTextFloat.getClass());
-
-        // Text, Text
-        GenericProxyReducer<Text,Text> gMapTextText = 
-            new  GenericProxyReducer<Text,Text>(Text.class, Text.class);
-        valueMap.put( Text.class.getCanonicalName(), gMapTextText.getClass());
-
-        proxyReduceMapping.put(Text.class.getCanonicalName(), valueMap); 
-
-    }
-    // Key : Integer 
-    private void addProxyReducerIntKeyOutMapping() throws Exception {
-        Map<String, Class <? extends Reducer>> valueMap = new HashMap<String, Class <? extends Reducer>>();
-        /*
-        // Int, Long
-        GenericProxyReducer<IntWritable,LongWritable> gMapIntLong = 
-            new  GenericProxyReducer<IntWritable,LongWritable>();
-        valueMap.put( LongWritable.class.getCanonicalName(), gMapIntLong.getClass());
-
-        // Int, Int
-        GenericProxyReducer<IntWritable,IntWritable> gMapIntInt = 
-            new  GenericProxyReducer<IntWritable,IntWritable>();
-        valueMap.put( IntWritable.class.getCanonicalName(), gMapIntInt.getClass());
-
-        // Int, Float
-        GenericProxyReducer<IntWritable,FloatWritable> gMapIntFloat = 
-            new  GenericProxyReducer<IntWritable,FloatWritable>();
-        valueMap.put( FloatWritable.class.getCanonicalName(), gMapIntFloat.getClass());
-
-        // Int, Text
-        GenericProxyReducer<IntWritable,Text> gMapIntText = 
-            new  GenericProxyReducer<IntWritable,Text>();
-        valueMap.put( Text.class.getCanonicalName(), gMapIntText.getClass());
-
-        proxyReduceMapping.put(IntWritable.class.getCanonicalName(), valueMap); 
-        */
-
-    }
-    // Key : Long 
-    private void addProxyReducerLongKeyOutMapping() throws Exception {
-        /*
-        Map<String, Class <? extends Reducer>> valueMap = new HashMap<String, Class<? extends Reducer>>();
-
-        // Long, Long
-        GenericProxyReducer<LongWritable,LongWritable> gMapLongLong = 
-            new  GenericProxyReducer<LongWritable,LongWritable>();
-        valueMap.put( LongWritable.class.getCanonicalName(), gMapLongLong.getClass());
-
-        // Long, Int
-        GenericProxyReducer<LongWritable,IntWritable> gMapLongInt = 
-            new  GenericProxyReducer<LongWritable,IntWritable>();
-        valueMap.put( IntWritable.class.getCanonicalName(), gMapLongInt.getClass());
-
-        // Long, Float
-        GenericProxyReducer<LongWritable,FloatWritable> gMapLongFloat = 
-            new  GenericProxyReducer<LongWritable,FloatWritable>();
-        valueMap.put( FloatWritable.class.getCanonicalName(), gMapLongFloat.getClass());
-
-        // Long, Text
-        GenericProxyReducer<LongWritable,Text> gMapLongText = 
-            new  GenericProxyReducer<LongWritable,Text>();
-        valueMap.put( Text.class.getCanonicalName(), gMapLongText.getClass());
-
-        proxyReduceMapping.put(LongWritable.class.getCanonicalName(), valueMap); 
-        */
-
-    }
-
-    // Key : Float 
-    private void addProxyReducerFloatKeyOutMapping() throws Exception {
-        /*
-        Map<String, Class<? extends Reducer>> valueMap = new HashMap<String, Class<? extends Reducer>>();
-
-        // Float, Long
-        GenericProxyReducer<FloatWritable,LongWritable> gMapFloatLong = 
-            new  GenericProxyReducer<FloatWritable,LongWritable>();
-        valueMap.put( LongWritable.class.getCanonicalName(), gMapFloatLong.getClass());
-
-        // Float, Int
-        GenericProxyReducer<FloatWritable,IntWritable> gMapFloatInt = 
-            new  GenericProxyReducer<FloatWritable,IntWritable>();
-        valueMap.put( IntWritable.class.getCanonicalName(), gMapFloatInt.getClass());
-
-        // Float, Float
-        GenericProxyReducer<FloatWritable,FloatWritable> gMapFloatFloat = 
-            new  GenericProxyReducer<FloatWritable,FloatWritable>();
-        valueMap.put( FloatWritable.class.getCanonicalName(), gMapFloatFloat.getClass());
-
-        // Float, Text
-        GenericProxyReducer<FloatWritable,Text> gMapFloatText = 
-            new  GenericProxyReducer<FloatWritable,Text>();
-        valueMap.put( Text.class.getCanonicalName(), gMapFloatText.getClass());
-
-        proxyReduceMapping.put(FloatWritable.class.getCanonicalName(), valueMap); 
-        */
-
-    }
-    // add proxy reduce end
-    //==============================================================================================
-
+   
 }
-
-
