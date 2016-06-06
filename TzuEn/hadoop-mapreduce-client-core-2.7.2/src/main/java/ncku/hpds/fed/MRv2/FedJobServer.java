@@ -363,8 +363,10 @@ public class FedJobServer extends Thread{
 												 +entry.getValue().getDownLinkSpeed_normalized()+";"
 												 +entry.getValue().getReduceSpeed_normalized()+";"
 												// +entry.getValue().getReduceInputSize()+";"
+												 +entry.getValue().getMapSpeed_normalized()+";"
 												 +entry.getValue().getInterTime()+";"
 												 +entry.getValue().getTopTime()+";"
+												 +entry.getValue().getRegionMapTime()+";"
 												 +entry.getValue().getInterSize_normalized()+",";
 									}
 								

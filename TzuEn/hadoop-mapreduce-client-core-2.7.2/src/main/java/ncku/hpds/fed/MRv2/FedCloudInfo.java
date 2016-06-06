@@ -33,6 +33,7 @@ public class FedCloudInfo {
 	private double interSize_normalized = 0;
 	
 	private double mapSpeed = 0;
+	private double mapSpeed_normalized = 0;
 	private double tansferSpeed = 0;
 	private double reduceSpeed = 0;
 	private double reduceSpeed_normalized = 0;
@@ -325,6 +326,7 @@ public class FedCloudInfo {
 		regionMap = this.regionMapStopTime - this.regionStartTime;
 	    inter = this.interStopTime - this.interStartTime;
 		top = this.topStopTime - this.topStartTime;
+		
 		System.out.println(this.cloudName + " Region Map Time = "+ regionMap/1000+"(s)");
 		System.out.println(this.cloudName + " Inter Transfer Time = "+ inter/1000+"(s)");
 		System.out.println(this.cloudName + " Top Time = "+ top/1000+"(s)");
@@ -475,4 +477,11 @@ public class FedCloudInfo {
 	public void setReduceSpeed_normalized(double reduceSpeed_normalized) {
 		this.reduceSpeed_normalized = reduceSpeed_normalized;
 	}
+	public double getMapSpeed_normalized() {
+		return mapSpeed_normalized;
+	}
+	public void setMapSpeed_normalized(double mapSpeed_normalized) {
+		this.mapSpeed_normalized = mapSpeed_normalized;
+	}
+
 }

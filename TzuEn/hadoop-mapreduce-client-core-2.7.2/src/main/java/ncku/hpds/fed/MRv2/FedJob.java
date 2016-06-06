@@ -360,6 +360,7 @@ public class FedJob {
 		long minIntersize = Long.MAX_VALUE;
 		double minWan = Double.MAX_VALUE;
 		double minReduceSpeed = Double.MAX_VALUE;
+		double minMapSpeed = Double.MAX_VALUE;
 		int minCore = Integer.MAX_VALUE;
 		int minMB = Integer.MAX_VALUE;
 		for (Map.Entry<String, FedCloudInfo> info : fedCloudInfos
@@ -374,6 +375,9 @@ public class FedJob {
 			if( fedInfo.getReduceSpeed() < minReduceSpeed){
 				minReduceSpeed = fedInfo.getReduceSpeed();
 			}
+			if( fedInfo.getMapSpeed() < minMapSpeed){
+				minMapSpeed = fedInfo.getMapSpeed();
+			}
 			if( fedInfo.getInterSize() < minIntersize){
 				minIntersize = fedInfo.getInterSize();
 			}
@@ -385,6 +389,8 @@ public class FedJob {
 			for(String dLinkSpeedInfo : downLinkSpeedInfo){
 				System.out.println("DLinkSpeed " + dLinkSpeedInfo);
 				double speed = Double.parseDouble(dLinkSpeedInfo.split("=")[1]);
+				//for Text Text only
+				speed = (60d * speed)/(60d + speed);
 				if(speed < minWan)
 					minWan = speed;
 			}
@@ -398,6 +404,7 @@ public class FedJob {
 			fedInfo.setAvailableMB_normalized((double)fedInfo.getAvailableMB() /(double) minMB);
 			fedInfo.setAvailableVcores_normalized((double)fedInfo.getAvailableVcores() /(double) minCore);
 			fedInfo.setReduceSpeed_normalized((double)fedInfo.getReduceSpeed() /(double) minReduceSpeed);
+			fedInfo.setMapSpeed_normalized((double)fedInfo.getMapSpeed() /(double) minMapSpeed);
 			fedInfo.setInterSize_normalized((double)fedInfo.getInterSize() /(double) minIntersize);
 			//fedInfo.setMinWanSpeed_normalized( fedInfo.getMinWanSpeed() /  minWan);
 			String downLinkSpeedInfo[] = fedInfo.getDownLinkSpeed().split("/");
