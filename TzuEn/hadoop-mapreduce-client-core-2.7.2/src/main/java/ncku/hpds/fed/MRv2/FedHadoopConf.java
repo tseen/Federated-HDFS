@@ -41,6 +41,7 @@ public class FedHadoopConf{
 	private String mWanOpt = "";
 	private String mHDFSUrl = "";
 	private String mIteration = "false";
+	private String mLastIter = "false";
 
 
     
@@ -144,6 +145,12 @@ public class FedHadoopConf{
 	}
 	public void setIteration(String mIteration) {
 		this.mIteration = mIteration;
+	}
+	public String getLastIter() {
+		return mLastIter;
+	}
+	public void setLastIter(String mLastIter) {
+		this.mLastIter = mLastIter;
 	}
 	
 }

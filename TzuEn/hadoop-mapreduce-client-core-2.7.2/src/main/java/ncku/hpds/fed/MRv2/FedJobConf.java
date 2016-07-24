@@ -192,6 +192,7 @@ public class FedJobConf extends AbstractFedJobConf {
 				System.out.println("MOV:"
 						+ mJob.getMapOutputValueClass().getName());
 				try{
+					
 					mJob.setReducerClass(mSelector.getProxyReducerClass(keyClz,
 						valueClz));
 				}catch (NullPointerException e) {
@@ -219,22 +220,7 @@ public class FedJobConf extends AbstractFedJobConf {
 			Class keyClz = mJob.getMapOutputKeyClass();
 			Class valueClz = mJob.getMapOutputValueClass();
 
-			/*
-			 * Class outputFormat = mJob.getOutputFormatClass();
-			 * //mJob.setMapperClass ( mSelector.getProxyMapperClass( keyClz,
-			 * valueClz ));
-			 * System.out.println("outputFormat.getCanonicalName() = " +
-			 * outputFormat.getCanonicalName() ); System.out.println(
-			 * "SequenceFileOutputFormat.class.getCanonicalName() = " +
-			 * SequenceFileOutputFormat.class.getCanonicalName() ); if (
-			 * outputFormat
-			 * .getCanonicalName().equals(SequenceFileOutputFormat.class
-			 * .getCanonicalName())){ //mJob.setMapperClass (
-			 * mSelector.getProxyMapperClassSeq( keyClz, valueClz ));
-			 * mJob.setMapperClass ( mSelector.getProxyMapperClass( keyClz,
-			 * valueClz )); } else { mJob.setMapperClass (
-			 * mSelector.getProxyMapperClass( keyClz, valueClz )); }
-			 */
+		
 			try{
 				mJob.setMapperClass(mSelector.getProxyMapperClass(keyClz, valueClz));
 			}catch (NullPointerException e) {

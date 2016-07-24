@@ -170,12 +170,7 @@ public class FedTopCloudJob extends Thread {
         	cmd = cmd +" -D"+e.getKey()+"="+e.getValue()+" ";
         }
 		//TODO fix
-		if(mConf.getAddress().equals("c03")){
-			cmd = cmd +" -Dmapred.reduce.tasks=4 ";
-		}
-		else{
-			cmd = cmd +" -Dmapred.reduce.tasks=2 ";
-		}
+	
 		cmd = cmd + mConf.getOtherArgs() + " ";
 		for (int i = 0; i < 10; i++) {
 			String arg = mConf.getArgs(i);

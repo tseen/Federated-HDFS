@@ -56,6 +56,10 @@ public abstract class AbstractFedJobConf {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		public void configIter(String filename, int currentIter, String Last) {
+			// TODO Auto-generated method stub
+			
+		}
 
 		
 	}

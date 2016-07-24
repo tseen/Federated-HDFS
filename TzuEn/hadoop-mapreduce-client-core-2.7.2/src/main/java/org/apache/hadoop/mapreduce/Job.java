@@ -1324,6 +1324,7 @@ public class Job extends JobContextImpl implements JobContext {
 					&& fedJob.isFedHdfsJob() == true) {
 
 				fedJob.scheduleAndStartFedJob();
+				state = JobState.RUNNING;
 			} else {
 				submit();
 			}

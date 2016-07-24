@@ -962,10 +962,11 @@ public class MapTask extends Task {
     public void init(MapOutputCollector.Context context
                     ) throws IOException, ClassNotFoundException {
       job = context.getJobConf();
-      String ip = job.get("fedCloudHDFS").split(":")[1].split("/")[2];
-  	  InetAddress address;
+     
       if(job.get("regionCloud", "off").equals("on") && job.get("wanOpt", "off").equals("true")&& !job.get("preciseIter", "off").equals("true")){
-	      try {
+    	  String ip = job.get("fedCloudHDFS").split(":")[1].split("/")[2];
+      	  InetAddress address;
+    	  try {
 	  		address = InetAddress.getByName(ip);
 	  		jclient = new FedJobServerClient(address.getHostAddress(), 8713);
 	  		jclient.start();

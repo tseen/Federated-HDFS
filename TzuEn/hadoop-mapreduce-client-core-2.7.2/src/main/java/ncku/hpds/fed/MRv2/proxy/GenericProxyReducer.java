@@ -294,30 +294,6 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 				String interSize = resources[6];
 				interSizeMap.put(cluster, Double.parseDouble(interSize));
 			}
-	/*		boolean barrier = true;
-			while(barrier){
-				String res = client.sendWaitBarrier(namenode.split("/")[2]);
-				if(res.contains(FedCloudProtocol.RES_TRUE_BARRIER))
-					barrier = true;
-				else if(res.contains(FedCloudProtocol.RES_FALSE_BARRIER))
-					barrier = false;
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-			}
-				
-			String res = client.sendReqInterInfo(namenode.split("/")[2]);
-			if(res.contains(FedCloudProtocol.RES_INTER_INFO)){
-					String[] infonodes = res.substring(15).split(",");
-					for(int i = 0; i< infonodes.length; i++){
-						String cluster = infonodes[i].split("=")[0];
-						String interSize = infonodes[i].split("=")[1];
-						interSizeMap.put(cluster, Double.parseDouble(interSize));
-					}
-			}
-			*/
 			long interTime = 0;
 			long topTime = 0;
 			long mapTime = 0;
@@ -370,10 +346,19 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 					//mClusterWeight.set(TopCloudHasher.setFileNameOrderInt("hdfs://"+nodes[i].split(">>")[0]+"/"), finalGain);
 													
 			}
-			double wanFactor = (double)interTime/(double)(interTime+topTime+mapTime);
-			double reduceFactor = (double)topTime/(double)(interTime+topTime+mapTime);
-			double mapFactor = (double)mapTime/(double)(interTime+topTime+mapTime);
-
+			double wanFactor = 0d;
+			double reduceFactor = 0d;
+			double mapFactor = 0d;
+			if(!conf.get("lastIter").equals("true")){
+				wanFactor = (double)interTime/(double)(interTime+topTime+mapTime);
+				reduceFactor = (double)topTime/(double)(interTime+topTime+mapTime);
+				mapFactor = (double)mapTime/(double)(interTime+topTime+mapTime);
+			}
+			else if(conf.get("lastIter").equals("true")){
+				wanFactor = (double)interTime/(double)(interTime+topTime);
+				reduceFactor = (double)topTime/(double)(interTime+topTime);
+			}
+			
 			Double total = 0d;
 			for(Double weight: mWanWeight){
 				total += weight;
@@ -387,29 +372,31 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 				System.out.println("wanWeight"+s+"="+mWanWeight);
 				s++;
 			}
-			 total = 0d;
-			for(Double weight: mMapWeight){
-				total += weight;
+			if(!conf.get("lastIter").equals("true")){
+				total = 0d;
+				for(Double weight: mMapWeight){
+					total += weight;
+				}
+				for(int j = 0; j<mMapWeight.size(); j++){
+					mMapWeight.set(j , (mMapWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);
+				}
+				s = 0;
+				for(Double clusterWeight: mMapWeight){
+					double curr = mClusterWeight.get(s);
+					curr += clusterWeight*mapFactor;
+					mClusterWeight.set(s, curr);
+					System.out.println("mapWeight"+s+"="+clusterWeight);
+					s++;
+				}
 			}
-			for(int j = 0; j<mMapWeight.size(); j++){
-				mMapWeight.set(j , (mMapWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);
-			}
-			 s = 0;
-			for(Double clusterWeight: mMapWeight){
-				double curr = mClusterWeight.get(s);
-				curr += clusterWeight*mapFactor;
-				mClusterWeight.set(s, curr);
-				System.out.println("mapWeight"+s+"="+clusterWeight);
-				s++;
-			}
-			 total = 0d;
+			total = 0d;
 			for(Double weight: mReduceWeight){
 				total += weight;
 			}
 			for(int j = 0; j<mReduceWeight.size(); j++){
 				mReduceWeight.set(j , (mReduceWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);
 			}
-			 s = 0;
+			s = 0;
 			for(Double clusterWeight: mReduceWeight){
 				double curr = mClusterWeight.get(s);
 				curr += clusterWeight*reduceFactor;
@@ -425,7 +412,7 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 				mClusterWeight.set(j , (mClusterWeight.get(j) / total ) * PARTITION_GRAIN_NUMBERS);
 			}
 			*/
-			 s = 0;
+			s = 0;
 			for(Double clusterWeight: mClusterWeight){
 				System.out.println(s+"="+clusterWeight);
 				s++;

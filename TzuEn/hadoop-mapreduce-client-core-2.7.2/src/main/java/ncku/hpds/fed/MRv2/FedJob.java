@@ -155,8 +155,7 @@ public class FedJob {
 
 			for (int i = 0; i < iterations; i++) {
 				
-				if (bIsFedIteration && 
-						 currentIter <= iterations) {
+				if (bIsFedIteration) {
 					Path mOutpuPath = FileOutputFormat.getOutputPath(mJob);
 					String input[] = mOutpuPath.toString().split("/");
 					// mFedJobConf.configIter("/"+input[3]+"/"+input[4]+"/"+input[5],currentIter);
@@ -167,9 +166,13 @@ public class FedJob {
 					String iterInput = mJobConf.get("iterInput", "/" + input[3]
 							+ "/" + input[4] + "/" + input[5]);
 					System.out.println("iterInput:"+ iterInput);
-					mFedJobConf.configIter(iterInput, currentIter);
-				
+					if(currentIter < iterations)
+						mFedJobConf.configIter(iterInput, currentIter, "false");
+					else if(currentIter == iterations)
+						mFedJobConf.configIter(iterInput, currentIter, "true");
+
 				}
+				
 				// get top job
 				List<FedTopCloudJob> tList = mFedJobConf.getTopCloudJobList();
 				// get region job
@@ -456,6 +459,7 @@ public class FedJob {
 			if (mJob.getNumReduceTasks() == 0) {
 				mapOnly = true;
 			}
+					
 			mFedJobConf = new FedJobConf(mJobConf, mJob);
 			System.out.println("TopCloudURLs: " + TopCloudHasher.topURLs);
 

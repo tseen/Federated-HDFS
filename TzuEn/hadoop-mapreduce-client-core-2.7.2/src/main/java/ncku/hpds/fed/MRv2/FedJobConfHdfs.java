@@ -21,6 +21,7 @@ import java.util.Map.Entry;
 
 
 
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -495,7 +496,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	}
 
 	@Override
-	public void configIter(String filename, int currentIter) {
+	public void configIter(String filename, int currentIter, String Last) {
 		mRegionJobList.clear();
 		mTopJobList.clear();
 		mFedCloudMonitorClientList.clear();
@@ -506,8 +507,10 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				Configuration tmpconf = new Configuration();
 				tmpconf.set("fs.defaultFS", "hdfs://" + conf.getHDFSUrl());
 				try {
-					recursivelySumOfLen(filename, tmpconf );
-					//recursivelySumOfLen(filename+ "_" + Integer.toString(currentIter - 1 ), tmpconf );
+					if(mJobConf.get("kmeans", "false").equals("true"))
+						recursivelySumOfLen(filename, tmpconf );
+					else
+						recursivelySumOfLen(filename+ "_" + Integer.toString(currentIter - 1 ), tmpconf );
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -527,9 +530,12 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				fedInfo.setReduceSpeed();
 				fedInfo.setMapInputSize(dataSize);
 				fedInfo.setInterSize_iter();
-				conf.setHDFSInputPath(filename);
-				//conf.setHDFSInputPath(filename+ "_" + Integer.toString(currentIter - 1 ));
+				if(mJobConf.get("kmeans", "false").equals("true"))
+					conf.setHDFSInputPath(filename);
+				else
+					conf.setHDFSInputPath(filename+ "_" + Integer.toString(currentIter - 1 ));
 				conf.setIteration("true");
+				conf.setLastIter(Last);
 			}
 
 			conf.setHDFSOutputPath(conf.getName() + "_" + conf.getMainClass()
@@ -611,6 +617,12 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		}
 		tmpFsLenElement = new  ArrayList<Long>();
 		return sumOfLen;
+	}
+
+	@Override
+	public void configIter(String name, int a) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
