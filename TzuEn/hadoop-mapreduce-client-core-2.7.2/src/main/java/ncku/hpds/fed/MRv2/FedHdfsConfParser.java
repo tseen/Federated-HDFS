@@ -95,7 +95,11 @@ public class FedHdfsConfParser {
             for(FedHadoopConf fedHadoopConf : mRegionCloudList){
             	fedHadoopConf.setTopCloudHDFSURLs(mTopCloudHDFSURLs);
             }
-            
+            //----for reallocation----
+            for(FedHadoopConf fedHadoopConfTop : mTopCloudList){
+            	fedHadoopConfTop.setTopCloudHDFSURLs(mTopCloudHDFSURLs);
+            }
+            //------------------------
             TopCloudHasher.topURLs = mTopCloudHDFSURLs;
             TopCloudHasher.topCounts = mTopCloudHDFSURLs.size();
             

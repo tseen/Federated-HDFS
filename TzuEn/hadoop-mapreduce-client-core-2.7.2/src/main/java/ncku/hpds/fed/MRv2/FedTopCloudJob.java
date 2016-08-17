@@ -4,6 +4,7 @@
 package ncku.hpds.fed.MRv2;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -111,6 +112,7 @@ public class FedTopCloudJob extends Thread {
 		cmd = cmd + " -DtopCloudOutput=" + out + " ";
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
 		cmd = cmd + " -DtopCloudHadoopHome=" + mConf.getHadoopHome() + " ";
+	
 		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
         	//Entry<String, String> e = confIter.next();
         	cmd = cmd +" -D"+e.getKey()+"="+e.getValue()+" ";
@@ -123,6 +125,15 @@ public class FedTopCloudJob extends Thread {
 				cmd = cmd + arg + " ";
 			}
 		}
+		
+        //----for reallocation----
+		List<String> topCloudHDFSs = mConf.getTopCloudHDFSURLs();
+	    String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
+	        for(int i =1; i< topCloudHDFSs.size(); i++){
+	        	topCloudHDFS += ","+"hdfs://"+topCloudHDFSs.get(i);
+	        }
+	    cmd = cmd + " -DtopCloudHDFSs=" + topCloudHDFS + " "; 
+	    //------------------------
 		// cmd = cmd + mConf.getHDFSInputPath() + " ";
 		// cmd = cmd + mConf.getHDFSOutputPath() + " ";
 		System.out.println("TopCloud cmd " + cmd);

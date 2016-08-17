@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-//import ncku.hpds.hadoop.fedhdfs.HdfsInfoCollector;
-//import ncku.hpds.hadoop.fedhdfs.TopcloudSelector;
-//import ncku.hpds.hadoop.fedhdfs.shell.GetRegionPath;
+import ncku.hpds.hadoop.fedhdfs.HdfsInfoCollector;
+import ncku.hpds.hadoop.fedhdfs.TopcloudSelector;
+import ncku.hpds.hadoop.fedhdfs.shell.GetRegionPath;
 
 
 
@@ -227,7 +227,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					arg[j] = mJobConf.get(argTag, "none");
 				}
 
-			//	GetRegionPath fedHdfsInputGetter = new GetRegionPath();
+				GetRegionPath fedHdfsInputGetter = new GetRegionPath();
 				for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
 					mTopCloudHDFSURLs = conf.getTopCloudHDFSURLs();
 					FedCloudInfo fedinfo = new FedCloudInfo(
@@ -263,7 +263,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					// TODO configure the input of region cloud ( fedHdfs)
 					if (!multiInput) {
 						String inputpath = "";
-					/*	try{
+						try{
 							inputpath = fedHdfsInputGetter.getRegionPath(
 								conf.getName(), "AirDrive/" + globalfileInput)
 								.toString();
@@ -272,7 +272,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 							}catch (NullPointerException e) {
 							inputpath = globalfileInput;
 							}
-							*/
+							
 						inputpath = globalfileInput;
 
 						conf.setHDFSInputPath(inputpath);
