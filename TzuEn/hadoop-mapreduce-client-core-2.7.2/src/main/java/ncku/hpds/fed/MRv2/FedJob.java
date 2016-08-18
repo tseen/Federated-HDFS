@@ -520,8 +520,10 @@ public class FedJob {
 				System.out.println("TopCloud Start Time = "
 						+ mFedStat.getTopCloudStart());
 				System.out.println("----------------------------------");
-				if(mJobConf.get("topNumbers").equals("1"))
+				if(mJobConf.get("topNumbers").equals("1")){
 					mJob.setOutputFormatClass(ReallocateOutputFormat.class);
+					mJob.setNumReduceTasks(1);
+				}
 
 			} else if (mFedJobConf.isRegionCloud()) {
 				wanServer.setPort(mJobConf.get("regionCloudOutput").split("_")[0].hashCode()%10000);

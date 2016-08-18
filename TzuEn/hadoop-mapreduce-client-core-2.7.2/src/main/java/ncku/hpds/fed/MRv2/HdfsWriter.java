@@ -176,10 +176,9 @@ public class HdfsWriter<K, V> {
 		}
 	}
 	String newFileName(String fn){
-	//	int i = Integer.parseInt(fn.split("/")[fn.split("/").length-1]);
-	//	i += 3;
-	//	fn = fn.substring(0, fn.lastIndexOf("/"))+"/"+ Integer.toString(i);
-		
+		int i = Integer.parseInt(fn.split("/")[fn.split("/").length-1]);
+		i ++;
+		fn = fn.substring(0, fn.lastIndexOf("/"))+"/"+ Integer.toString(i);
 		return fn;
 	}
 	public SequenceFile.Writer sWriter;
@@ -211,21 +210,28 @@ public class HdfsWriter<K, V> {
 		}
 	}
 	public void init() {
-		try {
-			
+		boolean existFile = false;
+		
+
 			Configuration conf = new Configuration();
 			conf.set("fs.defaultFS", remoteHdfs);
 			Path target = new Path(remoteHdfs);
-			targetFS = target.getFileSystem(conf);
+			try {
+				targetFS = target.getFileSystem(conf);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			do{
+			try {
+			existFile = false;
 			FSDataOutputStream fsout = targetFS.create(new Path(fileName), false);
 	//		fsout.close();
-			
+			System.out.println("init:" + fileName);
+
 	//		client = new DFSClient(new URI(remoteHdfs), conf);
-			boolean existFile = false;
-			do{
+			
 //				try{
 					
-					existFile = false;
 				//----	
 					out = new DataOutputStream(new BufferedOutputStream(fsout));
 				//----	
@@ -245,7 +251,7 @@ public class HdfsWriter<K, V> {
 					fileName = newFileName(fileName);
 					existFile = true;
 				}*/
-			}while(existFile);
+			
 			/*catch(org.apache.hadoop.hdfs.protocol.AlreadyBeingCreatedException e){
 				fileName = newFileName(fileName);
 				out = new BufferedOutputStream(client.create(fileName, false));
@@ -271,13 +277,12 @@ public class HdfsWriter<K, V> {
 			 * fs.createNewFile(new Path(fileName)); out = fs.append(new
 			 * Path(fileName)); System.out.println("APPEDN"); return null; } });
 			 */
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		//} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		}
+			} catch (Exception e) {
+				fileName = newFileName(fileName);
+				existFile = true;
+				e.printStackTrace();
+			}
+		}while(existFile);
 
 	}
 	
@@ -310,6 +315,8 @@ public class HdfsWriter<K, V> {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+		System.out.println("set file name:"+ this.fileName);
+
 	}
 	private static DistributedFileSystem getDFS(Configuration conf)
 		      throws IOException {

@@ -19,7 +19,7 @@ public class ReallocateOutputFormat<K, V> extends FileOutputFormat<K, V> {
 		       return h ^ (h >>> 7) ^ (h >>> 4);
 		     }
 	public static String SEPERATOR = "mapreduce.output.textoutputformat.separator";
-	private List<HdfsWriter<K, String>> mHdfsWriterList = new ArrayList<HdfsWriter<K, String>>();
+	private List<HdfsWriter<K, V>> mHdfsWriterList = new ArrayList<HdfsWriter<K, V>>();
 	
 	protected static class LineRecordWriter<K, V> extends RecordWriter<K, V> {
 		private static final String utf8 = "UTF-8";
@@ -34,15 +34,15 @@ public class ReallocateOutputFormat<K, V> extends FileOutputFormat<K, V> {
 		}
 		
 		//private final byte[] keyValueSeparator;
-		private List<HdfsWriter<K, String>> mHdfsWriter = new ArrayList<HdfsWriter<K, String>>();
+		private List<HdfsWriter<K, V>> mHdfsWriter = new ArrayList<HdfsWriter<K, V>>();
 		private int topNumbers;
 		private Class<K> mClazz;
 		private Configuration mConf;
-		public LineRecordWriter(List<HdfsWriter<K, String>> hw,  Configuration conf){
+		public LineRecordWriter(List<HdfsWriter<K, V>> hw,  Configuration conf){
 			mHdfsWriter = hw;
 			mConf = conf;
 		
-			for (HdfsWriter<K, String> HW : mHdfsWriter) {
+			for (HdfsWriter<K, V> HW : mHdfsWriter) {
 				HW.init();
 			}
 			topNumbers = hw.size();
@@ -82,7 +82,7 @@ public class ReallocateOutputFormat<K, V> extends FileOutputFormat<K, V> {
 		if (conf.get("topCounts") != null) {
 			TopCloudHasher.topCounts = Integer.parseInt(conf.get("topCounts"));
 		}
-
+		System.out.println(conf.get("topCloudHadoopHome"));
 		System.out.println("topCOUNT:" + TopCloudHasher.topCounts);
 
 		List<String> mTopCloudHDFSURLs = new ArrayList<String>();
@@ -91,13 +91,11 @@ public class ReallocateOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			mTopCloudHDFSURLs.add(topCloudHdfs[i]);
 		}
 		TopCloudHasher.topURLs = mTopCloudHDFSURLs;
-
+		int i = 0;
 		for (String url : mTopCloudHDFSURLs) {
 			HdfsWriter HW = new HdfsWriter(url, "hpds");
-			HW.setFileName("/user/" + System.getProperty("user.name") + "/"
-					+ conf.get("topCloudOutput", "")
-					+"_" + TopCloudHasher.setFileNameOrder(url + "/"));
-
+			HW.setFileName(conf.get("topCloudOutput", "") +"/"+ i );
+			i++;
 			mHdfsWriterList.add(HW);
 		}
 

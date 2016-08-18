@@ -333,8 +333,15 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					topConf.setMainClass(main);
 					topConf.setTopCloudHDFSURL(mTopCloudHDFSURL);
 					topConf.setHDFSInputPath(topInputPath);
-					topConf.setHDFSOutputPath(FileOutputFormat.getOutputPath(
+					if(mJobConf.get("topNumbers").equals("1")){
+						topConf.setHDFSOutputPath(topConf.getName() + "_"
+								+FileOutputFormat.getOutputPath(
+										jobconf).toString());
+					}
+					else{
+						topConf.setHDFSOutputPath(FileOutputFormat.getOutputPath(
 							jobconf).toString());
+					}
 					topConf.setJobName("ITER_" + mParser.getSubmittedTime());
 					topConf.setUserConfig(userConfig);
 					FedTopCloudJob topJob = new FedTopCloudJob(topConf);

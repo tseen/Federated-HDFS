@@ -112,6 +112,15 @@ public class FedTopCloudJob extends Thread {
 		cmd = cmd + " -DtopCloudOutput=" + out + " ";
 		cmd = cmd + " -DfedCloudHDFS="+ mConf.getTopCloudHDFSURL();
 		cmd = cmd + " -DtopCloudHadoopHome=" + mConf.getHadoopHome() + " ";
+		
+	       //----for reallocation----
+			List<String> topCloudHDFSs = mConf.getTopCloudHDFSURLs();
+		    String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
+		        for(int i =1; i< topCloudHDFSs.size(); i++){
+		        	topCloudHDFS += ","+"hdfs://"+topCloudHDFSs.get(i);
+		        }
+		    cmd = cmd + " -DtopCloudHDFSs=" + topCloudHDFS + " "; 
+		    //------------------------
 	
 		for(Map.Entry<String, String> e : mConf.getUserConfig().entrySet()){
         	//Entry<String, String> e = confIter.next();
@@ -126,14 +135,7 @@ public class FedTopCloudJob extends Thread {
 			}
 		}
 		
-        //----for reallocation----
-		List<String> topCloudHDFSs = mConf.getTopCloudHDFSURLs();
-	    String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
-	        for(int i =1; i< topCloudHDFSs.size(); i++){
-	        	topCloudHDFS += ","+"hdfs://"+topCloudHDFSs.get(i);
-	        }
-	    cmd = cmd + " -DtopCloudHDFSs=" + topCloudHDFS + " "; 
-	    //------------------------
+ 
 		// cmd = cmd + mConf.getHDFSInputPath() + " ";
 		// cmd = cmd + mConf.getHDFSOutputPath() + " ";
 		System.out.println("TopCloud cmd " + cmd);
