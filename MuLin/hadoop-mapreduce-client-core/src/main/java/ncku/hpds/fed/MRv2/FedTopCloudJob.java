@@ -126,7 +126,7 @@ public class FedTopCloudJob extends Thread {
 		// cmd = cmd + mConf.getHDFSInputPath() + " ";
 		// cmd = cmd + mConf.getHDFSOutputPath() + " ";
 		System.out.println("TopCloud cmd " + cmd);
-		cmd = cmd + "2>&1 | tee mulin/log/FedTopCloudJob.txt";
+		cmd = cmd + "2>&1 | tee /home/hpds/mulin/log/FedTopCloudJob_$(date '+%Y%m%d_%H%M%S').txt";
 		return cmd;
 	}
 	private String makeTopCloudCmdIter() {

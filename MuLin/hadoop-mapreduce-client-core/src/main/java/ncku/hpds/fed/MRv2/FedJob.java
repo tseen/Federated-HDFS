@@ -5,16 +5,10 @@ package ncku.hpds.fed.MRv2;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.PathFilter;
-import org.apache.hadoop.hdfs.tools.DFSAdmin;
 import org.apache.hadoop.io.RawComparator;
-import org.apache.hadoop.mapreduce.InputFormat;
-import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Partitioner;
-import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
@@ -22,40 +16,29 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.LazyOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 import java.io.File;
 import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FedJob {
 	/*
 	 * FedJob FedJobConf FedJobConfParser
 	 */
-	private Configuration mJobConf;	//Job設定檔
+	private Configuration mJobConf;
 	private String mFileName;
-	private Job mJob;	//FedJob包Job
-	private FedJobStatistics mFedStat = new FedJobStatistics();	//猜:應是統計量
+	private Job mJob;
+	private FedJobStatistics mFedStat = new FedJobStatistics();
 	private FedCloudMonitorServer mServer = null;	//
 	private boolean bIsFed = false;
 	private boolean bIsFedHdfs = false;
-	private boolean bIsFedTachyon = false;
+//	private boolean bIsFedTachyon = false;
 	private boolean bIsFedIteration = false;
-	private boolean bIsProxyReduce = false;
+//	private boolean bIsProxyReduce = true;
 	private AbstractFedJobConf mFedJobConf;
 	private int iterations = 1;
 
@@ -90,11 +73,11 @@ public class FedJob {
 			bIsFedIteration = true;
 			iterations = Integer.parseInt(fedIter);
 		}
-		String fedTachyon = mJobConf.get("tachyon", "off");
-		if (fedTachyon.toLowerCase().equals("on")
-				|| fedTachyon.toLowerCase().equals("true")) {
-			bIsFedTachyon = true;
-		}
+//		String fedTachyon = mJobConf.get("tachyon", "off");
+//		if (fedTachyon.toLowerCase().equals("on")
+//				|| fedTachyon.toLowerCase().equals("true")) {
+//			bIsFedTachyon = true;
+//		}
 	
 	}
 
@@ -666,11 +649,11 @@ public class FedJob {
 				}
 				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
 				//directly sent to top cloud
-				String proxyReduce = mJobConf.get("proxyReduce", "true");
-				if (proxyReduce.toLowerCase().equals("on")
-						|| proxyReduce.toLowerCase().equals("true")) {
-					bIsProxyReduce = true;
-				}
+//				String proxyReduce = mJobConf.get("proxyReduce", "true");
+//				if (proxyReduce.toLowerCase().equals("on")
+//						|| proxyReduce.toLowerCase().equals("true")) {
+//					bIsProxyReduce = true;
+//				}
 				/*if(!bIsProxyReduce){
 					mJob.setOutputFormatClass(RemoteOutputFormat.class);
 					mJob.setNumReduceTasks(0);

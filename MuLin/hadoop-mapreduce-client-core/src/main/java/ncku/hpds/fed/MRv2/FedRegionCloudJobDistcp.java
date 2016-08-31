@@ -112,7 +112,7 @@ public class FedRegionCloudJobDistcp extends Thread {
         String fileName = tch.setFileNameOrder(mDistUrl);
         cmd = cmd + srcHDFS + "user/"+ userName + "/" + outputPath + fileName + " "  + mDistUrl +"user/" + userName + "/" + outputPath+"/"+fileName ;
         System.out.println("RegionCloud Distcp [" + cmd + "]" );
-        cmd = cmd + "2>&1 | tee mulin/log/FedRegionCloundJobDistcp.txt";
+        cmd = cmd + "2>&1 | tee /home/hpds/mulin/log/FedRegionCloundJobDistcp_$(date '+%Y%m%d_%H%M%S').txt";
         return cmd;
     }
     //--------------------------------------------

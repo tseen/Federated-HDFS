@@ -133,7 +133,7 @@ public class FedRegionCloudJob extends Thread {
                 cmd = cmd + arg + " ";
             }
         }
-        cmd = cmd + "2>&1 | tee mulin/log/log_FedRegionCloudJob2222.txt";
+        cmd = cmd + "2>&1 | tee /home/hpds/mulin/log/log_FedRegionCloudJob_$(date '+%Y%m%d_%H%M%S').txt";
         //cmd = cmd + mConf.getHDFSInputPath() + " ";
         //cmd = cmd + mConf.getHDFSOutputPath() + " ";
         System.out.println("RegionCloud cmd " + cmd ); 
