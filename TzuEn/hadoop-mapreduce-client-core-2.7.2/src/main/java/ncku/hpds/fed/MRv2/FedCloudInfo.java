@@ -386,7 +386,11 @@ public class FedCloudInfo {
 	}
 
 	public void setMapSpeed() {
+	    try {
 		this.mapSpeed = this.mapInputSize / (this.regionMapStopTime - this.regionStartTime);
+            } catch ( Exception e ) {
+		this.mapSpeed = -1;
+            }
 	}
 
 	public double getReduceSpeed() {
