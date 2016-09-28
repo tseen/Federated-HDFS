@@ -28,7 +28,11 @@ public class FedWANClient extends Thread {
 		synchronized(mLock) {
             do {
 				try {
-					socket = new Socket(host, ip.hashCode()%10000);
+          int port = ip.hashCode()%10000;
+          port = Math.abs(port);
+					//socket = new Socket(host, ip.hashCode()%10000);
+          System.out.println("wanClient port = " + port );
+					socket = new Socket(host, port);
 					if(socket.isConnected())
 						mRunFlag = false;
 				} catch (UnknownHostException e) {

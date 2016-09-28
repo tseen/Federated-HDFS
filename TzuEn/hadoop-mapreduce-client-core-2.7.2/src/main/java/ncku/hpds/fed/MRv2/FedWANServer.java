@@ -83,6 +83,7 @@ public class FedWANServer extends Thread {
 		return port;
 	}
 	public void setPort(int port) {
+    System.out.println("wanServer port = " + port );
 		this.port = port;
 	}
 	public Configuration getJobConf() {
