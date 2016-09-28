@@ -403,8 +403,7 @@ public class GenericProxyReduceBackup<T1, T2> extends Reducer<T1, T2, Text, Text
 		}
 		*/
 		for (HdfsWriter HW : mHdfsWriter) {
-			HW.out.close();
-			HW.client.close();
+      HW.close();
 		}
 		client.stopClientProbe();
 

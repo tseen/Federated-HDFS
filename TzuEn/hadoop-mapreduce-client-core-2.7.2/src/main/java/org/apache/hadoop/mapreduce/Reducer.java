@@ -258,8 +258,7 @@ public class Reducer<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
 								.resetBackupStore();
 					}
 				}
-				fedJobCloud.out.close();
-				//fedJobCloud.client.close();
+                                fedJobCloud.close(); 
 			} finally {
 				cleanup(context);
 			}

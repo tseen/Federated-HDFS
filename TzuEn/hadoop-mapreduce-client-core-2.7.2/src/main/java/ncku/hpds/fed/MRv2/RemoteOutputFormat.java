@@ -171,9 +171,12 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			}
 			keyMap.clear();
 			for (HdfsWriter HW : mHdfsWriter) {
+				HW.close();
+/*
 				HW.out.flush();
 				HW.out.close();
 				HW.client.close();
+*/
 			}
 			
 			client.stopClientProbe();

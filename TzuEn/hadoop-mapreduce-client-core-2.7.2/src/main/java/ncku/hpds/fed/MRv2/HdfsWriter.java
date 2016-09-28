@@ -49,8 +49,8 @@ public class HdfsWriter<K, V> {
 	private static CachePoolInfo poolInfo = new CachePoolInfo("FedJob");
 	UserGroupInformation ugi;
 	private String fileName;
-	public DataOutputStream out = null;
-	public DFSClient client;
+	protected DataOutputStream out = null;
+	protected DFSClient client;
 	private static final String utf8 = "UTF-8";
 	public static String SEPERATOR = "mapreduce.output.textoutputformat.separator";
 	private static final byte[] newline;
@@ -146,6 +146,18 @@ public class HdfsWriter<K, V> {
 			e.printStackTrace();
 		}
 	}
+  public void close() {
+	 try {
+		 if ( out != null ) {
+			 out.flush();
+			 out.close();
+		 }
+     if ( client != null ) {
+ 			 client.close();
+     }
+   } catch ( Exception e ) {
+   }
+  }
 	public void initCache(){
 		 	try {
 				client.addCachePool(poolInfo);
@@ -312,6 +324,12 @@ public class HdfsWriter<K, V> {
 	public String getFileName() {
 		return fileName;
 	}
+  public DFSClient getClient() {
+    return client;
+  }
+ public DataOutputStream getOut() {
+    return out;
+ }
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;

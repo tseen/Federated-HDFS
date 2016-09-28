@@ -592,8 +592,7 @@ public class GenericProxyReducer<T1, T2> extends Reducer<T1, T2, Text, Text> {
 		//System.out.println("clean out:" + mLastKey.toString() + "	"+mOutBuffer);
 
 		for (HdfsWriter HW : mHdfsWriter) {
-			HW.out.close();
-		//	HW.client.close();
+                        HW.close();
 		}
 	
 
