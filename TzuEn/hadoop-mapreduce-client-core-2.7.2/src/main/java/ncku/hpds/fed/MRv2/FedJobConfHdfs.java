@@ -334,14 +334,14 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					topConf.setTopCloudHDFSURL(mTopCloudHDFSURL);
 					topConf.setHDFSInputPath(topInputPath);
 					if(mJobConf.get("topNumbers").equals("1")){
-                        String tmp_outpath = topConf.getName() + "_" + FIleOutputFormat.getOutputPath(jobconf).getString();
+                        String tmp_outpath = topConf.getName() + "_" + FileOutputFormat.getOutputPath(jobconf).toString();
                         System.out.println("top cloud output path " + tmp_outpath );
 						topConf.setHDFSOutputPath(topConf.getName() + "_"
 								+FileOutputFormat.getOutputPath(
 										jobconf).toString());
 					}
 					else{
-                        String tmp_outpath = FIleOutputFormat.getOutputPath(jobconf).getString();
+                        String tmp_outpath = FileOutputFormat.getOutputPath(jobconf).toString();
                         System.out.println("top cloud output path " + tmp_outpath );
 						topConf.setHDFSOutputPath(FileOutputFormat.getOutputPath(
 							jobconf).toString());
