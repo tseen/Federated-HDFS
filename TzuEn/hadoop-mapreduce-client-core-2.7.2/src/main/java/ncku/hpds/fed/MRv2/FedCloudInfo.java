@@ -34,7 +34,7 @@ public class FedCloudInfo {
 	
 	private double mapSpeed = 0;
 	private double mapSpeed_normalized = 0;
-	private double tansferSpeed = 0;
+	private double transferSpeed = 0;
 	private double reduceSpeed = 0;
 	private double reduceSpeed_normalized = 0;
 
@@ -331,7 +331,7 @@ public class FedCloudInfo {
 		System.out.println(this.cloudName + " Inter Transfer Time = "+ inter/1000+"(s)");
 		System.out.println(this.cloudName + " Top Time = "+ top/1000+"(s)");
 		this.setMapSpeed();
-		this.setTansferSpeed();
+		this.setTransferSpeed();
 		//this.setReduceSpeed();
 		System.out.println(this.cloudName + " Map Speed = "+ this.mapSpeed +"(byte/s)");
 		System.out.println(this.cloudName + " Transfer Speed = "+ this.tansferSpeed +"(byte/s)");
@@ -406,8 +406,12 @@ public class FedCloudInfo {
 		return tansferSpeed;
 	}
 
-	public void setTansferSpeed() {
-		this.tansferSpeed =this.interSize /( this.interStopTime - this.interStartTime);
+	public void setTransferSpeed() {
+ 		try { 
+			this.transferSpeed =this.interSize /( this.interStopTime - this.interStartTime);
+	  } catch (Exception e ) {
+		  this.transferSpeed = -1;
+		}
 	}
 
 	public long getReduceInputSize() {
