@@ -62,14 +62,16 @@ public class FedJobServer extends Thread{
 
 	public void run() { 
 		try {
-			System.out.println("Start fedjobServer");
-			mServer = new ServerSocket(mListenPort);
+			System.out.println("Start fedjobServer with port " + mListenPort);
+			//mServer = new ServerSocket(mListenPort);
+			mServer = new ServerSocket();
 			mServer.setSoTimeout(60000); //wait 60 second
 			mServer.setReuseAddress(true);
+            mServer.bind(new InetSocketAddress(mListenPort));
 			//mServer.setTcpNoDelay(true);
 			mRunFlag = true;
 		} catch ( Exception e ) {
-			e.printStackTrace();
+			System.out.println("FedJobServer exception " + e.printStackTrace() );
 		}
 		int i = 0;
 		while ( mRunFlag ) {

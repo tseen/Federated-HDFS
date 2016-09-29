@@ -40,9 +40,15 @@ public class FedWANServer extends Thread {
 		ServerSocket serverSocket = null;
 
 		try {
-			serverSocket = new ServerSocket(port);
-		} catch (IOException ex) {
-			System.out.println("Can't setup server on this port number. ");
+			//serverSocket = new ServerSocket(port);
+            System.out.println("FedWANServer bind port " + port + " to listen ");
+            serverSocket = new ServerSocket();
+			serverSocket.setSoTimeout(60000); //wait 60 second
+            serverSocket.setReuseAddress(true);
+            serverSocket.bind(new InetSocketAddress(port));
+		} catch (Exception e) {
+
+			System.out.println("Can't setup server on this port number. " + e.printStackTrace());
 		}
 
 		Socket socket = null;
