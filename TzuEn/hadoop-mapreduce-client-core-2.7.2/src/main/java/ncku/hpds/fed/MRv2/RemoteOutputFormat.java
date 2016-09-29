@@ -86,7 +86,11 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 		private String generateFileName(K key, int topNumbers){
 			int hash = 0 ;	   
 			//hash = (key.hashCode() & Integer.MAX_VALUE) % topNumbers;
-			hash = mPartitioner.getPartition(key, null, topNumbers);
+            if ( topNumbers <= 0 ) {
+                hash = 0;
+            } else {
+                hash = mPartitioner.getPartition(key, null, topNumbers);
+            }
 		    return Integer.toString(hash);
 		}
 		
