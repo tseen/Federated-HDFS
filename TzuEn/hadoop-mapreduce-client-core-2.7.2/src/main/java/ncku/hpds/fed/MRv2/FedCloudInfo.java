@@ -334,7 +334,7 @@ public class FedCloudInfo {
 		this.setTransferSpeed();
 		//this.setReduceSpeed();
 		System.out.println(this.cloudName + " Map Speed = "+ this.mapSpeed +"(byte/s)");
-		System.out.println(this.cloudName + " Transfer Speed = "+ this.tansferSpeed +"(byte/s)");
+		System.out.println(this.cloudName + " Transfer Speed = "+ this.transferSpeed +"(byte/s)");
 		//System.out.println(this.cloudName + " Reduce Speed = "+ this.reduceSpeed +"(byte/s)");
 
 	}
@@ -403,7 +403,7 @@ public class FedCloudInfo {
 	}
 
 	public double getTansferSpeed() {
-		return tansferSpeed;
+		return transferSpeed;
 	}
 
 	public void setTransferSpeed() {
