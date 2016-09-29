@@ -18,9 +18,13 @@ public class FedWANClient extends Thread {
 	private PrintWriter mOutput = null;
 	private String namenode = "";
     private String ip ="";
+    private int mPort = 8799;
     private boolean mRunFlag = true;
     private Object mLock = new Object();
 
+   public void setPort(int port ) {
+	mPort = port;
+   }
 	
 	public void run() {
 		Socket socket = null;
@@ -28,8 +32,9 @@ public class FedWANClient extends Thread {
 		synchronized(mLock) {
             do {
 				try {
-          int port = ip.hashCode()%10000;
-          port = Math.abs(port);
+          //int port = ip.hashCode()%10000;
+          //port = Math.abs(port);
+          int port = mPort;
 					//socket = new Socket(host, ip.hashCode()%10000);
           System.out.println("wanClient port = " + port );
 					socket = new Socket(host, port);

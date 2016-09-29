@@ -530,7 +530,8 @@ public class FedJob {
 				tmp_port = Math.abs(tmp_port);
                                 System.out.println("tmp_port = " + tmp_port);
 				//wanServer.setPort(mJobConf.get("regionCloudOutput").split("_")[0].hashCode()%10000);
-				wanServer.setPort(tmp_port);
+				//wanServer.setPort(tmp_port);
+				wanServer.setPort(8799);
 				wanServer.setJobConf(mJobConf);
 				wanServer.start();
 				String[] HDFSs = mJobConf.get("topCloudHDFSs").split(",");
@@ -539,6 +540,7 @@ public class FedJob {
 					String ip = HDFS.split("//")[1].split(":")[0];
 					FedWANClient wanClient = new FedWANClient();
 					wanClient.setIp(ip);
+					wanClient.setPort(8799);
 					wanClient.setHost(mJob.getConfiguration().get("fs.default.name").split("/")[2]);
 					wlist.add(wanClient);
 				}
