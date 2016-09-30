@@ -18,10 +18,6 @@ import ncku.hpds.hadoop.fedhdfs.HdfsInfoCollector;
 import ncku.hpds.hadoop.fedhdfs.TopcloudSelector;
 import ncku.hpds.hadoop.fedhdfs.shell.GetRegionPath;
 
-
-
-
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -35,7 +31,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 
 public class FedJobConfHdfs extends AbstractFedJobConf {
-	private static String DEFAULT_COWORKING_CONF = "/conf/coworking.xml";
+	private static String DEFAULT_COWORKING_CONF = "etc/hadoop/fedhadoop-clusters.xml";
 	private static String FS_DEFAULT_NAME_KEY = "fs.default.name";
 	private String mHadoopHome = "";
 	private String mDefaultCoworkingConf = DEFAULT_COWORKING_CONF;
@@ -52,11 +48,18 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	private FedHdfsConfParser mParser;
 	private boolean mTopCloudFlag = false;
 	private boolean mFedFlag = false;
+	private boolean mFedHdfsFlag = false;
 	private boolean mFedSubmitFlag = false;
 	private boolean mRegionCloudFlag = false;
 	private boolean mFedLoopFlag = false;
 	private boolean mFedTestFlag = false;
 	private boolean mRegionCloudDone = false;
+	private boolean mFedTachyonFlag = false;
+	private boolean mFedIterFlag = false;
+	private int mFedIterNum = 1;
+	private boolean mMapOnly = false;
+	private boolean mWanOpt = false;
+	private boolean mProxyReduceFlag = false;
 	private ProxySelector mSelector;
 	private String mCoworkingConf = "";
 	private String mTopCloudHDFSURL = "";
@@ -77,8 +80,10 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		mHadoopHome = System.getenv("HADOOP_HOME");
 		System.out.println("Hadoop Home Path : " + mHadoopHome);
 		if (mHadoopHome != null) {
-			mDefaultCoworkingConf = mHadoopHome + mDefaultCoworkingConf;
+			mDefaultCoworkingConf = mHadoopHome + "/" + mDefaultCoworkingConf;
 		}
+
+		mCoworkingConf = mDefaultCoworkingConf;
 
 		mJobConf = jobConf;
 		Iterator<Entry<String, String>> confIter = mJobConf.iterator();
@@ -118,14 +123,48 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					+ outputFormat.getCanonicalName());
 		} catch (Exception e) {
 		}
+		//wanOpt
+		if(mJobConf.get("wanOpt","off").equals("true")){
+			mWanOpt = true;
+		}
+		//proxyReduce
+		String proxyReduceStr = mJobConf.get("proxyReduce", "off");
+		if (proxyReduceStr.toLowerCase().equals("on")
+				|| proxyReduceStr.toLowerCase().equals("true")) {
+			mProxyReduceFlag = true;
+		}
 
+		//MapOnly
+		System.out.println("REDUCE TASK:" + mJob.getNumReduceTasks());
+		if (mJob.getNumReduceTasks() == 0) {
+			mMapOnly = true;
+		}
+		// isFedMR
+		String fed = mJobConf.get("fed","off");
+		if ( fed.toLowerCase().equals("on") || fed.toLowerCase().equals("true") ) 
+		{ 
+			mFedFlag = true; 
+		}
 		String fedHdfs = mJobConf.get("fedHdfs", "off");
-		System.out.println("fedHdfs = " + fedHdfs);
-
 		if (fedHdfs.toLowerCase().equals("on")
 				|| fedHdfs.toLowerCase().equals("true")) {
-			mFedFlag = true;
-
+			mFedHdfsFlag = true;
+		}
+		String fedIter = mJobConf.get("fedIteration", "1");
+		try {
+			mFedIterNum = Integer.parseInt(fedIter);
+		} catch ( Exception e ) {
+			mFedIterNum = 1;
+		}
+		if ( mFedIterNum > 1) {
+			System.out.println("-------Fed Iteration------");
+			System.out.println("Iterations:" + mFedIterNum );
+			mFedIterFlag = true;
+		}
+		String fedTachyon = mJobConf.get("tachyon", "off");
+		if (fedTachyon.toLowerCase().equals("on")
+				|| fedTachyon.toLowerCase().equals("true")) {
+			mFedTachyonFlag = true;
 		}
 
 		String globalfileInput = "";
@@ -153,40 +192,15 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 					globalfileInput += p[i];	
 				}
 			}
-		//	globalfileInput = p[p.length - 1];
-			//globalfileInput = Inputs[0].toString();
 			System.out.println("Global File Name:" + globalfileInput);
 		}
-
-		//HdfsInfoCollector thisCluster = new HdfsInfoCollector();
-		/*
-		 * TopcloudSelector top; String realTop = ""; try { top = new
-		 * TopcloudSelector(globalfileInput, false); top.show(); realTop =
-		 * top.getTopCloud();
-		 * 
-		 * } catch (Throwable e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */
-		// System.out.println("Top Cloud of FedMR:" + realTop);
-
 		// check coworking configuration existed or not,
 		// if not existed, use the default coworking configuration
 		System.out.println("mFedFlag = " + mFedFlag);
 		if (mFedFlag) {
-			// String mCoworkingConf =
-			// mJobConf.get("fedconf",mDefaultCoworkingConf);
-			String mCoworkingConf = "etc/hadoop/fedhadoop-clusters.xml";
 
 			File conF = new File(mCoworkingConf);
 			if (conF.exists()) {
-				// if ( mCoworkingConf.equals(mDefaultCoworkingConf) == false )
-				// {
-				// java.io.File coworkingFile = new
-				// java.io.File(mCoworkingConf);
-				// if ( coworkingFile.exists() == false ) {
-				// mCoworkingConf = mDefaultCoworkingConf;
-				// }
-				// }
 				mParser = new FedHdfsConfParser(mCoworkingConf);
 				// parse xml file
 
@@ -196,16 +210,6 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 				// make RegionCloudJob
 				mRegionJobList = new ArrayList<FedRegionCloudJob>();
 				// get some top cloud configuration from region cloud
-
-				/*
-				 * for (FedHadoopConf conf : mParser.getRegionCloudConfList()) {
-				 * if
-				 * (conf.getName().equalsIgnoreCase(mJobConf.get(FS_DEFAULT_NAME_KEY
-				 * ,""))) {
-				 * 
-				 * mTopCloudHDFSURL = "hdfs://" + conf.getTopCloudHDFSURL() +
-				 * "/"; } }
-				 */
 
 				mTopCloudHDFSURL = mJobConf.get(FS_DEFAULT_NAME_KEY, "");
 				// -----
@@ -404,6 +408,32 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 
 	public boolean isFedTest() {
 		return mFedTestFlag;
+	}
+
+	public boolean isFedHdfs() {
+		return mFedHdfsFlag;
+	}
+
+	public boolean isFedTachyon() {
+		return mFedTachyonFlag;
+	}
+	
+  public boolean isFedIter() {
+		return mFedIterFlag;
+	}
+	
+	public int getFedIterNum() {
+		return mFedIterNum;
+	}
+
+	public boolean isMapOnly() {
+		return mMapOnly;
+	}
+	public boolean isWanOpt() {
+		return mWanOpt;
+	}
+	public boolean isProxyReduce() {
+		return mProxyReduceFlag;
 	}
 
 	public String getCoworkingConf() {

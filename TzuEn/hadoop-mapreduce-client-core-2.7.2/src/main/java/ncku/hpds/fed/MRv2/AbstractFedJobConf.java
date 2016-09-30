@@ -26,6 +26,14 @@ public abstract class AbstractFedJobConf {
 	    public abstract boolean isRegionCloud() ;
 	    public abstract boolean isFedLoop() ;
 	    public abstract boolean isFedTest();
+			public abstract boolean isFedHdfs();
+			public abstract boolean isFedTachyon();
+			public abstract boolean isFedIter();
+
+			public abstract boolean isMapOnly();
+			public abstract boolean isWanOpt();
+			public abstract boolean isProxyReduce();
+			public abstract int getFedIterNum();
 	    public abstract void selectProxyReduce() ;
 		public abstract void selectProxyMap(Class<?> keyClz, Class<?> valueClz, Class<? extends Mapper> mapper);
 		public abstract void selectProxyReduce(Class<?> keyClz, Class<?> valueClz, Class<? extends Reducer> mapper);

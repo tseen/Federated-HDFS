@@ -51,95 +51,87 @@ public class FedJob {
 	private Job mJob;
 	private FedJobStatistics mFedStat = new FedJobStatistics();
 	private FedCloudMonitorServer mServer = null;
-	private boolean bIsFed = false;
-	private boolean bIsFedHdfs = false;
-	private boolean bIsFedTachyon = false;
-	private boolean bIsFedIteration = false;
-	private boolean bIsProxyReduce = false;
 	private AbstractFedJobConf mFedJobConf;
-	private int iterations = 1;
 
 	public FedJob(Job job) {
 		mJob = job;
 		mJobConf = mJob.getConfiguration();
-		String fed = mJobConf.get("fed", "off");
-		if (fed.toLowerCase().equals("on") || fed.toLowerCase().equals("true")) {
-			bIsFed = true;
+
+		boolean bFed = false;
+    boolean bFedHdfs = false;
+		String fed = mJobConf.get("fed","off");
+		if ( fed.toLowerCase().equals("on") || fed.toLowerCase().equals("true") ) 
+		{ 
+			bFed = true; 
 		}
+
 		String regionCloud = mJobConf.get("regionCloud", "off");
 		if (regionCloud.toLowerCase().equals("on")
 				|| regionCloud.toLowerCase().equals("true")) {
-			bIsFed = true;
+			bFed = true;
 		}
 		String topCloud = mJobConf.get("topCloud", "off");
 		if (topCloud.toLowerCase().equals("on")
 				|| topCloud.toLowerCase().equals("true")) {
-			bIsFed = true;
+			bFed = true;
 		}
 		String fedHdfs = mJobConf.get("fedHdfs", "off");
 		if (fedHdfs.toLowerCase().equals("on")
 				|| fedHdfs.toLowerCase().equals("true")) {
-			bIsFedHdfs = true;
+			bFedHdfs = true;
 		}
-		String fedIter = mJobConf.get("fedIteration", "1");
-		if (Integer.parseInt(fedIter) > 1) {
-			System.out.println("-------Fed Iteration------");
-			System.out.println("Iterations:" + Integer.parseInt(fedIter));
-			bIsFedIteration = true;
-			iterations = Integer.parseInt(fedIter);
+		if ( bFed ) {
+			if ( bFedHdfs ) {
+				try { 
+				//Get input path
+					Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
+					if (mInputPaths.length > 0) {
+						mFileName = mInputPaths[0].toString();
+					}
+
+					System.out.println("Use FedJobConfHdfs");
+					mFedJobConf = new FedJobConfHdfs(mJobConf, mJob, mFileName);
+				} catch ( Throwable e ) {
+				  e.printStackTrace();
+				}
+			} else {
+				System.out.println("Use FedJobConf");
+				mFedJobConf = new FedJobConf(mJobConf, mJob);
+			}	
 		}
-		String fedTachyon = mJobConf.get("tachyon", "off");
-		if (fedTachyon.toLowerCase().equals("on")
-				|| fedTachyon.toLowerCase().equals("true")) {
-			bIsFedTachyon = true;
-		}
-	
 	}
 
 	public boolean isFedHdfsJob() {
-		return bIsFedHdfs;
+		if ( mFedJobConf == null ) { return false; }		
+		return mFedJobConf.isFedHdfs();
 	}
 
 	public boolean isFedJob() {
-		return bIsFed;
+		if ( mFedJobConf== null ) { return false; }		
+		return mFedJobConf.isFedMR();
 	}
 
 	public boolean isFedIteration() {
-		return bIsFedIteration;
+		if ( mFedJobConf== null ) { return false; }		
+		return mFedJobConf.isFedIter();
 	}
     
 	public void scheduleAndStartFedJob() {
 		int currentIter = 1;
-		boolean mapOnly = false;
-		System.out.println("REDUCE TASK:" + mJob.getNumReduceTasks());
-		if (mJob.getNumReduceTasks() == 0) {
-			mapOnly = true;
-		}
-		//else if(mJob.getNumReduceTasks() == 1){
-		//	mJobConf.set("topNumbers", "1");
-		//}
+		int iterations = 0;
+
 		try {
 			//Start servers
-			//FedWANServer wanServer = new FedWANServer();
+			iterations = mFedJobConf.getFedIterNum();
 			FedJobServer jobServer = new FedJobServer(8713);
 			jobServer.start();
-			//Get input path
-			Path[] mInputPaths = FileInputFormat.getInputPaths(mJob);
-			if (mInputPaths.length > 0) {
-				mFileName = mInputPaths[0].toString();
-			}
-
-			System.out.println("Start FedJobConfHdfs");
-			mFedJobConf = new FedJobConfHdfs(mJobConf, mJob, mFileName);
-			System.out.println("End FedJobConfHdfs");
 			//System.out.println("VCORES:"+mJobConf.get("yarn.nodemanager.resource.cpu-vcores", "78"));
 			//System.out.println("MEMORY:"+mJobConf.get("yarn.nodemanager.resource.memory-mb", "78"));
 
 			List<JarCopyJob> jcjList = mFedJobConf.getJarCopyJobList();
-			HashMap<String, FedCloudInfo> fedCloudInfos = (HashMap<String, FedCloudInfo>) mFedJobConf
-					.getFedCloudInfos();
-			//wanServer.setFedCloudInfos(fedCloudInfos);
-			//wanServer.start();
+			HashMap<String, FedCloudInfo> fedCloudInfos = 
+					(HashMap<String, FedCloudInfo>) mFedJobConf.getFedCloudInfos();
+
 			jobServer.setFedCloudInfos(fedCloudInfos);
 			if (jcjList.size() > 0) {
 				System.out.println("Start Jar copy jobs");
@@ -155,10 +147,9 @@ public class FedJob {
 
 			for (int i = 0; i < iterations; i++) {
 				
-				if (bIsFedIteration) {
+				if (isFedIteration()) {
 					Path mOutpuPath = FileOutputFormat.getOutputPath(mJob);
 					String input[] = mOutpuPath.toString().split("/");
-					// mFedJobConf.configIter("/"+input[3]+"/"+input[4]+"/"+input[5],currentIter);
 					/*
 					 * User-defined the iterative input file, if not defined,
 					 * using the output file of the last iteration.
@@ -166,7 +157,7 @@ public class FedJob {
 					String iterInput = mJobConf.get("iterInput", "/" + input[3]
 							+ "/" + input[4] + "/" + input[5]);
 					System.out.println("iterInput:"+ iterInput);
-					if(currentIter < iterations)
+					if(currentIter < iterations )
 						mFedJobConf.configIter(iterInput, currentIter, "false");
 					else if(currentIter == iterations)
 						mFedJobConf.configIter(iterInput, currentIter, "true");
@@ -205,10 +196,10 @@ public class FedJob {
 				}
 				System.out.println("Wait For FedRegionCloudJob Join");
 
-				if(mJobConf.get("wanOpt","off").equals("true")){
+				if(mFedJobConf.isWanOpt()){
 					Map<String, String> downSpeed = getDownSpeed(fedCloudInfos);
 				//	if(currentIter == 1 )
-						normalizeInfo(fedCloudInfos);
+					normalizeInfo(fedCloudInfos);
 					jobServer.setDownSpeed(downSpeed);
 				}
 
@@ -229,7 +220,7 @@ public class FedJob {
 				System.out
 						.println("TopCloud Report : RegionCloud Total Time = "
 								+ mFedStat.getRegionCloudsTime() + "(ms)");
-				if (!mapOnly) {
+				if ( mFedJobConf.isMapOnly() == false ) {
 					System.out.println("----------------------------------");
 					System.out.println("Map-ProxyReduce Phrase Finished");
 					System.out.println("----------------------------------\n");
@@ -252,23 +243,20 @@ public class FedJob {
 				//	}
 					System.out.println("FedCouldMonitorClient All Joined");
 
-					System.out
-							.println("Top Cloud Report : Global Aggregation Consuming Time :");
+					System.out.println("Top Cloud Report : Global Aggregation Consuming Time :");
 					for (FedCloudMonitorClient job : cList) {
 						job.printAggregationTime();
 					}
 					System.out.println("----------------------------------");
 					System.out.println("Global Aggregation End ...");
 					System.out.println("----------------------------------");
-//				 FileSystem hdfs =FileSystem.get(new Configuration());
-//					 hdfs.delete(new Path("/user/hpds/zzz"), false);
 					System.out.println("----------------------------------");
 					System.out.println("TOP START ...");
 					System.out.println("----------------------------------");
 					mFedStat.setTopCloudStart();
 
 					for (FedTopCloudJob job : tList) {
-						if (bIsFedIteration) {
+						if (isFedIteration()) {
 							job.setIterFlag(currentIter);
 						}
 						job.start();
@@ -280,12 +268,6 @@ public class FedJob {
 					mFedStat.setTopCloudEnd();
 					System.out.println("TOP END ...");
 					System.out.println("----------------------------------");
-
-	//				HdfsFileSender sender = new HdfsFileSender();
-	//				List<String> topCloudHDFSs = mFedJobConf
-	//						.getTopCloudHDFSURLs();
-	//				sender.send((ArrayList) topCloudHDFSs, "/user/hpds/zzz");
-					// String topCloudHDFS = "hdfs://"+topCloudHDFSs.get(0);
 
 					currentIter++;
 				}
@@ -317,11 +299,8 @@ public class FedJob {
 			}
 			jobServer.stopServer();
 			jobServer.join();
-
 			
-			//wanServer.stopServer();
-			//wanServer.join();
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -451,22 +430,8 @@ public class FedJob {
 	public void startFedJob() {
 		try {
 			
-		//	FedWANClient wanClient = new FedWANClient();
-		//	wanClient.setHost(mJob.getConfiguration().get("fs.default.name").split("/")[2]);
-	    //	wanClient.start();
-	    //	wanClient.join();
-			boolean mapOnly = false;
-			if (mJob.getNumReduceTasks() == 0) {
-				mapOnly = true;
-			}
-					
-			mFedJobConf = new FedJobConf(mJobConf, mJob);
 			System.out.println("TopCloudURLs: " + TopCloudHasher.topURLs);
 
-			/*
-			 * if ( mFedJobConf.isFedTest() ) {
-			 * FedRegionCloudJobDistcp.test(mJobConf); }
-			 */
 			// Fed-MR , Top Cloud Mode
 			if (mFedJobConf.isTopCloud()) {
 				System.out.println("Run AS Top Cloud");
@@ -657,14 +622,14 @@ public class FedJob {
 							mFedJobConf.getRegionCloudInputPath());
 					FileInputFormat.setInputPaths(mJob, inputPath);
 				}
-				if (!mapOnly) {
+				if ( mFedJobConf.isMapOnly() == false ) {
 					LazyOutputFormat.setOutputFormatClass(mJob,
 							TextOutputFormat.class);
 					Path outputPath = new Path(
 							mFedJobConf.getRegionCloudOutputPath());
 					FileOutputFormat.setOutputPath(mJob, outputPath);
 				}
-				if (!mapOnly) {
+				if ( mFedJobConf.isMapOnly() == false ) {
 					if (mReducer != null) {
 						System.out.println("PRORED:" + mReducer.getName());
 						mFedJobConf.selectProxyReduce(mKeyClz, mValueClz,
@@ -675,12 +640,7 @@ public class FedJob {
 				}
 				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
 				//directly sent to top cloud
-				String proxyReduce = mJobConf.get("proxyReduce", "off");
-				if (proxyReduce.toLowerCase().equals("on")
-						|| proxyReduce.toLowerCase().equals("true")) {
-					bIsProxyReduce = true;
-				}
-				if(!bIsProxyReduce){
+				if(!mFedJobConf.isProxyReduce() ){
 					mJob.setOutputFormatClass(RemoteOutputFormat.class);
 					mJob.setNumReduceTasks(0);
 				}
@@ -696,44 +656,42 @@ public class FedJob {
 		if (mFedJobConf.isFedMR()) {
 			// print global aggregation time from its client, to get correct
 			// answers.
-			List<FedCloudMonitorClient> cList = mFedJobConf
-					.getFedCloudMonitorClientList();
+			List<FedCloudMonitorClient> cList = mFedJobConf.getFedCloudMonitorClientList();
 			long total_aggregation_time = 0;
-			for (FedCloudMonitorClient job : cList) {
-				job.printAggregationTime();
-				total_aggregation_time += job.getAggregationTime();
+			if ( cList != null ) {
+				for (FedCloudMonitorClient job : cList) {
+					job.printAggregationTime();
+					total_aggregation_time += job.getAggregationTime();
+				}
 			}
-			System.out
-					.println("Hdfs Cloud Report : Total Global Aggregation Time = "
-							+ total_aggregation_time + "(ms)");
+			System.out.println("Hdfs Cloud Report : Total Global Aggregation Time = " + total_aggregation_time + "(ms)");
 
 			long early_aggregation_start_time = 0;
 			long latest_aggregation_end_time = 0;
-			for (FedCloudMonitorClient job : cList) {
-				if (early_aggregation_start_time == 0) {
-					early_aggregation_start_time = job.getAggregationStart();
-				} else if (early_aggregation_start_time > job
-						.getAggregationStart()) {
-					early_aggregation_start_time = job.getAggregationStart();
+			if ( cList != null ) {
+				for (FedCloudMonitorClient job : cList) {
+					if (early_aggregation_start_time == 0) {
+						early_aggregation_start_time = job.getAggregationStart();
+					} else if (early_aggregation_start_time > job
+							.getAggregationStart()) {
+						early_aggregation_start_time = job.getAggregationStart();
 
+					}
+				}
+				for (FedCloudMonitorClient job : cList) {
+					if (latest_aggregation_end_time < job.getAggregationEnd()) {
+						latest_aggregation_end_time = job.getAggregationEnd();
+
+					}
 				}
 			}
-			for (FedCloudMonitorClient job : cList) {
-				if (latest_aggregation_end_time < job.getAggregationEnd()) {
-					latest_aggregation_end_time = job.getAggregationEnd();
-
-				}
-			}
-			long actualAggregationTimeDuration = latest_aggregation_end_time
-					- early_aggregation_start_time;
-			System.out.println("actual Aggregation Time = "
-					+ actualAggregationTimeDuration + "(ms)");
+			long actualAggregationTimeDuration = latest_aggregation_end_time - early_aggregation_start_time;
+			System.out.println("actual Aggregation Time = " + actualAggregationTimeDuration + "(ms)");
 			double total_time = mFedStat.getRegionCloudsTime()
 					+ mFedStat.getTopCloudTime()
 					+ actualAggregationTimeDuration;
 			double total_time_in_s = total_time / 1000.0;
-			System.out.println("total time = " + total_time + " (ms), "
-					+ total_time_in_s + "(s)");
+			System.out.println("total time = " + total_time + " (ms), " + total_time_in_s + "(s)");
 
 		}
 		if (mFedJobConf.isTopCloud()) {
@@ -754,12 +712,9 @@ public class FedJob {
 			System.out.println("----------------------------------");
 			System.out.println("TopCloudEnd() = " + mFedStat.getTopCloudEnd());
 			System.out.println("----------------------------------");
-			System.out.println("Top Cloud Report : RegionCloud Work Time = "
-					+ mFedStat.getRegionCloudsTime() + "(ms)");
-			System.out.println("Top Cloud Report : Top Cloud Work Time = "
-					+ mFedStat.getTopCloudTime() + "(ms)");
-			System.out
-					.println("Top Cloud Report : Global Aggregation Time Details : ");
+			System.out.println("Top Cloud Report : RegionCloud Work Time = " + mFedStat.getRegionCloudsTime() + "(ms)");
+			System.out.println("Top Cloud Report : Top Cloud Work Time = " + mFedStat.getTopCloudTime() + "(ms)");
+			System.out.println("Top Cloud Report : Global Aggregation Time Details : ");
 
 		}
 		if (mFedJobConf.isRegionCloud()) {
@@ -776,13 +731,6 @@ public class FedJob {
 			}
 			String namenode = mJobConf.get("fs.default.name");
 			jclient.sendRegionInterTransferStopTime(namenode.split("/")[2]);
-			//wanServer.stopServer();
-		/*	try {
-				wanServer.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			*/
 			/*
 			 * String[] preIP = mFedJobConf.getTopCloudHDFSURL().split("/");
 			 * String[] IP = preIP[2].split(":");
@@ -815,6 +763,12 @@ public class FedJob {
 			 */
 			// mServer.sendMigrateDataFinished("");
 			System.out.println("Stop Server");
+			try {
+				wanServer.stopServer();
+				wanServer.join();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		//	mServer.stopServer();
 			// mFedStat.setGlobalAggregationEnd();
 			System.out.println("Region Cloud Report : RegionCloudsTime = "
@@ -824,10 +778,10 @@ public class FedJob {
 
 		}
 	}
-	 private static final PathFilter FileFilter = new PathFilter(){
-	      public boolean accept(Path p){
-	        String name = p.getName(); 
-	        return !name.startsWith("_") && !name.startsWith(".") && !name.startsWith("p"); 
-	     }
-	  }; 
+	private static final PathFilter FileFilter = new PathFilter(){
+		public boolean accept(Path p){
+			String name = p.getName(); 
+			return !name.startsWith("_") && !name.startsWith(".") && !name.startsWith("p"); 
+		}
+	}; 
 }

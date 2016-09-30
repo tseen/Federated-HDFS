@@ -31,17 +31,23 @@ public class FedJobConf extends AbstractFedJobConf {
 	private List<FedRegionCloudJob> mRegionJobList = null;
 	private List<FedRegionCloudJobDistcp> mRegionJobDistcpList = null;
 	private List<JarCopyJob> mJarCopyJobList = null;
-	private List<FedCloudMonitorClient> mFedCloudMonitorClientList = null;
+	private List<FedCloudMonitorClient> mFedCloudMonitorClientList = new ArrayList<FedCloudMonitorClient>();
 
 	private FedJobConfParser mParser;
 
 	private boolean mFedFlag = false;
 	private boolean mTopCloudFlag = false;
+	private boolean mFedHdfsFlag = false;
 
 	private boolean mRegionCloudFlag = false;
 	private boolean mFedLoopFlag = false;
 	private boolean mFedTestFlag = false;
 	private boolean mRegionCloudDone = false;
+	private boolean mFedTachyonFlag = false;
+	private boolean mFedIterFlag = false;
+	private int mFedIterNum = 1;
+	private boolean mMapOnly = false;
+	private boolean mProxyReduceFlag = false;
 	private AbstractProxySelector mSelector;
 	private String mCoworkingConf = "";
 	private String mTopCloudHDFSURL = "";
@@ -76,17 +82,51 @@ public class FedJobConf extends AbstractFedJobConf {
 			System.out.println("###### outputFormat.getCanonicalName() = "
 					+ outputFormat.getCanonicalName());
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		/*
-		 * String fed = mJobConf.get("fed","off"); System.out.println("fed = " +
-		 * fed ); if ( fed.toLowerCase().equals("on") ||
-		 * fed.toLowerCase().equals("true") ) { mFedFlag = true; }
-		 */
+		//MapOnly
+		if (mJob.getNumReduceTasks() == 0) {
+			mMapOnly = true;
+		}
+		//proxyReduce
+		String proxyReduce = mJobConf.get("proxyReduce", "off");
+		if (proxyReduce.toLowerCase().equals("on")
+				|| proxyReduce.toLowerCase().equals("true")) {
+			mProxyReduceFlag = true;
+		}
+		// isFedMR
+		String fed = mJobConf.get("fed","off");
+		if ( fed.toLowerCase().equals("on") || fed.toLowerCase().equals("true") ) 
+		{ 
+			mFedFlag = true; 
+		}
+		String fedHdfs = mJobConf.get("fedHdfs", "off");
+		if (fedHdfs.toLowerCase().equals("on")
+				|| fedHdfs.toLowerCase().equals("true")) {
+			mFedHdfsFlag = true;
+		}
+		String fedIter = mJobConf.get("fedIteration", "1");
+		try {
+			mFedIterNum = Integer.parseInt(fedIter);
+		} catch ( Exception e ) {
+			mFedIterNum = 1;
+		}
+		if ( mFedIterNum > 1) {
+			System.out.println("-------Fed Iteration------");
+			System.out.println("Iterations:" + mFedIterNum );
+			mFedIterFlag = true;
+		}
+		String fedTachyon = mJobConf.get("tachyon", "off");
+		if (fedTachyon.toLowerCase().equals("on")
+				|| fedTachyon.toLowerCase().equals("true")) {
+			mFedTachyonFlag = true;
+		}
 		String regionCloud = mJobConf.get("regionCloud", "off");
 		// if region cloud mode
 		if (regionCloud.toLowerCase().equals("on")
 				|| regionCloud.toLowerCase().equals("true")) {
+			mFedFlag = true; 
 			mRegionCloudFlag = true;
 			mTopCloudHDFSURL = mJobConf.get("topCloudHDFSs", "");
 
@@ -119,6 +159,7 @@ public class FedJobConf extends AbstractFedJobConf {
 		// if top cloud mode
 		if (topCloud.toLowerCase().equals("on")
 				|| topCloud.toLowerCase().equals("true")) {
+			mFedFlag = true; 
 			mTopCloudFlag = true;
 			// mTopCloudHDFSURL = mJobConf.get("topCloudHDFS","");
 
@@ -153,6 +194,32 @@ public class FedJobConf extends AbstractFedJobConf {
 
 	public boolean isFedTest() {
 		return mFedTestFlag;
+	}
+	
+	public boolean isFedHdfs() {
+		return mFedHdfsFlag;
+	}
+
+	public boolean isFedTachyon() {
+		return mFedTachyonFlag;
+	}
+	
+  public boolean isFedIter() {
+		return mFedIterFlag;
+	}
+	
+	public int getFedIterNum() {
+		return mFedIterNum;
+	}
+
+	public boolean isMapOnly() {
+		return mMapOnly;
+	}
+	public boolean isWanOpt() {
+		return false;
+	}
+	public boolean isProxyReduce() {
+		return mProxyReduceFlag;
 	}
 
 	// final Class kClz = mJob.getMapOutputKeyClass();
