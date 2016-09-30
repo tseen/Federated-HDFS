@@ -1,0 +1,8 @@
+DoubleWritable
+FloatWritable
+IntWritable
+LongWritable
+Text
+UTF8
+VIntWritable
+VLongWritable
