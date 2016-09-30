@@ -637,7 +637,8 @@ public class FedJob {
 				}
 				//mJobConf.set(JobContext.KEY_COMPARATOR, "");
 				//directly sent to top cloud
-				if(!mFedJobConf.isProxyReduce() ){
+        System.out.println("mFedJobConf = " + mFedJobConf.getConfClassName() + " isProxyReduce() = " + mFedJobConf.isProxyReduce() );
+				if( mFedJobConf.isProxyReduce() == false ){
 					mJob.setOutputFormatClass(RemoteOutputFormat.class);
 					mJob.setNumReduceTasks(0);
 				}

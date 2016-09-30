@@ -49,6 +49,7 @@ public class FedJobConf extends AbstractFedJobConf {
 	private boolean mMapOnly = false;
   private boolean mWanOpt = false;
 	private boolean mProxyReduceFlag = false;
+  private int mTopCloudNum = 1;
 	private AbstractProxySelector mSelector;
 	private String mCoworkingConf = "";
 	private String mTopCloudHDFSURL = "";
@@ -96,6 +97,13 @@ public class FedJobConf extends AbstractFedJobConf {
 				|| proxyReduce.toLowerCase().equals("true")) {
 			mProxyReduceFlag = true;
 		}
+    //TopCloudNum
+    String topTaskNumbers = mJobConf.get("topNumbers","1");
+    try {
+      mTopCloudNum =  Integer.parseInt(topTaskNumbers);
+    } catch ( Exception e ) {
+      mTopCloudNum = 1;
+    }
 		// isFedMR
 		String fed = mJobConf.get("fed","off");
 		if ( fed.toLowerCase().equals("on") || fed.toLowerCase().equals("true") ) 
@@ -225,6 +233,10 @@ public class FedJobConf extends AbstractFedJobConf {
 	public boolean isProxyReduce() {
 		return mProxyReduceFlag;
 	}
+
+  public int getTopCloudNum() {
+    return mTopCloudNum;
+  }
 
 	// final Class kClz = mJob.getMapOutputKeyClass();
 	// final Class vClz = mJob.getMapOutputValueClass();

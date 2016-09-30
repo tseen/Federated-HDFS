@@ -37,9 +37,7 @@ public abstract class AbstractFedJobConf {
     public abstract void selectProxyReduce() ;
     public abstract void selectProxyMap(Class<?> keyClz, Class<?> valueClz, Class<? extends Mapper> mapper);
     public abstract void selectProxyReduce(Class<?> keyClz, Class<?> valueClz, Class<? extends Reducer> mapper);
-    public int getTopCloudNum() {
-        return 1;
-    }
+    public abstract int getTopCloudNum();
     public String getConfClassName() {
      return this.getClass().getSimpleName();
     };

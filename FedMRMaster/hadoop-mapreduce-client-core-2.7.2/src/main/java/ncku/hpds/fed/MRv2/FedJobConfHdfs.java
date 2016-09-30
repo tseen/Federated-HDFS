@@ -416,7 +416,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 	public boolean isProxyReduce() {
 		return mProxyReduceFlag;
 	}
-  @Override
+
   public int getTopCloudNum() {
     return mTopCloudNum;
   }
