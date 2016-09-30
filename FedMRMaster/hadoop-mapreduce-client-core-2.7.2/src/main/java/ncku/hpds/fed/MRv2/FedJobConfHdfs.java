@@ -124,13 +124,13 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		} catch (Exception e) {
 		}
 		//wanOpt
-		if(mJobConf.get("wanOpt","off").equals("true")){
+    String wanOptStr = mJob.get("wanOpt","off").toLowerCase();
+		if( wanOptStr.equals("true") || wanOptStr.equals("on")){
 			mWanOpt = true;
 		}
 		//proxyReduce
-		String proxyReduceStr = mJobConf.get("proxyReduce", "off");
-		if (proxyReduceStr.toLowerCase().equals("on")
-				|| proxyReduceStr.toLowerCase().equals("true")) {
+		String proxyReduceStr = mJobConf.get("proxyReduce", "off").toLowerCase();
+		if (proxyReduceStr.equals("on") || proxyReduceStr.equals("true")) {
 			mProxyReduceFlag = true;
 		}
 
@@ -264,10 +264,16 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
           conf.setJarPath(remoteJarPath);
           conf.setMainClass(main);
           conf.setTopTaskNumbers(Integer.toString(mTopCloudNum ));
-          String wanOpt = mJobConf.get("wanOpt", "off");
-          conf.setWanOpt(wanOpt);
-          String proxyReduce = mJobConf.get("proxyReduce", "off");
-          conf.setProxyReduce(proxyReduce);
+          if ( isWanOpt() ) {
+            conf.setWanOpt("true");
+          } else {
+            conf.setWanOpt("false");
+          }
+          if ( isProxyReduce() ) {
+            conf.setProxyReduce("true");
+          } else {
+            conf.setProxyReduce("false");
+          }
           // TODO configure the input of region cloud ( fedHdfs)
           if (!multiInput) {
             String inputpath = "";

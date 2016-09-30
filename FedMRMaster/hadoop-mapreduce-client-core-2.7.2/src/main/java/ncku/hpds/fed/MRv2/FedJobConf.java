@@ -47,6 +47,7 @@ public class FedJobConf extends AbstractFedJobConf {
 	private boolean mFedIterFlag = false;
 	private int mFedIterNum = 1;
 	private boolean mMapOnly = false;
+  private boolean mWanOpt = false;
 	private boolean mProxyReduceFlag = false;
 	private AbstractProxySelector mSelector;
 	private String mCoworkingConf = "";
@@ -121,6 +122,9 @@ public class FedJobConf extends AbstractFedJobConf {
 		if (fedTachyon.toLowerCase().equals("on")
 				|| fedTachyon.toLowerCase().equals("true")) {
 			mFedTachyonFlag = true;
+		}
+		if(mJobConf.get("wanOpt","off").equals("true")){
+			mWanOpt = true;
 		}
 		String regionCloud = mJobConf.get("regionCloud", "off");
 		// if region cloud mode
@@ -216,7 +220,7 @@ public class FedJobConf extends AbstractFedJobConf {
 		return mMapOnly;
 	}
 	public boolean isWanOpt() {
-		return false;
+		return mWanOpt;
 	}
 	public boolean isProxyReduce() {
 		return mProxyReduceFlag;

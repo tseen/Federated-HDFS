@@ -40,6 +40,9 @@ public abstract class AbstractFedJobConf {
     public int getTopCloudNum() {
         return 1;
     }
+    public String getConfClassName() {
+     return this.getClass().getSimpleName() 
+    };
 
     public abstract void selectProxyMap();
     public abstract String getCoworkingConf() ;

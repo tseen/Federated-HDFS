@@ -154,14 +154,13 @@ public class FedJob {
 					 * User-defined the iterative input file, if not defined,
 					 * using the output file of the last iteration.
 					 */
-					String iterInput = mJobConf.get("iterInput", "/" + input[3]
-							+ "/" + input[4] + "/" + input[5]);
+					String iterInput = mJobConf.get("iterInput", "/" + input[3] + "/" + input[4] + "/" + input[5]);
 					System.out.println("iterInput:"+ iterInput);
-					if(currentIter < iterations )
+					if(currentIter < iterations ) {
 						mFedJobConf.configIter(iterInput, currentIter, "false");
-					else if(currentIter == iterations)
+          } else if(currentIter == iterations) {
 						mFedJobConf.configIter(iterInput, currentIter, "true");
-
+          }
 				}
 				
 				// get top job
@@ -196,7 +195,7 @@ public class FedJob {
 				}
 				System.out.println("Wait For FedRegionCloudJob Join");
 
-				if(mFedJobConf.isWanOpt()){
+				if( mFedJobConf.isWanOpt() ){
 					Map<String, String> downSpeed = getDownSpeed(fedCloudInfos);
 				//	if(currentIter == 1 )
 					normalizeInfo(fedCloudInfos);
@@ -435,10 +434,11 @@ public class FedJob {
       // Fed-MR , Top Cloud Mode
       if (mFedJobConf.isTopCloud()) {
         System.out.println("Run AS Top Cloud");
-        if(mJobConf.get("seqInter", "false").equals("true"))
+        if(mJobConf.get("seqInter", "false").equals("true")) {
           mJob.setInputFormatClass(SequenceFileInputFormat.class);
-        else
+        } else { 
           mJob.setInputFormatClass(TextInputFormat.class);
+        }
         if (mMapper != null) {
           System.out.println("PROMAP:" + mMapper.getName());
           mFedJobConf.selectProxyMap(mKeyClz, mValueClz, mMapper);
@@ -493,7 +493,7 @@ public class FedJob {
 			} else if (mFedJobConf.isRegionCloud()) {
 				int tmp_port = mJobConf.get("regionCloudOutput").split("_")[0].hashCode()%10000;
 				tmp_port = Math.abs(tmp_port);
-                                System.out.println("tmp_port = " + tmp_port);
+        System.out.println("tmp_port = " + tmp_port);
 				//wanServer.setPort(mJobConf.get("regionCloudOutput").split("_")[0].hashCode()%10000);
 				//wanServer.setPort(tmp_port);
 				wanServer.setPort(8799);
@@ -528,13 +528,11 @@ public class FedJob {
 				jclient.sendRegionMapStartTime(namenode.split("/")[2]);
 
 				System.out.println(mJobConf.get("wanSpeed", "noSpeed"));
-				if (mJobConf.get("wanOpt").equals("true")) {
-					
 
-					String webapp = mJobConf
-							.get("yarn.resourcemanager.webapp.address");
-					URLConnection connection = new URL("http://" + webapp
-							+ "/ws/v1/cluster/metrics").openConnection();
+				if ( mFedJobConf.isWanOpt() ) {
+
+					String webapp = mJobConf.get("yarn.resourcemanager.webapp.address");
+					URLConnection connection = new URL("http://" + webapp+ "/ws/v1/cluster/metrics").openConnection();
 					InputStream response = connection.getInputStream();
 					String res = IOUtils.toString(response, "UTF-8");
 
@@ -554,9 +552,7 @@ public class FedJob {
 						}
 					}
 					
-					jclient.sendRegionResource(namenode.split("/")[2] + ","
-							+ activeNodes + "," + availableMB + ","
-							+ availableVcores);
+					jclient.sendRegionResource(namenode.split("/")[2] + "," + activeNodes + "," + availableMB + "," + availableVcores);
 					// jclient.stopClientProbe();
 					// mWanOpt = true;
 					String resWAN = "";
