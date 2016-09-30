@@ -229,6 +229,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
         } catch ( Exception e ) {
           mTopCloudNum = 1;
         }
+        mJobConf.set("topNumbers", Integer.toString(mTopCloudNum));
         // -----
         String[] arg = new String[10];
         for (int j = 0; j < 10; j++) {

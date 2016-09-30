@@ -65,27 +65,27 @@ public class FedCloudInfo {
 	}
 	public void clearInfo(){
 		 
-		//  this.mapInputSize = 0;
-		//  this.mapInputSize_normalized = 0;
-		
-		  this.reduceInputSize = 0;
-		
-		 // this.interSize = 0;
-		  this.interSize_normalized = 0;
-		
-		  this.reduceSpeed_normalized = 0;
+    //  this.mapInputSize = 0;
+    //  this.mapInputSize_normalized = 0;
 
-		  this.wanSpeedCount = 0;
-		  this.wanSpeed = 0;
-		  this.availableMB = 0;
-		  this.activeNodes = 0;
-		  this.availableMB_normalized = 0;
-		  this.availableVcores_normalized = 0;
-		  this.availableVcores = 0;
-		 this.isMBset = false;
-		 this.isNodesset = false;
-		 this.isVcoresset = false;
-		
+    this.reduceInputSize = 0;
+
+    // this.interSize = 0;
+    this.interSize_normalized = 0;
+
+    this.reduceSpeed_normalized = 0;
+
+    this.wanSpeedCount = 0;
+    this.wanSpeed = 0;
+    this.availableMB = 0;
+    this.activeNodes = 0;
+    this.availableMB_normalized = 0;
+    this.availableVcores_normalized = 0;
+    this.availableVcores = 0;
+    this.isMBset = false;
+    this.isNodesset = false;
+    this.isVcoresset = false;
+
 	}
 	public long getInterSize() {
 		return interSize;
@@ -368,9 +368,13 @@ public class FedCloudInfo {
 	}
 
 	public void setMapInputSize(long mapInputSize) {
-		this.mapFactor = (double) this.interSize /  (double) this.mapInputSize ; 
-		System.out.println("this.interSize / this.mapInputSize = " +this.interSize +"/"+this.mapInputSize);
-		this.mapInputSize = mapInputSize;
+    try { 
+      this.mapFactor = (double) this.interSize /  (double) this.mapInputSize ; 
+      System.out.println("this.interSize / this.mapInputSize = " +this.interSize +"/"+this.mapInputSize);
+      this.mapInputSize = mapInputSize;
+    } catch (Exception e ) {
+      e.printStackTrace();
+    }
 	}
 
 	public double getMapInputSize_normalized() {
@@ -385,21 +389,27 @@ public class FedCloudInfo {
 		return mapSpeed;
 	}
 
-	public void setMapSpeed() {
-	    try {
-		this.mapSpeed = this.mapInputSize / (this.regionMapStopTime - this.regionStartTime);
-            } catch ( Exception e ) {
-		this.mapSpeed = -1;
-            }
-	}
+  public void setMapSpeed() {
+    try {
+      this.mapSpeed = this.mapInputSize / (this.regionMapStopTime - this.regionStartTime);
+    } catch ( Exception e ) {
+      e.printStackTrace();
+      this.mapSpeed = 0;
+    }
+  }
 
 	public double getReduceSpeed() {
 		return reduceSpeed;
 	}
 
 	public void setReduceSpeed() {
-		this.reduceSpeed = this.reduceInputSize / (this.topStopTime - this.topStartTime);
-		System.out.println(this.cloudName + " Reduce Speed = "+ this.reduceInputSize +"/="+ this.reduceSpeed +"(byte/s)");
+    try {
+      this.reduceSpeed = this.reduceInputSize / (this.topStopTime - this.topStartTime);
+      System.out.println(this.cloudName + " Reduce Speed = "+ this.reduceInputSize +"/="+ this.reduceSpeed +"(byte/s)");
+    } catch (Exception e) {
+      e.printStackTrace();
+      this.reduceSpeed =0;
+    }
 	}
 
 	public double getTansferSpeed() {
@@ -410,7 +420,8 @@ public class FedCloudInfo {
  		try { 
 			this.transferSpeed =this.interSize /( this.interStopTime - this.interStartTime);
 	  } catch (Exception e ) {
-		  this.transferSpeed = -1;
+      e.printStackTrace();
+		  this.transferSpeed = 0;
 		}
 	}
 
