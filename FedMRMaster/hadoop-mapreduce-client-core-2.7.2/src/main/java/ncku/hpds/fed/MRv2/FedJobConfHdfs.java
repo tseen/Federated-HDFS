@@ -124,7 +124,7 @@ public class FedJobConfHdfs extends AbstractFedJobConf {
 		} catch (Exception e) {
 		}
 		//wanOpt
-    String wanOptStr = mJob.get("wanOpt","off").toLowerCase();
+    String wanOptStr = mJobConf.get("wanOpt","off").toLowerCase();
 		if( wanOptStr.equals("true") || wanOptStr.equals("on")){
 			mWanOpt = true;
 		}

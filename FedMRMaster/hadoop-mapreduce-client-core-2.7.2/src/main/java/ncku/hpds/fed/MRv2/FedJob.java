@@ -119,6 +119,7 @@ public class FedJob {
 	public void scheduleAndStartFedJob() {
 		int currentIter = 1;
 		int iterations = 0;
+    System.out.println("scheduleAndStartFedJob use conf " + mFedJobConf.getConfClassName());
 
 		try {
 			//Start servers
@@ -427,8 +428,9 @@ public class FedJob {
 	}
 	FedWANServer wanServer = new FedWANServer();
 	public void startFedJob() {
-		try {
 
+		try {
+      System.out.println("startFedJob use conf " + mFedJobConf.getConfClassName());
       System.out.println("TopCloudURLs: " + TopCloudHasher.topURLs);
 
       // Fed-MR , Top Cloud Mode
@@ -649,6 +651,7 @@ public class FedJob {
 
 	public void stopFedJob() throws UnknownHostException {
 		// TODO print statistic values
+    System.out.println("stopFedJob use conf " + mFedJobConf.getConfClassName());
 		if (mFedJobConf.isFedHdfs() && mFedJobConf.isFedMR() ) {
 			// print global aggregation time from its client, to get correct
 			// answers.

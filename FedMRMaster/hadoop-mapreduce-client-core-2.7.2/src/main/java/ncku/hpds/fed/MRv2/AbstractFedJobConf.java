@@ -41,7 +41,7 @@ public abstract class AbstractFedJobConf {
         return 1;
     }
     public String getConfClassName() {
-     return this.getClass().getSimpleName() 
+     return this.getClass().getSimpleName();
     };
 
     public abstract void selectProxyMap();
