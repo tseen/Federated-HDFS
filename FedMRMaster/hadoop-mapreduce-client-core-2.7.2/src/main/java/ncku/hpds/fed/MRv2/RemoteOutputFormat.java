@@ -72,8 +72,7 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 				address = InetAddress.getByName(ip);
 				client = new FedJobServerClient(address.getHostAddress(), 8713);
 				client.start();
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			for (HdfsWriter<K, String> HW : mHdfsWriter) {
@@ -83,16 +82,16 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 
 		}
 
-		private String generateFileName(K key, int topNumbers){
-			int hash = 0 ;	   
-			//hash = (key.hashCode() & Integer.MAX_VALUE) % topNumbers;
-            if ( topNumbers <= 0 ) {
-                hash = 0;
-            } else {
-                hash = mPartitioner.getPartition(key, null, topNumbers);
-            }
-		    return Integer.toString(hash);
-		}
+    private String generateFileName(K key, int topNumbers){
+      int hash = 0 ;	   
+      //hash = (key.hashCode() & Integer.MAX_VALUE) % topNumbers;
+      if ( topNumbers <= 0 ) {
+        hash = 0;
+      } else {
+        hash = mPartitioner.getPartition(key, null, topNumbers);
+      }
+      return Integer.toString(hash);
+    }
 		
 		private int iterations = 0;
 		private Map<K, String> keyMap = new HashMap<K, String>();
@@ -100,63 +99,63 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 
 		K prev; 
 
-		public synchronized void write(K key, V value) throws IOException {
-			K keyout;
-		    V valueout;
-			keyout = (K) ReflectionUtils.newInstance(mClazz, mConf);
-//			System.out.println("kout1: "+ keyout.toString());
-		    ReflectionUtils.copy(mConf, key, keyout);
-//			System.out.println("kout2: "+ keyout.toString());
+    public synchronized void write(K key, V value) throws IOException {
+      K keyout;
+      V valueout;
+      keyout = (K) ReflectionUtils.newInstance(mClazz, mConf);
+      //			System.out.println("kout1: "+ keyout.toString());
+      ReflectionUtils.copy(mConf, key, keyout);
+      //			System.out.println("kout2: "+ keyout.toString());
 
-			if (keyMap.size() > 200) {
-				System.out.println("SECTION 1");
-				System.out.println("keyMap size:" + keyMap.size() );
-				for (Iterator<Map.Entry<K, String>> iter = keyMap.entrySet().iterator(); iter.hasNext();)
-				{
-					Map.Entry<K, String> entry = iter.next();
-					String vvalue = entry.getValue();
-					K kkey = entry.getKey();
-					
-					System.out.println("PRINT 1:" + kkey+ "===" + vvalue);
-					HdfsWriter<K, String> hw = (HdfsWriter<K, String>) mHdfsWriter.get(Integer.parseInt(generateFileName(kkey,topNumbers)));
-					hw.write(kkey, vvalue);
+      if (keyMap.size() > 200) {
+        System.out.println("SECTION 1");
+        System.out.println("keyMap size:" + keyMap.size() );
+        for (Iterator<Map.Entry<K, String>> iter = keyMap.entrySet().iterator(); iter.hasNext();)
+        {
+          Map.Entry<K, String> entry = iter.next();
+          String vvalue = entry.getValue();
+          K kkey = entry.getKey();
 
-				}
-				keyMap.clear();
-				System.out.println("delete size:" + keyMap.size() );
-			}
-			//Gen<K> g = new Gen<K>(mClazz);
-		   // K mCheckKey = g.get();
-			//System.out.println("prev3: "+ prev.toString());
-			
-			if (keyMap.containsKey(keyout)) {
-				System.out.println("Contains key: " + keyout.toString());
-			//	System.out.println("hash: " + hash(keyout.hashCode()));
-			//	System.out.println("hash1: " + keyout.hashCode());
-				String ssb = keyMap.get(keyout);
-				ssb += value.toString()+mSeperator;
-				keyMap.put(keyout, ssb);
-			}
-			else{
-			//	System.out.println("prev: "+ prev.toString());
-			//	System.out.println("kout: "+ keyout.toString());
-			//	System.out.println("equals: "+ prev.equals(keyout));
-				System.out.println("Not Contains key: " + keyout.toString());
-			//	System.out.println("Hash : " + hash(keyout.hashCode())+ " Hash1 : " + keyout.hashCode());
-			//	System.out.println("Hashp: " + hash(prev.hashCode())+ " Hash1p: " + prev.hashCode());
+          System.out.println("PRINT 1:" + kkey+ "===" + vvalue);
+          HdfsWriter<K, String> hw = (HdfsWriter<K, String>) mHdfsWriter.get(Integer.parseInt(generateFileName(kkey,topNumbers)));
+          hw.write(kkey, vvalue);
 
-				String ssb = new String();
-				ssb+=value.toString()+mSeperator;
-				keyMap.put(keyout, ssb);
-			}
-			//System.out.print("prev: "+ prev.toString());
-			//ReflectionUtils.copy(mConf, key, prev);
-			//System.out.println(" --> "+ prev.toString());
+        }
+        keyMap.clear();
+        System.out.println("delete size:" + keyMap.size() );
+      }
+      //Gen<K> g = new Gen<K>(mClazz);
+      // K mCheckKey = g.get();
+      //System.out.println("prev3: "+ prev.toString());
 
-			//HdfsWriter<K, String> hw = (HdfsWriter<K, String>) mHdfsWriter.get(Integer.parseInt(generateFileName(key,topNumbers)));
-			//hw.write(key, value);
-			
-		}
+      if (keyMap.containsKey(keyout)) {
+        System.out.println("Contains key: " + keyout.toString());
+        //	System.out.println("hash: " + hash(keyout.hashCode()));
+        //	System.out.println("hash1: " + keyout.hashCode());
+        String ssb = keyMap.get(keyout);
+        ssb += value.toString()+mSeperator;
+        keyMap.put(keyout, ssb);
+      }
+      else{
+        //	System.out.println("prev: "+ prev.toString());
+        //	System.out.println("kout: "+ keyout.toString());
+        //	System.out.println("equals: "+ prev.equals(keyout));
+        System.out.println("Not Contains key: " + keyout.toString());
+        //	System.out.println("Hash : " + hash(keyout.hashCode())+ " Hash1 : " + keyout.hashCode());
+        //	System.out.println("Hashp: " + hash(prev.hashCode())+ " Hash1p: " + prev.hashCode());
+
+        String ssb = new String();
+        ssb+=value.toString()+mSeperator;
+        keyMap.put(keyout, ssb);
+      }
+      //System.out.print("prev: "+ prev.toString());
+      //ReflectionUtils.copy(mConf, key, prev);
+      //System.out.println(" --> "+ prev.toString());
+
+      //HdfsWriter<K, String> hw = (HdfsWriter<K, String>) mHdfsWriter.get(Integer.parseInt(generateFileName(key,topNumbers)));
+      //hw.write(key, value);
+
+    }
 
 		public synchronized void close(TaskAttemptContext context)
 				throws IOException {
@@ -176,11 +175,6 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 			keyMap.clear();
 			for (HdfsWriter HW : mHdfsWriter) {
 				HW.close();
-/*
-				HW.out.flush();
-				HW.out.close();
-				HW.client.close();
-*/
 			}
 			
 			client.stopClientProbe();
@@ -198,7 +192,7 @@ public class RemoteOutputFormat<K, V> extends FileOutputFormat<K, V> {
 		String ip = conf.get("fedCloudHDFS").split(":")[1].split("/")[2];
 
 		
-		 
+		//TODO limit HdfsWriter based on topNumbers 
 		topNumbers = Integer.parseInt(conf.get("topNumbers"));
 
 		if (conf.get("topCounts") != null) {

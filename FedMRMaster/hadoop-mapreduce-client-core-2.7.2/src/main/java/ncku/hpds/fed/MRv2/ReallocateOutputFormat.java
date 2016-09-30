@@ -66,7 +66,7 @@ public class ReallocateOutputFormat<K, V> extends FileOutputFormat<K, V> {
 				throws IOException {
 			
 			for (HdfsWriter HW : mHdfsWriter) {
-				HW.out.close();
+				HW.close();
 			}
 
 		}
@@ -79,6 +79,7 @@ public class ReallocateOutputFormat<K, V> extends FileOutputFormat<K, V> {
 		
 		Configuration conf = job.getConfiguration();
 
+    //TODO limit writer based on top counters
 		if (conf.get("topCounts") != null) {
 			TopCloudHasher.topCounts = Integer.parseInt(conf.get("topCounts"));
 		}
