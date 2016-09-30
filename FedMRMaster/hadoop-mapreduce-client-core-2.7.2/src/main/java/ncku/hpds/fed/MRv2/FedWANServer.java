@@ -62,8 +62,9 @@ public class FedWANServer extends Thread {
 				MiniWANServer mini = new MiniWANServer(socket, mJobConf, client);
 				//mini.setFedCloudInfos(mFedCloudInfos);
 				mini.start();
-			} catch (IOException ex) {
+			} catch (Exception e) {
 				System.out.println("Can't accept client connection. ");
+        e.printStackTrace();
 			}
 		}
 		try {

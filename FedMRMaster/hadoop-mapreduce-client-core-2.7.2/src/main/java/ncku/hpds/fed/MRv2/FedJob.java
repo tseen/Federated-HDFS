@@ -435,7 +435,7 @@ public class FedJob {
 
       // Fed-MR , Top Cloud Mode
       if (mFedJobConf.isTopCloud()) {
-        System.out.println("Run AS Top Cloud");
+        System.out.println("=== Run AS Top Cloud ===");
         if(mJobConf.get("seqInter", "false").equals("true")) {
           mJob.setInputFormatClass(SequenceFileInputFormat.class);
         } else { 
@@ -477,15 +477,14 @@ public class FedJob {
           address = InetAddress.getByName(ip);
           jclient = new FedJobServerClient(address.getHostAddress(), 8713);
 					jclient.start();
-				} catch (UnknownHostException e1) {
-					e1.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				String namenode = mJobConf.get("fs.default.name");
 				jclient.sendTopStartTime(namenode.split("/")[2]);
 				mFedStat.setTopCloudStart();
 				System.out.println("----------------------------------");
-				System.out.println("TopCloud Start Time = "
-						+ mFedStat.getTopCloudStart());
+				System.out.println("TopCloud Start Time = "+ mFedStat.getTopCloudStart());
 				System.out.println("----------------------------------");
 				if(mFedJobConf.getTopCloudNum() == 1){
 					mJob.setOutputFormatClass(ReallocateOutputFormat.class);
@@ -571,7 +570,7 @@ public class FedJob {
 				}
 
 				// do region cloud things
-				System.out.println("Run AS Region Cloud");
+				System.out.println("=== Run AS Region Cloud ===");
 				System.out.println("----------------------------------");
 				System.out.println("|        RegionCloud Mode        |");
 				System.out.println("----------------------------------");
@@ -705,8 +704,8 @@ public class FedJob {
 				address = InetAddress.getByName(ip);
 				jclient = new FedJobServerClient(address.getHostAddress(), 8713);
 				jclient.start();
-			} catch (UnknownHostException e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			String namenode = mJobConf.get("fs.default.name");
 			jclient.sendTopStopTime(namenode.split("/")[2]);
@@ -765,6 +764,7 @@ public class FedJob {
 			 * e.printStackTrace(); }
 			 */
 			// mServer.sendMigrateDataFinished("");
+      /*
 			System.out.println("Stop Server");
 			try {
 				wanServer.stopServer();
@@ -772,10 +772,10 @@ public class FedJob {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+      */
 		//	mServer.stopServer();
 			// mFedStat.setGlobalAggregationEnd();
-			System.out.println("Region Cloud Report : RegionCloudsTime = "
-					+ mFedStat.getRegionCloudsTime() + "(ms)");
+			System.out.println("Region Cloud Report : RegionCloudsTime = " + mFedStat.getRegionCloudsTime() + "(ms)");
 			// System.out.println("Region Cloud Report : GlobalAggregationTime = "
 			// + mFedStat.getGlobalAggregationTime() + "(ms)");
 
