@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FedHadoopClusters>
+
+  <!-- FedHDFS configuration -->
+<!--
+  <SuperNamenode>
+	  <SuperNamenodeAddress> fedhdfs.address </SuperNamenodeAddress>
+	  <FedUserConstructGNPort>8765</FedUserConstructGNPort>
+		<GlobalNamespaceServerPort>8764</GlobalNamespaceServerPort>
+		<GNQueryServerPort>8763</GNQueryServerPort>
+  </SuperNamenode>
+-->
+
+  <!-- FedHDFS example -->
+  <SuperNamenode>
+	  <SuperNamenodeAddress> 10.3.1.18 </SuperNamenodeAddress>
+	  <FedUserConstructGNPort>8765</FedUserConstructGNPort>
+		<GlobalNamespaceServerPort>8764</GlobalNamespaceServerPort>
+		<GNQueryServerPort>8763</GNQueryServerPort>
+  </SuperNamenode>
+
+  <!-- cluster configuration -->
+<!--
+	<Cluster>
+		<HostName> cluster1.address </HostName>
+		<fs.default.name> cluster1.namenode </fs.default.name>
+    <hadoop-home.dir> cluster1.hadoop.home </hadoop-home.dir>
+	</Cluster>
+-->
+
+  <!-- cluster 1 example -->
+  <Cluster>
+    <HostName>10.3.1.18</HostName>
+    <fs.default.name>10.3.1.18:20050</fs.default.name>
+    <hadoop-home.dir>/home/hpds/feng/hadoop-2.7.2</hadoop-home.dir>
+  </Cluster>
+
+  <!-- cluster 2 example -->
+  <Cluster>
+    <HostName>10.3.1.19</HostName>
+    <fs.default.name>10.3.1.19:20050</fs.default.name>
+    <hadoop-home.dir>/home/hpds/feng/hadoop-2.7.2</hadoop-home.dir>
+  </Cluster>
+</FedHadoopClusters>
