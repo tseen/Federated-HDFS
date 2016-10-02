@@ -1,4 +1,4 @@
-# NCKU HPDS Federated Cloud Computing Platforms Repository
+# NCKU HPDS Federated Computing Framework Repository
 Computational platforms based on Hadoop for FBICloud project
 
 - FedMRMaster : The Main Repository of The Federated MapReduce
